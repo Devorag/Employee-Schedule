@@ -1,0 +1,13 @@
+List<List<Spot>> lstwinningsets = new();
+List<Spot> lstrankedbuttons;
+lstwinningsets = new() {
+                new() { this.Spots[0], this.Spots[1], this.Spots[2] },
+                new() {this.Spots[3], this.Spots[4], this.Spots[5] },
+                new() {this.Spots[6], this.Spots[7], this.Spots[8] },
+                new() {this.Spots[0], this.Spots[3], this.Spots[6] },
+                new() {this.Spots[1], this.Spots[4], this.Spots[7] },
+                new() {this.Spots[2], this.Spots[5], this.Spots[8] },
+                new() {this.Spots[0], this.Spots[4], this.Spots[8] },
+                new() {this.Spots[2], this.Spots[4], this.Spots[6] }
+            };
+lstrankedbuttons = new() { this.Spots[4], this.Spots[0], this.Spots[2], this.Spots[6], this.Spots[8] };

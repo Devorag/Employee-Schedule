@@ -1,0 +1,2 @@
+-- Create a database called CarDB
+-- Save this file in a folder called CarDB, name of the file should "0 Database.sql"

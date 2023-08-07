@@ -1,0 +1,36 @@
+public enum GameStatusEnum { NotStarted, Playing, Winner, Tie }
+        public enum TurnEnum { None, X, O}
+        bool iscomputerturn;
+
+	public List<Spot> Spots { get; private set; } = new();
+        public GameStatusEnum GameStatus { get; set; }
+        public TurnEnum CurrentTurn { get; set; }
+        public string GameStatusDescription { get; set; } = "";
+        public TurnEnum Winner { get; set; }
+        public bool PlayAgainstComputer { get; set; }
+        public System.Drawing.Color SpotWinnerColor { get; set; }
+        public System.Drawing.Color SpotTieColor { get; set; }
+        public System.Drawing.Color SpotPlayingColor { get; set; }
+        public System.Drawing.Color SpotNotStartedColor { get; set; }
+
+        public void StartGame() { 
+        
+        }
+        public void TakeSpot(int spotnum) { 
+        
+        }
+        private void DetectWinner() { 
+        
+        }
+        private void DetectTie() { 
+        
+        }
+        private void DoComputerTurnOffenseDefense() { 
+        
+        }
+        private void DoComputerTurnRank() { 
+        
+        }
+        private void DoComputerTurnRandom() { 
+        
+        }

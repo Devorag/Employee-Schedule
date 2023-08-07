@@ -1,0 +1,9 @@
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*">
+        <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
+            <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0"/>
+            
+        </Grid>
+        <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
+            <Label  BackgroundColor="LightYellow"/>
+        </Border>
+    </Grid>

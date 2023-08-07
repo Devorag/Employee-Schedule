@@ -1,0 +1,9 @@
+name: CPUProcessor-Post-Action
+
+on:
+  issues:
+    types: [closed]
+  
+jobs:
+  call-workflow:
+    uses: CPU-Code-School/CPUProcessor-Post-Action/.github/workflows/main.yml@main 

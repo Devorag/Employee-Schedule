@@ -1,0 +1,56 @@
+private int _partyId;
+private string _partyName = "";
+private short _yearStart;
+private int _colorId;
+
+public int PartyId
+{
+    get { return _partyId; }
+    set
+    {
+        if (_partyId != value)
+        {
+            _partyId = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public string PartyName
+{
+    get { return _partyName; }
+    set
+    {
+        if (_partyName != value)
+        {
+            _partyName = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public short YearStart
+{
+    get { return _yearStart; }
+    set
+    {
+        if (_yearStart != value)
+        {
+            _yearStart = value;
+            InvokePropertyChanged();
+        }
+    }
+}
+
+public int ColorId
+{
+    get { return _colorId; }
+    set
+    {
+        if (_colorId != value)
+        {
+            _colorId = value;
+            InvokePropertyChanged();
+        }
+    }
+}

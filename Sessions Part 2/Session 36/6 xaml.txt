@@ -1,0 +1,32 @@
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="game-button">
+            <Setter Property="CornerRadius" Value="40" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid  ColumnDefinitions="*" RowDefinitions="*,5*">
+        <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*" Grid.Column="0" Grid.Row="0">
+            <Button Margin="20" Text="Start" 
+                    Grid.Column="0" Grid.Row="0"
+                    TextTransform="Uppercase"
+                    FontSize="Medium"
+                    CharacterSpacing="10"
+                    CornerRadius="0"
+                    />
+            <RadioButton Content="2 Player" Grid.Column="1" Grid.Row="0"/>
+            <RadioButton Content="Play Against the Computer" Grid.Column="2" Grid.Row="0"/>
+            <Label Text="Current Turn:" Grid.Column="3" Grid.Row="0"
+                   VerticalOptions="Center" HorizontalOptions="Center"
+                   />
+        </Grid>
+        <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="1">
+            <Button x:Name="btn1" Grid.Column="0" Grid.Row="0" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn2" Grid.Column="1" Grid.Row="0" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn3" Grid.Column="2" Grid.Row="0" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn4" Grid.Column="0" Grid.Row="1" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn5" Grid.Column="1" Grid.Row="1" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn6" Grid.Column="2" Grid.Row="1" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn7" Grid.Column="0" Grid.Row="2" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn8" Grid.Column="1" Grid.Row="2" Style="{StaticResource Key=game-button}"/>
+            <Button x:Name="btn9" Grid.Column="2" Grid.Row="2" Style="{StaticResource Key=game-button}"/>
+        </Grid>
+    </Grid>

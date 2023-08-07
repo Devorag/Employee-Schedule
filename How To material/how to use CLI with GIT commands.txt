@@ -1,0 +1,8 @@
+git clone <url>
+git add <file> 	#stage a specific file
+git add .	#stages all
+git commit -m "<comment>" 
+git push 
+git pull
+git reset <file> #removes changes from stage by taking file from repos and putting in stage
+git restore <file> #discards changes from working area by taking file from repos(working area) and putting it in working area

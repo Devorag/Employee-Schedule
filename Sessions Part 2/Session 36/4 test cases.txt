@@ -1,0 +1,23 @@
+//X wins horizontal
+[TestCase(0, 3, 1, 6, 2)]
+[TestCase(3, 0, 4, 6, 5)]
+[TestCase(6, 3, 7, 0, 8)]
+
+//X wins vertical
+[TestCase(0, 1, 3, 2, 6)]
+[TestCase(1, 2, 4, 5, 7)]
+[TestCase(2, 3, 5, 4, 8)]
+
+//Tie
+game.TakeSpot(0); //X
+game.TakeSpot(2); //O
+game.TakeSpot(1); //X
+game.TakeSpot(3); //O
+game.TakeSpot(6); //X
+game.TakeSpot(7); //O
+game.TakeSpot(8); //X
+game.TakeSpot(4); //O
+game.TakeSpot(5); //X
+
+//params
+int x0, int o0, int x1, int o1, int x2

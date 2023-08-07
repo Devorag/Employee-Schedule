@@ -1,0 +1,41 @@
+  [Test]
+        public void TestPlayComputer() {
+            Game game = new();
+            game.PlayAgainstComputer = true;
+            game.StartGame();
+            game.TakeSpot(4); //middle
+            bool b = game.Spots.Exists(s => s.SpotValue == Game.TurnEnum.O);
+            string msg = $"computer took turn = {b.ToString()} current turn = {game.CurrentTurn.ToString()}";
+            Assert.IsTrue(b == true && game.CurrentTurn == Game.TurnEnum.X, msg);
+            TestContext.WriteLine(msg);
+
+        }
+        [Test]
+        public void TestDefense()
+        {
+            Game game = new();
+            game.PlayAgainstComputer = true;
+            game.StartGame();
+            game.TakeSpot(4); //middle
+            game.TakeSpot(3); //left middle
+            string msg = $"spot 5 value = {game.Spots[5].SpotValue}";
+            Assert.IsTrue(game.Spots[5].SpotValue == Game.TurnEnum.O, msg);
+            TestContext.WriteLine(msg);
+        }
+
+        [Test]
+        public void TestOffense()
+        {
+            Game game = new();
+            game.PlayAgainstComputer = true;
+            game.StartGame();
+            game.TakeSpot(3); //left middle
+            //middle
+            game.TakeSpot(5); //middle right
+            //top left
+            game.TakeSpot(7); //bottom middle
+            //bottom right (8) to win
+            string msg = $"game status = {game.GameStatusDescription} winner = {game.Winner.ToString()}";
+            Assert.IsTrue(game.GameStatus == Game.GameStatusEnum.Winner && game.Winner == Game.TurnEnum.O, msg);
+            TestContext.WriteLine(msg);
+        }

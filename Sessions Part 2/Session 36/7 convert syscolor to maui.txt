@@ -1,0 +1,9 @@
+    public Microsoft.Maui.Graphics.Color ConvertToMauiColor(System.Drawing.Color systemColor)
+        {
+            float red = systemColor.R / 255f;
+            float green = systemColor.G / 255f;
+            float blue = systemColor.B / 255f;
+            float alpha = systemColor.A / 255f;
+
+            return new Microsoft.Maui.Graphics.Color(red, green, blue, alpha);
+        }

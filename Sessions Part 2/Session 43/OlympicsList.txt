@@ -1,0 +1,14 @@
+<Grid RowDefinitions="Auto,Auto,*" ColumnDefinitions="*,*" MaximumWidthRequest="500">
+        <Label Text="Olympics" Grid.Column="0" Grid.Row="0" FontSize="Medium" />
+        <Button x:Name="OlympicsBtn" Grid.Column="1" Grid.Row="0" Text="Refresh"/>
+        <Line BackgroundColor="Black" StrokeThickness="3" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
+        <ListView x:Name="OlympicsLst" HorizontalOptions="Center" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding OlympicsDesc}" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+</Grid>
