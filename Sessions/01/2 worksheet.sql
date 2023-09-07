@@ -16,5 +16,6 @@ select * from Invention i where i.YearDied < 2000
 --7 show all inventions after 1789 sorted by Last Name from Z to A
 select * from Invention i where i.YearInvented > 1789 order by i.InventorLastName DESC
 --8 show all where the inventor was less than 30 years old at time of invention
-select * from Invention i  where i.YearInvented - i.YearBorn < 30
+select i.YearInvented - i.YearBorn from Invention i  where i.YearInvented - i.YearBorn < 30
+
 
