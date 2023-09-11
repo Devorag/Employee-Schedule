@@ -27,6 +27,7 @@ order by m.YearBorn DESC
 select * from Medalist m where m.OlympicYear - m.YearBorn in (20,30,40,50)
 --invention
 --9 show all inventions that as of the current year are over 300 years old
+--AS You could have done this without having to do the math ie: where 2023 - year invented > 300
 select * from Invention i where i.YearInvented < 1723
 --10 show all inventions that the inventor died before they reached 50 years old
 select * from Invention i where i.YearDied - i.YearBorn < 50
