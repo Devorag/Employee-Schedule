@@ -1,0 +1,5 @@
+div.container>div.row>div{$}.col*12
+div.row>h3{purpose}+div{$}.col*12
+[class^="col"]
+
+https://picsum.photos/200/300

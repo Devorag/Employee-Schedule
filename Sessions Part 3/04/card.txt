@@ -1,0 +1,12 @@
+<div class="card">
+                        <img src="https://picsum.photos/150" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Sit amet, consectetur
+                            </h5>
+                            <p class="card-text">
+                                Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
+                            </p>
+                            <a href="#" class="btn btn-info">See More</a>
+                        </div>
+                    </div>

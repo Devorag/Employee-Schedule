@@ -1,0 +1,11 @@
+  [Test]
+        public void SearchParties() {
+            string partyname = "e";
+            int partycount = GetFirstColumnFirstRowValue($"select total = count(*) from party where partyname like '%{partyname}%'");
+            TestContext.WriteLine("Num of search results in DB = " + partycount);
+            TestContext.WriteLine("Ensure that num of rows return by app matches " + partycount);
+            bizParty p = new();
+            List <bizParty> lst = p.Search(partyname);
+            Assert.IsTrue(lst.Count == partycount, "num rows returned by search (" + lst.Count + ") <> " + partycount);
+            TestContext.WriteLine("Number of rows in search results return by app = " + lst.Count);
+        }
