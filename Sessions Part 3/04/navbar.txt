@@ -1,0 +1,19 @@
+ <nav class="navbar navbar-expand-md bg-primary navbar-dark shadow mb-3">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">
+                    <img src="https://picsum.photos/50" alt="" class="img-fluid d-inline-block rounded" />
+                    Web Basics
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarlinks">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarlinks">
+                    <div class="navbar-nav">
+                        <a href="/index.html" class="nav-link">HTML</a>
+                        <a href="/cssbasics.html" class="nav-link">CSS</a>
+                        <a href="/bs-grid.html" class="nav-link active">Bootstrap</a>
+                        <a href="#" class="nav-link">More</a>
+                    </div>
+                </div>
+            </div>
+        </nav>

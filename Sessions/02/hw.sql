@@ -1,3 +1,4 @@
+-- SM Excellent! 100% See comments, no need to resubmit.
 --1 show me all medals won in the summer season by Greek or Spanish medalists, sorted by sport and then year
 select * 
 from Medalist m 
@@ -8,6 +9,7 @@ order by m.Sport, m.OlympicYear
 The Swiss government has requested a list of medalists from their country since 1928 who were over the age of 24 when they won their medal.
 Include only First name, last name, age when they won the medal sorted by sport and sport category.
 */
+-- SM Don't include sport columns in results.
 select m.FirstName, m.LastName, AgeWhenWonMedal = m.OlympicYear - m.YearBorn, m.Sport, m.SportSubcategory 
 from Medalist m 
 where m.OlympicYear - m.YearBorn > 24
@@ -30,6 +32,7 @@ A clue of foul play was found for silver and gold medalists under 30 years old w
 Provide the a list of medalists that match that clue, exclude the MedalistId, Code, and Year Born, include the age
 Sort by age high to low, medal, last name
 */
+-- SM Don't use order by 1. Use AgeWhenWonMedal
 select AgeWhenWonMedal = m.OlympicYear - m.YearBorn, m.OlympicYear, m.Season, m.OlympicLocation, m.Sport, m.SportSubcategory, m.Medal, m.FirstName, m.LastName, m.Country
 from Medalist m 
 where m.Medal in ('silver' , 'gold') 

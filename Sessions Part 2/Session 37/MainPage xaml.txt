@@ -1,0 +1,28 @@
+<Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto,Auto" Grid.Column="0" Grid.Row="0">
+            <VerticalStackLayout Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="4">
+                <Label Text="3 simultaneous games." />
+                <Label Text="Choose which one to play" />
+                <RadioButton x:Name="Game1Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
+                <RadioButton x:Name="Game2Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
+                <RadioButton x:Name="Game3Rb" Content="{Binding GameStatusDescription}" CheckedChanged="Game_CheckedChanged"/>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" Grid.Row="0">
+                <Label Text="For Game " />
+                <RadioButton Content="2 Player"  />
+                <RadioButton x:Name="PlayAgainstComputerRb" Content="Play the Computer" />
+            </VerticalStackLayout>
+
+            <Button x:Name="StartBtn"
+                    Clicked="StartBtn_Clicked"
+                    Text="Start" 
+                    Grid.Column="2" Grid.Row="0"
+                    TextTransform="Uppercase"
+                    CornerRadius="5"
+                    MaximumWidthRequest="300"
+                    MaximumHeightRequest="100"
+                    />
+            <Line BackgroundColor="Black" StrokeThickness="1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+            <Label x:Name="ScoreLbl" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding GameStatusDescription}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" HorizontalTextAlignment="Center" BackgroundColor="LightYellow"/>
+        </Grid>

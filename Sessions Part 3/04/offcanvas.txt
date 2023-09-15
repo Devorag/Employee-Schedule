@@ -1,0 +1,9 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanv">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Off Canvas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            Mi, id sollicitudin urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus.
+        </div>
+    </div>
