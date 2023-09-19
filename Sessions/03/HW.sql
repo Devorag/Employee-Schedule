@@ -1,4 +1,4 @@
--- SM Excellent! 64% See comments, fix and resubmit.
+-- SM Excellent! 100% See comments, no need to resubmit.
 --Medalist
 
 /* 1
@@ -7,7 +7,6 @@ After thoroughly investigating the matter, we discovered that there was a bug in
 The bug caused that France was not able to distribute a medal to any of its Olympians that have 'S' as the second letter in their Medalist code. 
 Show the medalist that is suing the Olympic Committee.
 */
--- SM -10% Formatting tip: Each clause should be on new line.
 SELECT * 
 from Medalist m 
 where m.country = 'France' 
@@ -22,14 +21,12 @@ A) Show all the Scandinavian medals for the time period that Norway has their cl
 B) Show the data that supports\refutes the claim of the Swedish pundits. Sort by Year, Country, Season. Show columns Year, Country, Season
 For B) Use only one select statement that will show all this info (you will need nested parenthesis). 
 */ //1
--- SM -10% Formatting tip: Each clause should be on new line.
 SELECT m.Country, m.OlympicYear 
 from medalist m 
 where m.country in ('Norway' , 'Sweden', 'Finland' , 'Denmark') 
 and m.OlympicYear BETWEEN 1900 and 2000 
 order by m.Country, m.OlympicYear
 //2
--- SM -10% For 1913+ Only include Norway.
 SELECT m.OlympicYear, m.country, m.season 
 from Medalist m 
 where 
@@ -52,14 +49,12 @@ Show 2 lists for the winter season.
 2) Candidates that participated outside of their country
 Show columns: First Name, Last Name, Country, Olympic Location, Season. Sort by medalist's Country, Olympic location.
 */
--- SM -100% This returns error. Formatting tip: Each clause should be on new line.
 SELECT m.FirstName, m.LastName, m.Country, m.OlympicLocation, m.Season 
 FROM MEDALIST M 
 where m.season = 'winter' 
 and m.OlympicLocation like '%' + m.country + '%' 
 order by m.Country, m.OlympicLocation
 
--- SM -100% This returns error.
 SELECT m.FirstName, m.LastName, m.Country, m.OlympicLocation, m.Season 
 FROM MEDALIST M 
 where m.season = 'winter'
@@ -73,7 +68,7 @@ Another complaint was that in the upcoming olympic of 1932, only one female's sp
 
 Show the data that would support or disprove their claim, in one result set. Show columns Year, Sport subcategory, medal
 */
--- SM -50% For 1932 show all medals. For 1910-1930 show only gold or silver.
+-- SM If it ain't broke don't fix it. See below what the issues were and what you had to fix, and more important what not.
 SELECT m.OlympicYear, m.SportSubcategory, m.medal
 from Medalist m 
 where 
@@ -91,7 +86,49 @@ where
     or m.SportSubcategory like '%wom%')
 )
 
+-- SM In this old code you just had to add one set of parenthesis and move one opening ( to a different spot. And everything would've been perfect.
+SELECT m.OlympicYear, m.SportSubcategory, m.medal
+from Medalist m 
+-- SM Is the in() a issue that you had to change it to or?
+where m.Medal in ('gold' , 'silver')
+    and (
+    m.OlympicYear BETWEEN 1910 and 1930 
+    or m.OlympicYear = 1932
+)
+-- SM Is anything in this "and" a issue that made you repeat it again?
+    AND (
+    m.SportSubcategory like '%ladies%' 
+    or m.SportSubcategory like '%wom%'
+)
 
+-- SM This is how you could've fixed it.
+SELECT m.OlympicYear, m.SportSubcategory, m.medal
+from Medalist m 
+where ((m.Medal in ('gold' , 'silver')
+    and 
+    m.OlympicYear BETWEEN 1910 and 1930)
+    or m.OlympicYear = 1932
+)
+    AND (
+    m.SportSubcategory like '%ladies%' 
+    or m.SportSubcategory like '%wom%'
+)
+
+
+-- SM Now on formatting I would format it something like:
+SELECT m.OlympicYear, m.SportSubcategory, m.medal
+from Medalist m 
+where (
+    m.OlympicYear = 1932
+    or (
+        m.Medal in ('gold' , 'silver')
+        and m.OlympicYear BETWEEN 1910 and 1930
+    )
+)
+AND (
+    m.SportSubcategory like '%ladies%' 
+    or m.SportSubcategory like '%wom%'
+)
 /* 5
 The organizers of the Olympics in Salt Lake City are analyzing the age of medalists per medal type in their skiing competitions. 
 Provide a list of medalists, include only columns Sport, Age of medalist, Medal type, Last Name for the data they are analyzing.
@@ -112,7 +149,6 @@ SELECT *
 from Medalist m 
 where m.SportSubcategory like '%s''' 
 
--- SM -50% This should not include those returned from part 1.
 select *
 from Medalist M
 where m.SportSubcategory like '%s''%'
