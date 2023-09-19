@@ -1,6 +1,6 @@
 delete invention
 delete WorldRecord
-delete medalist
+delete Medalist 
 
 insert Invention(InventionName, InventionDesc, YearInvented, InventorFirstName,InventorLastName, Country,YearBorn,YearDied)
 select 'Printing Press', 'A printing press is a mechanical device for applying pressure to an inked surface resting upon a print medium (such as paper or cloth), thereby transferring the ink. It marked a dramatic improvement on earlier printing methods in which the cloth, paper or other medium was brushed or rubbed repeatedly to achieve the transfer of ink, and accelerated the process. Typically used for texts, the invention and global spread of the printing press was one of the most influential events in the second millennium.', 1440, 'Johannes', 'Gutenberg', 'Germany', 1400, 1468 

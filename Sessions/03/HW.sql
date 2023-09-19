@@ -32,8 +32,9 @@ order by m.Country, m.OlympicYear
 -- SM -10% For 1913+ Only include Norway.
 SELECT m.OlympicYear, m.country, m.season 
 from Medalist m 
-where (
-    m.Country = 'Sweden'
+where 
+(
+    m.Country in ('Sweden' , 'Norway')
     and m.OlympicYear BETWEEN 1965 and 1975 
 )
     or 
