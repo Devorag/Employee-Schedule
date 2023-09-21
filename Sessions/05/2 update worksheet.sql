@@ -17,7 +17,7 @@ where i.country = 'USA'
 */
 UPDATE i
 set YearBorn = i.YearInvented - 90, yeardied = YearInvented - 90 + 100
-SELECT YearBorn = i.YearInvented - 90, yeardied = YearInvented - 90 + 100,
+--SELECT YearBorn = i.YearInvented - 90, yeardied = YearInvented - 90 + 100,
 i.yearborn, i.yearinvented, i.yeardied, AgeAtTimeOfInvention = i.YearInvented - i.YearBorn, AgeAtTimeOfDeath = i.YearDied - i.YearBorn 
 from Invention i 
 where i.YearInvented < i.YearBorn

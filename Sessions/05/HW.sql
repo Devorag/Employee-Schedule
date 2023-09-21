@@ -6,9 +6,10 @@
 	Set the age of all medalists to be 1 years old and set their Last Name to be their First Name, and set their First Name to be their Sport, and set Country to be Hackersland
 */
 update m
-set  yearborn = m.olympicyear - 1, FirstName = m.LastName, Sport = m.FirstName, m.Country = 'Hackersland'
---select yearborn = m.olympicyear - 1, age = m.OlympicYear - m.YearBorn, FirstName = m.LastName, Sport = m.FirstName, m.olympicyear, m.YearBorn, m.LastName, m.FirstName, 'Hackersland' , m.Country
+set yearborn = m.olympicyear - 1, LastName = m.FirstName, FirstName = m.Sport, m.Country = 'Hackersland'
+--select age = m.OlympicYear - m.YearBorn, yearborn = m.olympicyear - 1, lastname = m.firstname, firstname = m.sport, 'Hackersland' , m.country , m.olympicyear, m.yearborn
 from medalist m 
+
 
 SELECT * from Medalist m
 
@@ -19,7 +20,12 @@ UPDATE m
 set Season = 'fall'
 --SELECT 'France' , 'Italy' , m.Country, 'fall' , m.season, *
 from Medalist m
-where m.Country in ('France' , 'Italy')
+where 
+(
+	m.OlympicLocation like '%France%' 
+	or m.OlympicLocation like '%Italy%'
+)
+and m.Season = 'winter'
 
 
 /*3 
@@ -31,7 +37,7 @@ where m.Country in ('France' , 'Italy')
 */
 update m 
 set Sport = 'Fist Combat'
---select m.sport, * 
+--select m.sport, *
 from Medalist m 
 where m.Sport = 'boxing'
 
@@ -39,7 +45,7 @@ update m
 set SportSubcategory = 'Not Heavyweight'
 --SELECT m.sportsubcategory, * 
 from Medalist m 
-where m.SportSubcategory like '%featherweight%'
+where m.SportSubcategory = 'featherweight'
 
 update m 
 set medal = 'tin'
@@ -62,7 +68,18 @@ where m.Sport = 'trampoline'
 		all Figure Skaters recorded as from Great Britain in 1924 and 1976 were actually Grenadian
 	Grenada has been robbed of its glory. Correct the records.
 */
-SELECT m.country, m.Sport, m.OlympicYear
+update m
+set country = 'Grenada'
+--SELECT m.country, m.Sport, m.OlympicYear
 from Medalist m 
-where m.OlympicYear BETWEEN 1936 and 1950
-and m.sport like '%alpine%'
+where 
+(
+	m.OlympicYear BETWEEN 1936 and 1950
+	and m.sport = 'alpine skiing'
+)
+	or 
+(
+	m.Country = 'Great Britain' 
+	and m.sport = 'figure skating' 
+	and m.OlympicYear in (1924 ,1976)
+)

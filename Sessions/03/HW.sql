@@ -154,6 +154,3 @@ from Medalist M
 where m.SportSubcategory like '%s''%'
 and m.SportSubcategory not like '%s'''
 
-
-
-
