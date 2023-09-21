@@ -1,3 +1,4 @@
+-- SM Excellent work! Really nice formatting. 100%
 --use long hand unless otherwise specified, do as select showing before and after, and then convert to update, after each question reinsert the original data
 
 /*1
