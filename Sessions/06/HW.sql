@@ -1,3 +1,4 @@
+-- SM Excellent! 100% See comments, no need to resubmit.
 -- All Columns should have Column Names unless otherwise specified
 /*1. 
 	The Olympic Committee has decided to give a special award to all gold medalists whose last name 
@@ -11,6 +12,7 @@ and m.LastName like 'P%'
 	 Three new sports are being added into this year's Winter Olympic Competitions in Norway. Create 3 new sports from literal values,
 	 show in one result set, leaving the MedalistId, medalist information and Code blank.
 */
+-- SM Specify the year.
 SELECT MedalistId = '' , OlympicYear = '', Season = 'winter', OlympicLocation = 'Norway', Sport = 'Australian basketball', SportSubcategory = 'junior basketball', Medal = '', FirstName = '', LastName = '' ,Country = '', YearBorn = '' , Code = ''
 union SELECT MedalistId = '' , OlympicYear = '', Season = 'winter', OlympicLocation = 'Norway', Sport = 'trench', SportSubcategory = 'teenage girls sport', Medal = '', FirstName = '', LastName = '' ,Country = '', YearBorn = '' , Code = ''
 union SELECT MedalistId = '' , OlympicYear = '', Season = 'winter', OlympicLocation = 'Norway', Sport = 'volley ball', SportSubcategory = 'toss ball over court', Medal = '', FirstName = '', LastName = '' ,Country = '', YearBorn = '' , Code = ''
@@ -47,6 +49,7 @@ order by RecordType, i.YearBorn
 	Keep rows for each medal together
 
 */
+-- SM No need for union all.
 select msequence = 1, age = m.olympicyear - m.yearborn, mdescription = m.firstname + ' ' + m.lastname + ' ' + m.country, m.Code 
 from  Medalist m 
 where m.OlympicYear - m.YearBorn < 25 
