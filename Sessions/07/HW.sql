@@ -3,7 +3,6 @@
 For all Questions use select insert unless otherwise specified.
 When getting data from a source table always use the "source" data when you can, otherwise use literal values
 */
-SELECT * from Medalist m where m.OlympicYear = 2000
 
 /* 1. 
       The Lahtela twin brothers both won medals for the Men's Moguls Freestyle Skiing competition in the 2002 Winter Olympics. 
@@ -12,19 +11,21 @@ SELECT * from Medalist m where m.OlympicYear = 2000
 */
 -- SM -50% Take data that you could from table.
 insert Medalist(OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)
-select 2002 , 'winter', 'Salt Lake City, United States', 'Freestyle Skiing', 'Men''s Moguls', 'bronze','Jack', 'Lahtela', 'Finland', 1974
+select m.OlympicYear, m.season, m.olympiclocation, m.sport, m.sportsubcategory, 'bronze','Jack', m.lastname, m.country, m.yearborn
+from Medalist m 
+where m.LastName = 'Lahtela'
 
 
 --2. For the year 2008; create a new sport, award medals for your new sport to the same medalists that won the 2008 Women's Trampoline sport.
 -- SM -10% Take location, season, year, and medal from table.
 insert Medalist(OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)
-SELECT 2008, 'winter', 'USA', 'basketball', 'toss balls', 'gold', m.FirstName, m.LastName, m.Country, m.YearBorn
+SELECT m.OlympicYear, m.Season, m.OlympicLocation, 'basketball', 'toss balls in hoop', m.medal, m.FirstName, m.LastName, m.Country, m.YearBorn
 from Medalist m
 where 
 -- SM No need for ()
-(m.OlympicYear = 2008 
+m.OlympicYear = 2008 
 and m.sport = 'Trampoline'
-and m.SportSubcategory= 'Women''s')
+and m.SportSubcategory= 'Women''s'
 
 
 /*3. 
@@ -34,15 +35,9 @@ and m.SportSubcategory= 'Women''s')
 */
 -- SM -50% You're inserting 9 rows (3 times the same medalists), you should only insert 3. Take medal from table and you won't need union select. But make sure it's the right year.
 insert Medalist(OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)
-SELECT m.OlympicYear, m.Season, m.OlympicLocation, 'swimming', 'Men''s 200 Metres', 'gold', m.firstname, m.lastname, m.country, m.yearborn 
+SELECT m.OlympicYear, m.Season, m.OlympicLocation, 'swimming', 'Men''s 200 Metres', m.medal, m.firstname, m.lastname, m.country, m.yearborn 
 from medalist m 
-where m.sport = 'field' and m.SportSubcategory = 'High Jump'
-union SELECT m.OlympicYear, m.Season, m.OlympicLocation, 'swimming', 'Men''s 200 Metres', 'silver', m.firstname, m.lastname, m.country, m.yearborn 
-from medalist m 
-where m.sport = 'field' and m.SportSubcategory = 'High Jump'
-union select m.OlympicYear, m.Season, m.OlympicLocation, 'swimming', 'Men''s 200 Metres', 'bronze', m.firstname, m.lastname, m.country, m.yearborn
-from medalist m
-where m.sport = 'field'
+where m.sport = 'field' 
 and m.SportSubcategory = 'High Jump'
 
 /*4. 
@@ -71,7 +66,7 @@ insert Medalist(OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, M
 select 2023, m.Season, 'New York', m.sport, m.sportsubcategory, m.medal, m.firstname, m.lastname, m.country, m.yearborn 
 from medalist m 
 where 
-(m.olympicyear = 2008
+m.olympicyear = 2008
 and m.Season = 'Summer'
-and m.OlympicLocation like '%Beijing%')
+and m.OlympicLocation like '%Beijing%'
 
