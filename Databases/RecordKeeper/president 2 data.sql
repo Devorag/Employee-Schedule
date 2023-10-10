@@ -1,3 +1,5 @@
+DELETE president
+
 use RecordKeeperDB
 go
 delete president
@@ -48,21 +50,3 @@ union select 41,'George H. W.', 'Bush',1924,null,'Republican', 1989,1993
 union select 42,'William Jefferson', 'Clinton',1946,null,'Democrat',1993,2001
 union select 43,'George W.', 'Bush',1946,null,'Republican', 2001,2009
 union select 44,'Barack', 'Obama',1961,null,'Democrat',2009,2017
-
-
-insert president(num, FirstName, lastname, party, YearBorn, yeardied, TermStart, TermEnd)
-SELECT p.num, p.firstname, p.lastname, p.party, p.yearborn, p.yeardied, p.termstart, p.TermEnd
-from president p 
-where p.num = 17
-or p.TermEnd - p.termstart < 4
-or 
-(
-    p.TermEnd - p.TermStart = 8
-    and  p.TermStart - p.YearBorn BETWEEN 35 and 50
-)
-or p.Party = 'Whig'
-and 
-(
-    p.FirstName like '% %'
-    or p.TermStart - p.YearBorn < 55
-)
