@@ -1,3 +1,4 @@
+--AF Good! Please see 3 comments below 60%
 -- Use the Medalist Table
 SELECT * from Medalist m
 
@@ -6,6 +7,7 @@ SELECT * from Medalist m
 	   Therefore, we don't know their country or the year that they were born in.
 	   Please insert them regardless.
 */
+--Af This insert is failing, the country column isn't allowing null values
 INSERT Medalist(OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName)
 select 2008, 'summer','Athens, Greece' , 'Swimming', 'Women''s swim', 'gold', 'Macy', 'Mustin'
 union select 2008, 'summer','Athens, Greece' , 'Swimming', 'Women''s swim', 'silver', 'Kate', 'Spade'
@@ -15,6 +17,7 @@ union SELECT 2008, 'summer','Athens, Greece' , 'Swimming', 'Women''s swim', 'bro
 
 
 -- 2. You are currently hacking the Olympic database. Wipe out the Year Born for any medalist who was under the age of 20 when they won their medal.
+--AF This update is failing too
 update m 
 set yearborn = null
 --select m.OlympicYear - m.YearBorn, * 
@@ -26,6 +29,7 @@ where m.OlympicYear - m.YearBorn < 20
 	   He has demanded to wipe out all traces of the name Kenya even though there is no new name yet. 
 	   Please fulfill his request.
 */ 
+--AF This update is failing too
 update m 
 set m.country = null
 --SELECT *
