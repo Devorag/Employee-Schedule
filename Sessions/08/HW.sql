@@ -1,3 +1,4 @@
+--AF Great job! 100%
 -- Use the Medalist Table
 SELECT * from Medalist m
 
