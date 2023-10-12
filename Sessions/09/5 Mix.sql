@@ -20,11 +20,8 @@ set FirstName = p.FirstName + ' Short Term'
 --SELECT * 
 from president p 
 where p.Party = 'Republican'
-and 
-(
-    p.TermEnd - p.TermStart < 4
-    and p.TermStart > 1900
-)
+anD p.TermEnd - p.TermStart < 4
+and p.TermStart > 1900
 
 --3 Breaking News: Robert Wilson really won the last election. End the term of the current president and enter Robert Wilson as the next president.
 -- SM -50% How do you know what number is the current president? Use value from column that will always return current president.
@@ -32,7 +29,8 @@ UPDATE p
 set TermEnd = 2023
 --SELECT * 
 from president p 
-where p.Num = 46
+where p.TermEnd is null
+
 
 insert president( p.num, p.firstname, p.lastname, p.party, p.yearborn, p.termstart)
 select 47, 'Robert', 'Wilson', 'Democrat', 1975, 2023
@@ -40,7 +38,7 @@ select 47, 'Robert', 'Wilson', 'Democrat', 1975, 2023
 --4 Zoom to the future! Add grandchildren for each of the past presidents. They all have the same last name, and first name + Jr. Add to president number and all 'Years' and 'Terms' columns so that all data is (or at least could be) correct.
 -- SM Tip: Add more to years born and died.
 insert president( p.num, p.firstname, p.lastname, p.party, p.yearborn, p.yeardied, p.termstart, p.TermEnd)
-SELECT num = p.num + 46, firstname = p.firstname + ' Jr', p.lastname, p.Party, yearborn = p.YearBorn + 50, yeardied = p.yeardied + 50, termstart = p.termstart + 234, TermEnd = p.TermEnd + 234
+SELECT num = p.num + 46, firstname = p.firstname + ' Jr', p.lastname, p.Party, yearborn = p.YearBorn + 100, yeardied = p.yeardied + 100, termstart = p.termstart + 234, TermEnd = p.TermEnd + 234
 from president p 
 
 --5 Congratulations! You were elected for the next term. Add this record to the president table. Choose your party name and set 5 existing presidents to your party. 

@@ -10,7 +10,7 @@
 --  SM -100% Cant run query. Returns a error.
 insert president( p.num, p.firstname, p.lastname, p.party, p.yearborn, p.termstart, p.TermEnd)
 SELECT 47, 'Jack', 'Valento', 'Republican', 1980, 2021, 2022
-union select 48 'Sam', 'Smith', 'Democrat', 1964, 2022, 2023
+union select 48, 'Sam', 'Smith', 'Democrat', 1964, 2022, 2023
 union SELECT 49, 'Nick', 'Wonder', 'Republican', 1995, 2023, null
 /*
     2. After the recent unrest, a new law was made that multiple presidents can serve a term together. 

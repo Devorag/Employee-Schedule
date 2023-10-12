@@ -25,7 +25,7 @@ from president p
 -- SM Tip: Use <> Democrat.
 SELECT * 
 from president p 
-where p.Party not like '%democrat%'
+where p.Party <> 'Democrat'
 and p.FirstName like '%[pe]%'
 
 --7 Show all presidents with last names: Adams, Clinton, or Bush; that were either over 55 at the start of their term or started their term in the 20th century.
@@ -36,7 +36,7 @@ where p.LastName in ('Adams', 'Clinton', 'Bush')
 and 
 (
     p.TermStart - p.YearBorn > 55
-    or p.TermStart >= 2000
+    or p.TermStart between 1900 and 1999
 )
 
 --8 Show all presidents that died less than 60 years old, include age at death, and sort by party then by number of years served.
@@ -58,7 +58,7 @@ or
     p.Party = 'Republican'
     and p.TermEnd - p.TermStart > 4
 )
-
+order by p.Party
 --10 Show all living presidents, sorted by president number
 SELECT * 
 from president p 
