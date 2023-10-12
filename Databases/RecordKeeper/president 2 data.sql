@@ -1,4 +1,4 @@
-DELETE president
+DELETE president 
 
 use RecordKeeperDB
 go
@@ -50,3 +50,6 @@ union select 41,'George H. W.', 'Bush',1924,null,'Republican', 1989,1993
 union select 42,'William Jefferson', 'Clinton',1946,null,'Democrat',1993,2001
 union select 43,'George W.', 'Bush',1946,null,'Republican', 2001,2009
 union select 44,'Barack', 'Obama',1961,null,'Democrat',2009,2017
+union select 45, 'Donald', 'Trump', 1946, null, 'Republican', 2017, 2021
+union select 46, 'Joe', 'Biden', 1942, null, 'Democrat', 2021, null
+

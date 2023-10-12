@@ -1,11 +1,13 @@
 --The US Gov needs the following reports, please write the SQL that produces these reports.
 
 --1 Show one result set including all presidents with a blank row on top. Only show columns Num, FirstName, LastName, Party; sort them by president number.
-select p.num, p.FirstName, p.LastName, p.party from President p order by p.num
+select p.num, p.FirstName, p.LastName, p.party from President p 
+union select num = '',firstname = '', lastname = '', party = '' 
+order by p.num
 --2 Show all with a column for age at term start sorted by age and then Num. Arrange the columns so that "Age at start of term" is after TermStart.
-select p.PresidentId, p.Num, p.FirstName, p.LastName, p.Party, p.YearBorn, p.YearDied, p.TermStart, AgeAtStermStart = p.TermStart - p.YearBorn, p.TermEnd 
+select p.PresidentId, p.Num, p.FirstName, p.LastName, p.Party, p.YearBorn, p.YearDied, p.TermStart, AgeAtTermStart = p.TermStart - p.YearBorn, p.TermEnd 
 from president p 
-order by AgeAtStermStart, p.num
+order by AgeAtTermStart, p.num
 --3 Show a list of presidents with their full name plus political party like this: Last Name, First Name (party). Do not include any other columns.
 SELECT FullNamePlusParty = p.LastName + ', ' + p.FirstName + ' (' + p.Party + ')'  
 from president p 
