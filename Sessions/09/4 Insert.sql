@@ -1,3 +1,4 @@
+-- SM Excellent! 50% See comment, fix and resubmit.
 /*
     1. The current presidential term is undergoing serious political challenges. 
        Two presidents were already impeached and the third is now beginning his term. 
@@ -6,6 +7,7 @@
         2) Sam Smith - Democrat (Born 1964)
         3) Nick Wonder - Republican (Born 1995)
  */
+--  SM -100% Cant run query. Returns a error.
 insert president( p.num, p.firstname, p.lastname, p.party, p.yearborn, p.termstart, p.TermEnd)
 SELECT 47, 'Jack', 'Valento', 'Republican', 1980, 2021, 2022
 union select 48 'Sam', 'Smith', 'Democrat', 1964, 2022, 2023

@@ -1,3 +1,4 @@
+-- SM Excellent! 100%
 --re run the data file between questions
 --1 Delete your least respected president from the table.
 delete p 

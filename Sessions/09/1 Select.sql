@@ -1,3 +1,4 @@
+-- SM Excellent! 99% See comment, fix and resubmit.
 --The US Gov needs the following reports, please write the SQL that produces these reports.
 
 --1 Show one result set including all presidents with a blank row on top. Only show columns Num, FirstName, LastName, Party; sort them by president number.
@@ -21,12 +22,14 @@ from president p
 
 
 --6 Show all non 'Democrat' presidents with an 'e' or 'p' in their first name.
+-- SM Tip: Use <> Democrat.
 SELECT * 
 from president p 
 where p.Party not like '%democrat%'
 and p.FirstName like '%[pe]%'
 
 --7 Show all presidents with last names: Adams, Clinton, or Bush; that were either over 55 at the start of their term or started their term in the 20th century.
+-- SM Tip: 20th century is 1900s.
 SELECT AgeAtTermStart = p.TermStart - p.YearBorn, *
 from president p 
 where p.LastName in ('Adams', 'Clinton', 'Bush')
@@ -42,6 +45,7 @@ from president p
 where p.YearDied - p.YearBorn < 60
 order by p.Party, NumberOfYearServed
 --9 Show all Democratic presidents who took office between the ages of 30 and 50, and Republican presidents who served more than one term, sorted by their parties.
+-- SM -10% "Sorted by their parties"
 SELECT NumberOfYearsServed = p.TermEnd - p.TermStart, Age = p.TermStart - p.YearBorn, *
 from president p 
 where 
