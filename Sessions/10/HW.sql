@@ -1,3 +1,4 @@
+-- SM Excellent! 68% See comments, fix and resubmit.
 -- medalist
 --For all updates do select first to check your work
 --reinsert the data between questions if necessary
