@@ -27,4 +27,5 @@
      From 1950 - Current, Winter Olympics began on February 9 and Summer Olympics on July 23.
 */
 
+
 --8 Include the insert statement that was done to bring the president table up to date in the source code data, run the insert so that you have the latest

@@ -25,7 +25,7 @@ where m.OlympicYear = 2002
       Show all medalists with this additional column.
 */
 -- SM -10% Add column name.
-SELECT CONCAT (SUBSTRING(m.FirstName, 1,1), '. ', m.LastName, ' - ', LOWER(m.medal), ', ', UPPER(m.country), ': ', m.YearBorn), *
+SELECT ConcatMedalist = CONCAT (SUBSTRING(m.FirstName, 1,1), '. ', m.LastName, ' - ', LOWER(m.medal), ', ', UPPER(m.country), ': ', m.YearBorn), *
 from Medalist m 
 
 /*
@@ -40,30 +40,35 @@ Also prepare a decryption statement, so that when ransom is paid we can fix the 
    -- 1) The first and last name initials are not getting swapped. You are replacing all occurrences of the letter. See replace docs at https://learn.microsoft.com/en-us/sql/t-sql/functions/replace-transact-sql?view=sql-server-ver16
    -- 2) The season is not reversed.
 UPDATE m 
-set firstname = replace( m.firstname, SUBSTRING(m.FirstName,1,1), SUBSTRING(m.LastName,1,1)), 
-lastname = replace(m.lastname, substring(m.lastname,1,1), substring(m.firstname,1,1)), 
-Season = concat(upper(SUBSTRING(reverse(m.season),1,1)), lower(substring(m.season,2,5))),
+set firstname = concat(SUBSTRING(m.LastName,1,1), substring(m.firstname,2,20)), 
+lastname = concat(substring(m.firstname,1,1), SUBSTRING(m.LastName,2,20)), 
+Season = concat(upper(SUBSTRING(reverse(m.season),1,1)), lower(substring(reverse(m.season),2,5))),
 OlympicYear = (m.OlympicYear * 2) - 1, 
 Sport = REPLACE(REPLACE(m.Sport, 'a', '*'), 'o', '@')
 --SELECT replace( m.firstname, SUBSTRING(m.FirstName,1,1), SUBSTRING(m.LastName,1,1)), m.FirstName, m.LastName, upper(REVERSE(m.Season)), m.Season, (m.OlympicYear * 2) - 1, m.OlympicYear, REPLACE(REPLACE(m.Sport, 'a', '*'), 'o', '@'), m.Sport
 from medalist m 
 
+
 -- SM -100% How will this reset the data after running previous update? 
-update m
-set firstname = m.firstname, LastName = m.LastName, Season = m.Season, OlympicYear = m.OlympicYear, Sport = m.Sport
-from Medalist m 
+UPDATE m 
+set firstname = concat(SUBSTRING(m.LastName,1,1), substring(m.firstname,2,20)), 
+lastname = concat(substring(m.firstname,1,1), SUBSTRING(m.LastName,2,20)), 
+Season = concat(upper(SUBSTRING(reverse(m.season),1,1)), lower(substring(reverse(m.season),2,5))),
+OlympicYear = (m.OlympicYear/2) + 1, 
+Sport = REPLACE(REPLACE(m.Sport, '*', 'a'), '@', '0')
+--SELECT replace( m.firstname, SUBSTRING(m.FirstName,1,1), SUBSTRING(m.LastName,1,1)), m.FirstName, m.LastName, upper(REVERSE(m.Season)), m.Season, (m.OlympicYear * 2) - 1, m.OlympicYear, REPLACE(REPLACE(m.Sport, 'a', '*'), 'o', '@'), m.Sport
+from medalist m 
 
-
-SELECT concat(upper(SUBSTRING(m.season,1,1)), lower(substring(m.season,2,5))), m.Season
-from Medalist m 
-
+SELECT * 
+from Medalist m
 
 /*
    5. Explore the Microsoft Docs, pick a string function that we did not learn. Write a question that exercises that function for the CPU staff to do. 
 */
 
 /*
-Insert a new column that lists the first 3 letters of each word in the sports column. 
+Insert a new column that lists the first 3 letters of each word in the sports column. The new column should list the first three letters of the words in the sports column.  For example, if the word is swimming than in the new column it should say 'swi'
 */
 -- SM Can you give more info on what you need? What do you mean by getting first 3 letters of "each word"? Did you try to achieve this with string function?
+--yes, I used the 'left' function
 

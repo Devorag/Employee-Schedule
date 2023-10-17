@@ -1,6 +1,5 @@
 -- paste this on the bottom of the table file
 use RecordKeeperDB
-go
 drop table if exists president
 go
 		create table dbo.president(
@@ -9,11 +8,13 @@ go
 		FirstName varchar(100) not null, 
 		LastName varchar(100) not null, 
         Party varchar(50) not null,
-		YearBorn int not null,
-		YearDied int,
+		DateBorn date not null,
+		DateDied datetime2,
 		TermStart int not null,
 		TermEnd int
 	)
 go
+
+
 
 
