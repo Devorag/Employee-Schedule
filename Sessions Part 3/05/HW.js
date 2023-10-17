@@ -8,7 +8,7 @@ You should be able to call the function like this: let x = xcrypt("hello world",
 
 let x = xcrypt("hello world",5)
 console.log(x);
-let y = xcrypt(x,5);
+let y = xcrypt(x,-5);
 console.log(y);
 
 */
