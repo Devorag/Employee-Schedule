@@ -1,0 +1,3 @@
+/*
+Using API weatherstack.com write a script that allows you to specify two cities and provide the current temperature for each one.
+*/

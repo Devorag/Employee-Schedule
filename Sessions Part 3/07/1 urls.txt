@@ -1,0 +1,17 @@
+//json placeholder
+https://jsonplaceholder.typicode.com
+https://jsonplaceholder.typicode.com/posts
+https://jsonplaceholder.typicode.com/posts/5
+//api layer
+https://api.apilayer.com/
+
+//api layer currency
+https://api.apilayer.com/currency_data/change?start_date=2010-01-01&end_date=2011-01-01
+
+//api layer geo
+https://api.apilayer.com/geo/city/name/tokyo
+
+//weather stack API
+http://api.weatherstack.com
+//fill in your own key, also note that you cannot have a space in the url, for a space use %20 like this New%20York
+http://api.weatherstack.com?access_key=xxxxxxxxxxxxxxx&query=Dallas

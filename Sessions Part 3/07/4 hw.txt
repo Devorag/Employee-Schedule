@@ -1,0 +1,6 @@
+/*
+Explore and choose a REST API that requires an API key. 
+* Write a script that exercises the API with different parameter values and show the output.
+* Implement error handling.
+* After calling API check that response status is 200, if not display error message.
+*/
