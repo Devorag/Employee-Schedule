@@ -1,8 +1,10 @@
+-- SM Excellent! 94% See comments, fix and resubmit.
 /* select * from states s
 1. We need to analyze current US state population based on the century that each state was admitted to the union.
 Show the number of states and the average, max, and min populations per century of admittance. Show in three reports, break it up by the century, 1700s, 1800s, 1900s. 
 The columns should be the number of states, year range (1700s, 1800s,1900s) and then the average, min, max
 */
+-- SM Remove the "group by" from all.
 select Num = count(*), YearRange = '1700''s', AvgPop = AVG(s.popvalue), MinPop = min(s.popvalue), MaxPop = max(s.popvalue)
 from states s  
 where year(s.admitted) BETWEEN 1700 and 1799
@@ -49,6 +51,7 @@ We only need to look at those with max or average above 10000 (million).
 Do not include Department of Homeland Security and Department of Veterans Affairs, as they are not subject to budget cuts.
 Sort by the biggest spenders on top.
 */
+-- SM -50% Show department. You're not excluding specific departments, see data. I would say those top on avg are biggest spenders.
 SELECT MaxBudget = Max(b.Millions), AvgBudget = AVG(b.Millions), MinBudget = MIN(b.Millions)
 from budget b 
 where b.BudgetYear > 1987
