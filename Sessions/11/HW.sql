@@ -21,15 +21,15 @@ select TimeIn1000Hours = DATEADD(hour,1000,CURRENT_TIMESTAMP), CURRENT_TIMESTAMP
 --set 
 -- SM Instead of you making calculation how many minutes to add, use nested dateadd() one for hour and one for minute.
 update p 
-set p.DateDied = DATEADD(minute,1182,p.DateDied)
---SELECT DATEADD(minute,1182,p.DateDied) ,p.datedied 
+set p.DateDied = DATEADD(hour,19, DATEADD(minute,42,p.datedied))
+--SELECT DATEADD(hour,7, DATEADD(minute,42,p.datedied))
 from president p 
 where p.datedied is not null 
 and p.LastName like '[a-l]%'
 
 update p 
-set p.DateDied = DATEADD(minute,662,p.datedied)
---select DATEADD(minute,662,p.datedied), p.datedied
+set p.DateDied = DATEADD(hour,11, DATEADD(minute,2,p.DateDied))
+--select DATEADD(hour,11, DATEADD(minute,2,p.DateDied))
 from president p 
 where p.DateDied is not null 
 and p.lastname like '[m-z]%'
@@ -45,13 +45,18 @@ set FirstName = year(p.dateborn)
 --SELECT FirstName = p.dateborn, p.dateborn
 from president p 
 where p.lastname = 'Reagan'
-
+select * from president p
 -- SM -50% 2 issues. 
 -- 1) You should fix the data. 
 -- 2) You might have a president with a number in his first name (example instead of jr.) you should use date function to see if first name can be converted to a date.
-select * 
+select ISDATE(year(p.dateBorn))
 from president p 
-WHERE P.FirstName LIKE '%[1-9]%'
+
+update p 
+set FirstName = 'Ronald'
+from president p 
+where p.lastname = 'Reagan'
+
 
 -- medalist
 /*7. The Olympic Committee wants to see a list of what dates the Olympics began on. Show in as many lists as required:
@@ -71,14 +76,14 @@ and m.season = 'summer'
 
 select OlympicDate = DATEFROMPARTS(m.OlympicYear,2,9) ,* 
 from Medalist m 
-where m.OlympicYear between 1950 and 2023
+where m.OlympicYear between 1951 and 2023
 and m.season = 'winter'
 
 -- SM -10% This should be summer.
 SELECT OlympicDate = DATEFROMPARTS(m.olympicyear,7,23) ,*
 from Medalist m 
-where m.OlympicYear between 1950 and 2023
-and m.season = 'winter' 
+where m.OlympicYear between 1951 and 2023
+and m.season = 'summer' 
 
 --8 Include the insert statement that was done to bring the president table up to date in the source code data, run the insert so that you have the latest
 -- SM Include in data file in database folder.

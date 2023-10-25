@@ -8,17 +8,17 @@ The columns should be the number of states, year range (1700s, 1800s,1900s) and 
 select Num = count(*), YearRange = '1700''s', AvgPop = AVG(s.popvalue), MinPop = min(s.popvalue), MaxPop = max(s.popvalue)
 from states s  
 where year(s.admitted) BETWEEN 1700 and 1799
-group by s.admitted
+
 
 select Num = count(*), YearRange = '1800''s', AvgPop = AVG(s.popvalue), MinPop = min(s.popvalue), MaxPop = max(s.popvalue)
 from states s  
 where year(s.admitted) BETWEEN 1800 and 1899
-group by s.admitted
+
 
 select Num = count(*), YearRange = '1900''s', AvgPop = AVG(s.popvalue), MinPop = min(s.popvalue), MaxPop = max(s.popvalue)
 from states s  
 where year(s.admitted) BETWEEN 1900 and 1999
-group by s.admitted
+
 /*
 2. We are studying the impact of the presidency and his political affiliation on the longevity of the president. 
 a) Show the average life span of non-living presidents per party. Sort by average lifespan and then by party.
@@ -52,14 +52,14 @@ Do not include Department of Homeland Security and Department of Veterans Affair
 Sort by the biggest spenders on top.
 */
 -- SM -50% Show department. You're not excluding specific departments, see data. I would say those top on avg are biggest spenders.
-SELECT MaxBudget = Max(b.Millions), AvgBudget = AVG(b.Millions), MinBudget = MIN(b.Millions)
+SELECT MaxBudget = Max(b.Millions), AvgBudget = AVG(b.Millions), MinBudget = MIN(b.Millions), b.Department
 from budget b 
 where b.BudgetYear > 1987
-and b.Department not in ('Homeland Security', 'Veterans Affairs')
+and b.Department not in ('Department of Homeland Security', 'Department of Veterans Affairs')
 group by b.Department
 having Max(b.Millions) > 10000
 or AVG(b.Millions) > 10000
-order by MaxBudget desc
+order by AvgBudget desc
  
 /*
 4. The International Monetary Fund wants to stimulate the economy with an advertising campaign highlighting countries with young innovators.
