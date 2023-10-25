@@ -1,4 +1,4 @@
--- SM Excellent! 95% See comments, fix and resubmit.
+-- SM Excellent! 100% See comments, no need to resubmit.
 -- lookup how to get the current date and time stamp and use it for the following questions:
 
 --1) show the current date and time
@@ -19,7 +19,6 @@ select TimeIn1000Hours = DATEADD(hour,1000,CURRENT_TIMESTAMP), CURRENT_TIMESTAMP
 */
 --update p 
 --set 
--- SM Instead of you making calculation how many minutes to add, use nested dateadd() one for hour and one for minute.
 update p 
 set p.DateDied = DATEADD(hour,19, DATEADD(minute,42,p.datedied))
 --SELECT DATEADD(hour,7, DATEADD(minute,42,p.datedied))
@@ -46,9 +45,7 @@ set FirstName = year(p.dateborn)
 from president p 
 where p.lastname = 'Reagan'
 select * from president p
--- SM -50% 2 issues. 
--- 1) You should fix the data. 
--- 2) You might have a president with a number in his first name (example instead of jr.) you should use date function to see if first name can be converted to a date.
+-- SM Should be isdate(firstname)
 select ISDATE(year(p.dateBorn))
 from president p 
 
@@ -63,7 +60,6 @@ where p.lastname = 'Reagan'
      From 1896 - 1950, Winter Olympics began on January 10 and Summer Olympics on June 20.
      From 1950 - Current, Winter Olympics began on February 9 and Summer Olympics on July 23.
 */
--- SM There's one issue here. between is inclusive, you need to include 1950 only once.
 SELECT OlympicDate = DATEFROMPARTS(m.OlympicYear,1,10) ,* 
 from Medalist m 
 where m.OlympicYear BETWEEN 1896 and 1950
@@ -79,14 +75,12 @@ from Medalist m
 where m.OlympicYear between 1951 and 2023
 and m.season = 'winter'
 
--- SM -10% This should be summer.
 SELECT OlympicDate = DATEFROMPARTS(m.olympicyear,7,23) ,*
 from Medalist m 
 where m.OlympicYear between 1951 and 2023
 and m.season = 'summer' 
 
 --8 Include the insert statement that was done to bring the president table up to date in the source code data, run the insert so that you have the latest
--- SM Include in data file in database folder.
 insert president(Num, FirstName, LastName, Party, dateBorn, DateDied, TermStart, TermEnd)
 select 45, 'Donald', 'Trump', 'Republican', '1942-11-20', null, 2017,2021
 union select 46, 'Joe', 'Biden', 'Democrat', '1946-06-14', null, 2021, null
