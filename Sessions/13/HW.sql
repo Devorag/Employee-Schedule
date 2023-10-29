@@ -8,6 +8,7 @@ The web developer is asking for SQL statements that will provide the following l
 -- SM Tip: top is not guaranteed to return "first", you need order by.
 SELECT distinct top (10) m.olympicyear
 from medalist m 
+order by m.olympicyear
 
 
 
@@ -17,10 +18,11 @@ from Medalist m
 order by m.OlympicYear
 -- c. Show 5 sports and their subcategory that were played in France before 1950, include the location in the result set
 -- SM Tip: top is not guaranteed to return "first", you need order by.
-SELECT distinct  top (5) m.Sport, m.SportSubcategory, m.OlympicLocation
+SELECT distinct  top (5) m.Sport, m.SportSubcategory, m.OlympicLocation, m.olympicyear
 from Medalist m 
 where m.OlympicLocation like '%France%'
 and m.OlympicYear < 1950
+order by m.olympicyear
 -- d. Show a list of the ten oldest athletes to win gold medals for sports Biathlon, Boxing, and Ski Jumping, the list should show name, age, and year born, sort by age and then by last name
 select top 10 m.FirstName, Age = M.olympicyear  - m.yearborn, m.yearborn
 from medalist m 
@@ -36,13 +38,14 @@ Show a list of presidents, include all information. For null date died show a da
 For null term end show Current. Sort by Num descending
 */
 -- SM -50% This should be one result set with specied columns in specified format. Don't have 2 columns for same data.
-select DateDiedWithoutNull = ISNULL(CONVERT(varchar,p.DateDied),'-'), * 
+select DateDiedWithoutNull = ISNULL(CONVERT(varchar,p.DateDied,101), '-'),
+TermEndWithCurrent = ISNULL(CONVERT(varchar,p.TermEnd),'Current'), * 
 from president p 
-where p.DateDied is null
+--where p.DateDied is null 
+--or p.termend is null
+order by p.num desc
 
-select CONVERT(varchar,p.datedied,101)
-from president p 
-where p.datedied is not null
+
 
 select TermEndWithCurrent = ISNULL(CONVERT(varchar,p.TermEnd),'Current'), *
 from president p 
@@ -71,7 +74,7 @@ from president p
 where p.Party = 'Republican'
 --b Delete 1 non-republican that served two terms after 1960
 -- SM -100% Code returns error.
-delete top 1 p 
+delete top (1) p 
 --SELECT * 
 from president p 
 where p.Party <> 'Republican'
@@ -80,6 +83,8 @@ and p.TermStart > 1960
 
 --c Reverse the last names of 7 presidents that lived before 1900
 -- SM -50% This should be a update.
-SELECT top 7 REVERSE(p.LastName), * 
+update top (7) p 
+set p.LastName = REVERSE(p.LastName)
+--ELECT top 7 REVERSE(p.LastName), * 
 from president p 
 where year(p.DateBorn) < 1900
