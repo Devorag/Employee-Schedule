@@ -1,12 +1,24 @@
+-- SM Excellent! 80% See comments, fix and resubmit.
 -- medalist 
 
 -- 1. Show a new column called Stars. For gold medalists show five stars, for silver show four stars and for bronze show three stars.
+-- SM See below how I would format a case statement.
 select Stars = 
 case
 when m.medal = 'gold' then '*****'
 when m.medal = 'silver' then '****'
 when m.medal = 'bronze' then '***'
 end,* 
+from medalist m 
+order by m.medal
+
+-- SM This is how I would format it. Hope you get the concept.
+select Stars = 
+    case
+        when m.medal = 'gold' then '*****'
+        when m.medal = 'silver' then '****'
+        when m.medal = 'bronze' then '***'
+    end,* 
 from medalist m 
 order by m.medal
 /* 2. The Olympic Committee has decided to assign certain medalists a color, which is decided based on a few specifications:
@@ -16,6 +28,7 @@ order by m.medal
     If the location was Greece and was during the summer and the sport was cycling then the color is Blue. 
     All other medalists will be green.
 */
+-- SM -50% Excellent case. But there's one issue, all return green, there's something wrong with locations.
 select Color = 
 case 
 when m.olympiclocation = 'France' and m.sport in('Athletics', 'Figure Skating') then 'red'
@@ -44,6 +57,7 @@ m.lastname
       French medalists over the age of 35 that performed in Summer games should have their medals changed to bronze.
       Any medalist from Denmark whose last name contains an S should be changed to gold. All other medalists should remain the same.
 */
+-- SM -10% American are not getting updated. See data.
 UPDATE m 
 set medal = 
 --select medal = 
@@ -64,14 +78,17 @@ from medalist m
     Department of the Treasury = 10 million
     All else increase by 20%
 */
+-- SM -50% This should be an insert for current year based on last year in table.
 update b 
 set b.Millions = 
 --select NewBudget = 
 case 
+-- SM This would make it 90% You should "increase" by 90%
 when b.Department = 'Department of Education' and b.BudgetYear = 2021 then b.Millions * .9
 when b.Department = 'Department of Health and Human Services' and b.BudgetYear = 2021 then b.Millions * 3
 when b.Department = 'Environmental Protection Agency' and b.BudgetYear = 2021 then b.Millions * .5
 when b.Department = 'Department of the Treasury' and b.BudgetYear = 2021 then 10
+-- SM Increase by 20%.
 else b.Millions * 2  
 end
 from budget b 
