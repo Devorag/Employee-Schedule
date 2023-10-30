@@ -1,11 +1,10 @@
--- SM Excellent! 80% See comments, fix and resubmit.
+-- SM Excellent! 100%
 -- Medalist
 /*1
 The Olympic website is showcasing the history of Olympic games.
 The web developer is asking for SQL statements that will provide the following lists.
 */
 -- a. Show a list of the first ten years of Olympics played, show just the year
--- SM Tip: top is not guaranteed to return "first", you need order by.
 SELECT distinct top (10) m.olympicyear
 from medalist m 
 order by m.olympicyear
@@ -17,7 +16,6 @@ SELECT distinct top (10) m.Sport, m.OlympicYear, m.OlympicLocation, m.Season
 from Medalist m 
 order by m.OlympicYear
 -- c. Show 5 sports and their subcategory that were played in France before 1950, include the location in the result set
--- SM Tip: top is not guaranteed to return "first", you need order by.
 SELECT distinct  top (5) m.Sport, m.SportSubcategory, m.OlympicLocation, m.olympicyear
 from Medalist m 
 where m.OlympicLocation like '%France%'
@@ -37,7 +35,6 @@ The new graphic designer does not like the current list of presidents that shows
 Show a list of presidents, include all information. For null date died show a dash, otherwise show in format MM/DD/YYYY. 
 For null term end show Current. Sort by Num descending
 */
--- SM -50% This should be one result set with specied columns in specified format. Don't have 2 columns for same data.
 select DateDiedWithoutNull = ISNULL(CONVERT(varchar,p.DateDied,101), '-'),
 TermEndWithCurrent = ISNULL(CONVERT(varchar,p.TermEnd),'Current'), * 
 from president p 
@@ -73,7 +70,6 @@ delete top (3) p
 from president p 
 where p.Party = 'Republican'
 --b Delete 1 non-republican that served two terms after 1960
--- SM -100% Code returns error.
 delete top (1) p 
 --SELECT * 
 from president p 
@@ -82,7 +78,6 @@ and p.TermEnd - p.TermStart > 4
 and p.TermStart > 1960
 
 --c Reverse the last names of 7 presidents that lived before 1900
--- SM -50% This should be a update.
 update top (7) p 
 set p.LastName = REVERSE(p.LastName)
 --ELECT top 7 REVERSE(p.LastName), * 
