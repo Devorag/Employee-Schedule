@@ -6,7 +6,7 @@ Your goal is to create, manipulate, and display student records using JavaScript
     name (string): Name of the student.
     age (number): Age of the student.
     grade (string): Grade or class of the student.
-    subjects (array): An array of the student's favorite subjects.
+    subjects (array): An array of the subjects a student is enrolled in. Technical note: To make a property an array use [] for the propery value. subjects:[]
     name, age, grade can be specified when student is created.
 2) A student may enroll in one or more majors, each major has a set of subjects.
     A student enrolls in a major not a single subject.
