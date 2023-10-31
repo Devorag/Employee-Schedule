@@ -30,11 +30,11 @@ order by m.medal
 */
 -- SM -50% Excellent case. But there's one issue, all return green, there's something wrong with locations.
 select Color = 
-case 
-when m.olympiclocation = 'France' and m.sport in('Athletics', 'Figure Skating') then 'red'
-when m.olympiclocation = 'Italy' and m.sport in('Athletics', 'Canoeing') then 'orange'
-when m.olympiclocation = 'Japan' and m.Season = 'winter' and m.sport = 'Cross-Country Skiing' then 'yellow'
-when m.olympiclocation = 'Greece' and m.Season = 'summer' and m.sport = 'cycling' then 'blue'
+    case 
+        when m.olympiclocation like '%France%' and m.sport in('Athletics', 'Figure Skating') then 'red'
+        when m.olympiclocation like '%Italy%' and m.sport in('Athletics', 'Canoeing') then 'orange'
+        when m.olympiclocation like '%Japan%' and m.Season = 'winter' and m.sport = 'Cross-Country Skiing' then 'yellow'
+        when m.olympiclocation like '%Greece%' and m.Season = 'summer' and m.sport = 'cycling' then 'blue'
 else 'green'
 end,* 
 from medalist m 
@@ -62,7 +62,7 @@ UPDATE m
 set medal = 
 --select medal = 
 case
-when m.country = 'USA' and m.olympicyear - m.yearborn < 25 then 'gold'
+when m.country = 'United States' and m.olympicyear - m.yearborn < 25 then 'gold'
 when m.country = 'Italy' and m.olympicyear - m.yearborn > 30 then 'silver'
 when m.country = 'France' and m.olympicyear - m.yearborn > 35 and m.season = 'summer' then 'bronze'
 when m.country = 'Denmark' and m.lastname like '%s%' then 'gold'
@@ -78,19 +78,25 @@ from medalist m
     Department of the Treasury = 10 million
     All else increase by 20%
 */
--- SM -50% This should be an insert for current year based on last year in table.
-update b 
-set b.Millions = 
---select NewBudget = 
-case 
+-- SM -50% This should be an insert for current year based on last year in table
 -- SM This would make it 90% You should "increase" by 90%
-when b.Department = 'Department of Education' and b.BudgetYear = 2021 then b.Millions * .9
-when b.Department = 'Department of Health and Human Services' and b.BudgetYear = 2021 then b.Millions * 3
-when b.Department = 'Environmental Protection Agency' and b.BudgetYear = 2021 then b.Millions * .5
-when b.Department = 'Department of the Treasury' and b.BudgetYear = 2021 then 10
+
+insert budget(department, BudgetYear, millions)
+select b.department,2023, millions = 
+    case
+        when b.Department = 'Department of Education' then b.Millions * 1.9
+        when b.Department = 'Department of Health and Human Services' then b.Millions * 3
+        when b.Department = 'Environmental Protection Agency' then b.Millions * .5
+        when b.Department = 'Department of the Treasury' then 10
 -- SM Increase by 20%.
-else b.Millions * 2  
-end
-from budget b 
+        else b.Millions * 1.2  
+    end
+from budget b
+where b.budgetyear = 2021
+
+select * from budget b 
+where b.BudgetYear = 2021
+
+
 
 
