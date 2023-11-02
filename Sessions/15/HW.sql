@@ -1,3 +1,4 @@
+-- SM Excellent! 90% See comments, fix and resubmit.
 /*
     You buy toys wholesale from China and sell to local toy stores. 
     You are trying to organize your inventory, and create a system to track how much you are spending and earning.
@@ -24,10 +25,12 @@ create table dbo.toy(
       ToyID int not null IDENTITY primary key, 
       ToyName varchar(50),
       ItemNumber varchar(5),
+-- SM Should be 6,2 as the maximum is 9999.99
       PurchasePricePerunit decimal(8,2),
       DatePurchased date,
       QuantityPurchased INT,
       Sold bit,
+-- SM Should be 6,2 as the maximum is 9999.99
       PricePerUnitSold decimal(8,2),
       DateSold date
 )
@@ -64,10 +67,13 @@ from toy t
 where t.sold = 1
 order by t.QuantityPurchased
 -- 5. Show the top 4 toys that were sold for at least five dollars more per unit than they were purchased for. Display the profit as well
+-- SM -10% Should be sorted by most profit.
 select top (4) profit = t.PricePerUnitSold - t.PurchasePricePerunit ,*
 from toy t 
 where t.PricePerUnitSold - t.PurchasePricePerunit >= 5 
 -- 6. Show a new column called SoldOrNot. For any toys that have not sold at all, display the words unsold, otherwise display the price the toy sold for.
+-- SM -50% Display the price it was sold for.
+-- Tip: Instead of using case, you can use isnull()
 SELECT SoldOrNot = 
       case sold 
             WHEN 0 THEN 'unsold'
@@ -95,6 +101,7 @@ order by DaysInWarehouse
         2.  There was never any Silly Putty bought or sold by your company.
      Correct the data using two SQL statements.
 */
+-- SM This doesn't update anything. Review the data.
 update t 
 set toyname = 'baseballs'
 --select * 
