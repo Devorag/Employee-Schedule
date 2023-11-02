@@ -2,3 +2,4 @@
     Modify the create table script to include column name.
     Afterwards, run queries and see that the primary key auto-populated
 */
+

@@ -10,6 +10,7 @@ go
    Then add two more columns; one for the checking account balance and the other for the savings account balance.
 */
 create table dbo.bankaccount(
+      BankAccountId int not null primary key,
       NameofBank varchar (100),
       BankAccountNumber varchar (5),
       FirstName varchar(25),
@@ -78,7 +79,7 @@ select 'CitiBank', b.BankAccountNumber, upper(b.firstname), LOWER(b.LastName), b
 from bankaccount b 
 where b.NameofBank = 'PNC'
 
-delete * 
+delete b 
 from bankaccount b 
 where b.NameofBank = 'PNC'
 /* 11. A few banks are changing their names to a more official version. Modify the following: Chase should be J.P. Morgan Chase,
