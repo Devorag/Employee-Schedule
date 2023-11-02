@@ -2,9 +2,15 @@
 https://jsonplaceholder.typicode.com
 https://jsonplaceholder.typicode.com/posts
 https://jsonplaceholder.typicode.com/posts/5
-//api layer
-https://api.apilayer.com/
 
+
+
+//for browser 
+https://apilayer.com/
+http://weatherstack.com
+
+//for Postman you need the api. prefix (the URLs below will not work in a browser)
+https://api.apilayer.com/
 //api layer currency
 https://api.apilayer.com/currency_data/change?start_date=2010-01-01&end_date=2011-01-01
 
