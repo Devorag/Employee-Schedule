@@ -26,12 +26,12 @@ create table dbo.toy(
       ToyName varchar(50),
       ItemNumber varchar(5),
 -- SM Should be 6,2 as the maximum is 9999.99
-      PurchasePricePerunit decimal(8,2),
+      PurchasePricePerunit decimal(6,2),
       DatePurchased date,
       QuantityPurchased INT,
       Sold bit,
 -- SM Should be 6,2 as the maximum is 9999.99
-      PricePerUnitSold decimal(8,2),
+      PricePerUnitSold decimal(6,2),
       DateSold date
 )
 go 
@@ -71,16 +71,17 @@ order by t.QuantityPurchased
 select top (4) profit = t.PricePerUnitSold - t.PurchasePricePerunit ,*
 from toy t 
 where t.PricePerUnitSold - t.PurchasePricePerunit >= 5 
+order by profit desc
 -- 6. Show a new column called SoldOrNot. For any toys that have not sold at all, display the words unsold, otherwise display the price the toy sold for.
 -- SM -50% Display the price it was sold for.
 -- Tip: Instead of using case, you can use isnull()
 SELECT SoldOrNot = 
       case sold 
             WHEN 0 THEN 'unsold'
-            else CONVERT(varchar,t.sold)
+            else convert(varchar,t.PricePerUnitSold)
       END
+,*
 from toy t 
-
 /* 7. Show how many days each toy sat in the warehouse until it was sold, ordered by fastest selling to slowest selling.
       If it is still in stock show how long it has been gathering dust for.
       Use two SQL statements. 
@@ -103,10 +104,10 @@ order by DaysInWarehouse
 */
 -- SM This doesn't update anything. Review the data.
 update t 
-set toyname = 'baseballs'
+set toyname = 'baseball'
 --select * 
 from toy t 
-where ToyName = 'basketballs'
+where ToyName = 'basketball'
 
 
 delete t 
