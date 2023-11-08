@@ -1,3 +1,4 @@
+-- SM Session 17 see comments, fix and resubmit.
 -- SM Excellent! See comments, fix and resubmit.
 
 /*President
@@ -43,6 +44,7 @@ go
 go
 alter table president drop column if exists AgeAtDeath
 go
+-- SM Tip: Use datediff()
 alter table president add AgeAtDeath as year(DateDied) - year(DateBorn) PERSISTED 
 go
 alter table president drop column if exists TermsServed 
@@ -51,6 +53,8 @@ alter table president add TermsServed as termend - termstart PERSISTED
 go
 alter table president drop column if EXISTS NumberOfFullTermsServed
 go
+-- SM -50% This returns 1 when served more than 8 years.
+-- It's a basic calculation. Every term is 4 years. Just keep in mind that / is being calculated before - so you'll need ().
 alter table president add NumberOfFullTermsServed as 
       case 
             when TermEnd - TermStart = 8 then 2
