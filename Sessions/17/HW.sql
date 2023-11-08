@@ -36,27 +36,22 @@ alter table medalist add AddressMedalist varchar(1000) not null CONSTRAINT d_med
 -- 5. Add a column called AgeAtDeath for each president
 alter table president drop column if exists AgeAtDeath
 go
-alter table president add AgeAtDeath as year(DateDied) - year(DateBorn) PERSISTED 
+alter table president add AgeAtDeath as  DATEDIFF (year, DateBorn, DateDied) PERSISTED 
 go
 --SELECT AgeAtDeath = year(p.DateDied) - year(p.DateBorn), p.DateDied, p.DateBorn
 --from president p 
 -- 6. Add a column called YearsServed for each president
-alter table president drop column if exists TermsServed 
+alter table president drop column if exists YearsServed 
 go
-alter table president add TermsServed as termend - termstart PERSISTED 
+alter table president add YearsServed as termend - termstart PERSISTED 
 go
 --select YearsServed = TermEnd - TermStart, p.TermEnd, p.TermStart 
 --from president p 
 -- 7. Add a new column that displays the number of full terms served, zero is correct if served less than 4 years
 alter table president drop column if EXISTS NumberOfFullTermsServed
 go
-alter table president add NumberOfFullTermsServed as 
-      case 
-            when TermEnd - TermStart = 8 then 2
-            when TermEnd - TermStart >= 4 then 1
-            when TermEnd - TermStart < 4 then 0 
-      end
-PERSISTED
+alter table president add NumberOfFullTermsServed as (termend - termstart) / 4 PERSISTED
+go
 --select p.termstart, p.termend, NumberOfFullTermsServed = 
       --case 
         --    when TermEnd - TermStart = 8 then 2
