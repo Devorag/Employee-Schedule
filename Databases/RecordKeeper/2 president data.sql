@@ -17,7 +17,7 @@ union select 7, 'Andrew', 'Jackson', 'Democrat', '1767-03-15', '1845-06-08', 182
 union select 8, 'Martin', 'van Buren', 'Democrat', '1782-12-05', '1862-07-24', 1837, 1841
 union select 9, 'William H.', 'Harrison', 'Whig', '1773-02-09', '1841-04-04', 1841, 1841
 union select 10, 'John', 'Tyler', 'Whig', '1790-03-29', '1862-01-18', 1841, 1845
-union select 11, 'James K.', 'Polk', 'Democrat', '1795-11-02', '1841-06-15', 1845, 1849
+union select 11, 'James K.', 'Polk', 'Democrat', '1795-11-02', '1851-06-15', 1845, 1849
 union select 12, 'Zachary', 'Taylor', 'Whig', '1784-11-24', '1850-07-09', 1849, 1850
 union select 13, 'Millard', 'Fillmore', 'Whig', '1800-01-07', '1874-03-08', 1850, 1853
 union select 14, 'Franklin', 'Pierce', 'Democrat', '1804-11-23', '1869-10-08', 1853, 1857

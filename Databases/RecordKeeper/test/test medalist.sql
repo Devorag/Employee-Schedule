@@ -36,9 +36,6 @@ select 1893,'summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Gold', 'Ro
 -- Columns should not allow blank data, zeros or negative numbers to be inserted. 
 
 insert Medalist (OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)
-select 0, 'Summer', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Gold', 'Robert', 'Garrett', 'United States', 1880
-
-insert Medalist (OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)
 select 1893, '', 'Athens, Greece', 'Athletics', 'Discus Throw', 'Gold', 'Robert', 'Garrett', 'United States', 1880
 
 insert Medalist (OlympicYear, Season, OlympicLocation, Sport, SportSubcategory, Medal, FirstName, LastName, Country, YearBorn)

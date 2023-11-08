@@ -22,3 +22,12 @@ create table dbo.WorldRecord(
 
 	)
 go
+alter table worldrecord drop column if EXISTS WorldRecordCode
+
+alter table worldrecord add WorldRecordCode as concat(substring(replace(RecordName, ' ', ''),1,20), YearAchieved) PERSISTED
+    constraint u_worldrecord_worldrecordcode UNIQUE
+go	
+
+ALTER table worldrecord drop column if exists OFficialDesc
+
+alter table worldrecord add OfficialDesc as CONCAT(Category, '; ', RecordName, '-', Amount, ' ', UnitOfMeasure, '. ', 'Achieved By ', FullName, ' ', YearAchieved, ')') PERSISTED 
