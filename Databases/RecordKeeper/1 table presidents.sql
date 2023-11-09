@@ -1,4 +1,4 @@
--- SM Session 17 see comments, fix and resubmit.
+-- SM Session 17 100%
 -- SM Excellent! See comments, fix and resubmit.
 
 /*President
@@ -53,8 +53,6 @@ alter table president add YearsServed as termend - termstart PERSISTED
 go
 alter table president drop column if EXISTS NumberOfFullTermsServed
 go
--- SM -50% This returns 1 when served more than 8 years.
--- It's a basic calculation. Every term is 4 years. Just keep in mind that / is being calculated before - so you'll need ().
 alter table president add NumberOfFullTermsServed as (termend - termstart) / 4 PERSISTED
 go
 
