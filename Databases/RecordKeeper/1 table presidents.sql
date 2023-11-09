@@ -33,7 +33,7 @@ go
 		CONSTRAINT ck_president_party_cannot_be_blank check(party <> ''),
 -- SM Don't allow future date.
 		DateBorn date not null,
-		DateDied DATETIME2,
+		DateDied DATETIME2 constraint ck_president_date_died_cannot_be_future_date check(GETDATE() >= DateDied),
 		TermStart int not null constraint ck_president_term_Start_cannot_Be_Before_1776 check(TermStart >= 1776),
 		TermEnd int,
 -- SM Also ensure the president is alive durring his full term. You might need to update data file.

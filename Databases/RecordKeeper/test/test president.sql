@@ -15,3 +15,7 @@ insert president(Num, FirstName, LastName, Party, dateBorn, DateDied, TermStart,
 select age = p.TermStart- year(p.dateborn), *
 from president p 
 order by age desc
+
+-- SM Don't allow future date.
+insert president(Num, FirstName, LastName, Party, dateBorn, DateDied, TermStart, TermEnd)
+ select top (1) 5, 'James', 'Monroe', 'Democratic-Republican', '1877-04-28', '2024-07-04', 1788, 1789
