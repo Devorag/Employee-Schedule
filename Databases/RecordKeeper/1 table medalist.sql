@@ -1,5 +1,4 @@
--- SM Session 17 100%
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! 100%
 
  --The year born must be before olympic year.
      -- The first olympic games happened in 1896. No data is allowed to be inserted before that.
@@ -14,9 +13,7 @@ drop table if exists Medalist
 go
 create table dbo.Medalist(
 	MedalistId int not null identity primary key,
--- SM Why did you comment out the constraint that you need. Remove the > 0 constraint.
 	OlympicYear int not null constraint ck_medalist_olympic_year_cannot_be_before_1896 check (OlympicYear >= 1896),
--- SM remove the comma between column and constraint.
 	Season varchar (50) not null
 	constraint ck_medalist_season_cannot_be_blank check(season <> ''),
 	OlympicLocation varchar (100) not null
@@ -34,8 +31,6 @@ create table dbo.Medalist(
 	Country varchar (50) not null
 	constraint ck_medalist_country_cannot_be_blank check(country <> ''),
 	YearBorn int not null constraint ck_medalist_year_born_must_be_greater_than_zero check(YearBorn > 0),
--- SM No need for this constraint, it's enforced by check(OlympicYear -yearborn >= 14)
--- SM This should be a constrint on the column.
 	CONSTRAINT ck_medalist_must_be_at_least_14_years_old check(OlympicYear -yearborn >= 14),
 	CONSTRAINT u_medalist_olympic_year_and_season_and_medal_sport_and_sport_sub_category UNIQUE(OlympicYear,season,medal,sport,SportSubcategory)
 
