@@ -1,3 +1,5 @@
+-- SM Excellent! See comment.
+
 /*
 Use the president table for sample data:
 
@@ -27,6 +29,7 @@ use rehabDB
 go
 insert patients(PatientFirstName, PatientLastName, gender, DateOfBirth, SSN, floorNumber, RoomNumber, DateAdmitted, ConditionAdmitted, ConditionDischarged, datedischarged)
 select p.firstname, p.lastname, 'M', p.dateborn, 
+-- SM You will need to update this after updating table. (at least if you uncomment current president from president data file).
 concat(p.termstart, p.NumberOfFullTermsServed, year(p.DateBorn)),
     case 
         when p.TermStart - year(p.DateBorn) < 50 then 2 
