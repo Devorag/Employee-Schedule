@@ -1,5 +1,4 @@
--- SM Session 17 100%
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! 100% See comments, no need to resubmit.
 
 /*President
     The U.S Government used the data in the presidents table to provide the captions for new monuments engraved into the side of a mountain in NY.
@@ -19,16 +18,13 @@ drop table if exists president
 go
 		create table dbo.president(
 		PresidentId int not null identity (1000,1) primary key,
--- SM Should be > 0.
 		Num int not null CONSTRAINT u_president_Num unique
 		constraint ck_president_num_must_be_greater_than_zero check(num > 0), 
--- SM Don't allow blank.
 		FirstName varchar(100) not null
 		constraint ck_president_first_name_cannot_be_blank CHECK(FirstName <> ''), 
--- SM Don't allow blank.
 		LastName varchar(100) not null
 		CONSTRAINT ck_president_last_name_cannot_be_blank check(LastName <> ''), 
--- SM Don't allow blank.
+-- SM Remove the comma.
         Party varchar(50) not null,
 		CONSTRAINT ck_president_party_cannot_be_blank check(party <> ''),
 -- SM Don't allow future date.
@@ -36,7 +32,7 @@ go
 		DateDied DATETIME2 constraint ck_president_date_died_cannot_be_future_date check(GETDATE() >= DateDied),
 		TermStart int not null constraint ck_president_term_Start_cannot_Be_Before_1776 check(TermStart >= 1776),
 		TermEnd int,
--- SM Also ensure the president is alive durring his full term. You might need to update data file.
+-- SM One minor thing, you still allow TermEnd to be null even if DateDied is not null.
 		CONSTRAINT ck_president_term_end_Cannot_be_before_term_start CHECK(TermEnd >= TermStart),
 		constraint ck_president_must_be_at_least_35_years_old check(TermStart - year(dateborn) >= 35),
 		CONSTRAINT ck_president_president_must_be_alive_during_full_term CHECK(year(DateDied) >= TermEnd),
@@ -44,7 +40,6 @@ go
 go
 alter table president drop column if exists AgeAtDeath
 go
--- SM Tip: Use datediff()
 alter table president add AgeAtDeath as  DATEDIFF (year, DateBorn, DateDied) PERSISTED 
 go
 alter table president drop column if exists YearsServed 
