@@ -8,19 +8,19 @@ create table dbo.patients(
 -- SM Split first and middle names.
     PatientFirstName varchar(30) not null  
         CONSTRAINT ck_patient_first_name_cannot_be_blank CHECK(PatientFirstName <> ''),
+    PatientMiddleName varchar(30) not null DEFAULT '',
     PatientLastName varchar(30) not null
         constraint ck_patient_last_name_cannot_be_blank CHECK(PatientLastName <> ''),
     DateOfBirth DATE not null,
         CONSTRAINT ck_patient_date_of_birth_cannot_be_future_Date CHECK(DateOfBirth < getdate()),
 -- SM Tip: Use char(1) instead of varchar(1).
-    Gender varchar(1) not null
+    Gender char(1) not null
         constraint ck_patient_gender_must_be_either_M_or_F CHECK(Gender in ('M', 'F')),
 -- SM These constraints is not enough. This still allows to insert a non numeric value if it has at least one number.
 -- And this should also require 9 digits.
-    SSN varchar(9) not null, 
+    SSN char(9) not null, 
 -- SM No need for this constraint.
-        CONSTRAINT ck_patients_SSN_cannot_be_blank CHECK(SSN <> ''),
-        constraint ck_patients_SSM_can_allow_numeric_values check(SSN like '%[0-9]%'),
+        constraint ck_patients_SSN_can_only_allow_numeric_value_and_must_only_be_9_digits check(SSN like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
     DateAdmitted date not null,
         CONSTRAINT ck_patient_date_admitted_cannot_be_future_Date CHECK(dateadmitted < getdate()),
     DateDischarged date null, 
@@ -33,13 +33,14 @@ create table dbo.patients(
         CONSTRAINT ck_patients_condition_admitted_must_be_greater_than_zero CHECK(ConditionAdmitted in (2,3)),
 -- SM Must be between 1 and 4.
     ConditionDischarged int null,
+        CONSTRAINT ck_patients_condition_discharged_must_Be_Between_1_and_4 CHECK(conditiondischarged between 1 and 4),
     DateRecordSaved datetime not null DEFAULT GETDATE(),  
 -- SM Admit can only be 2 or 3.
--- Tip: Instead of using case when column =... Use case column when...
-    ConditionAdmittedDesc as case when ConditionAdmitted = 1 then 'Good Health' when ConditionAdmitted = 2 then 'Minor Loss of Functionality' when ConditionAdmitted = 3 then 'Major Loss of Functionality' when ConditionAdmitted = 4 then 'Deceased' end persisted,
-    ConditionDischargedDesc as case when ConditionDischarged = 1 then 'Good Health' when ConditionDischarged = 2 then 'Minor Loss of Functionality' when ConditionDischarged = 3 then 'Major Loss of Functionality' when ConditionDischarged = 4 then 'Deceased' end persisted,
+-- Tip: Instead of using case when column =... Usecase column when...
+    ConditionAdmittedDesc as case ConditionAdmitted when 2 then 'Minor Loss of Functionality' when 3 then 'Major Loss of Functionality' end persisted,
+    ConditionDischargedDesc as case ConditionDischarged when 1 then 'Good Health' when 2 then 'Minor Loss of Functionality' when 3 then 'Major Loss of Functionality' when 4 then 'Deceased' end persisted,
     constraint ck_patients_date_discharged_must_be_after_dateadmitted CHECK(dateadmitted < datedischarged),
-    constraint ck_patients_date_discharged_and_condition_discharge_must_all_be_null_or_must_all_have_value CHECK((datedischarged is null and conditiondischarged is null) or (datedischarged is not null and conditiondischarged is not null))
+    constraint ck_patients_date_discharged_and_condition_discharge_must_all_be_null_or_must_all_have_value CHECK((datedischarged is null and conditiondischarged is null) or (datedischarged is not null and conditiondischarged is not null)),
 )
 go
 

@@ -27,8 +27,16 @@ go
 
 use rehabDB
 go
-insert patients(PatientFirstName, PatientLastName, gender, DateOfBirth, SSN, floorNumber, RoomNumber, DateAdmitted, ConditionAdmitted, ConditionDischarged, datedischarged)
-select p.firstname, p.lastname, 'M', p.dateborn, 
+insert patients(PatientFirstName, p.PatientMiddleName, PatientLastName, gender, DateOfBirth, SSN, floorNumber, RoomNumber, DateAdmitted, ConditionAdmitted, ConditionDischarged, datedischarged)
+select case 
+            when p.FirstName like '% %' then SUBSTRING(p.firstname, 1, CHARINDEX(' ',p.FirstName) - 1)
+            else p.firstname
+        end, 
+            case
+                when p.FirstName like '% %' then substring(p.firstname,CHARINDEX(' ',p.FirstName) +1,100) 
+                else ''
+            end,
+p.lastname, 'M', p.dateborn, 
 -- SM You will need to update this after updating table. (at least if you uncomment current president from president data file).
 concat(p.termstart, p.NumberOfFullTermsServed, year(p.DateBorn)),
     case 
@@ -54,5 +62,7 @@ DATEADD(year,p.num,p.DateBorn),
                 else null
         end
 from recordkeeperdb..president p
+
+
 
 

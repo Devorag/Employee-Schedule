@@ -5,17 +5,17 @@
 
 -- SM -50% Should be in followign format: last name, first name, date of admit, date of discharge, condition upon admit and discharge.
 -- With the commas seperating them.
-SELECT ConcatList = Concat(p.PatientLastName, ' ', p.DateAdmitted, ' ', p.DateDischarged, ' ', p.ConditionAdmitted, ' ', p.ConditionDischarged), p.ConditionAdmitted, p.ConditionDischarged
+SELECT ConcatList = Concat(p.PatientLastName, ' , ', p.DateAdmitted, ' , ', p.DateDischarged, ' , ', p.ConditionAdmitted, ' , ', p.ConditionDischarged), p.ConditionAdmitted, p.ConditionDischarged
 from patients p
 where p.DateDischarged is not null 
 order by ConditionAdmitted - ConditionDischarged desc, p.ConditionDischarged
 --2) For facility admin: show list of patients whose condition deteriorated under our care, include condition descriptions
-select ChangeOfCondition = ConditionAdmitted - ConditionDischarged, ConditionAdmittedDesc, ConditionDischargedDesc, *
+select ChangeOfCondition = p.ConditionAdmitted - p.ConditionDischarged, p.ConditionAdmittedDesc, p.ConditionDischargedDesc, *
 from patients p  
-where ConditionAdmitted - ConditionDischarged < 0 --ConditionDischarged > ConditionAdmitted
+where p.ConditionAdmitted - p.ConditionDischarged < 0 --ConditionDischarged > ConditionAdmitted
 --3) Show me the average days patients stayed at our facility, per condition at admit. For patients that are not discharged yet calculate average days from the current date.
 -- SM -10% This returns wrong data because getdate() is never null. See docs on isnull()
-SELECT AvgDaysPatientStay = avg(DATEDIFF(day,p.DateAdmitted,ISNULL(GETDATE(),p.dateDischarged))), p.ConditionAdmitted
+SELECT AvgDaysPatientStay = avg(DATEDIFF(year, p.dateadmitted, isnull(p.DateDischarged, getdate()))), p.ConditionAdmitted
 from patients p 
 group by ConditionAdmitted
 
