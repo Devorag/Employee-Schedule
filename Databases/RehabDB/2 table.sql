@@ -1,11 +1,11 @@
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! See comment, no need to resubmit.
 use rehabDB
 go
 drop table if exists dbo.patients
 go 
+-- SM Table name should be singular.
 create table dbo.patients(
     PatientId int not null identity primary key,
--- SM Split first and middle names.
     PatientFirstName varchar(30) not null  
         CONSTRAINT ck_patient_first_name_cannot_be_blank CHECK(PatientFirstName <> ''),
     PatientMiddleName varchar(30) not null DEFAULT '',
@@ -13,13 +13,9 @@ create table dbo.patients(
         constraint ck_patient_last_name_cannot_be_blank CHECK(PatientLastName <> ''),
     DateOfBirth DATE not null,
         CONSTRAINT ck_patient_date_of_birth_cannot_be_future_Date CHECK(DateOfBirth < getdate()),
--- SM Tip: Use char(1) instead of varchar(1).
     Gender char(1) not null
         constraint ck_patient_gender_must_be_either_M_or_F CHECK(Gender in ('M', 'F')),
--- SM These constraints is not enough. This still allows to insert a non numeric value if it has at least one number.
--- And this should also require 9 digits.
     SSN char(9) not null, 
--- SM No need for this constraint.
         constraint ck_patients_SSN_can_only_allow_numeric_value_and_must_only_be_9_digits check(SSN like '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
     DateAdmitted date not null,
         CONSTRAINT ck_patient_date_admitted_cannot_be_future_Date CHECK(dateadmitted < getdate()),
@@ -31,12 +27,9 @@ create table dbo.patients(
         CONSTRAINT ck_patients_room_number_must_be_greater_than_zero CHECK(RoomNumber > 0),
     ConditionAdmitted int not null,
         CONSTRAINT ck_patients_condition_admitted_must_be_greater_than_zero CHECK(ConditionAdmitted in (2,3)),
--- SM Must be between 1 and 4.
     ConditionDischarged int null,
         CONSTRAINT ck_patients_condition_discharged_must_Be_Between_1_and_4 CHECK(conditiondischarged between 1 and 4),
     DateRecordSaved datetime not null DEFAULT GETDATE(),  
--- SM Admit can only be 2 or 3.
--- Tip: Instead of using case when column =... Usecase column when...
     ConditionAdmittedDesc as case ConditionAdmitted when 2 then 'Minor Loss of Functionality' when 3 then 'Major Loss of Functionality' end persisted,
     ConditionDischargedDesc as case ConditionDischarged when 1 then 'Good Health' when 2 then 'Minor Loss of Functionality' when 3 then 'Major Loss of Functionality' when 4 then 'Deceased' end persisted,
     constraint ck_patients_date_discharged_must_be_after_dateadmitted CHECK(dateadmitted < datedischarged),

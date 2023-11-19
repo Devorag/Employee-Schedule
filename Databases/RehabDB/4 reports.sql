@@ -1,10 +1,8 @@
--- SM Excellent work! See comments, fix and resubmit.
+-- SM Excellent work! See comment, no need to resubmit.
 --Reports: 
 --1) For government audit: list of all patients discharged, presented as: last name, first name, date of admit, date of discharge, condition upon admit and discharge.
 	--We want to show our success stories on top, order by condition at discharge
 
--- SM -50% Should be in followign format: last name, first name, date of admit, date of discharge, condition upon admit and discharge.
--- With the commas seperating them.
 SELECT ConcatList = Concat(p.PatientLastName, ' , ', p.DateAdmitted, ' , ', p.DateDischarged, ' , ', p.ConditionAdmitted, ' , ', p.ConditionDischarged), p.ConditionAdmitted, p.ConditionDischarged
 from patients p
 where p.DateDischarged is not null 
@@ -14,7 +12,7 @@ select ChangeOfCondition = p.ConditionAdmitted - p.ConditionDischarged, p.Condit
 from patients p  
 where p.ConditionAdmitted - p.ConditionDischarged < 0 --ConditionDischarged > ConditionAdmitted
 --3) Show me the average days patients stayed at our facility, per condition at admit. For patients that are not discharged yet calculate average days from the current date.
--- SM -10% This returns wrong data because getdate() is never null. See docs on isnull()
+-- SM Should be datediff(day)
 SELECT AvgDaysPatientStay = avg(DATEDIFF(year, p.dateadmitted, isnull(p.DateDischarged, getdate()))), p.ConditionAdmitted
 from patients p 
 group by ConditionAdmitted

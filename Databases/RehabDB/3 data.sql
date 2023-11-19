@@ -38,6 +38,7 @@ select case
             end,
 p.lastname, 'M', p.dateborn, 
 -- SM You will need to update this after updating table. (at least if you uncomment current president from president data file).
+-- Uncomment the current president from president data file and you'll see this line crashes.
 concat(p.termstart, p.NumberOfFullTermsServed, year(p.DateBorn)),
     case 
         when p.TermStart - year(p.DateBorn) < 50 then 2 
