@@ -1,9 +1,8 @@
--- SM Excellent! See comment, no need to resubmit.
+-- SM Excellent! 100%
 use rehabDB
 go
 drop table if exists dbo.patient
 go 
--- SM Table name should be singular.
 create table dbo.patient(
     PatientId int not null identity primary key,
     PatientFirstName varchar(30) not null  

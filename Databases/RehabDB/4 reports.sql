@@ -1,4 +1,4 @@
--- SM Excellent work! See comment, no need to resubmit.
+-- SM Excellent work! 100%
 --Reports: 
 --1) For government audit: list of all patients discharged, presented as: last name, first name, date of admit, date of discharge, condition upon admit and discharge.
 	--We want to show our success stories on top, order by condition at discharge
@@ -12,7 +12,6 @@ select ChangeOfCondition = p.ConditionAdmitted - p.ConditionDischarged, p.Condit
 from patient p  
 where p.ConditionAdmitted - p.ConditionDischarged < 0 --ConditionDischarged > ConditionAdmitted
 --3) Show me the average days patients stayed at our facility, per condition at admit. For patients that are not discharged yet calculate average days from the current date.
--- SM Should be datediff(day)
 SELECT AvgDaysPatientStay = avg(DATEDIFF(day, p.dateadmitted, isnull(p.DateDischarged, getdate()))), p.ConditionAdmitted
 from patient p 
 group by ConditionAdmitted
