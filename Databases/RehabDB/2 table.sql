@@ -1,10 +1,10 @@
 -- SM Excellent! See comment, no need to resubmit.
 use rehabDB
 go
-drop table if exists dbo.patients
+drop table if exists dbo.patient
 go 
 -- SM Table name should be singular.
-create table dbo.patients(
+create table dbo.patient(
     PatientId int not null identity primary key,
     PatientFirstName varchar(30) not null  
         CONSTRAINT ck_patient_first_name_cannot_be_blank CHECK(PatientFirstName <> ''),

@@ -22,12 +22,12 @@ Condition Discharged: 1 for presidents from parties other than Democrat or Repub
 DateDischarged: For those discharged, date discharged should be January 7th of 10 years after term start. 
 */
 
-DELETE patients 
+DELETE patient
 go 
 
 use rehabDB
 go
-insert patients(PatientFirstName, p.PatientMiddleName, PatientLastName, gender, DateOfBirth, SSN, floorNumber, RoomNumber, DateAdmitted, ConditionAdmitted, ConditionDischarged, datedischarged)
+insert patient(PatientFirstName, p.PatientMiddleName, PatientLastName, gender, DateOfBirth, SSN, floorNumber, RoomNumber, DateAdmitted, ConditionAdmitted, ConditionDischarged, datedischarged)
 select case 
             when p.FirstName like '% %' then SUBSTRING(p.firstname, 1, CHARINDEX(' ',p.FirstName) - 1)
             else p.firstname
@@ -39,7 +39,10 @@ select case
 p.lastname, 'M', p.dateborn, 
 -- SM You will need to update this after updating table. (at least if you uncomment current president from president data file).
 -- Uncomment the current president from president data file and you'll see this line crashes.
-concat(p.termstart, p.NumberOfFullTermsServed, year(p.DateBorn)),
+        case 
+            when p.numberoffulltermsserved is not null then concat(p.termstart, p.NumberOfFullTermsServed, year(p.DateBorn))
+            when p.numberoffulltermsserved is null then CONCAT(p.termstart,0,year(p.dateborn))
+        end,
     case 
         when p.TermStart - year(p.DateBorn) < 50 then 2 
         when p.TermStart - year(p.DateBorn) between 50 and 65 then 3 

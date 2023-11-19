@@ -52,6 +52,6 @@ union select 42, 'William Jefferson', 'Clinton', 'Democrat', '1946-08-19', null,
 union select 43, 'George W.', 'Bush', 'Republican', '1946-07-06', null, 2001, 2009
 union select 44, 'Barack', 'Obama', 'Democrat', '1961-08-04', null, 2009, 2017
 union select 45, 'Donald', 'Trump', 'Republican', '1942-11-20', null, 2017,2021
---union select 46, 'Joe', 'Biden', 'Democrat', '1946-06-14', null, 2021, null
+union select 46, 'Joe', 'Biden', 'Democrat', '1946-06-14', null, 2021, null
 
 
