@@ -1,4 +1,4 @@
--- SM Excellent! See comment.
+-- SM Excellent! See comment, no need to resubmit.
 
 /*
 Use the president table for sample data:
@@ -37,8 +37,7 @@ select case
                 else ''
             end,
 p.lastname, 'M', p.dateborn, 
--- SM You will need to update this after updating table. (at least if you uncomment current president from president data file).
--- Uncomment the current president from president data file and you'll see this line crashes.
+-- SM Use isnull()
         case 
             when p.numberoffulltermsserved is not null then concat(p.termstart, p.NumberOfFullTermsServed, year(p.DateBorn))
             when p.numberoffulltermsserved is null then CONCAT(p.termstart,0,year(p.dateborn))
