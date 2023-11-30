@@ -1,0 +1,7 @@
+//1 declare array of strings without initializing it, add 5 items to them
+
+//2 declare a tuple to store user id (number) and user name, give it values
+
+//3 attempt to add more elements to the tuple
+
+//4 make an array of any and put values of misc data types into it
