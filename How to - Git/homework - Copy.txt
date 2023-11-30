@@ -1,0 +1,46 @@
+
+C:\Users\devor>cd source\repos\dgoldenberg
+
+C:\Users\devor\source\repos\dgoldenberg>mkdir recipe-data
+
+C:\Users\devor\source\repos\dgoldenberg>cd recipe-data
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git init
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git config --get init.defaultbranch
+main
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo eggs, sugar, flour > ingredients.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo brownies, waffles > recipes.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo brunch, lunch > meals.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git diff
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git diff --cached
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "recipe files with initial data"
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git push .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo 123345 > recipes.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>dir
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore --worktree --staged .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo 565788 > meals.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore .
+
