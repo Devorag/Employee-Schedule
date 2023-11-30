@@ -1,1 +1,1 @@
-select * from president 
+2 
