@@ -28,23 +28,27 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git diff --cached
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "recipe files with initial data"
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>git push .
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git remote add origin https://github.com/Devorag/recipes-data.git
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo 123345 > recipes.txt
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch - M main
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git push -u origin main 
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo 123345 >> recipes.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>dir
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore --worktree --staged .
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore .
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo 565788 > meals.txt
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo 565788 >> meals.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore .
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore --worktree --staged.
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo !@#$%% > ingredients.txt
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo !@#$%% >> ingredients.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
 
@@ -58,7 +62,7 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git reset 5cc335c --hard
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo eggs, sugar, flour > ingredients.txt
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo eggs, sugar, flour >> ingredients.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
 
@@ -70,7 +74,7 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git reset 5cc335c --soft
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo brownies, waffles, pasta > recipes.txt
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo brownies, waffles, pasta >> recipes.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
 
