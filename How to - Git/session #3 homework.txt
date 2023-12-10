@@ -1,0 +1,83 @@
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch -c diet
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo splenda, whole wheat flour, low cholestrol eggs >ingredients.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "changed to low calorie ingredients
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch main
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch diet
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git remote add origin https://github.com/Devorag/recipes-data.git
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git remote -v
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git push --all -u origin
+
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch main
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo flour, sugar, eggs >ingredients.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>cmd /k
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git stash
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch diet
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo Warning, low calorie diets may be bad for your health. >ingredients.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore ingredients.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo Warning, low calorie diets may be bad for your health. >warning.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "warning in diet branch"
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch main
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git stash pop
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -am "high calorie ing in main"
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git pull
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch -a
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git fetch
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch -a
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch animal-food
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch -vv
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo I x know what cats eat! >cat-food.txt
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "added file in local by animal branch"
+
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git push
+
+
+
+
+

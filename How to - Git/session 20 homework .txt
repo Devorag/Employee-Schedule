@@ -82,4 +82,4 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m 2-change
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
 
-C:\Users\devor\source\repos\dgoldenberg\recipe-data>
+C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
