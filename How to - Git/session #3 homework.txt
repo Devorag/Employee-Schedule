@@ -3,6 +3,7 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch -c diet
 
+--AF The 2 commands below can be removed, they are not really related to the instruction to create a branch called diet
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
@@ -45,6 +46,7 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git stash
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch diet
 
+--AF The 2 commands below should be removed, they are not part of the instructions
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo Warning, low calorie diets may be bad for your health. >ingredients.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git restore ingredients.txt
