@@ -1,3 +1,4 @@
+1. 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch -c diet
@@ -6,10 +7,13 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
 
+
+2.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo splenda, whole wheat flour, low cholestrol eggs >ingredients.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
 
+3.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "changed to low calorie ingredients
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git log --oneline
@@ -22,13 +26,15 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git remote add origin https:
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git remote -v
 
+4.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git push --all -u origin
 
-
+5.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch main
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo flour, sugar, eggs >ingredients.txt
 
+6.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
@@ -51,16 +57,19 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -m "warning in di
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git status
 
+7.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch main
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git stash pop
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git commit -am "high calorie ing in main"
 
+8.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git pull
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch -a
 
+9.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git fetch
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch -a
@@ -69,6 +78,7 @@ C:\Users\devor\source\repos\dgoldenberg\recipe-data>git switch animal-food
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git branch -vv
 
+10.
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>echo I x know what cats eat! >cat-food.txt
 
 C:\Users\devor\source\repos\dgoldenberg\recipe-data>git add .
