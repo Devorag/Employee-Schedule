@@ -1,0 +1,22 @@
+//install TypeScipt nuget package
+dotnet add package Microsoft.TypeScript.MSBuild
+
+//for tsconfig file
+"outDir": "wwwroot/js"
+
+//for the tsconfig file
+,
+  "include": [
+    "ts/**/*"
+]
+
+//for edit project
+<PropertyGroup>
+  <TypeScriptCompileBlocked>false</TypeScriptCompileBlocked>
+</PropertyGroup>
+<ItemGroup>
+  <TypeScriptCompile Include="**/*.ts" />
+</ItemGroup>
+
+//jquery
+npm i --save-dev @types/jquery
