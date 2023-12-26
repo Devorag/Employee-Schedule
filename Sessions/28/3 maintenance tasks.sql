@@ -39,6 +39,6 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 The email should have a unique guid link to follow, which should be shown in the format specified. 
 
 Email Body:
-Order cookbooks from HeartyHearth.com! We have [X] books for sale, average price is [Y]. You can order them all and recieve a 25% discount, for a total of [Z].
+Order cookbooks from HeartyHearth.com! We have [X] books for sale, average price is [Y]. You can order them all and receive a 25% discount, for a total of [Z].
 Click <a href = "www.heartyhearth.com/order/[GUID]">here</a> to order.
 */
