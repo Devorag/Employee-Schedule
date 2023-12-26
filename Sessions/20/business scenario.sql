@@ -8,7 +8,7 @@ keratins at $400
 hair styled for occasions at $65
 wig wash at $50
 and wig styled at $100 
-Please add an additional column that should record their fee due. 
+Please add an additional column that should record their required fee. 
 
 Q: Do you need to record the time of the appointment as well?
 A: Of course, we must have the time!
@@ -25,14 +25,14 @@ A: No need for you to record that, we'll take care of the sales.
 Reports:
 1) A list of all clients who's total charge is less than $125
 2) The average profit earned in the 1990's
-3) The number of patients who's last name has an 'e' or their phone number has a '6' or '7'
+3) The number of patients who's last name has an 'e' or their phone number has a '6' or '7' as per government audits.
 4) The Max amount of hair cuts per month.
 
 
-please use all info from the invention table 
-First Name: Although not all the inventors were females, for the purpose of sample info for this table let's assume they are all girls.
+please use all info from the medalist table 
+First Name: Although not all the inventors were females, for the purpose of sample info for this table let's assume they are all women.
 However, please exlude those that say 'mens ....' by the sports subcategory.
-Status: if age at time of medal is >= 23
+Status: if age at time of medal is >= 23, married.
 Phone Number: concat( '845', '-', yearborn, '-', first 3 integers of the olympic year)
 Date of appointment: should be date recorded and year should be 10 years after year born
 Appointment Desc: Pro-addiction for those who won gold medal
