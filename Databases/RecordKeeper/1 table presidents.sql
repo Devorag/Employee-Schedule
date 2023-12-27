@@ -11,22 +11,30 @@
         Term end cannot be before term start.
         A president must be at least 35 years old.
 */
+--•Republican, 1854, Red •Democrat, 1828, Blue•Federalist, 1791, Orange•Whig, 1833, Yellow •None,Federalist, 1789, White•National Union, 1864, Green•Democratic-Republican, 1792, purple
 
 
 use RecordKeeperDB
 drop table if exists president
+drop table if exists party
 go
+create table dbo.party(
+	PartyId int not null identity primary key,
+	PartyName varchar(50) not null constraint u_party_name unique,
+	YearBegan int not null,
+	Color varchar(30) not null
+)
+go 
+
 		create table dbo.president(
 		PresidentId int not null identity (1000,1) primary key,
+		PartyId int not null constraint f_party_president foreign key REFERENCES party(PartyId),
 		Num int not null CONSTRAINT u_president_Num unique
 		constraint ck_president_num_must_be_greater_than_zero check(num > 0), 
 		FirstName varchar(100) not null
 		constraint ck_president_first_name_cannot_be_blank CHECK(FirstName <> ''), 
 		LastName varchar(100) not null
 		CONSTRAINT ck_president_last_name_cannot_be_blank check(LastName <> ''), 
--- SM Remove the comma.
-        Party varchar(50) not null,
-		CONSTRAINT ck_president_party_cannot_be_blank check(party <> ''),
 -- SM Don't allow future date.
 		DateBorn date not null,
 		DateDied DATETIME2 constraint ck_president_date_died_cannot_be_future_date check(GETDATE() >= DateDied),
