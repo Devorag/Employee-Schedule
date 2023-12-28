@@ -18,6 +18,7 @@ use RecordKeeperDB
 drop table if exists president
 drop table if exists party
 go
+--AF Constraints should be added to these columns to ensure valid data
 create table dbo.party(
 	PartyId int not null identity primary key,
 	PartyName varchar(50) not null constraint u_party_name unique,
