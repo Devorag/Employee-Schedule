@@ -21,9 +21,12 @@ go
 --AF Constraints should be added to these columns to ensure valid data
 create table dbo.party(
 	PartyId int not null identity primary key,
-	PartyName varchar(50) not null constraint u_party_name unique,
-	YearBegan int not null,
-	Color varchar(30) not null
+	PartyName varchar(50) not null constraint u_party_name unique
+	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
+	YearBegan int not null
+	CONSTRAINT ck_party_year_began_cannot_be_blank CHECK(YearBegan <> ''),
+	Color varchar(30) not null CONSTRAINT u_party_color unique 
+	CONSTRAINT ck_party_color_Cannot_be_blank CHECK(Color <> '')
 )
 go 
 

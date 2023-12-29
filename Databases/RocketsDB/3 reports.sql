@@ -37,3 +37,4 @@ from rockets r
 join Journey j 
 on r.RocketsId = j.RocketsId 
 group by j.PlanetName
+
