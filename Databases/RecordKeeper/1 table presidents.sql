@@ -1,4 +1,4 @@
-
+-- SM Session 23. See comments, fix and resubmit.
 use RecordKeeperDB
 drop table if exists orders
 drop table if exists president
@@ -60,13 +60,18 @@ go
 create table dbo.orders(
 	OrderId int not null identity primary key, 
 	PresidentId int not null constraint f_president_orders foreign key references president(presidentId),
+-- SM Should be > 0.
 	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE,
 	VolumeNumber int not null constraint ck_orders_volume_number_must_be_3 check(VolumeNumber = 3),
 	CodeName VARCHAR(10) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
+-- SM Column is a int. Use constraint for int.
 	PageNumber int not null CONSTRAINT ck_orders_page_number_cannot_be_blank CHECK(PageNumber <> ''),
+-- SM Column is a int. Use constraint for int. Should be after US became a country. And before the current year.
 	YearIssued int not null CONSTRAINT ck_orders_year_issued_cannot_be_blank CHECK(YearIssued <> ''),
 	OrderName varchar(200) not null CONSTRAINT ck_orders_order_name_cannot_be_blank CHECK(OrderName <> ''),
+-- SM Don't allow null
 	OrderUpheld bit,
 	DateRecorded DATETIME not null  DEFAULT GETDATE(),
+-- SM Add computed column for official format.
 )
 
