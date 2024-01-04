@@ -1,6 +1,7 @@
 
 use RecordKeeperDB
 go
+delete orders 
 delete president
 delete party
 
@@ -61,12 +62,19 @@ union select pt.PartyId, 38, 'Gerald R.', 'Ford',  '1913-07-14', '2006-12-26', 1
 union select pt.PartyId, 39, 'James Earl', 'Carter', '1924-10-01', null, 1977, 1981 from party pt where pt.partyname = 'Democratic'
 union select pt.PartyId, 40, 'Ronald Wilson', 'Reagan', '1911-02-06', '2004-06-05', 1981, 1989 from party pt where pt.partyname = 'Democratic' 
 union select pt.PartyId, 41, 'George H. W.', 'Bush',  '1924-06-12', '2018-11-30', 1989, 1993 from party pt where pt.partyname = 'Republican'
-union select pt.partyId, 42, 'William Jefferson', 'Clinton', '1946-08-19', null, 1993, 2001 from party pt where pt.partyname = 'Democratic'
+union select pt.partyId, 42, 'William Jefsferson', 'Clinton', '1946-08-19', null, 1993, 2001 from party pt where pt.partyname = 'Democratic'
 union select pt.PartyId, 43, 'George W.', 'Bush', '1946-07-06', null, 2001, 2009 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 44, 'Barack', 'Obama', '1961-08-04', null, 2009, 2017 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 45, 'Donald', 'Trump',  '1942-11-20', null, 2017,2021 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 46, 'Joe', 'Biden', '1946-06-14', null, 2021, null from party pt where pt.partyname = 'Democratic'
 
 
-select * from Party 
-select * from president 
+insert orders(PresidentId, OrderNumber, VolumeNumber, CodeName, PageNumber, YearIssued, OrderName, OrderUpheld, DateRecorded)
+select p.presidentId, 6103, 3,  'C.F.R.', 5, 1862, 'Establishing a Provisional Court in Louisiana', 1, GETDATE() from president p where p.DateBorn = '1809-02-12'
+union select p.presidentId, 6104, 3, 'C.F.R.', 6, 1863, 'Respecting Soldiers Absent Without Leave', 1, GETDATE() from president p where p.DateBorn = '1809-02-12' 
+union select p.presidentId, 6105, 3, 'C.F.R.', 7, 1865, 'Rewards for the Arrest of Felons from Foreign Countries Committing Felonies in The United States', 0, GETDATE() from president p where p.DateBorn = '1809-02-12'
+union select p.presidentId, 13984, 3, 'C.F.R.', 8, 2021, 'Taking Additional Steps To Address the National Emergency With Respect to Significant Malicious Cyber - Enabled Activities', 1, GETDATE() from president p where p.dateborn = '1942-11-20'
+union select p.presidentId, 2194, 3, 'C.F.R.', 9, 1962, 'Delegating Emergency Preparedness Responsibilities', 1, GETDATE() from president p where p.dateborn = '1917-05-29'
+union SELECT p.presidentId, 11452, 3, 'c.F.R.', 10, 1969, 'Establishing the council for Urban Affairs', 0, GETDATE() from president p where p.DateBorn =  '1913-01-09'
+
+select * from orders o 

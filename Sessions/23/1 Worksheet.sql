@@ -1,3 +1,4 @@
+
 /*
 Modify CarDB 
 Create a new table to store info about trips.

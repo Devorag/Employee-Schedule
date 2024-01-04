@@ -1,23 +1,10 @@
--- SM Excellent! 100% See comments, no need to resubmit.
-
-/*President
-    The U.S Government used the data in the presidents table to provide the captions for new monuments engraved into the side of a mountain in NY.
-    There was bad data in the table, some term ends and term starts were reversed. 
-    So the caption engraved in the mountain says something like Served: 1900 to 1886. This was discovered on opening day by some of the audience.
-    It is going to cost 1.4 million dollars to correct that error engraved into the mountain.
-    Ensure all bad data possibilities are prevented.
-    They have specified a few rules:
-        No president's term can begin before 1776 when America became a country
-        Term end cannot be before term start.
-        A president must be at least 35 years old.
-*/
---•Republican, 1854, Red •Democrat, 1828, Blue•Federalist, 1791, Orange•Whig, 1833, Yellow •None,Federalist, 1789, White•National Union, 1864, Green•Democratic-Republican, 1792, purple
-
 
 use RecordKeeperDB
+drop table if exists orders
 drop table if exists president
 drop table if exists party
 go
+
 --AF Constraints should be added to these columns to ensure valid data
 create table dbo.party(
 	PartyId int not null identity primary key,
@@ -26,7 +13,8 @@ create table dbo.party(
 	YearBegan int not null
 	CONSTRAINT ck_party_year_began_cannot_be_blank CHECK(YearBegan <> ''),
 	Color varchar(30) not null CONSTRAINT u_party_color unique 
-	CONSTRAINT ck_party_color_Cannot_be_blank CHECK(Color <> '')
+	CONSTRAINT ck_party_color_Cannot_be_blank CHECK(Color <> ''),
+	constraint ck_party_year_began_cannot_be_futue_date check(YearBegan < GETDATE())
 )
 go 
 
@@ -48,6 +36,7 @@ go
 		CONSTRAINT ck_president_term_end_Cannot_be_before_term_start CHECK(TermEnd >= TermStart),
 		constraint ck_president_must_be_at_least_35_years_old check(TermStart - year(dateborn) >= 35),
 		CONSTRAINT ck_president_president_must_be_alive_during_full_term CHECK(year(DateDied) >= TermEnd),
+		CONSTRAINT u_president_date_born UNIQUE(dateborn)
 	)  
 go
 alter table president drop column if exists AgeAtDeath
@@ -63,5 +52,17 @@ go
 alter table president add NumberOfFullTermsServed as (termend - termstart) / 4 PERSISTED
 go
 
---SELECT NumberOfFullTermsServed = (p.termend - p.termstart) / 4
---from president p
+
+create table dbo.orders(
+	OrderId int not null identity primary key, 
+	PresidentId int not null constraint f_president_orders foreign key references president(presidentId),
+	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE,
+	VolumeNumber int not null constraint ck_orders_volume_number_must_be_3 check(VolumeNumber = 3),
+	CodeName VARCHAR(10) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
+	PageNumber int not null CONSTRAINT ck_orders_page_number_cannot_be_blank CHECK(PageNumber <> ''),
+	YearIssued int not null CONSTRAINT ck_orders_year_issued_cannot_be_blank CHECK(YearIssued <> ''),
+	OrderName varchar(200) not null CONSTRAINT ck_orders_order_name_cannot_be_blank CHECK(OrderName <> ''),
+	OrderUpheld bit,
+	DateRecorded DATETIME not null  DEFAULT GETDATE(),
+)
+
