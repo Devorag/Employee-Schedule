@@ -5,12 +5,10 @@ drop table if exists president
 drop table if exists party
 go
 
---AF Constraints should be added to these columns to ensure valid data
 create table dbo.party(
 	PartyId int not null identity primary key,
 	PartyName varchar(50) not null constraint u_party_name unique
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
-	--AF A better constraint on year would be to check that the year is valid (greater than 1776, not a future date)
 	YearBegan int not null
 	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and GETDATE()),
 	Color varchar(30) not null CONSTRAINT u_party_color unique 
