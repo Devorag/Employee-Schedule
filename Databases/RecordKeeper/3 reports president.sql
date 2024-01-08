@@ -1,20 +1,17 @@
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! 100%
 --3) reports and tasks
 	--a) list all executive orders sorted by page number, display the official executive order format
     --Exec. Order No. 6102, 3 C.F.R. 5 1933. Forbidding the hoarding of gold coin, gold bullion, and gold certificates within the continental United States.
--- SM -10% Should be taken from computed column.
 SELECT o.OfficialFormat 
 from orders o 
 order by o.PageNumber 
 	--b) same as (a) but include the presidents name
--- SM -10% Should be taken from computed column.
 SELECT o.OfficialFormat , p.lastname, p.firstname
 from president p 
 join orders o
 on p.PresidentId = o.PresidentId 
 order by o.PageNumber 
 	--c) same as (b) but include the party name
--- SM -10% Should be taken from computed column.
 SELECT O.OfficialFormat, p.lastname, p.firstname, pt.partyName
 from party pt 
 join president p 
@@ -40,7 +37,6 @@ join orders o
 on p.PresidentId = o.PresidentId 
 group by pt.partyName
 	--f) pick a party that has one or more executive orders and delete the party
--- SM -100% Can't run this. See error.
 delete o 
 from party pt 
 join president p 
