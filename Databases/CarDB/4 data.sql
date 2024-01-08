@@ -1,9 +1,22 @@
-use master 
+use CarDB
 go 
+DELETE AutoClass
 delete trip 
 delete car
 delete person 
 go 
+
+insert autoclass(AutoClassName)
+select 'Minicompact'
+union select 'Subcompact'
+union select 'Compact'
+union select 'Mid-size'
+union select 'Large'
+union select 'Two-seater'
+union select 'Minivan'
+union select 'Small SUV'
+union select 'Standard SUV'
+
 
 insert person(lastname)
 select 'Smith'
@@ -11,15 +24,15 @@ union select 'Jones'
 union select 'Franklyn'
 
 
-insert car(PersonId, Make, Model, MakeYear, Price, Used)
-select p.personId, 'Toyota', 'Camry', 2019, 20000, 0 from person p where p.lastname = 'Smith'
-union select p.personId, 'Ford', 'Mustang', 2020, 35000, 0 from person p where p.LastName = 'Smith'
-union select p.personId, 'Honda', 'Accord', 2016, 40000, 1  from person p where p.lastname = 'Smith'
-union select p.personId, 'Jeep', 'Wrangler', 2016, 40000, 0 from person p where p.lastname = 'Jones'
-union SELECT p.personId, 'Honda', 'Odyssey', 2015, 25000, 1 from person p where p.lastname = 'Jones'
-union select p.personId, 'Pontiac', 'Lesabre',1980, 100, 1 from person p where p.lastname = 'Franklyn'
-union select p.personId, 'Olds Mobile', 'Sedan', 1966, 12345678.91, 1 from person p where p.lastname = 'Franklyn'
-union SELECT p.personId, 'Olds Moblie', 'Sedan', 1965, 12345678.91, 1 from person p where p.lastname = 'Smith'
+insert car(PersonId, AutoClassId, Make, Model, MakeYear, Price, Used)
+select p.personId, (select a.autoclassId from AutoClass a where a.AutoClassName = 'Subcompact'), 'Toyota', 'Camry', 2019, 20000, 0 from person p where p.lastname = 'Smith'
+union select p.personId, (select a.AutoClassId from AutoClass a where a.AutoClassName = 'Compact'), 'Ford', 'Mustang', 2020, 35000, 0 from person p where p.LastName = 'Smith'
+union select p.personId, (select a.AutoClassId from AutoClass a where a.AutoClassName = 'Mid-size'), 'Honda', 'Accord', 2016, 40000, 1  from person p where p.lastname = 'Smith'
+union select p.personId, (select a.AutoClassId from AutoClass a where a.AutoClassName = 'Large'), 'Jeep', 'Wrangler', 2016, 40000, 0 from person p where p.lastname = 'Jones'
+union SELECT p.personId,  (select a.AutoClassId from AutoClass a where a.AutoClassName = 'Two-sweater'), 'Honda', 'Odyssey', 2015, 25000, 1 from person p where p.lastname = 'Jones'
+union select p.personId, (select a.AutoClassId from AutoClass a where a.AutoClassName = 'Minivan'), 'Pontiac', 'Lesabre',1980, 100, 1 from person p where p.lastname = 'Franklyn'
+union select p.personId, (select a.AutoClassId from AutoClass a where a.AutoClassName = 'MInicompact'), 'Olds Mobile', 'Sedan', 1966, 12345678.91, 1 from person p where p.lastname = 'Franklyn'
+union SELECT p.personId, (select a.AutoClassId from AutoClass a where a.AutoClassName = 'Standard SUV'), 'Olds Moblie', 'Sedan', 1965, 12345678.91, 1 from person p where p.lastname = 'Smith'
 
 insert trip(CarId, Destination, StartDate, EndDate, MilesTraveled)
 select

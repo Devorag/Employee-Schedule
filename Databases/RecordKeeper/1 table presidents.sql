@@ -4,18 +4,15 @@ drop table if exists orders
 drop table if exists president
 drop table if exists party
 go
-<<<<<<< HEAD
 
 --AF Constraints should be added to these columns to ensure valid data
-=======
->>>>>>> 1cb5801b4c851aa836c0c4aacb2d4159d86accbf
 create table dbo.party(
 	PartyId int not null identity primary key,
 	PartyName varchar(50) not null constraint u_party_name unique
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
 	--AF A better constraint on year would be to check that the year is valid (greater than 1776, not a future date)
 	YearBegan int not null
-	CONSTRAINT ck_party_year_began_cannot_be_blank CHECK(YearBegan <> ''),
+	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and GETDATE()),
 	Color varchar(30) not null CONSTRAINT u_party_color unique 
 	CONSTRAINT ck_party_color_Cannot_be_blank CHECK(Color <> ''),
 	constraint ck_party_year_began_cannot_be_futue_date check(YearBegan < GETDATE())
@@ -32,7 +29,8 @@ go
 		LastName varchar(100) not null
 		CONSTRAINT ck_president_last_name_cannot_be_blank check(LastName <> ''), 
 -- SM Don't allow future date.
-		DateBorn date not null,
+		DateBorn date not null, 
+		constraint ck_date_born_cannot_be_future_Date CHECK(dateborn < GETDATE()),
 		DateDied DATETIME2 constraint ck_president_date_died_cannot_be_future_date check(GETDATE() >= DateDied),
 		TermStart int not null constraint ck_president_term_Start_cannot_Be_Before_1776 check(TermStart >= 1776),
 		TermEnd int,
@@ -61,17 +59,21 @@ create table dbo.orders(
 	OrderId int not null identity primary key, 
 	PresidentId int not null constraint f_president_orders foreign key references president(presidentId),
 -- SM Should be > 0.
-	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE,
+	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE
+	constraint cl_orders_order_number_must_be_greater_than_zero check(OrderNumber > 0),
 	VolumeNumber int not null constraint ck_orders_volume_number_must_be_3 check(VolumeNumber = 3),
 	CodeName VARCHAR(10) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
 -- SM Column is a int. Use constraint for int.
-	PageNumber int not null CONSTRAINT ck_orders_page_number_cannot_be_blank CHECK(PageNumber <> ''),
+	PageNumber int not null
+	constraint ck_orders_page_number_must_be_greater_than_zero check(PageNumber > 0),
 -- SM Column is a int. Use constraint for int. Should be after US became a country. And before the current year.
-	YearIssued int not null CONSTRAINT ck_orders_year_issued_cannot_be_blank CHECK(YearIssued <> ''),
+	YearIssued int not null CONSTRAINT ck_orders_year_issued_after_1776_and_before_current_year check(YearIssued between 1776 and GETDATE()),
 	OrderName varchar(200) not null CONSTRAINT ck_orders_order_name_cannot_be_blank CHECK(OrderName <> ''),
 -- SM Don't allow null
-	OrderUpheld bit,
+	OrderUpheld bit not null,
 	DateRecorded DATETIME not null  DEFAULT GETDATE(),
 -- SM Add computed column for official format.
+
 )
+alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNumber, ' ', VolumeNumber, ' ', CodeName, ' ', PageNumber, ' ', yearissued, '. ', OrderName ) persisted 
 

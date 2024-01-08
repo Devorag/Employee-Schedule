@@ -1,7 +1,15 @@
+use VacationDb
+go 
 delete Attraction
 delete vacation 
 delete Person 
+delete Transportation
 
+insert transportation(TransportationDesc)
+select 'Plane'
+union SELECT 'Car'
+union select 'Bus'
+union select 'Boat'
 
 insert person(lastName)
 select 'Adams'
@@ -9,14 +17,16 @@ union select 'Bee'
 union select 'Carter'
 union select 'Andy'
 
-insert Vacation(PersonId, Place, StartDate, EndDate)
-select p.personId, 'France', '1990-01-01', '1990-01-11' from person p where p.lastname = 'Adams'
-union select p.personId, 'England','1991-01-01', '1991-01-11' from person p where p.lastname = 'Adams'
-union select p.personId, 'Japan', '1991-01-01', '1991-01-11' from person p where p.lastname = 'Adams'
-union select p.personId, 'Russia', '2000-01-01', '2002-01-11' from person p where p.lastname = 'Bee'
-union select p.personId, 'Hungary', '2003-01-01', '2004-01-11' from person p where p.lastname = 'Bee'
-union select p.personId, 'NY', '2000-01-01', '2000-01-11' from person p where p.lastname = 'Carter'
-union SELECT p.personId, 'NJ', '2010-01-01', '2011-01-11' from person p where p.lastname = 'Carter'
+insert Vacation(PersonId, TransportationId, Place, StartDate, EndDate)
+select p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Plane'), 'France', '1990-01-01', '1990-01-11' from person p where p.lastname = 'Adams'
+union select p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Plane'), 'England','1991-01-01', '1991-01-11' from person p where p.lastname = 'Adams'
+union select p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Car'), 'Japan', '1991-01-01', '1991-01-11' from person p where p.lastname = 'Adams'
+union select p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Boat'), 'Russia', '2000-01-01', '2002-01-11' from person p where p.lastname = 'Bee'
+union select p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Plane'), 'Hungary', '2003-01-01', '2004-01-11' from person p where p.lastname = 'Bee'
+union select p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Plane'), 'NY', '2000-01-01', '2000-01-11' from person p where p.lastname = 'Carter'
+union SELECT p.personId, (select t.TransportationId from transportation t where t.TransportationDesc = 'Plane'), 'NJ', '2010-01-01', '2011-01-11' from person p where p.lastname = 'Carter'
+union select p.personId, null, 'Canada', '1991-01-01', '1991-01-11' from Person p where p.LastName = 'Adams'
+union SELECT p.personId, null, 'Hawaii', '1990-05-07', '1999-02-08' from person p where p.LastName = 'Bee'
 
 insert Attraction(VacationId, AttractionName, AmountSpent)
 select v.vacationId, 'Eiffel Tower', 35 from vacation v where v.place = 'France'

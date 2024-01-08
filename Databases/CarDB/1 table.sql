@@ -1,15 +1,22 @@
 use Cardb 
 go 
+drop table if exists AutoClass
 drop table if exists Trip
 drop table if exists Car 
 drop table if exists Person 
 go 
+create table dbo.AutoClass(
+    AutoClassId int not null IDENTITY primary key,
+    AutoClassName varchar(25) not null constraint u_auto_class_autoclass_name unique
+)
+go
 create table dbo.person(
     PersonId int not null identity primary key, 
     LastName varchar(35) not null constraint u_person_last_name unique 
 )
 create table dbo.car(
     CarId int not null identity primary key, 
+    AutoClassId int null CONSTRAINT f_autoclass_Car foreign key REFERENCES autoclass(AutoClassId),
     PersonId int not null constraint f_person_car foreign key REFERENCES person(PersonId),
     Make varchar(25),
     Model varchar(25),
@@ -28,6 +35,8 @@ create table dbo.trip(
     MilesTraveled int not null
 )
 go
+
+
 insert person(lastname)
 select 'Smith'
 union select 'Jones'
