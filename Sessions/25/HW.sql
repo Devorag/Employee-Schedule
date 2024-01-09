@@ -18,11 +18,14 @@ union select 'Talent and Skill', 1990, 'Red'
 union select 'Rock and Roll', 1980, 'Pink'
 union select 'Phosphate Pros', 2022, 'no color' 
 )
-select * 
+insert party(ColorId, PartyName, YearBegan)
+select pt.colorId, x.PartyName, x.YearBegan
 from x 
-where x.PartyName like '%hate%'
-or x.PartyName like '%war%'
-or x.partyname like '%kill%'
+left join party pt 
+on x.PartyName = pt.partyname 
+where x.PartyName not like '%hate%'
+and x.PartyName not like '%war%'
+and x.partyname not like '%kill%'
 */
 
 /*
@@ -69,14 +72,10 @@ with x as (
     on pt.partyId = p.partyId
     left join orders o
     on p.PresidentId = o.PresidentId
-    group by pt.PartyName 
-    order by NumOrders 
+    group by pt.PartyName
+    order by NumOrders
 )
-select * 
-from orders o 
-join president p 
-on o.PresidentId = p,presidentId 
-join party pt 
-on pt.PartyId = p.partyId 
-join x 
-on pt.PartyName = x.partyname
+delete o  
+from x 
+join orders o 
+on x.NumOrders = o.OrderId 

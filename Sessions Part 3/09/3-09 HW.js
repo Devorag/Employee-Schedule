@@ -7,7 +7,7 @@ calculatePrice applies the provided function to the price and then logs the resu
 "Base price for [itemname] is [original price] changed to [new price]. Calculated with [price change description]." 
 For example : Base price for toy is 100 changed to 90. Calculated with ten_percent_off.
 
-To get the "price change description" use then name of the function or the name of the variable containing the function.
+To get the "price change description" use the name of the function or the name of the variable containing the function.
 The name should be multiple words joined with underscores, as shown in the example.
 
 To obtain the name of the function or the variable containing the function, use f.name. 

@@ -1,4 +1,4 @@
--- SM Session 23. See comments, fix and resubmit.
+-- SM Session 23. See comments, no need to resubmit.
 use RecordKeeperDB
 drop table if exists orders
 drop table if exists president
@@ -17,7 +17,6 @@ create table dbo.party(
 	ColorId int null CONSTRAINT f_colors_party foreign key references colors(ColorId), 
 	PartyName varchar(50) not null constraint u_party_name unique
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
-	--AF A better constraint on year would be to check that the year is valid (greater than 1776, not a future date)
 	YearBegan int not null
 	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and GETDATE()),
 	constraint ck_party_year_began_cannot_be_futue_date check(YearBegan < GETDATE())
@@ -63,22 +62,19 @@ alter table president add AgeAtTermStart as termstart - year(dateborn) persisted
 create table dbo.orders(
 	OrderId int not null identity primary key, 
 	PresidentId int not null constraint f_president_orders foreign key references president(presidentId),
--- SM Should be > 0.
 	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE
 	constraint cl_orders_order_number_must_be_greater_than_zero check(OrderNumber > 0),
 	VolumeNumber int not null constraint ck_orders_volume_number_must_be_3 check(VolumeNumber = 3),
-	CodeName VARCHAR(10) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
--- SM Column is a int. Use constraint for int.
+-- SM Tip: Use char(6)
+	CodeName CHAR(6) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
 	PageNumber int not null
 	constraint ck_orders_page_number_must_be_greater_than_zero check(PageNumber > 0),
--- SM Column is a int. Use constraint for int. Should be after US became a country. And before the current year.
+-- SM Should be before the current "year".
 	YearIssued int not null CONSTRAINT ck_orders_year_issued_after_1776_and_before_current_year check(YearIssued between 1776 and GETDATE()),
 	OrderName varchar(200) not null CONSTRAINT ck_orders_order_name_cannot_be_blank CHECK(OrderName <> ''),
--- SM Don't allow null
 	OrderUpheld bit not null,
 	DateRecorded DATETIME not null  DEFAULT GETDATE(),
--- SM Add computed column for official format.
-
 )
+-- SM Computed columns can be added in table using ColumnName as...
 alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNumber, ' ', VolumeNumber, ' ', CodeName, ' ', PageNumber, ' ', yearissued, '. ', OrderName ) persisted 
 
