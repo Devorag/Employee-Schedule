@@ -5,25 +5,78 @@ Those may not even be camouflaged as part of another word.
 Using a CTE insert the literal values below as new parties but omit the 'records' that contain prohibited words.
 
 Prohibited words:
+
 Hate
 War
 Kill
-
-Parties
-Flower Power, 1970, Violet
-Love Powar, 1971, Green
-Disco, 1980, White
-Talent and Skill, 1990, Red
-Rock and Roll, 1980, Pink
-Phosphate Pros, 2022, no color 
-
+*/
+with x as(
+select PartyName  = 'Flower Power', YearBegan = 1970, Color = 'Violet'
+union select 'Love Powar', 1971, 'Green'
+union select 'Disco', 1980, 'White'
+union select 'Talent and Skill', 1990, 'Red'
+union select 'Rock and Roll', 1980, 'Pink'
+union select 'Phosphate Pros', 2022, 'no color' 
+)
+select * 
+from x 
+where x.PartyName like '%hate%'
+or x.PartyName like '%war%'
+or x.partyname like '%kill%'
 */
 
 /*
 --2 Show all presidents where their age at term start is lower than the average age term start for their party. 
     Show the party name, average age at term start for the party, president number, last name, and age at term start.
 */
+;
+with x as(
+    select AverageAgeAtTermStart = avg(p.AgeAtTermStart), pt.partyname, p.lastname
+    from president p 
+    join party pt 
+    on p.partyId = pt.partyId 
+    group by pt.partyname, p.lastname
+)
+select pt.partyname, x.AverageAgeAtTermStart, p.Num, p.lastname, p.AgeAtTermStart 
+from x 
+join party pt 
+on  x.partyName = pt.partyname
+join president p 
+on x.lastname = p.lastname 
+where p.AgeAtTermStart < x.AverageAgeAtTermStart 
 --3. Set the color of the party with the most presidents to Gold
+with x as(
+    select top 1 NumPresidents = count(*), pt.PartyName
+    from party pt 
+    join president p 
+    on pt.partyId = p.partyId 
+    group by pt.PartyName
+    order by  NumPresidents desc
+)
+update c 
+set color = 'gold' 
+from colors c 
+join party pt 
+on c.ColorId = pt.ColorId 
+join x 
+on pt.PartyName = x.partyname 
 
 --4 Delete the executive orders of the party with the least presidential executive orders
-
+with x as (
+    select top 1 NumOrders = count(*), pt.PartyName
+    from party pt 
+    join president p 
+    on pt.partyId = p.partyId
+    left join orders o
+    on p.PresidentId = o.PresidentId
+    group by pt.PartyName 
+    order by NumOrders 
+)
+select * 
+from orders o 
+join president p 
+on o.PresidentId = p,presidentId 
+join party pt 
+on pt.PartyId = p.partyId 
+join x 
+on pt.PartyName = x.partyname

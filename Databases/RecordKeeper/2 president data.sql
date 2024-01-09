@@ -4,15 +4,28 @@ go
 delete orders 
 delete president
 delete party
+delete colors
 
-insert party(PartyName, YearBegan, Color)
-      select 'Republican', 1854, 'Red'
-union select 'Democrat', 1828, 'Blue'
-union select 'Federalist', 1791, 'Orange'
-union select 'Whig', 1833, 'Yellow'
-union select 'None, Fedaralist', 1789, 'White'
-union select 'National Union', 1864, 'Green'
-union SELECT 'Democratic-Republican', 1792, 'Purple'
+insert colors(Color)
+      select 'Red'
+union select 'Blue'
+union select 'Orange'
+union select 'Yellow'
+union select 'White'
+union select 'Green'
+union select 'Purple'
+
+insert party(ColorId, PartyName, YearBegan)
+      select c.colorId, 'Republican', 1854 from colors c where c.color = 'Red' 
+union select c.colorId, 'Democrat', 1828 from colors c where c.color = 'Blue'
+union select c.colorId, 'Federalist', 1791 from colors c where c.color = 'Orange'
+union select c.colorId, 'Whig', 1833 from colors c where c.color = 'Yellow'
+union select c.colorId, 'None, Federalist', 1789 from colors c where c.color = 'White'
+union select c.colorId, 'National Union', 1864 from colors c where c.color = 'Green'
+union SELECT c.colorId, 'Democratic-Republican', 1792 from colors c where c.color = 'Purple'
+union select c.colorId, 'Black Panther', 1966 from colors c where c.color = 'Black'
+union select null,  'Socialist Party of America', 1901 
+union select c.colorId, 'Prohibition', 1869 from colors c where c.color = 'Red'
 
 
 insert president(PartyId, Num, FirstName, LastName, dateBorn, DateDied, TermStart, TermEnd)
@@ -67,6 +80,7 @@ union select pt.PartyId, 43, 'George W.', 'Bush', '1946-07-06', null, 2001, 2009
 union select pt.partyId, 44, 'Barack', 'Obama', '1961-08-04', null, 2009, 2017 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 45, 'Donald', 'Trump',  '1942-11-20', null, 2017,2021 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 46, 'Joe', 'Biden', '1946-06-14', null, 2021, null from party pt where pt.partyname = 'Democratic'
+union select pt.partyId, 47, 'Max', 'Lublin', '1960-01-01', null, 2024, null from party pt where pt.PartyName = 'Prohibition Party' 
 
 
 insert orders(PresidentId, OrderNumber, VolumeNumber, CodeName, PageNumber, YearIssued, OrderName, OrderUpheld, DateRecorded)
@@ -74,7 +88,5 @@ select p.presidentId, 6103, 3,  'C.F.R.', 5, 1862, 'Establishing a Provisional C
 union select p.presidentId, 6104, 3, 'C.F.R.', 6, 1863, 'Respecting Soldiers Absent Without Leave', 1, GETDATE() from president p where p.DateBorn = '1809-02-12' 
 union select p.presidentId, 6105, 3, 'C.F.R.', 7, 1865, 'Rewards for the Arrest of Felons from Foreign Countries Committing Felonies in The United States', 0, GETDATE() from president p where p.DateBorn = '1809-02-12'
 union select p.presidentId, 13984, 3, 'C.F.R.', 8, 2021, 'Taking Additional Steps To Address the National Emergency With Respect to Significant Malicious Cyber - Enabled Activities', 1, GETDATE() from president p where p.dateborn = '1942-11-20'
-union select p.presidentId, 2194, 3, 'C.F.R.', 9, 1962, 'Delegating Emergency Preparedness Responsibilities', 1, GETDATE() from president p where p.dateborn = '1917-05-29'
+union select p.presidentId, 2194, 3, 'C.F.R.', 9, 1962, 'Delegating Emergency Preparedness Responsibilities', 1, GETDATE() from president p where p.dateborn = '1946-06-14'
 union SELECT p.presidentId, 11452, 3, 'c.F.R.', 10, 1969, 'Establishing the council for Urban Affairs', 0, GETDATE() from president p where p.DateBorn =  '1913-01-09'
-
-select * from orders o 

@@ -3,18 +3,23 @@ use RecordKeeperDB
 drop table if exists orders
 drop table if exists president
 drop table if exists party
+drop table if exists Colors
 go
+
+create table dbo.colors(
+	ColorId int not null identity primary key, 
+	Color varchar(50) not null constraint u_colors_color unique 
+)
 
 --AF Constraints should be added to these columns to ensure valid data
 create table dbo.party(
 	PartyId int not null identity primary key,
+	ColorId int null CONSTRAINT f_colors_party foreign key references colors(ColorId), 
 	PartyName varchar(50) not null constraint u_party_name unique
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
 	--AF A better constraint on year would be to check that the year is valid (greater than 1776, not a future date)
 	YearBegan int not null
 	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and GETDATE()),
-	Color varchar(30) not null CONSTRAINT u_party_color unique 
-	CONSTRAINT ck_party_color_Cannot_be_blank CHECK(Color <> ''),
 	constraint ck_party_year_began_cannot_be_futue_date check(YearBegan < GETDATE())
 )
 go 
@@ -53,7 +58,7 @@ alter table president drop column if EXISTS NumberOfFullTermsServed
 go
 alter table president add NumberOfFullTermsServed as (termend - termstart) / 4 PERSISTED
 go
-
+alter table president add AgeAtTermStart as termstart - year(dateborn) persisted
 
 create table dbo.orders(
 	OrderId int not null identity primary key, 
