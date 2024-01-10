@@ -26,12 +26,14 @@ left join president p
 on pt.PartyId = p.PartyId 
 where p.PresidentId is null 
 --4) Breaking News!! Someone from the Prohibition Party was just elected president! Insert the new president (you make up the info, do not include in  "data president" file)
+
 insert president(PartyId, Num, FirstName, LastName, dateBorn, DateDied, TermStart, TermEnd)
 select pt.partyId, 47, 'Max', 'Lublin', '1960-01-01', null, 2024, null from party pt where pt.PartyName = 'Prohibition' 
 /*
 5) The Times of CPU hired an investigative journalist to research any correlation between a Party's color and the amount of Executive Orders issued. 
     The investigator needs the following information: Show a list of colors and number of executive orders for each color, sort by highest number of executive orders to the lowest
 */
+
 select c.Color, Num = count(o.orderId)
 from party pt 
 left join colors c  
