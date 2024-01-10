@@ -75,6 +75,7 @@ with x as (
     group by pt.PartyName
     order by NumOrders
 )
+
 delete o  
 from x 
 join orders o 
