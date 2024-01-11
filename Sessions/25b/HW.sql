@@ -1,5 +1,15 @@
 --1 All presidents are participating in the Olympics! In all sports! Show me a list of presidents (Number, Last Name), and each sport in the medalist table. Sort by president number.
-
+use recordkeeperDB 
+go 
+;
+with x as (
+    select distinct m.sport 
+    from medalist m 
+)
+select p.num, p.LastName, x.sport 
+from x 
+cross join president p 
+order by p.num 
 /*
 --2 None of the presidents won any olympic medals. 
 The Democrats want to try their hands at world records. They were advised to take it slow and try one category of world records first. 

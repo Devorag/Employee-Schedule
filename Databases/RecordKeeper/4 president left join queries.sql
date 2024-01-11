@@ -3,9 +3,11 @@
 --Reports: For all reports never show null, rather show blank or 0 depending on data type
 --1) Show all parties sorted in the descending order of amount of members elected to President. Include those with no presidents. Show party name, color and president count. 
 -- SM -20% You should also return parties with no color. And don't show null.
-select pt.partyname, c.color, NumPresidents = count(p.PresidentId)
-from colors c 
-join party Pt 
+use recordkeeperDB 
+go
+select pt.partyname, Color = ISNULL(c.color, ''), NumPresidents = count(p.PresidentId)
+from party pt 
+left join colors c 
 on c.colorId = pt.colorId 
 left join president p 
 on pt.PartyId = p.PartyId 

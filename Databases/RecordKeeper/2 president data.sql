@@ -66,11 +66,6 @@ union select pt.partyId, 34, 'Dwight David', 'Eisenhower', '1890-10-14', '1969-0
 union select pt.partyId, 35, 'John Fitzgerald', 'Kennedy', '1917-05-29', '1963-11-22', 1961, 1963 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 36, 'Lyndon Baines', 'Johnson', '1908-08-27', '1973-01-22', 1963, 1969 from party pt where pt.partyname = 'Democratic'
 union select pt.PartyId, 37, 'Richard Milhous', 'Nixon', '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
-union select pt.PartyId, 37, 'Richard Milhous', 'Nixon', '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
-union select pt.PartyId, 37, 'Richard Milhous', 'Nixon', '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
-union select pt.PartyId, 37, 'Richard Milhous', 'Nixon', '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
-union select pt.PartyId, 37, 'Richard Milhous', 'Nixon',  '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
-union select pt.PartyId, 37, 'Richard Milhous', 'Nixon', '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
 union select pt.PartyId, 38, 'Gerald R.', 'Ford',  '1913-07-14', '2006-12-26', 1974, 1977 from party pt where pt.partyname = 'Republican'
 union select pt.PartyId, 39, 'James Earl', 'Carter', '1924-10-01', null, 1977, 1981 from party pt where pt.partyname = 'Democratic'
 union select pt.PartyId, 40, 'Ronald Wilson', 'Reagan', '1911-02-06', '2004-06-05', 1981, 1989 from party pt where pt.partyname = 'Democratic' 
@@ -81,7 +76,6 @@ union select pt.partyId, 44, 'Barack', 'Obama', '1961-08-04', null, 2009, 2017 f
 union select pt.partyId, 45, 'Donald', 'Trump',  '1942-11-20', null, 2017,2021 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 46, 'Joe', 'Biden', '1946-06-14', null, 2021, null from party pt where pt.partyname = 'Democratic'
 -- SM Don't include this here...
-union select pt.partyId, 47, 'Max', 'Lublin', '1960-01-01', null, 2024, null from party pt where pt.PartyName = 'Prohibition Party' 
 
 
 insert orders(PresidentId, OrderNumber, VolumeNumber, CodeName, PageNumber, YearIssued, OrderName, OrderUpheld, DateRecorded)
@@ -91,3 +85,6 @@ union select p.presidentId, 6105, 3, 'C.F.R.', 7, 1865, 'Rewards for the Arrest 
 union select p.presidentId, 13984, 3, 'C.F.R.', 8, 2021, 'Taking Additional Steps To Address the National Emergency With Respect to Significant Malicious Cyber - Enabled Activities', 1, GETDATE() from president p where p.dateborn = '1942-11-20'
 union select p.presidentId, 2194, 3, 'C.F.R.', 9, 1962, 'Delegating Emergency Preparedness Responsibilities', 1, GETDATE() from president p where p.dateborn = '1946-06-14'
 union SELECT p.presidentId, 11452, 3, 'c.F.R.', 10, 1969, 'Establishing the council for Urban Affairs', 0, GETDATE() from president p where p.DateBorn =  '1913-01-09'
+
+select * 
+from president p 

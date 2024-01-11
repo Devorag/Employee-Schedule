@@ -10,6 +10,7 @@ create table dbo.colors(
 	ColorId int not null identity primary key, 
 -- SM Don't allow blank.
 	Color varchar(50) not null constraint u_colors_color unique 
+	CONSTRAINT ck_colors_color_cannot_be_blank check(color <> '')
 )
 
 create table dbo.party(
@@ -19,9 +20,8 @@ create table dbo.party(
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
 	YearBegan int not null
 -- SM YearBegan is a int. getdate() returns a date.
-	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and GETDATE()),
+	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and year(GETDATE())),
 -- SM No need for this constraint.
-	constraint ck_party_year_began_cannot_be_futue_date check(YearBegan < GETDATE())
 )
 go 
 
