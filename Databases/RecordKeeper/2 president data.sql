@@ -1,4 +1,4 @@
-
+-- SM See comments.
 use RecordKeeperDB
 go
 delete orders 
@@ -27,7 +27,7 @@ union select c.colorId, 'Black Panther', 1966 from colors c where c.color = 'Bla
 union select null,  'Socialist Party of America', 1901 
 union select c.colorId, 'Prohibition', 1869 from colors c where c.color = 'Red'
 
-
+-- SM Not all presidents get inserted.
 insert president(PartyId, Num, FirstName, LastName, dateBorn, DateDied, TermStart, TermEnd)
       select pt.partyID, 1, 'George', 'Washington', '1732-02-22', '1799-12-14', 1789, 1797 from party pt where pt.partyname = 'None, Federalist'
 union select pt.partyId, 2, 'John', 'Adams', '1735-10-30', '1826-07-04', 1797, 1801 from party pt where pt.partyname = 'Federalist'
@@ -80,6 +80,7 @@ union select pt.PartyId, 43, 'George W.', 'Bush', '1946-07-06', null, 2001, 2009
 union select pt.partyId, 44, 'Barack', 'Obama', '1961-08-04', null, 2009, 2017 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 45, 'Donald', 'Trump',  '1942-11-20', null, 2017,2021 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 46, 'Joe', 'Biden', '1946-06-14', null, 2021, null from party pt where pt.partyname = 'Democratic'
+-- SM Don't include this here...
 union select pt.partyId, 47, 'Max', 'Lublin', '1960-01-01', null, 2024, null from party pt where pt.PartyName = 'Prohibition Party' 
 
 

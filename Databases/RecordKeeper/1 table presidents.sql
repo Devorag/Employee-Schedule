@@ -1,4 +1,4 @@
--- SM Session 23. See comments, no need to resubmit.
+-- SM Session 24 Excellent! See comment, fix and resubmit.
 use RecordKeeperDB
 drop table if exists orders
 drop table if exists president
@@ -8,17 +8,19 @@ go
 
 create table dbo.colors(
 	ColorId int not null identity primary key, 
+-- SM Don't allow blank.
 	Color varchar(50) not null constraint u_colors_color unique 
 )
 
---AF Constraints should be added to these columns to ensure valid data
 create table dbo.party(
 	PartyId int not null identity primary key,
 	ColorId int null CONSTRAINT f_colors_party foreign key references colors(ColorId), 
 	PartyName varchar(50) not null constraint u_party_name unique
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
 	YearBegan int not null
+-- SM YearBegan is a int. getdate() returns a date.
 	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and GETDATE()),
+-- SM No need for this constraint.
 	constraint ck_party_year_began_cannot_be_futue_date check(YearBegan < GETDATE())
 )
 go 
