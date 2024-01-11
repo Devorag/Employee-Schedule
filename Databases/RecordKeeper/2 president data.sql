@@ -14,6 +14,10 @@ union select 'Yellow'
 union select 'White'
 union select 'Green'
 union select 'Purple'
+union select 'Violet'
+union select 'Red'
+union select 'Pink'
+
 
 insert party(ColorId, PartyName, YearBegan)
       select c.colorId, 'Republican', 1854 from colors c where c.color = 'Red' 

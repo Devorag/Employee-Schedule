@@ -19,7 +19,7 @@ union select 'Disco', 1980, 'White'
 union select 'Talent and Skill', 1990, 'Red'
 union select 'Rock and Roll', 1980, 'Pink'
 -- SM Should be null for color.
-union select 'Phosphate Pros', 2022, 'no color' 
+union select 'Phosphate Pros', 2022, null
 )
 insert party(ColorId, PartyName, YearBegan)
 select pt.colorId, x.PartyName, x.YearBegan
@@ -38,18 +38,18 @@ and x.partyname not like '%kill%'
 ;
 with x as(
 -- SM Just do avg per party.
-    select AverageAgeAtTermStart = avg(p.AgeAtTermStart), pt.partyname, p.lastname
+    select AverageAgeAtTermStart = avg(p.AgeAtTermStart), pt.partyname
     from president p 
     join party pt 
     on p.partyId = pt.partyId 
-    group by pt.partyname, p.lastname
+    group by pt.partyname
 )
 select pt.partyname, x.AverageAgeAtTermStart, p.Num, p.lastname, p.AgeAtTermStart 
 from x 
 join party pt 
 on  x.partyName = pt.partyname
 join president p 
-on x.lastname = p.lastname 
+on p.partyId = pt.PartyId 
 where p.AgeAtTermStart < x.AverageAgeAtTermStart 
 --3. Set the color of the party with the most presidents to Gold
 -- SM Tip: Should really update the id to gold.
@@ -73,8 +73,8 @@ on pt.PartyName = x.partyname
 -- SM -50% This doesn't delete anything.
 with x as (
     select top 1 NumOrders = count(*), pt.PartyName
-    from party pt 
-    join president p 
+    from president p 
+    left join party pt  
     on pt.partyId = p.partyId
     left join orders o
     on p.PresidentId = o.PresidentId
