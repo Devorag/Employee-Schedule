@@ -16,7 +16,9 @@ The Democrats want to try their hands at world records. They were advised to tak
 You pick the category and show me a list of Democratic presidents (Num, Last Name) with a list of world records (just the record name) from your chosen category. 
 Sort by record name, and then by president number
 */
-select * 
+select p.num, p.LastName, w.RecordName 
 from worldrecord w 
 cross join president p 
-where p.PartyId = 
+where p.PartyId = 2 
+and w.Category = 'Animals'
+order by w.recordname, p.num 
