@@ -80,3 +80,6 @@ create table dbo.orders(
 -- SM Computed columns can be added in table using ColumnName as...
 alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNumber, ' ', VolumeNumber, ' ', CodeName, ' ', PageNumber, ' ', yearissued, '. ', OrderName ) persisted 
 
+select * from party pt 
+left join president p 
+on p.PartyId = pt.PartyId 

@@ -21,7 +21,7 @@ union select 'Pink'
 
 insert party(ColorId, PartyName, YearBegan)
       select c.colorId, 'Republican', 1854 from colors c where c.color = 'Red' 
-union select c.colorId, 'Democrat', 1828 from colors c where c.color = 'Blue'
+union select c.colorId, 'Democratic', 1828 from colors c where c.color = 'Blue'
 union select c.colorId, 'Federalist', 1791 from colors c where c.color = 'Orange'
 union select c.colorId, 'Whig', 1833 from colors c where c.color = 'Yellow'
 union select c.colorId, 'None, Federalist', 1789 from colors c where c.color = 'White'
@@ -56,7 +56,6 @@ union select pt.partyId, 20, 'James', 'Garfield', '1831-11-19', '1881-09-19', 18
 union select pt.partyId, 21, 'Chester', 'Arthur', '1829-10-05', '1886-11-18', 1881, 1885 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 22, 'Grover', 'Cleveland', '1837-03-18', '1908-06-24', 1885, 1889 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 23, 'Benjamin', 'Harrison', '1833-08-20', '1901-03-13', 1889, 1893 from party pt where pt.partyname = 'Republican'
-union select pt.partyId, 24, 'Grover', 'Cleveland', '1837-03-18', '1908-06-24', 1893, 1897 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 25, 'William', 'McKinley', '1843-01-29', '1901-09-14', 1897, 1901 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 26, 'Theodore', 'Roosevelt', '1858-10-27', '1919-01-06', 1901, 1909 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 27, 'William', 'Taft', '1857-09-15', '1930-03-08', 1909, 1913 from party pt where pt.partyname = 'Republican'
@@ -90,5 +89,3 @@ union select p.presidentId, 13984, 3, 'C.F.R.', 8, 2021, 'Taking Additional Step
 union select p.presidentId, 2194, 3, 'C.F.R.', 9, 1962, 'Delegating Emergency Preparedness Responsibilities', 1, GETDATE() from president p where p.dateborn = '1946-06-14'
 union SELECT p.presidentId, 11452, 3, 'c.F.R.', 10, 1969, 'Establishing the council for Urban Affairs', 0, GETDATE() from president p where p.DateBorn =  '1913-01-09'
 
-select * 
-from president p 
