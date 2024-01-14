@@ -12,22 +12,28 @@ War
 Kill
 */
 -- SM You need to join to color table and get the color id
+use recordkeeperDb 
+go 
+;
 with x as(
-select PartyName  = 'Flower Power', YearBegan = 1970, Color = 'Violet'
-union select 'Love Powar', 1971, 'Green'
-union select 'Disco', 1980, 'White'
-union select 'Talent and Skill', 1990, 'Red'
-union select 'Rock and Roll', 1980, 'Pink'
-union select 'Phosphate Pros', 2022, null
+    select PartyName  = 'Flower Power', YearBegan = 1970, Color = 'Violet'
+    union select 'Love Powar', 1971, 'Green'
+    union select 'Disco', 1980, 'White'
+    union select 'Talent and Skill', 1990, 'Red'
+    union select 'Rock and Roll', 1980, 'Pink'
+    union select 'Phosphate Pros', 2022, null
 )
-insert party(ColorId, PartyName, YearBegan)
-select pt.colorId, x.PartyName, x.YearBegan
+insert Party(ColorId, PartyName, YearBegan)
+select c.colorId, x.PartyName, x.YearBegan
 from x 
-left join party pt 
-on x.PartyName = pt.partyname 
+left join colors c 
+on x.color = c.color 
 where x.PartyName not like '%hate%'
 and x.PartyName not like '%war%'
 and x.partyname not like '%kill%'
+
+
+
 */
 
 /*
@@ -59,13 +65,14 @@ with x as(
     group by pt.PartyName
     order by  NumPresidents desc
 )
-update c 
-set color = 'gold' 
-from colors c 
-join party pt 
+update pt 
+set colorId = 38 
+from party pt 
+join colors c 
 on c.ColorId = pt.ColorId 
 join x 
 on pt.PartyName = x.partyname 
+
 
 --4 Delete the executive orders of the party with the least presidential executive orders
 -- SM -50% This doesn't delete anything.
@@ -74,13 +81,19 @@ with x as (
     from president p 
     left join party pt  
     on pt.partyId = p.partyId
-    left join orders o
+    join orders o
     on p.PresidentId = o.PresidentId
     group by pt.PartyName
     order by NumOrders
 )
-
-delete o  
-from x 
+delete o 
+from x
+join party pt 
+on x.PartyName = pt.PartyName 
+join president p 
+on p.PartyId = pt.PartyId 
 join orders o 
-on x.NumOrders = o.OrderId 
+on o.presidentId = p.presidentId 
+
+
+

@@ -12,7 +12,7 @@ on c.colorId = pt.colorId
 left join president p 
 on pt.PartyId = p.PartyId 
 group by pt.PartyName, c.color
-order  by NumPresidents
+order  by NumPresidents desc 
 --2) Show all Presidents (Number, First name, Last name) and their party's color, sort by number
 select p.num, p.FirstName, p.LastName, Color = isnull(c.color, '')
 from president p 

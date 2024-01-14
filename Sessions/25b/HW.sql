@@ -21,6 +21,8 @@ Sort by record name, and then by president number
 select p.num, p.LastName, w.RecordName 
 from worldrecord w 
 cross join president p 
-where p.PartyId = 2 
+join party pt 
+on p.PartyId = pt.PartyId 
+where pt.partyname = 'Democratic' 
 and w.Category = 'Animals'
 order by w.recordname, p.num 
