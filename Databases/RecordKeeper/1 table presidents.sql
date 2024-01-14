@@ -1,4 +1,4 @@
--- SM Session 24 Excellent! See comment, fix and resubmit.
+-- SM Session 24 Excellent! 100%
 use RecordKeeperDB
 drop table if exists orders
 drop table if exists president
@@ -8,7 +8,6 @@ go
 
 create table dbo.colors(
 	ColorId int not null identity primary key, 
--- SM Don't allow blank.
 	Color varchar(50) not null constraint u_colors_color unique 
 	CONSTRAINT ck_colors_color_cannot_be_blank check(color <> '')
 )
@@ -19,9 +18,7 @@ create table dbo.party(
 	PartyName varchar(50) not null constraint u_party_name unique
 	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
 	YearBegan int not null
--- SM YearBegan is a int. getdate() returns a date.
 	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and year(GETDATE())),
--- SM No need for this constraint.
 )
 go 
 
@@ -34,7 +31,6 @@ go
 		constraint ck_president_first_name_cannot_be_blank CHECK(FirstName <> ''), 
 		LastName varchar(100) not null
 		CONSTRAINT ck_president_last_name_cannot_be_blank check(LastName <> ''), 
--- SM Don't allow future date.
 		DateBorn date not null, 
 		constraint ck_date_born_cannot_be_future_Date CHECK(dateborn < GETDATE()),
 		DateDied DATETIME2 constraint ck_president_date_died_cannot_be_future_date check(GETDATE() >= DateDied),
@@ -44,6 +40,7 @@ go
 		CONSTRAINT ck_president_term_end_Cannot_be_before_term_start CHECK(TermEnd >= TermStart),
 		constraint ck_president_must_be_at_least_35_years_old check(TermStart - year(dateborn) >= 35),
 		CONSTRAINT ck_president_president_must_be_alive_during_full_term CHECK(year(DateDied) >= TermEnd),
+-- SM Remove this constraint.
 		CONSTRAINT u_president_date_born UNIQUE(dateborn)
 	)  
 go
@@ -67,7 +64,6 @@ create table dbo.orders(
 	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE
 	constraint cl_orders_order_number_must_be_greater_than_zero check(OrderNumber > 0),
 	VolumeNumber int not null constraint ck_orders_volume_number_must_be_3 check(VolumeNumber = 3),
--- SM Tip: Use char(6)
 	CodeName CHAR(6) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
 	PageNumber int not null
 	constraint ck_orders_page_number_must_be_greater_than_zero check(PageNumber > 0),

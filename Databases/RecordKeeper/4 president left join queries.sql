@@ -1,8 +1,8 @@
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! 100% See comment, no need to resubmit.
 
 --Reports: For all reports never show null, rather show blank or 0 depending on data type
 --1) Show all parties sorted in the descending order of amount of members elected to President. Include those with no presidents. Show party name, color and president count. 
--- SM -20% You should also return parties with no color. And don't show null.
+-- SM Tip: Sort in descending order.
 use recordkeeperDB 
 go
 select pt.partyname, Color = ISNULL(c.color, ''), NumPresidents = count(p.PresidentId)
@@ -29,7 +29,6 @@ left join president p
 on pt.PartyId = p.PartyId 
 where p.PresidentId is null 
 --4) Breaking News!! Someone from the Prohibition Party was just elected president! Insert the new president (you make up the info, do not include in  "data president" file)
--- SM do not include in  "data president" file
 insert president(PartyId, Num, FirstName, LastName, dateBorn, DateDied, TermStart, TermEnd)
 select pt.partyId, 47, 'Max', 'Lublin', '1960-01-01', null, 2024, null from party pt where pt.PartyName = 'Prohibition' 
 /*

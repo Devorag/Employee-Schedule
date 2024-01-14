@@ -1,4 +1,3 @@
--- SM See comments.
 use RecordKeeperDB
 go
 delete orders 
@@ -31,9 +30,9 @@ union select c.colorId, 'Black Panther', 1966 from colors c where c.color = 'Bla
 union select null,  'Socialist Party of America', 1901 
 union select c.colorId, 'Prohibition', 1869 from colors c where c.color = 'Red'
 
--- SM Not all presidents get inserted.
+-- SM Tip: You're missing president num 24
 insert president(PartyId, Num, FirstName, LastName, dateBorn, DateDied, TermStart, TermEnd)
-      select pt.partyID, 1, 'George', 'Washington', '1732-02-22', '1799-12-14', 1789, 1797 from party pt where pt.partyname = 'None, Federalist'
+      select pt.partyID, num = 1, 'George', 'Washington', '1732-02-22', '1799-12-14', 1789, 1797 from party pt where pt.partyname = 'None, Federalist'
 union select pt.partyId, 2, 'John', 'Adams', '1735-10-30', '1826-07-04', 1797, 1801 from party pt where pt.partyname = 'Federalist'
 union select pt.partyId, 3, 'Thomas', 'Jefferson', '1743-04-13', '1826-07-04', 1801, 1809 from party pt where pt.partyname = 'Democratic-Republican'
 union select pt.PartyId, 4,  'James', 'Madison', '1751-03-16', '1836-06-28', 1809, 1817 from party pt where pt.partyname = 'Democratic-Republican'
@@ -78,8 +77,7 @@ union select pt.PartyId, 43, 'George W.', 'Bush', '1946-07-06', null, 2001, 2009
 union select pt.partyId, 44, 'Barack', 'Obama', '1961-08-04', null, 2009, 2017 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 45, 'Donald', 'Trump',  '1942-11-20', null, 2017,2021 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 46, 'Joe', 'Biden', '1946-06-14', null, 2021, null from party pt where pt.partyname = 'Democratic'
--- SM Don't include this here...
-
+order by num
 
 insert orders(PresidentId, OrderNumber, VolumeNumber, CodeName, PageNumber, YearIssued, OrderName, OrderUpheld, DateRecorded)
 select p.presidentId, 6103, 3,  'C.F.R.', 5, 1862, 'Establishing a Provisional Court in Louisiana', 1, GETDATE() from president p where p.DateBorn = '1809-02-12'
