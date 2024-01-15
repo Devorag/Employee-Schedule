@@ -1,4 +1,4 @@
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! 100% See comment, no need to resubmit.
 /*
 1.
 The US Gov has prohibited certain words (listed below) from being used in political party names. 
@@ -11,7 +11,6 @@ Hate
 War
 Kill
 */
--- SM You need to join to color table and get the color id
 use recordkeeperDb 
 go 
 ;
@@ -56,7 +55,8 @@ join president p
 on p.partyId = pt.PartyId 
 where p.AgeAtTermStart < x.AverageAgeAtTermStart 
 --3. Set the color of the party with the most presidents to Gold
--- SM Tip: Should really update the id to gold.
+-- SM This wont work as you hard code the id which is changing every time you rerun data.
+-- You need to use subquery to get the id. Or you can use multiple CTEs (lookup online how you do it)
 with x as(
     select top 1 NumPresidents = count(*), pt.PartyName
     from party pt 
@@ -75,7 +75,6 @@ on pt.PartyName = x.partyname
 
 
 --4 Delete the executive orders of the party with the least presidential executive orders
--- SM -50% This doesn't delete anything.
 with x as (
     select top 1 NumOrders = count(*), pt.PartyName
     from president p 
