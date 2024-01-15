@@ -1,4 +1,4 @@
--- SM Excellent! 80% See comment, fix and resubmit.
+-- SM Excellent! 100%
 --1 All presidents are participating in the Olympics! In all sports! Show me a list of presidents (Number, Last Name), and each sport in the medalist table. Sort by president number.
 use recordkeeperDB 
 go 
@@ -17,7 +17,6 @@ The Democrats want to try their hands at world records. They were advised to tak
 You pick the category and show me a list of Democratic presidents (Num, Last Name) with a list of world records (just the record name) from your chosen category. 
 Sort by record name, and then by president number
 */
--- SM I don't get anything... Rerun the data file and you'll also not get anything.
 select p.num, p.LastName, w.RecordName 
 from worldrecord w 
 cross join president p 
