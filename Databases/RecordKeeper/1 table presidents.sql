@@ -1,5 +1,7 @@
 -- SM Session 24 Excellent! 100%
 use RecordKeeperDB
+drop table if exists PresidentMedal
+drop table if exists Medal 
 drop table if exists orders
 drop table if exists president
 drop table if exists party
@@ -75,4 +77,16 @@ create table dbo.orders(
 )
 -- SM Computed columns can be added in table using ColumnName as...
 alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNumber, ' ', VolumeNumber, ' ', CodeName, ' ', PageNumber, ' ', yearissued, '. ', OrderName ) persisted 
-
+go 
+create table dbo.medal(
+    MedalId int not null identity primary key, 
+    MedalName varchar(200) not null constraint u_medal_medalname unique 
+)
+go 
+create table dbo.PresidentMedal(
+    PresidentMedalId int not null identity primary key, 
+    PresidentId int not null constraint f_president_presidentmedal foreign key REFERENCES president(PresidentId),
+    MedalId int not null constraint f_medal_presidentmedal foreign key references medal(MedalId),
+    DateAwarded datetime not null default getdate() 
+)
+go
