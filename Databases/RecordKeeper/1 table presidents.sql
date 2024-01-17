@@ -77,6 +77,7 @@ create table dbo.orders(
 )
 -- SM Computed columns can be added in table using ColumnName as...
 alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNumber, ' ', VolumeNumber, ' ', CodeName, ' ', PageNumber, ' ', yearissued, '. ', OrderName ) persisted 
+
 go 
 create table dbo.medal(
     MedalId int not null identity primary key, 

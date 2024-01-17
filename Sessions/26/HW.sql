@@ -16,6 +16,7 @@ Ensure that sample data provides A) president with no medals
                                  
 */
 
+
 insert Medal(MedalName)
 select 'Made America Great'
 union select 'Won most debates'
