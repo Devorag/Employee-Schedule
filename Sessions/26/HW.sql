@@ -1,3 +1,4 @@
+-- SM Excellent! See comments, fix and resubmit.
 /*
 The government is starting a new program to award medals to presidents for outstanding service. 
 Add tables to store medals and award them to presidents. A medal can be assigned to more than one president. 
@@ -16,7 +17,7 @@ Ensure that sample data provides A) president with no medals
                                  
 */
 
-
+-- SM Should be in data file.
 insert Medal(MedalName)
 select 'Made America Great'
 union select 'Won most debates'
@@ -57,6 +58,7 @@ on m.MedalName = x.MedalName
 
 
 --1) Select all presidents and any medals they may have, sorted by medal and president number. Show Name, Number, Medal, Party
+-- SM Don't show null.
 select p.FirstName, p.LastName, p.num, m.MedalName, pt.PartyName
 from president p 
 left join party pt  
@@ -80,6 +82,7 @@ left join presidentmedal pm
 on m.medalId = pm.medalId
 group by m.medalname  
 --4a) Show all parties and the number of medals awarded to it's presidents. Omit party if no medals
+-- SM There's an easier way to do this without a having.
 select NumMedals = count(pm.MedalId), pt.PartyName
 from party pt 
 left join president p 
@@ -104,6 +107,7 @@ on pm.MedalId =m.MedalId
 group by pt.partyname
 order by pt.PartyName
 --5) Which medal(s) has never been awarded
+-- SM There's an easier way to do this just using where clause without a group by and having
 select TimesAwarded = count(pm.MedalId), m.medalname
 from medal m 
 left join presidentmedal pm 
@@ -147,6 +151,7 @@ on m.MedalName = x.MedalName
 
 
 --b) Uh. Somebody pointed out the presidents before 1993 could not have championed internet safety. Remove the award from all presidents that ended their terms prior to that year. 
+-- SM -50% You should only delete the specified medal not ALL medals.
 delete pm 
 from medal m 
 join PresidentMedal pm 

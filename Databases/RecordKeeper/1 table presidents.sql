@@ -1,4 +1,4 @@
--- SM Session 24 Excellent! 100%
+-- SM Excellent! See comments, fix and resubmit.
 use RecordKeeperDB
 drop table if exists PresidentMedal
 drop table if exists Medal 
@@ -81,9 +81,11 @@ alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNum
 go 
 create table dbo.medal(
     MedalId int not null identity primary key, 
+-- SM Don't allow blank
     MedalName varchar(200) not null constraint u_medal_medalname unique 
 )
 go 
+-- SM You should not allow a president to have multiple times the same medal.
 create table dbo.PresidentMedal(
     PresidentMedalId int not null identity primary key, 
     PresidentId int not null constraint f_president_presidentmedal foreign key REFERENCES president(PresidentId),
