@@ -43,7 +43,6 @@ go
 		constraint ck_president_must_be_at_least_35_years_old check(TermStart - year(dateborn) >= 35),
 		CONSTRAINT ck_president_president_must_be_alive_during_full_term CHECK(year(DateDied) >= TermEnd),
 -- SM Remove this constraint.
-		CONSTRAINT u_president_date_born UNIQUE(dateborn)
 	)  
 go
 alter table president drop column if exists AgeAtDeath

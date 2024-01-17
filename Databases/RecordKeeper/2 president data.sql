@@ -1,10 +1,12 @@
 use RecordKeeperDB
 go
+delete PresidentMedal 
+delete medal 
 delete orders 
 delete president
 delete party
 delete colors
-
+go 
 insert colors(Color)
       select 'Red'
 union select 'Blue'
@@ -55,6 +57,7 @@ union select pt.partyId, 20, 'James', 'Garfield', '1831-11-19', '1881-09-19', 18
 union select pt.partyId, 21, 'Chester', 'Arthur', '1829-10-05', '1886-11-18', 1881, 1885 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 22, 'Grover', 'Cleveland', '1837-03-18', '1908-06-24', 1885, 1889 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 23, 'Benjamin', 'Harrison', '1833-08-20', '1901-03-13', 1889, 1893 from party pt where pt.partyname = 'Republican'
+union select pt.partyId, 24, 'Grover', 'Cleveland', '1837-03-18', '1908-06-24', 1893, 1897 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 25, 'William', 'McKinley', '1843-01-29', '1901-09-14', 1897, 1901 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 26, 'Theodore', 'Roosevelt', '1858-10-27', '1919-01-06', 1901, 1909 from party pt where pt.partyname = 'Republican'
 union select pt.partyId, 27, 'William', 'Taft', '1857-09-15', '1930-03-08', 1909, 1913 from party pt where pt.partyname = 'Republican'
@@ -65,7 +68,7 @@ union select pt.partyId, 31, 'Herbert C.', 'Hoover', '1874-08-10', '1964-10-20',
 union select pt.PartyId, 32, 'Franklin Delano', 'Roosevelt', '1882-01-30', '1945-04-12', 1933, 1945 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 33, 'Harry S', 'Truman', '1884-05-08', '1972-12-26', 1945, 1953 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 34, 'Dwight David', 'Eisenhower', '1890-10-14', '1969-03-28', 1953, 1961 from party pt where pt.partyname = 'Republican'
-union select pt.partyId, 35, 'John Fitzgerald', 'Kennedy', '1917-05-29', '1963-11-22', 1961, 1963 from party pt where pt.partyname = 'Democratic'
+union select pt.partyId, 35, 'John Fatzgerald', 'Kennedy', '1917-05-29', '1963-11-22', 1961, 1963 from party pt where pt.partyname = 'Democratic'
 union select pt.partyId, 36, 'Lyndon Baines', 'Johnson', '1908-08-27', '1973-01-22', 1963, 1969 from party pt where pt.partyname = 'Democratic'
 union select pt.PartyId, 37, 'Richard Milhous', 'Nixon', '1913-01-09', '1994-04-22', 1969, 1974 from party pt where pt.partyname = 'Republican'
 union select pt.PartyId, 38, 'Gerald R.', 'Ford',  '1913-07-14', '2006-12-26', 1974, 1977 from party pt where pt.partyname = 'Republican'
@@ -87,3 +90,41 @@ union select p.presidentId, 13984, 3, 'C.F.R.', 8, 2021, 'Taking Additional Step
 union select p.presidentId, 2194, 3, 'C.F.R.', 9, 1962, 'Delegating Emergency Preparedness Responsibilities', 1, GETDATE() from president p where p.dateborn = '1946-06-14'
 union SELECT p.presidentId, 11452, 3, 'c.F.R.', 10, 1969, 'Establishing the council for Urban Affairs', 0, GETDATE() from president p where p.DateBorn =  '1913-01-09'
 
+-- SM Should be in data file.
+insert Medal(MedalName)
+select 'Made America Great'
+union select 'Won most debates'
+union select 'Scored the most points'
+union select 'Eyes remained focused on his goal'
+union select 'Laughed and smiled through it all'
+union select 'stood against the tide' 
+union select 'Never gave up hope'
+union select 'Conquered the world while sitting'
+union select 'Cheered everyone on'
+
+;
+with x as(
+    select LastName = 'Washington', PartyName = 'None, Federalist', MedalName = 'Never gave up hope'
+    union select 'Monroe', 'Democratic-Republican', 'Eyes remained focused on his goal'
+    union select 'Tyler', 'whig', 'Laughed and smiled through it all'
+    union select 'Fillmore', 'whig', 'Laughed and smiled through it all'
+    union select 'Lincoln', 'Republican', 'Won most debates'
+    union select 'Lincoln', 'Republican', 'Scored the most points'
+    union select 'Lincoln', 'Republican', 'Conquered the world while sitting'
+    union select 'Cleveland', 'Democratic', 'Stood against the tide'
+    union select 'Taft', 'Republican', 'Laughed and smiled through it all'
+    union select 'Eisenhower', 'Republican', 'Scored the most points'
+    union select 'Reagan', 'Democratic', 'Made America Great'
+    union select 'Obama', 'Democratic', 'Made America Great'
+    union select 'Trump', 'Republican', 'Scored the most points'
+    union select 'Trump', 'Republican', 'Won most debates'
+)
+insert PresidentMedal(PresidentId, MedalId)
+select p.presidentId, m.medalId
+from x 
+join president p 
+on p.LastName = x.LastName 
+join party pt 
+on pt.PartyName = x.PartyName 
+join medal m 
+on m.MedalName = x.MedalName

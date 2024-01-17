@@ -17,49 +17,12 @@ Ensure that sample data provides A) president with no medals
                                  
 */
 
--- SM Should be in data file.
-insert Medal(MedalName)
-select 'Made America Great'
-union select 'Won most debates'
-union select 'Scored the most points'
-union select 'Eyes remained focused on his goal'
-union select 'Laughed and smiled through it all'
-union select 'stood against the tide' 
-union select 'Never gave up hope'
-union select 'Conquered the world while sitting'
-union select 'Cheered everyone on'
 
-;
-with x as(
-    select LastName = 'Washington', PartyName = 'None, Federalist', MedalName = 'Never gave up hope'
-    union select 'Monroe', 'Democratic-Republican', 'Eyes remained focused on his goal'
-    union select 'Tyler', 'whig', 'Laughed and smiled through it all'
-    union select 'Fillmore', 'whig', 'Laughed and smiled through it all'
-    union select 'Lincoln', 'Republican', 'Won most debates'
-    union select 'Lincoln', 'Republican', 'Scored the most points'
-    union select 'Lincoln', 'Republican', 'Conquered the world while sitting'
-    union select 'Cleveland', 'Democratic', 'Stood against the tide'
-    union select 'Taft', 'Republican', 'Laughed and smiled through it all'
-    union select 'Eisenhower', 'Republican', 'Scored the most points'
-    union select 'Reagan', 'Democratic', 'Made America Great'
-    union select 'Obama', 'Democratic', 'Made America Great'
-    union select 'Trump', 'Republican', 'Scored the most points'
-    union select 'Trump', 'Republican', 'Won most debates'
-)
-insert PresidentMedal(PresidentId, MedalId)
-select p.presidentId, m.medalId
-from x 
-join president p 
-on p.LastName = x.LastName 
-join party pt 
-on pt.PartyName = x.PartyName 
-join medal m 
-on m.MedalName = x.MedalName
 
 
 --1) Select all presidents and any medals they may have, sorted by medal and president number. Show Name, Number, Medal, Party
 -- SM Don't show null.
-select p.FirstName, p.LastName, p.num, m.MedalName, pt.PartyName
+select p.FirstName, p.LastName, p.num, MedalName = isnull(m.MedalName, ''), pt.PartyName
 from president p 
 left join party pt  
 on p.PartyId = pt.PartyId 
@@ -108,12 +71,11 @@ group by pt.partyname
 order by pt.PartyName
 --5) Which medal(s) has never been awarded
 -- SM There's an easier way to do this just using where clause without a group by and having
-select TimesAwarded = count(pm.MedalId), m.medalname
+select * 
 from medal m 
 left join presidentmedal pm 
 on m.medalId = pm.medalId
-group by m.medalname  
-having count(pm.MedalId) = 0 
+where pm.presidentId is null 
 --6) Pick a president that has been awarded at least one medal, and strip him of his awards. Do not delete the medal.
 
 select TimesAwared = count(pm.MedalId), p.LastName 
@@ -159,4 +121,4 @@ on pm.MedalId = m.MedalId
 join president p 
 on p.PresidentId = pm.PresidentId 
 where p.TermEnd < 1993
-
+and m.medalname = 'Champion of Internet Safety'
