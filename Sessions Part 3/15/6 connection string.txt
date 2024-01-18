@@ -1,0 +1,1 @@
+User ID=appadmin;Password={your_password};
