@@ -82,6 +82,7 @@ create table dbo.medal(
     MedalId int not null identity primary key, 
 -- SM Don't allow blank
     MedalName varchar(200) not null constraint u_medal_medalname unique 
+	constraint ck_medal_medalname_cannot_be_blank check(medalname <> '')
 )
 go 
 -- SM You should not allow a president to have multiple times the same medal.
@@ -90,5 +91,6 @@ create table dbo.PresidentMedal(
     PresidentId int not null constraint f_president_presidentmedal foreign key REFERENCES president(PresidentId),
     MedalId int not null constraint f_medal_presidentmedal foreign key references medal(MedalId),
     DateAwarded datetime not null default getdate() 
+	constraint u_presidentId_medalId UNIQUE(presidentId, MedalId)
 )
 go
