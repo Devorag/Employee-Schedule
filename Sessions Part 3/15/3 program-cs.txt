@@ -1,0 +1,18 @@
+//after var builder
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+builder.Configuration.AddJsonFile("secret-appsettings.json", true, true);
+
+//above app.MapControllers
+app.UseCors("AllowAllOrigins");
+app.UseAuthorization();
+string settingname = "Settings:liveconn";
+#if DEBUG
+    settingname = "Settings:devconn-local";
+#endif
+
+string connstring = builder.Configuration[settingname]; 
+//RecordKeeperSystem.DBManager.SetConnectionString(connstring, true);

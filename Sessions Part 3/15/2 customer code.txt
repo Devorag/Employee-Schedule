@@ -1,0 +1,11 @@
+    public class Customer
+    {
+        public enum CategoryEnum { standard, priority}
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = "";
+
+        public CategoryEnum Category { get; set; } = CategoryEnum.standard;
+    }
+
+//for the controller
+List<Customer> lst = new() { new() { Id = 1, Name="Andy" }, new() { Id = 2, Name = "Bob", Category = Customer.CategoryEnum.priority } };

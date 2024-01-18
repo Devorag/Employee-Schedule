@@ -1,0 +1,17 @@
+type party = {
+    partyId: number;
+    partyName: string;
+    yearStart: number;
+    colorId: number;
+}
+type BizPresident = {
+    presidentId: number;
+    partyId: number;
+    num: number | null;
+    firstName: string;
+    lastName: string;
+    dateBorn: Date | null;
+    dateDied: Date | null;
+    termStart: number | null;
+    termEnd: number | null;
+}
