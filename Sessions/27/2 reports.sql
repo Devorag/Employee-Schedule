@@ -1,5 +1,10 @@
 --1) Show me a list of stores, shelves, and books (include author's name) sorted by store, author, title, shelf number
-
+select s.bookstore, f.shelfsequence, b.title, a.firstname, a.lastname
+from bookstore s 
+join shelf f 
+on f.bookstoreId = s.BookStoreId 
+join book b 
+on b.BookId = sb.
 --2) Show me a list of stores and shelves with the total number of books per shelf, show zero if no books
 
 --3) Show me a list of stores and a total number books per store, show zero if none

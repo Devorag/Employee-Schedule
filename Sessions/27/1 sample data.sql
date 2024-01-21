@@ -102,14 +102,74 @@ from book b
 cross join shelf s 
 where s.ShelfSequenceNumber =1 
 --b) populate one shelf with multiple copies of one book
-
+;
+with x as(
+    select Title = 'Cream Life', ShelfSequenceNumber = 2, FirstName = 'Alice', LastName = 'Aard'
+)
+insert ShelfBook(BookId, ShelfId, Quantity)
+select b.bookId, s.sheldId, 2
+from x
+join book b 
+on b.title = x.title 
+join shelf s 
+on s.ShelfSequenceNumber = x.ShelfSequenceNumber 
+join author a 
+on a.LastName = x.LastName 
+and a.FirstName = x.FirstName 
 --c) populate one shelf with all books from one author
-
+insert ShelfBook(BookId, ShelfId, Quantity)
+select b.bookId, s.shelfId, 1 
+from book b 
+join author a 
+on a.AuthorId = b.authorId 
+cross join shelf s 
+where s.ShelfSequenceNumber = 3 
+and a.FirstName = 'Donald'
+and a.LastName = 'Doolittle'
 --d) give some shelves at least one genre and some shelves multiple genres
-
+;
+with x as(
+    Select ShelfSequenceNumber = 3, GenreName = 'Fiction'
+    3, 'Fantasy'
+    3, 'True Crime'
+    4, 'Historical Fiction'
+    5, 'Biography'
+)
+insert ShelfGenre(ShelfId, GenreId)
+select s.shelfId, g.GenreId 
+from x 
+join shelf s 
+on s.ShelfSequenceNumber = x.shelfsequencenumber
+join genre g 
+on x.genreName = g.GenreName
 --e) fill all genre shelves with 5 copies of books that have matching genre
 -- NOTE: If the shelf already has a copy of a particular book, you will not be able to INSERT. Instead, add another 5 copies
+update sb 
+set sb.quantity += 5
+from shelfbook sb 
+join ShelfGenre sg 
+on sg.ShelfId = sb.ShelfId
+join BookGenre bg 
+on bg.BookId = sb.BookId
+where sb.BookId = bg.BookId 
+
+insert ShelfBook(ShelfId, BookId, Quantity)
+select bg.bookId, sg.shelfId, 5 
+from bookgenre bg 
+join ShelfGenre sg 
+on bg.GenreId = sg.GenreId 
+left join shelfbook sb 
+on sb.ShelfId = sg.ShelfId
+where sb.ShelfBookId is null 
 
 --f) give all stores one shelf without any books, new shelf sequence should be 1 higher than the current highest shelf sequence for the store
-
+insert Shelf(BookstoreId, ShelfSequenceNumber)
+select b.bookstoreId, max(s.shelfsequencenumber) + 1
+from bookstore b 
+left join shelf s 
+on b.BookStoreId = s.BookStoreId 
+group by b.BookStoreId 
 --g) create a new store (suggested name: Early Bird Books), give it a code 100 more than highest current code
+insert BookStore(BookStoreName, BookStoreCode)
+select 'Early Bird Books', max(b.bookstorecode) + 100 
+from bookstore b 
