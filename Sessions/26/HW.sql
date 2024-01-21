@@ -19,7 +19,6 @@ Ensure that sample data provides A) president with no medals
 
 
 
-
 --1) Select all presidents and any medals they may have, sorted by medal and president number. Show Name, Number, Medal, Party
 -- SM Don't show null.
 select p.FirstName, p.LastName, p.num, MedalName = isnull(m.MedalName, ''), pt.PartyName

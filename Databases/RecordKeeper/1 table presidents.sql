@@ -23,7 +23,6 @@ create table dbo.party(
 	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and year(GETDATE())),
 )
 go 
-
 		create table dbo.president(
 		PresidentId int not null identity (1000,1) primary key,
 		PartyId int not null constraint f_party_president foreign key REFERENCES party(PartyId),
