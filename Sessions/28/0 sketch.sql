@@ -13,7 +13,7 @@ Directions
     DirectionsId primary key 
     Directions varchar(500)
     StepSequence int
-User
+User 
     UserId primary key 
     FirstName varchar(100)
     LastName varchar(100)
