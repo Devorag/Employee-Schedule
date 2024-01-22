@@ -1,5 +1,5 @@
--- SM Excellent! See comments, fix and resubmit.
-use RecordKeeperDB
+-- SM Excellent! 100%
+use RecordKeeperDBDG
 drop table if exists PresidentMedal
 drop table if exists Medal 
 drop table if exists orders
@@ -41,7 +41,6 @@ go
 		CONSTRAINT ck_president_term_end_Cannot_be_before_term_start CHECK(TermEnd >= TermStart),
 		constraint ck_president_must_be_at_least_35_years_old check(TermStart - year(dateborn) >= 35),
 		CONSTRAINT ck_president_president_must_be_alive_during_full_term CHECK(year(DateDied) >= TermEnd),
--- SM Remove this constraint.
 	)  
 go
 alter table president drop column if exists AgeAtDeath
@@ -79,12 +78,11 @@ alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNum
 go 
 create table dbo.medal(
     MedalId int not null identity primary key, 
--- SM Don't allow blank
     MedalName varchar(200) not null constraint u_medal_medalname unique 
 	constraint ck_medal_medalname_cannot_be_blank check(medalname <> '')
 )
 go 
--- SM You should not allow a president to have multiple times the same medal.
+
 create table dbo.PresidentMedal(
     PresidentMedalId int not null identity primary key, 
     PresidentId int not null constraint f_president_presidentmedal foreign key REFERENCES president(PresidentId),

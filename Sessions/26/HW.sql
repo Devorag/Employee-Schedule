@@ -1,4 +1,4 @@
--- SM Excellent! See comments, fix and resubmit.
+-- SM Excellent! 100% See comment, no need to resubmit.
 /*
 The government is starting a new program to award medals to presidents for outstanding service. 
 Add tables to store medals and award them to presidents. A medal can be assigned to more than one president. 
@@ -20,7 +20,6 @@ Ensure that sample data provides A) president with no medals
 
 
 --1) Select all presidents and any medals they may have, sorted by medal and president number. Show Name, Number, Medal, Party
--- SM Don't show null.
 select p.FirstName, p.LastName, p.num, MedalName = isnull(m.MedalName, ''), pt.PartyName
 from president p 
 left join party pt  
@@ -45,6 +44,7 @@ on m.medalId = pm.medalId
 group by m.medalname  
 --4a) Show all parties and the number of medals awarded to it's presidents. Omit party if no medals
 -- SM There's an easier way to do this without a having.
+-- You only want those that have medals. Use simple join not a left join.
 select NumMedals = count(pm.MedalId), pt.PartyName
 from party pt 
 left join president p 
@@ -69,7 +69,6 @@ on pm.MedalId =m.MedalId
 group by pt.partyname
 order by pt.PartyName
 --5) Which medal(s) has never been awarded
--- SM There's an easier way to do this just using where clause without a group by and having
 select * 
 from medal m 
 left join presidentmedal pm 
