@@ -1,5 +1,5 @@
 -- SM Excellent! 100%
-use RecordKeeperDBDG
+use RecordKeeperDB
 drop table if exists PresidentMedal
 drop table if exists Medal 
 drop table if exists orders
