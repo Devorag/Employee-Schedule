@@ -64,7 +64,7 @@ DATEADD(year,p.num,p.DateBorn),
                 when p.party not in ('Democrat', 'Republican') or p.AgeAtDeath between 50 and 58 or p.AgeAtDeath between 70 and 73 or p.AgeAtDeath between 75 and 77 then datefromparts(p.termstart + 10,01,07)
                 else null
         end
-from recordkeeperdb..president p
+from recordkeeperdb.dbo.president p
 
 
 

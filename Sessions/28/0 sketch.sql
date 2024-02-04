@@ -1,43 +1,46 @@
 /*
 ingredients 
     IngredientId primary key 
-    IngredientName varchar(100)
+    IngredientName varchar(100) not blank 
     unique name
 Cuisine
     CuisineId primary key 
-    CuisineType Varchar(100)
-RecipeStatus
-    StatusId primary key 
-    StatusDesc varchar(100) must be drafted, published, archived 
-Directions
-    DirectionsId primary key 
-    Directions varchar(500)
-    StepSequence int
+    CuisineType Varchar(100) not blank 
+Direction
+    DirectionId primary key 
+    Directions varchar(500) not blank 
+    StepSequence int  greater than zero 
 User 
     UserId primary key 
-    FirstName varchar(100)
-    LastName varchar(100)
-    UserName varchar(100) 
-    unique firstname, lastname
-Recipe
-    RecipeId primary key 
-    CuisineId foreign key 
-    RecipeStatusId foreign key 
-    DirectionId foreign key 
-    UserId 
-    RecipeName varchar(200)
-    IngredientAmount int 
-    Calories int 
-    MeasurementType varchar(50)
-    StatusDate default date 
-    unique name 
-RecipeIngredient
-    RecipeIngredientId primary key 
-    RecipeId foreign key 
-    IngredientId foreign key 
+    FirstName varchar(100) not blank 
+    LastName varchar(100) not blank 
+    UserName varchar(100) not blank 
+    unique firstname, lastname 
 Course
     CourseId primary key 
     CourseType varchar(100)
+Recipe
+    RecipeId primary key 
+    CuisineId foreign key 
+    UserId foreign key 
+    RecipeName varchar(200) not blank 
+    IngredientAmount int greater than zero 
+    Calories int greater than zero 
+    MeasurementType varchar(50) not null 
+    RecipePicture varchar(100)
+    RecipeStatus varchar(100) must be drafted, published, archived 
+    DateDrafted default date not future date 
+    DatePublished default date not future date 
+    DateArchived default date not future date 
+    unique name 
+RecipeIngredient 
+    RecipeIngredientId primary key 
+    RecipeId foreign key 
+    IngredientId foreign key 
+RecipeDirection
+    RecipeDirectionId primary key
+    RecipeId foreign key 
+    DirectionId foreign key     
 RecipeCourse
     RecipeCourseID primary key 
     RecipeID foreign key 
@@ -45,27 +48,27 @@ RecipeCourse
 Meal
     MealId primary key 
     UserId foreign key 
-    MealName varchar(100)
+    MealName varchar(100) not blank 
+    MealPicture varchar(100) not blank 
     Active bit 
     DateCreated default date 
     unique name 
-CourseMeal
-    CourseMealId primary key 
-    CourseID foreign key 
-    MealId foreign key 
-    CourseSequence int 
+MealCourse 
+    MealCourseId primary key 
+    MealID foreign key 
+    CourseId foreign key 
+    CourseSequence int greater than zero 
 Cookbook   
     CookbookID primay key 
     UserID foreign key 
-    Name varchar(100)
-    Price decimal 
+    Name varchar(100) not blank 
+    Price decimal greater than zero 
+    CookbookPicture varchar(100) not blank 
     Active bit 
-    DateCreated default date 
+    DateCreated default date not future date 
     unique userId, name 
-RecipeCookbook
+CookbookRecipe
     RecipeCookbookId primary key
     RecipeID foreign key 
     CookbookID foreign key 
-Picture
-    PictureId primary key 
-    PictureType varchar(200)
+

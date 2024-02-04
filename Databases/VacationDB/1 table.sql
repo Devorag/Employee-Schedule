@@ -40,3 +40,4 @@ CREATE table dbo.Attraction(
     AmountSpent decimal(7,2) not null
 )
 go 
+
