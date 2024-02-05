@@ -1,3 +1,4 @@
+-- SM Excellent! See comment.
 use RecipeDb 
 go 
 delete CookbookRecipe
@@ -132,6 +133,8 @@ union select (select c.cuisineId from cuisine c where c.CuisineType = 'French'),
 union select (select c.cuisineId from cuisine c where c.cuisineType = 'Indian'), u.usersId, 'Roasted Vegetables', 150, '07-06-2015', '06-06-2016', null from users u where u.lastname = 'Mozes'
 union select (select c.cuisineId from cuisine c where c.CuisineType = 'Chinese'), u.usersId, 'Sesame Chicken', 325, '01-01-2021', '03-04-2021', '11-11-2021' from users u where u.lastname = 'Katz'
 ;
+
+-- SM You'll need to update this after updating table.
 with x as(
     select RecipeName = 'Chocolate Chip Cookies', ingredientName = 'sugar', measurementAmount = 1, MeasurementType = 'cup', IngredientSequence = 1
     union select 'Chocolate Chip Cookies', 'oil', 1/2, 'cup', 2

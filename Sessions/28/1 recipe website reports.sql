@@ -1,3 +1,5 @@
+-- SM Excellent work! See comments, fix and resubmit.
+
 /*
 Our website development is underway! 
 Below is the layout of the pages on our website, please provide the SQL to produce the necessary result sets.
@@ -26,6 +28,8 @@ Recipe list page:
     In the resultset show the Recipe with its status, dates it was published and archived in mm/dd/yyyy format (blank if not archived), user, number of calories and number of ingredients.
     Tip: You'll need to use the convert function for the dates
 */
+-- SM This should show all that were either published or archived. You're showing all that were published only.
+-- Formatting tip: As this is a long select, split it on multiple lines. Best would be if each column is on new line.
 select RecipeName = case when r.RecipeStatus = 'archived' then concat('<span style="color:gray">', r.recipename, '</span>') else r.recipename end, DatePublished = convert(varchar,r.DatePublished,101), DateArchived = isnull(convert(varchar, r.datearchived, 101), ''), r.RecipeStatus, r.calories, NumIngredients = count(distinct ri.ingredientId)
 from recipe r
 join Users u 
@@ -63,6 +67,9 @@ on r.RecipeId = ri.RecipeId
 where r.recipeName= 'Sesame Chicken' 
 order by ri.IngredientSequence 
 
+-- SM When runing the first select on this question it returns that there are 6 steps for this recipe.
+-- This returns 42 steps. How can this be?
+-- You'll need to update this after updating table.
 select s.Instructions 
 from steps s 
 join RecipeSteps rs
@@ -78,6 +85,7 @@ order by ri.ingredientSequence
 Meal list page:
     For all active meals, show the meal name, user that created the meal, number of calories for the meal, number of courses, and number of recipes per each meal, sorted by name of meal
 */
+-- SM No need for "sum" distinct.
 select m.MealName, u.Username, TotalCalories = sum(distinct r.calories), NumCourses = count(distinct c.courseID), NumRecipes = count(distinct r.recipeId)
 from meal m 
 join users u 
@@ -112,6 +120,7 @@ join users u
 on u.UsersId = m.UsersId 
 where m.MealName = 'Supper Crunch'
 
+-- SM You'll need to update this after updating tables.
 select RecipeList = case when c.coursetype = 'main course' and mcr.coursecategory = 'main dish' then concat('<b>', c.CourseType, ': ',mcr.coursecategory, ' - ', r.recipename, '</b>') 
 when c.coursetype = 'main course' and mcr.coursecategory = 'side dish' then concat(c.Coursetype, ': ', mcr.coursecategory, ' - ', r.RecipeName) 
 else concat(c.CourseType, ': ', r.RecipeName) end
@@ -189,6 +198,7 @@ April Fools Page:
     b) When the user clicks on any recipe they should see a spoof steps lists showing the step instructions for the LAST step of EACH recipe in the system. No sequence required.
         Hint: Use CTE
 */
+-- SM No need for the _ before .jpg
 select distinct RecipeName = concat(upper(substring(reverse(r.RecipeName),1,1)), lower(SUBSTRING(reverse(r.RecipeName),2,20))), RecipePicture = concat('Recipe', '_', replace(reverse(RecipeName), ' ', '_'), '_.jpg') 
 from recipe r 
 join CookbookRecipe cr 
@@ -197,6 +207,7 @@ join cookbook c
 on c.CookbookId = cr.cookbookId 
 
 ;
+-- SM You'll need to update this after updating table.
 with x as(
     select r.recipeName, LastStep = max(rs.stepsequence)
     from recipe r 
@@ -226,6 +237,7 @@ For site administration page:
         Hint: For active/inactive columns, use SUM function with CASE to only include in sum if active/inactive 
     e) List of archived recipes that were never published, and how long it took for them to be archived.
 */
+-- SM Don't show null for status. Show something like N/A or blank.
 select u.username, r.recipestatus, TotalRecipesCreated = count(distinct r.RecipeId)
 from users u 
 left join recipe r 
@@ -278,6 +290,7 @@ join users u
 on c.UsersId = u.usersId 
 where u.UserName = 'Msvei'
 
+-- SM When the recipe is archived the status before it can be either published or drafted.
 select r.RecipeStatus, NumHoursbetweenstatuses = case when r.recipestatus = 'Published' then DATEDIFF(hour, r.datedrafted, r.DatePublished) when r.recipestatus = 'Archived' and r.DatePublished is not null then DATEDIFF(hour, r.DatePublished, r.DateArchived) else ' ' end
 from recipe r 
 join users u 

@@ -1,3 +1,5 @@
+-- SM Excellent work! See comments, fix and resubmit.
+
 --Note: some of these scripts are needed for specific items, when the instructions say "specific" pick one item in your data and specify it in the where clause using a unique value that identifies it, do not use the primary key.
 
 --1) Sometimes when a staff member is fired. We need to eradicate everything from that user in our system. Write the SQL to delete a specific user and all the user's related records.
@@ -45,6 +47,7 @@ join users u
 on u.usersID = c.usersID 
 where u.username = 'Dmozes'
 
+-- SM There's one issue here that makes the delete of user fail.
 delete mcr 
 from MealCourseRecipe mcr 
 join MealCourse mc 
@@ -53,6 +56,7 @@ join meal m
 on m.MealId = mc.MealId 
 join users u 
 on u.UsersId = m.UsersId 
+where u.UserName = 'Dmozes'
 
 delete mc 
 from MealCourse mc 
@@ -72,6 +76,8 @@ delete u
 from users u 
 where u.username = 'Dmozes'
 --2) Sometimes we want to clone a recipe as a starting point and then edit it. For example we have a complex recipe (steps and ingredients) and want to make a modified version. Write the SQL that clones a specific recipe, add " - clone" to its name.
+
+-- SM You should also add the ingredients and steps for the recipe.
 insert Recipe(CuisineID, UsersId, RecipeName, Calories, DateDrafted, DatePublished, DateArchived)
 select cu.cuisineId, u.usersId, concat(r.recipeName, ' - clone'), r.calories, '01-02-2024', null, null 
 from Cuisine cu 
@@ -155,6 +161,8 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 		That is [Z] hours more than the average [Y] hours all other recipes took to be published.
 */
 ;
+-- SM The CTE should return the avg amount of hours ALL recipes took to be published not per recipe.
+-- And then cross join to CTE and only show those that are still in draft and are more than the avg.
 with x as(
 	select r.recipeName,  AvgDaysInDraft = avg(DATEDIFF(day, r.datedrafted, r.datepublished))
 	from recipe r
