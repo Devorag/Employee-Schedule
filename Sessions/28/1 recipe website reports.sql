@@ -80,6 +80,10 @@ order by ri.IngredientSequence
 -- This returns 35 steps. How can this be?
 -- Hint: You're showing multiple times every step. Don't add "distinct". Find the reason this is happening
 select rs.Instructions 
+-- SM When runing the first select on this question it returns that there are 6 steps for this recipe.
+-- This returns 42 steps. How can this be?
+-- You'll need to update this after updating table.
+select distinct rs.Instructions, ri.ingredientSequence
 from RecipeSteps rs
 join recipe r 
 on r.recipeId = rs.RecipeId 

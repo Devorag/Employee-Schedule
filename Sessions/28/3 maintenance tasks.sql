@@ -41,6 +41,7 @@ join users u
 on u.usersID = r.usersId 
 where u.username = 'Dmozes'
 
+
 -- SM There's one issue here that makes the delete of user fail.
 delete mcr 
 from MealCourseRecipe mcr 
@@ -79,13 +80,35 @@ where u.username = 'Dmozes'
 
 -- SM You should also add the ingredients and steps for the recipe.
 insert Recipe(CuisineID, UsersId, RecipeName, Calories, DateDrafted, DatePublished, DateArchived)
-select cu.cuisineId, u.usersId, concat(r.recipeName, ' - clone'), r.calories, '01-02-2024', null, null 
-from Cuisine cu 
-join recipe r 
-on r.CuisineID = cu.CuisineId 
-join users u 
-on u.UsersId = r.UsersId 
+select r.cuisineId, r.usersId, concat(r.recipeName, ' - clone'), r.calories, '01-02-2024', null, null 
+from recipe r 
 where r.RecipeName = 'Ministroni Soup'
+
+with x as(
+	select r.recipeID, r.recipeName 
+	from recipe r 
+	where r.RecipeName ='Ministroni Soup - clone'
+)
+Insert RecipeIngredient(RecipeId, IngredientId, UnitOfMeasureID, MeasurementAmount, IngredientSequence)
+select x.recipeId, ri.ingredientId, ri.unitOfMeasureId, ri.measurementAmount, ri.IngredientSequence
+from x 
+cross join Recipe r 
+join RecipeIngredient ri 
+on ri.RecipeId = r.RecipeId 
+where r.RecipeName = 'Ministroni Soup'
+
+with x as(
+	select r.recipeId, r.recipeName
+	from recipe r 
+	where r.RecipeName = 'Ministroni soup'
+)
+insert RecipeSteps(RecipeId, Instructions, StepSequence)
+select x.recipeId, rs.instructions, rs.StepSequence 
+from x 
+cross join recipe r 
+join RecipeSteps rs 
+on rs.RecipeId = r.RecipeId 
+where r.RecipeName = 'Ministroni souop'
 
 /*
 3) We offer users an option to auto-create a recipe book containing all of their recipes. 
@@ -172,14 +195,14 @@ with x as(
 	from recipe r
 )
 select u.firstname, u.lastname, EmailAdress = concat(substring(u.firstname, 1, 1), u.lastname, '@heartyhearth.com'), 
-Alert = concat('Your recipe ', r.recipeName, ' is sitting in draft for ', DATEDIFF( day, r.datedrafted, getdate()), ' hours.', 
-'That is ', datediff( day, r.datedrafted, getdate()) - x.avgDaysInDraft, ' hours more than the average ', x.avgDaysInDraft, ' hours all other recipes took to be published.')
+Alert = concat('Your recipe ', r.recipeName, ' is sitting in draft for ', DATEDIFF(hour, r.datedrafted, getdate()), ' hours.', 
+'That is ', datediff(hour, r.datedrafted, getdate()) - x.avgDaysInDraft, ' hours more than the average ', x.avgDaysInDraft, ' hours all other recipes took to be published.')
 from x 
-join recipe r 
-on r.recipeName = x.recipeName 
+cross join recipe r 
 join users u 
 on u.usersId = r.usersId 
-where r.DatePublished is null 
+where r.RecipeStatus = 'Drafted' 
+and x.AvgDaysInDraft > datediff(hour, r.DateDrafted, GETDATE())
 /*
 6) We want to send out marketing emails for books. Produce a result set with one row and one column "Email Body" as specified below.
 The email should have a unique guid link to follow, which should be shown in the format specified. 
