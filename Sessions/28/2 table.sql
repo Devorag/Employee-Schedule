@@ -21,8 +21,6 @@ create table dbo.Users(
         constraint ck_User_FirstName_cannot_be_Blank check(FirstName <> ''),
     LastName varchar(100) not null 
         constraint ck_User_LastName_cannot_be_blank check(LastName <> ''),
--- SM We do allow multple users with same name.
--- SM This should be a normal column and should be unique.
     UserName varchar(100) not null 
         constraint ck_User_UserName_Cannot_be_Blank check(UserName <> ''),
     constraint u_Users_UserName unique(UserName)
@@ -33,13 +31,11 @@ create table dbo.ingredient(
     IngredientName varchar(100) not null 
         constraint ck_ingredient_ingredientName_cannot_be_blank check(IngredientName <> '')
         constraint u_Ingredient_IngredientName unique,
--- SM No need for the _ before .jpg
     IngredientPicture as concat('Ingredient', '_', replace(IngredientName, ' ', '_'), '.jpg') persisted 
 )
 go 
 create table dbo.Cuisine(
     CuisineId int not null identity primary key,
--- SM Should be unique.
     CuisineType varchar(100) not null 
         constraint ck_Cuisine_CuisineType_cannot_be_Blank check(CuisineType <> ''),
         constraint u_Cuisine_CuisineType unique(CuisineType)
@@ -56,15 +52,15 @@ create table dbo.Recipe(
         constraint u_Recipe_RecipeName unique,
     Calories int not null 
         constraint ck_recipe_calories_must_be_greater_than_zero check(Calories > 0),
--- SM All should be datetime and do allow current datetime changes.
--- The dates should be in order DateDrafted < DatePublished < DateArchived
     DateDrafted datetime not null 
         constraint ck_Recipe_DateDrafted_Cannot_be_future_Date check(DateDrafted <= getdate()),
     DatePublished datetime null 
         constraint ck_Recipe_DatePublished_Cannot_be_future_Date check(DatePublished <= getdate()),
+-- SM Multi column constraints should be at the bottom.
         constraint ck_Recipe_DatePublished_must_be_after_DateDrafted check(DatePublished >= DateDrafted), 
     DateArchived datetime null 
         constraint ck_Recipe_DateArchived_Cannot_be_future_Date check(DateArchived <= getdate()),
+-- SM Multi column constraints should be at the bottom. And this wont make sure date drafted is before date archived if date published is null
         constraint ck_Recipe_DateArchived_must_be_after_DatePublished  check(DateArchived >= DatePublished), 
     RecipeStatus as 
         case 
@@ -72,12 +68,12 @@ create table dbo.Recipe(
             when datearchived is null and datepublished is not null then 'Published'
             when datearchived is null and datepublished is null then 'Drafted' 
         end,
--- SM No need for the _ before .jpg
     RecipePicture as concat('Recipe', '_', replace(RecipeName, ' ', '_'), '.jpg') persisted
 )
 go
 create table dbo.UnitOfMeasure(
     UnitOfMeasureId int not null identity primary key,
+-- SM Should be unique and don't allow null.
     MeasurementType varchar(50) null 
         constraint ck_recipe_measurementType_cannot_be_Blank check(MeasurementType <> '')
 ) 
@@ -88,14 +84,12 @@ create table dbo.RecipeIngredient(
         constraint F_Recipe_RecipeIngredient foreign key references Recipe(RecipeId),
     IngredientId int not null 
         constraint f_Ingredients_RecipeIngredient foreign key references Ingredient(IngredientId),
--- SM In constraint name you say that you don't allow 0 but in actual constraint you do allow?
--- Why do you allow null? And should be decimal as you do allow 0.5
--- SM You should have a dropdown of measurement types.
+-- SM Here you should allow null for ingredients that dont have a UoM.
     UnitOfMeasureId int not null 
         constraint f_UnitOfMeasure_RecipeIngredient foreign key references UnitOfMeasure(UnitOfMeasureId),
     MeasurementAmount decimal(4,2) not null 
+-- SM In constraint name you say that you don't allow 0 but in actual constraint you do allow?
         constraint ck_recipe_MeasurementAmount_must_be_greater_than_zero check(MeasurementAmount >= 0),
--- SM Should be unique to recipe.
     IngredientSequence int not null 
         constraint ck_RecipeIngredient_IngredientSequence_must_be_greater_than_zero CHECK(IngredientSequence > 0),
     constraint u_RecipeIngredient_RecipeId_IngredientId unique(RecipeID, IngredientId),
@@ -106,7 +100,6 @@ create table dbo.RecipeSteps(
     RecipeStepsId int not null identity primary key,
     RecipeId int not null 
         constraint f_Recipe_RecipeSteps foreign key references Recipe(RecipeID),
--- SM No need for this FK. Add the instructions here.
      Instructions  varchar(500) not null 
         constraint Ck_RecipeSteps_Instructions_cannot_be_blank check(Instructions <> ''),
     StepSequence int not null 
@@ -130,12 +123,9 @@ create table dbo.Meal(
     MealName varchar(100) not null 
         constraint ck_meal_medalname_cannot_be_blank check(MealName <> '')
         constraint u_Meal_MealName unique,
--- SM Default to true.
     Active bit not null default 1,
--- SM Do allow current date.
     DateCreated date not null DEFAULT getdate()
         constraint ck_meal_dateCreated_cannot_be_future_Date check(DateCreated <= getdate()),
--- SM No need for the _ before .jpg
     MealPicture as concat('Meal', '_', replace(MealName, ' ', '_'), '.jpg') PERSISTED 
 )
 go 
@@ -145,7 +135,6 @@ create table dbo.MealCourse(
         constraint f_MealCourse_Meal foreign key references Meal(MealId),
     CourseId int not null 
         constraint f_MealCourse_Course foreign key references Course(CourseId),
--- SM This should be a unique column in the course table. The sequence of the courses will always be the same even if you're missing a course in a meal.
     constraint u_MealCourse_MealId_CourseID unique(MealId, CourseID),
 
 )
@@ -156,7 +145,7 @@ create table dbo.MealCourseRecipe(
         constraint f_MealCourseRecipe_MealCourse foreign key REFERENCES MealCourse(MealCourseId),
     RecipeId int not null 
         constraint f_MealCourseRecipe_Recipe foreign key references Recipe(RecipeId),
--- SM This should be a bit column. And don't allow null
+-- SM The unique constraint has nothing with this column. Add a comma.
     MainDish bit not null
         constraint u_MealCourseRecipe_MealCourseId_RecipeId unique(MealCourseId, RecipeId)
 )
@@ -168,14 +157,12 @@ create table dbo.Cookbook(
     CookbookName varchar(200) not null
         CONSTRAINT ck_Cookbook_CookbookName_cannot_Be_Blank check(CookbookName <> '')
         constraint u_Cookbook_CookbookName unique,
--- SM Specify the length of decimal.
     Price decimal (6,2)
         constraint ck_Cookbook_Price_must_be_greater_than_Zero check(Price > 0),
     Active bit not null default 1, 
--- SM Don't allow future dates.
+-- SM Do allow current date.
     DateCreated date not null default getdate(),
         constraint ck_Cookbook_DateCreated_cannot_be_future_Date check(DateCreated < getdate()),
--- SM No need for the _ before .jpg
     CookbookPicture as concat('Cookbook', '_', replace(CookbookName, ' ', '_'), '.jpg') persisted
 )
 go 

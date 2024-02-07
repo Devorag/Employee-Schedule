@@ -28,8 +28,8 @@ Recipe list page:
     In the resultset show the Recipe with its status, dates it was published and archived in mm/dd/yyyy format (blank if not archived), user, number of calories and number of ingredients.
     Tip: You'll need to use the convert function for the dates
 */
--- SM This should show all that were either published or archived. You're showing all that were published only.
--- Formatting tip: As this is a long select, split it on multiple lines. Best would be if each column is on new line.
+-- SM Don't show null for published.
+-- Formatting tip: Indent everything part of the select.
 select RecipeName = case 
 when r.RecipeStatus = 'archived' then concat('<span style="color:gray">', r.recipename, '</span>') 
 else r.recipename end, 
@@ -56,6 +56,7 @@ Recipe details page:
         b) List of ingredients: show the measurement quantity, measurement type and ingredient in one column, sorted by sequence. Ex. 1 Teaspoon Salt  
         c) List of prep steps sorted by sequence.
 */
+-- SM This doesn't work.
 select r.RecipeName, r.Calories, NumIngredients = count(distinct ri.ingredientID), NumSteps = count(distinct rs.stepsId)
 from recipe r 
 join recipeIngredient ri 
@@ -65,6 +66,7 @@ on rs.RecipeId = r.RecipeId
 where r.RecipeName = 'Sesame Chicken'
 group by r.RecipeName, r.Calories
 
+-- SM This doesn't work.
 select IngredientList = concat(ri.MeasurementAmount, ' ' , ri.MeasurementType, ' ', i.IngredientName)
 from ingredient i 
 join RecipeIngredient ri 
@@ -74,9 +76,9 @@ on r.RecipeId = ri.RecipeId
 where r.recipeName= 'Sesame Chicken' 
 order by ri.IngredientSequence 
 
--- SM When runing the first select on this question it returns that there are 6 steps for this recipe.
--- This returns 42 steps. How can this be?
--- You'll need to update this after updating table.
+-- SM When runing the first select on this question it returns that there are 7 steps for this recipe.
+-- This returns 35 steps. How can this be?
+-- Hint: You're showing multiple times every step. Don't add "distinct". Find the reason this is happening
 select rs.Instructions 
 from RecipeSteps rs
 join recipe r 
@@ -91,7 +93,6 @@ order by ri.ingredientSequence
 Meal list page:
     For all active meals, show the meal name, user that created the meal, number of calories for the meal, number of courses, and number of recipes per each meal, sorted by name of meal
 */
--- SM No need for "sum" distinct.
 select m.MealName, u.Username, TotalCalories = sum(r.calories), NumCourses = count(distinct c.courseID), NumRecipes = count(distinct r.recipeId)
 from meal m 
 join users u 
@@ -126,7 +127,7 @@ join users u
 on u.UsersId = m.UsersId 
 where m.MealName = 'Supper Crunch'
 
--- SM You'll need to update this after updating tables.
+-- SM Can't run this.
 select RecipeList = case when c.coursetype = 'main course' and mcr.coursecategory = 'main dish' then concat('<b>', c.CourseType, ': ',mcr.coursecategory, ' - ', r.recipename, '</b>') 
 when c.coursetype = 'main course' and mcr.coursecategory = 'side dish' then concat(c.Coursetype, ': ', mcr.coursecategory, ' - ', r.RecipeName) 
 else concat(c.CourseType, ': ', r.RecipeName) end
@@ -175,6 +176,7 @@ on r.RecipeId = cr.RecipeId
 where c.CookbookName = 'Taste It'
 group by c.CookbookName, u.username, c.DateCreated, c.Price
 
+-- SM Can't run this.
 select r.RecipeName, cu.cuisineType, NumIngredients = count( distinct i.ingredientId), NumSteps = count( distinct s.stepsId), cr.RecipeSequence
 from Ingredient i 
 join RecipeIngredient ri
@@ -204,7 +206,6 @@ April Fools Page:
     b) When the user clicks on any recipe they should see a spoof steps lists showing the step instructions for the LAST step of EACH recipe in the system. No sequence required.
         Hint: Use CTE
 */
--- SM No need for the _ before .jpg
 select distinct RecipeName = concat(upper(substring(reverse(r.RecipeName),1,1)), lower(SUBSTRING(reverse(r.RecipeName),2,20))), RecipePicture = concat('Recipe', '_', replace(reverse(RecipeName), ' ', '_'), '.jpg') 
 from recipe r 
 join CookbookRecipe cr 
@@ -213,7 +214,7 @@ join cookbook c
 on c.CookbookId = cr.cookbookId 
 
 ;
--- SM You'll need to update this after updating table.
+-- SM Can't run this.
 with x as(
     select r.recipeName, LastStep = max(rs.stepsequence)
     from recipe r 
@@ -243,7 +244,7 @@ For site administration page:
         Hint: For active/inactive columns, use SUM function with CASE to only include in sum if active/inactive 
     e) List of archived recipes that were never published, and how long it took for them to be archived.
 */
--- SM Don't show null for status. Show something like N/A or blank.
+-- SM Add column name.
 select u.username, isnull(r.recipestatus, ' '), TotalRecipesCreated = count(distinct r.RecipeId)
 from users u 
 left join recipe r 
@@ -296,10 +297,12 @@ join users u
 on c.UsersId = u.usersId 
 where u.UserName = 'Msvei'
 
--- SM When the recipe is archived the status before it can be either published or drafted.
+-- SM This should only be for specific user. Show the user, recipe, status and num of hours.
 select r.RecipeStatus, NumHoursbetweenstatuses = case when r.recipestatus = 'Published' then DATEDIFF(hour, r.datedrafted, r.DatePublished) 
 when r.recipestatus = 'Archived' and r.DatePublished is not null then DATEDIFF(hour, r.DatePublished, r.DateArchived)
+-- SM Date drafted can never be null.
 when r.recipeStatus = 'Archived' and r.datepublished is null and r.datedrafted is not null then datediff(hour, r.datedrafted, r.datearchived) 
+-- SM The else will never be returned.
 else ' ' end
 from recipe r 
 join users u 

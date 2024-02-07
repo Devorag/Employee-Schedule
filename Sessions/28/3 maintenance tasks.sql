@@ -131,6 +131,7 @@ Write an update statement that changes the number of calories of a recipe for a 
 The statement should include at least two measurement types, like the example above. 
 */
 ;
+-- SM Can't run this.
 with x as(
 	select Calories = case when um.MeasurementType = 'oz' then r.calories -(2 * ri.measurementAmount) 
 	when um.MeasurementType = 'stick' then r.calories - (10 * ri.measurementAmount) 
@@ -165,6 +166,7 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 ;
 -- SM The CTE should return the avg amount of hours ALL recipes took to be published not per recipe.
 -- And then cross join to CTE and only show those that are still in draft and are more than the avg.
+-- SM Can't run this. See error. Don't join on recipe name.
 with x as(
 	select r.recipeName,  AvgDaysInDraft = avg(DATEDIFF(day, r.datedrafted, r.datepublished))
 	from recipe r
