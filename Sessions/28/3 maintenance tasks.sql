@@ -41,12 +41,6 @@ join users u
 on u.usersID = r.usersId 
 where u.username = 'Dmozes'
 
-delete c 
-from cookbook c 
-join users u 
-on u.usersID = c.usersID 
-where u.username = 'Dmozes'
-
 -- SM There's one issue here that makes the delete of user fail.
 delete mcr 
 from MealCourseRecipe mcr 
@@ -71,6 +65,12 @@ from meal m
 join users u 
 on u.usersID = m.usersId 
 where u.username = 'Dmozes'  
+
+delete c 
+from cookbook c 
+join users u 
+on u.usersID = c.usersID 
+where u.username = 'Dmozes'
 
 delete u 
 from users u 
@@ -132,11 +132,13 @@ The statement should include at least two measurement types, like the example ab
 */
 ;
 with x as(
-	select Calories = case when ri.MeasurementType = 'ounce' then r.calories -(2 * ri.measurementAmount) 
-	when ri.MeasurementType = 'stick' then r.calories - (10 * ri.measurementAmount) 
+	select Calories = case when um.MeasurementType = 'oz' then r.calories -(2 * ri.measurementAmount) 
+	when um.MeasurementType = 'stick' then r.calories - (10 * ri.measurementAmount) 
 	else r.calories
 	end
-	from RecipeIngredient ri 
+	from UnitOfMeasure um 
+	join RecipeIngredient ri 
+	on ri.UnitOfMeasureID = um.UnitOfMeaureID
 	join recipe r 
 	on r.RecipeId = ri.recipeId 
 )
@@ -166,7 +168,6 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 with x as(
 	select r.recipeName,  AvgDaysInDraft = avg(DATEDIFF(day, r.datedrafted, r.datepublished))
 	from recipe r
-	group by r.RecipeName 
 )
 select u.firstname, u.lastname, EmailAdress = concat(substring(u.firstname, 1, 1), u.lastname, '@heartyhearth.com'), 
 Alert = concat('Your recipe ', r.recipeName, ' is sitting in draft for ', DATEDIFF( day, r.datedrafted, getdate()), ' hours.', 

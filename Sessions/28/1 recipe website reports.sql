@@ -30,13 +30,20 @@ Recipe list page:
 */
 -- SM This should show all that were either published or archived. You're showing all that were published only.
 -- Formatting tip: As this is a long select, split it on multiple lines. Best would be if each column is on new line.
-select RecipeName = case when r.RecipeStatus = 'archived' then concat('<span style="color:gray">', r.recipename, '</span>') else r.recipename end, DatePublished = convert(varchar,r.DatePublished,101), DateArchived = isnull(convert(varchar, r.datearchived, 101), ''), r.RecipeStatus, r.calories, NumIngredients = count(distinct ri.ingredientId)
+select RecipeName = case 
+when r.RecipeStatus = 'archived' then concat('<span style="color:gray">', r.recipename, '</span>') 
+else r.recipename end, 
+DatePublished = convert(varchar,r.DatePublished,101),
+DateArchived = isnull(convert(varchar, r.datearchived, 101), ''), 
+r.RecipeStatus, r.calories, 
+NumIngredients = count(distinct ri.ingredientId)
 from recipe r
 join Users u 
 on u.UsersId = r.UsersId 
 join RecipeIngredient ri 
 on ri.RecipeId = r.RecipeId 
-where r.DatePublished is not null 
+where r.DatePublished is not null
+or r.datearchived is not null 
 group by r.RecipeName, r.DatePublished, r.DateArchived, r.RecipeStatus, r.Calories
 order by DateArchived, r.DatePublished
 
@@ -70,23 +77,22 @@ order by ri.IngredientSequence
 -- SM When runing the first select on this question it returns that there are 6 steps for this recipe.
 -- This returns 42 steps. How can this be?
 -- You'll need to update this after updating table.
-select s.Instructions 
-from steps s 
-join RecipeSteps rs
-on rs.StepsId = s.stepsId 
+select rs.Instructions 
+from RecipeSteps rs
 join recipe r 
-on r.RecipeId = rs.recipeID 
-join RecipeIngredient ri
-on ri.recipeId = r.RecipeId 
+on r.recipeId = rs.RecipeId 
+join RecipeIngredient ri 
+on ri.recipeId = r.RecipeId
 where r.RecipeName = 'Sesame Chicken'
 order by ri.ingredientSequence 
+
 
 /*
 Meal list page:
     For all active meals, show the meal name, user that created the meal, number of calories for the meal, number of courses, and number of recipes per each meal, sorted by name of meal
 */
 -- SM No need for "sum" distinct.
-select m.MealName, u.Username, TotalCalories = sum(distinct r.calories), NumCourses = count(distinct c.courseID), NumRecipes = count(distinct r.recipeId)
+select m.MealName, u.Username, TotalCalories = sum(r.calories), NumCourses = count(distinct c.courseID), NumRecipes = count(distinct r.recipeId)
 from meal m 
 join users u 
 on u.usersId = m.UsersId 
@@ -199,7 +205,7 @@ April Fools Page:
         Hint: Use CTE
 */
 -- SM No need for the _ before .jpg
-select distinct RecipeName = concat(upper(substring(reverse(r.RecipeName),1,1)), lower(SUBSTRING(reverse(r.RecipeName),2,20))), RecipePicture = concat('Recipe', '_', replace(reverse(RecipeName), ' ', '_'), '_.jpg') 
+select distinct RecipeName = concat(upper(substring(reverse(r.RecipeName),1,1)), lower(SUBSTRING(reverse(r.RecipeName),2,20))), RecipePicture = concat('Recipe', '_', replace(reverse(RecipeName), ' ', '_'), '.jpg') 
 from recipe r 
 join CookbookRecipe cr 
 on cr.recipeID = r.recipeID 
@@ -238,7 +244,7 @@ For site administration page:
     e) List of archived recipes that were never published, and how long it took for them to be archived.
 */
 -- SM Don't show null for status. Show something like N/A or blank.
-select u.username, r.recipestatus, TotalRecipesCreated = count(distinct r.RecipeId)
+select u.username, isnull(r.recipestatus, ' '), TotalRecipesCreated = count(distinct r.RecipeId)
 from users u 
 left join recipe r 
 on r.UsersId  = u.UsersId 
@@ -291,7 +297,10 @@ on c.UsersId = u.usersId
 where u.UserName = 'Msvei'
 
 -- SM When the recipe is archived the status before it can be either published or drafted.
-select r.RecipeStatus, NumHoursbetweenstatuses = case when r.recipestatus = 'Published' then DATEDIFF(hour, r.datedrafted, r.DatePublished) when r.recipestatus = 'Archived' and r.DatePublished is not null then DATEDIFF(hour, r.DatePublished, r.DateArchived) else ' ' end
+select r.RecipeStatus, NumHoursbetweenstatuses = case when r.recipestatus = 'Published' then DATEDIFF(hour, r.datedrafted, r.DatePublished) 
+when r.recipestatus = 'Archived' and r.DatePublished is not null then DATEDIFF(hour, r.DatePublished, r.DateArchived)
+when r.recipeStatus = 'Archived' and r.datepublished is null and r.datedrafted is not null then datediff(hour, r.datedrafted, r.datearchived) 
+else ' ' end
 from recipe r 
 join users u 
 on u.UsersId = r.UsersId 

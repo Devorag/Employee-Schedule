@@ -8,23 +8,23 @@ delete MealCourse
 delete Meal 
 delete course 
 delete RecipeSteps
-delete RecipeIngredient
+delete RecipeIngredient 
+delete UnitOfMeasure
 delete Recipe 
-delete Steps
 Delete Cuisine 
 delete Users 
 delete Ingredient 
 go 
-insert Users(FirstName, LastName)
-select 'Devorah', 'Mozes'
-union select 'Baila', 'Diena'
-union select 'Dina', 'Azoulay'
-union select 'Malky', 'Svei'
-union select 'Miri', 'Weinberger'
-union select 'Shira', 'Korb'
-union select 'Lolly', 'Ludzker'
-union select 'Leah', 'Katz'
-union select 'Miriam', 'Gross'
+insert Users(FirstName, LastName, UserName)
+select 'Devorah', 'Mozes', 'Dmozes'
+union select 'Baila', 'Diena', 'Bdiena'
+union select 'Dina', 'Azoulay', 'Dazoulay'
+union select 'Malky', 'Svei', 'Msvei'
+union select 'Miri', 'Weinberger', 'Mweinberger'
+union select 'Shira', 'Korb', 'Skorb'
+union select 'Lolly', 'Ludzker', 'Lludzer'
+union select 'Leah', 'Katz', 'Lkatz'
+union select 'Miriam', 'Gross', 'Mgross'
 
 insert Ingredient(IngredientName)
 select 'sugar'
@@ -76,52 +76,6 @@ union select 'English'
 union select 'Italian'
 union select 'Dutch'
 
-insert Steps(Instructions)
-select 'boil water'
-union select 'add tomato sauce'
-union select 'toss in vegetables'
-union select 'add in spices'
-union select 'let simmer for half hour'
-union select  'add in pasta'
-union select  'cook for 2 hours with pot covered' 
-union select 'preheat oven to 450'
-union select  'cut all vegetables into very thin slices'
-union select  'mix well with oil, salt, and pepper'
-union select  'reheat oven to 400' 
-union select  'coat chicken cutlets'
-union select  'heat oil in frying pan'
-union select  'fry chicken cutlets'
-union select  'mix all the remainding ingredients' 
-union select  'coat fried chicken cutlets with sauce'
-union select 'cook for one hour'
-union select 'Melt margarine' 
-union select 'Add peanut butter and chocolate chips'
-union select 'Mix in rice chex cereal'
-union select 'Allow to cool'
-union select 'Shake in ziploc bag with confectioners sugar'
-union select 'freeze' 
-union select 'Cream butter with sugars'
-union select 'Add eggs and mix well'
-union select 'Slowly add rest of ingredients and mix well'
-union select 'fill muffin pans 3/4 full and bake for 30 minutes'
-union select 'Slit bread every 3/4 inch'
-union select 'Combine all ingredients in bowl'
-union select 'fill slits with cheese mixture'
-union select 'wrap bread into a foil and bake for 30 minutes.'
-union select 'Peel the apples and dice'
-union select 'Combine all ingredients in bowl except for apples and ice cubes'
-union select 'mix until smooth'
-union select 'add apples and ice cubes'
-union select 'pour into glasses'
-union select 'combine sugar, oil and eggs in a bowl'
-union select 'mix well'
-union select 'add flour, vanilla sugar, baking powder and baking soda'
-union select 'beat for 5 minutes'
-union select 'add chocolate chips'
-union select 'freeze for 1-2 hours'
-union select 'roll into balls and place spread out on a cookie sheet'
-union select 'bake on 350 for 10 min.'
-
 --I realized after this table that I should've done this using a CTE but this works also so please accept!!!!
 insert Recipe(CuisineID, UsersId, RecipeName, Calories, DateDrafted, DatePublished, DateArchived)
 select (select c.cuisineId from Cuisine c where c.CuisineType = 'American'), u.usersID,  'Chocolate Chip Cookies', 450, '01-03-2023', null, '11-11-2023' from users u where u.lastname = 'Diena'
@@ -134,7 +88,16 @@ union select (select c.cuisineId from cuisine c where c.cuisineType = 'Indian'),
 union select (select c.cuisineId from cuisine c where c.CuisineType = 'Chinese'), u.usersId, 'Sesame Chicken', 325, '01-01-2021', '03-04-2021', '11-11-2021' from users u where u.lastname = 'Katz'
 ;
 
+insert UnitOfMeasure(MeasurementType)
+select 'cup'
+union select 'oz'
+union select 'stick'
+union select 'tbsp'
+union select 'tsp'
+union select 'pinch'
+
 -- SM You'll need to update this after updating table.
+;
 with x as(
     select RecipeName = 'Chocolate Chip Cookies', ingredientName = 'sugar', measurementAmount = 1, MeasurementType = 'cup', IngredientSequence = 1
     union select 'Chocolate Chip Cookies', 'oil', 1/2, 'cup', 2
@@ -155,7 +118,7 @@ with x as(
     union select 'Cheese Bread', 'shredded cheese', 8, 'oz', 3
     union select 'Cheese Bread', 'garlic cloves', 2, null, 4
     union select 'Cheese Bread', 'Black pepper', 1/4, 'tsp', 5
-    union select 'Cheese Bread', 'Salt', null, 'pinch', 6
+    union select 'Cheese Bread', 'Salt', 0 , 'pinch', 6
     union select 'Butter Muffins', 'butter', 1, 'Stick', 1
     union select 'Butter Muffins', 'sugar', 3, 'cup', 2
     union select 'Butter Muffins', 'vanilla pudding', 2, 'tbsp', 3
@@ -190,16 +153,19 @@ with x as(
     union select 'Sesame Chicken', 'duck sauce', 1, 'cup', 4 
     union select 'Sesame Chicken', 'soy sauce', 1/2, 'cup', 5 
     union select 'Sesame Chicken', 'sesame seeds', 1, 'cup', 6 
-    union select 'Sesame Chicken', 'oil', null, null , 7 
+    union select 'Sesame Chicken', 'oil', 0 , null , 7 
 )
-insert RecipeIngredient(RecipeId, IngredientId, MeasurementAmount, MeasurementType, IngredientSequence)
-select r.recipeId, i.ingredientId, x.Measurementamount, x.MeasurementType, x.IngredientSequence
+insert RecipeIngredient(RecipeId, IngredientId, UnitOfMeasureId, MeasurementAmount, IngredientSequence)
+select r.recipeId, i.ingredientId, um.UnitOfMeasureId, x.Measurementamount, x.IngredientSequence
 from x 
 join recipe r 
 on r.RecipeName = x.RecipeName 
 join ingredient i 
-on i.IngredientName = x.ingredientName 
-; 
+on i.IngredientName = x.ingredientName  
+join UnitOfMeasure um
+on um.MeasurementType = x.MeasurementType 
+
+;
 with x as(
     select RecipeName = 'Chocolate Chip Cookies', Instructions = 'combine sugar, oil, and eggs in a bowl', StepSequence = 1 
     union select 'Chocolate Chip Cookies', 'mix well', 2
@@ -250,41 +216,41 @@ with x as(
     union select 'Sesame Chicken', 'coat fried chicken cutlets with sauce', 6
     union select 'Sesame Chicken', 'cook for one hour', 7
 )
-insert RecipeSteps(RecipeId, StepsId, StepSequence)
-select r.recipeId, s.stepsId, x.StepSequence
+insert RecipeSteps(RecipeId, Instructions, StepSequence)
+select r.recipeId, x.Instructions, x.StepSequence
 from x 
 join recipe r 
 on r.RecipeName  = x.RecipeName 
-join steps s 
-on s.Instructions = x.Instructions 
-
-insert Course(CourseType)
-select 'appetizer'
-union select 'main course'
-union select 'dessert'
-union select 'palate cleanser'
 
 
-insert Meal(UsersId, MealName, Active)
-select u.usersId, 'Breakfast Bash', 1 from users u where u.lastname = 'Katz'
-union select u.usersID, 'Brunch o'' lunch', 1 from users u where u.lastname = 'Mozes'
-union select u.usersId, 'noon refreshments', 0 from users u where u.lastname = 'Mozes'
-union select u.usersId, 'Supper Crunch', 1 from users u where u.lastname = 'Azoulay' 
+
+insert Course(CourseType, CourseSequence)
+select 'appetizer', 1
+union select 'main course', 2
+union select 'dessert', 3
+union select 'palate cleanser', 4 
+
+
+insert Meal(UsersId, MealName)
+select u.usersId, 'Breakfast Bash' from users u where u.lastname = 'Katz'
+union select u.usersID, 'Brunch o'' lunch' from users u where u.lastname = 'Mozes'
+union select u.usersId, 'noon refreshments' from users u where u.lastname = 'Mozes'
+union select u.usersId, 'Supper Crunch' from users u where u.lastname = 'Azoulay' 
 ;
 with x as(
-    select MealName = 'Breakfast Bash', CourseType = 'appetizer', CourseSequence = 1
-    union select 'Breakfast Bash', 'main course', 2
-    union select 'Brunch o'' lunch', 'appetizer', 1
-    union select 'Brunch o'' lunch', 'main course', 2
-    union select 'Brunch o'' lunch', 'dessert', 3
-    union select 'noon refreshments', 'appetizer', 1
-    union select 'noon refreshments', 'palate cleanser', 4
-    union select 'supper crunch', 'appetizer', 1
-    union select 'supper crunch', 'main course', 2
-    union select 'supper crunch', 'dessert', 3
+    select MealName = 'Breakfast Bash', CourseType = 'appetizer'
+    union select 'Breakfast Bash', 'main course'
+    union select 'Brunch o'' lunch', 'appetizer'
+    union select 'Brunch o'' lunch', 'main course'
+    union select 'Brunch o'' lunch', 'dessert'
+    union select 'noon refreshments', 'appetizer'
+    union select 'noon refreshments', 'palate cleanser'
+    union select 'supper crunch', 'appetizer'
+    union select 'supper crunch', 'main course'
+    union select 'supper crunch', 'dessert'
 )
-insert MealCourse(MealId, CourseId, CourseSequence)
-select m.mealId, c.CourseId, x.coursesequence
+insert MealCourse(MealId, CourseId)
+select m.mealId, c.CourseId
 from x
 join meal m 
 on m.Mealname = x.mealname 
@@ -293,28 +259,28 @@ on c.CourseType = x.CourseType
 
 ;
 with x as(
-    select MealName = 'Breakfast Bash', CourseType = 'appetizer', RecipeName = 'Apple Yogurt Smoothie', CourseCategory = null 
-    union select 'Breakfast Bash', 'main course', 'Butter Muffins', 'side dish'
-    union select 'Breakfast Bash', 'main course', 'Cheese Bread', 'main dish'
-    union select 'Brunch o'' lunch', 'appetizer', 'Ministroni soup', null
-    union select 'Brunch o'' lunch', 'main course', 'Cheese Bread', 'side dish'
-    union select 'Brunch o'' lunch', 'dessert', 'Chocolate Chip Cookies', null 
-    union select 'noon refreshments', 'appetizer', 'Apple Yogurt Smoothie', null
-    union select 'noon refreshments', 'palate cleanser', 'Muddy Buddies', null
-    union select 'supper crunch', 'appetizer', 'Ministroni Soup', null
-    union select 'supper crunch', 'main course', 'Sesame Chicken', 'main dish'
-    union select 'supper crunch', 'main course', 'Roasted Vegetables', 'side dish'
-    union select 'supper crunch', 'dessert', 'Chocolate Chip Cookies', null 
+    select MealName = 'Breakfast Bash', CourseType = 'appetizer', RecipeName = 'Apple Yogurt Smoothie', MainDish = 0
+    union select 'Breakfast Bash', 'main course', 'Butter Muffins', 0
+    union select 'Breakfast Bash', 'main course', 'Cheese Bread', 1
+    union select 'Brunch o'' lunch', 'appetizer', 'Ministroni soup', 0
+    union select 'Brunch o'' lunch', 'main course', 'Cheese Bread', 0
+    union select 'Brunch o'' lunch', 'dessert', 'Chocolate Chip Cookies', 0
+    union select 'noon refreshments', 'appetizer', 'Apple Yogurt Smoothie', 0 
+    union select 'noon refreshments', 'palate cleanser', 'Muddy Buddies', 0
+    union select 'supper crunch', 'appetizer', 'Ministroni Soup', 0
+    union select 'supper crunch', 'main course', 'Sesame Chicken', 1
+    union select 'supper crunch', 'main course', 'Roasted Vegetables', 0
+    union select 'supper crunch', 'dessert', 'Chocolate Chip Cookies', 0
 )
-insert MealCourseRecipe(MealCourseId, RecipeId, CourseCategory)
-select mc.MealCourseId, r.recipeId, x.coursecategory
+insert MealCourseRecipe(MealCourseId, RecipeId, MainDish)
+select mc.MealCourseId, r.recipeId, x.MainDish
 from x 
 join recipe r 
 on r.RecipeName = x.RecipeName 
 join meal m 
 on m.MealName = x.MealName 
 join course c 
-on c.coursetype = x.CourseType 
+on c.coursetype = x.CourseType
 join MealCourse mc 
 on mc.courseID = c.CourseId 
 and mc.mealId = m.mealId 
