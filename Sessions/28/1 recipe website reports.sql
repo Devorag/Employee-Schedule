@@ -58,7 +58,7 @@ Recipe details page:
         c) List of prep steps sorted by sequence.
 */
 -- SM This doesn't work.
-select r.RecipeName, r.Calories, NumIngredients = count(distinct ri.ingredientID), NumSteps = count(distinct rs.stepsId)
+select r.RecipeName, r.Calories, NumIngredients = count(distinct ri.ingredientID), NumSteps = count(distinct rs.instructions)
 from recipe r 
 join recipeIngredient ri 
 on r.recipeID = ri.recipeID 
@@ -68,30 +68,30 @@ where r.RecipeName = 'Sesame Chicken'
 group by r.RecipeName, r.Calories
 
 -- SM This doesn't work.
-select IngredientList = concat(ri.MeasurementAmount, ' ' , ri.MeasurementType, ' ', i.IngredientName)
+select IngredientList = concat(ri.MeasurementAmount, ' ' , um.MeasurementType, ' ', i.IngredientName)
 from ingredient i 
 join RecipeIngredient ri 
 on ri.IngredientId = i.IngredientId
 join recipe r 
 on r.RecipeId = ri.RecipeId 
+join UnitOfMeasure um 
+on um.UnitOfMeasureId = ri.UnitOfMeasureId 
 where r.recipeName= 'Sesame Chicken' 
 order by ri.IngredientSequence 
 
 -- SM When runing the first select on this question it returns that there are 7 steps for this recipe.
 -- This returns 35 steps. How can this be?
 -- Hint: You're showing multiple times every step. Don't add "distinct". Find the reason this is happening
-select rs.Instructions 
+
 -- SM When runing the first select on this question it returns that there are 6 steps for this recipe.
 -- This returns 42 steps. How can this be?
 -- You'll need to update this after updating table.
-select distinct rs.Instructions, ri.ingredientSequence
-from RecipeSteps rs
+select rs.Instructions
+from RecipeSteps rs 
 join recipe r 
 on r.recipeId = rs.RecipeId 
-join RecipeIngredient ri 
-on ri.recipeId = r.RecipeId
 where r.RecipeName = 'Sesame Chicken'
-order by ri.ingredientSequence 
+order by rs.stepSequence
 
 
 /*
@@ -133,8 +133,8 @@ on u.UsersId = m.UsersId
 where m.MealName = 'Supper Crunch'
 
 -- SM Can't run this.
-select RecipeList = case when c.coursetype = 'main course' and mcr.coursecategory = 'main dish' then concat('<b>', c.CourseType, ': ',mcr.coursecategory, ' - ', r.recipename, '</b>') 
-when c.coursetype = 'main course' and mcr.coursecategory = 'side dish' then concat(c.Coursetype, ': ', mcr.coursecategory, ' - ', r.RecipeName) 
+select RecipeList = case when c.coursetype = 'main course' and mcr.maindish = 1 then concat('<b>', c.CourseType, ': ', 'Main Dish', ' - ', r.recipename, '</b>') 
+when c.coursetype = 'main course' and mcr.maindish = 0 then concat(c.Coursetype, ': ', 'Side Dish' , ' - ', r.RecipeName) 
 else concat(c.CourseType, ': ', r.RecipeName) end
 from course c 
 join MealCourse mc 
@@ -182,14 +182,12 @@ where c.CookbookName = 'Taste It'
 group by c.CookbookName, u.username, c.DateCreated, c.Price
 
 -- SM Can't run this.
-select r.RecipeName, cu.cuisineType, NumIngredients = count( distinct i.ingredientId), NumSteps = count( distinct s.stepsId), cr.RecipeSequence
+select r.RecipeName, cu.cuisineType, NumIngredients = count( distinct i.ingredientId), NumSteps = count( distinct rs.instructions), cr.RecipeSequence
 from Ingredient i 
 join RecipeIngredient ri
 on ri.ingredientID = i.IngredientId
 join Recipesteps rs 
 on rs.recipeId = ri.RecipeId 
-join steps s 
-on s.stepsID = rs.StepsId
 join recipe r 
 on r.RecipeId = rs.RecipeId
 join cuisine cu 
@@ -227,14 +225,12 @@ with x as(
     on rs.RecipeId = r.RecipeId
     group by r.RecipeName
 )
-select s.instructions
+select rs.instructions
 from x 
 join recipe r 
 on r.RecipeName = x.RecipeName  
 join RecipeSteps rs 
 on rs.RecipeId = r.RecipeId 
-join Steps s 
-on s.StepsId = rs.StepsId 
 where rs.StepSequence = x.LastStep 
 
 
@@ -303,16 +299,17 @@ on c.UsersId = u.usersId
 where u.UserName = 'Msvei'
 
 -- SM This should only be for specific user. Show the user, recipe, status and num of hours.
-select r.RecipeStatus, NumHoursbetweenstatuses = case when r.recipestatus = 'Published' then DATEDIFF(hour, r.datedrafted, r.DatePublished) 
+select u.UserName, r.RecipeName, r.RecipeStatus, NumHoursbetweenstatuses = case when r.recipestatus = 'Published' then DATEDIFF(hour, r.datedrafted, r.DatePublished) 
 when r.recipestatus = 'Archived' and r.DatePublished is not null then DATEDIFF(hour, r.DatePublished, r.DateArchived)
 -- SM Date drafted can never be null.
-when r.recipeStatus = 'Archived' and r.datepublished is null and r.datedrafted is not null then datediff(hour, r.datedrafted, r.datearchived) 
+when r.recipeStatus = 'Archived' and r.datepublished is null then datediff(hour, r.datedrafted, r.datearchived) 
 -- SM The else will never be returned.
-else ' ' end
+end 
 from recipe r 
 join users u 
 on u.UsersId = r.UsersId 
 where r.RecipeStatus in ('Published', 'Archived')
+and u.userName = 'Msvei'
 
 /*
     OPTIONAL CHALLENGE QUESTION

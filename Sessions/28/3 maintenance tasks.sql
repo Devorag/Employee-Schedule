@@ -45,13 +45,11 @@ where u.username = 'Dmozes'
 -- SM There's one issue here that makes the delete of user fail.
 delete mcr 
 from MealCourseRecipe mcr 
-join MealCourse mc 
-on mc.MealCourseId = mcr.MealCourseRecipeId 
-join meal m 
-on m.MealId = mc.MealId 
+cross join meal m 
 join users u 
 on u.UsersId = m.UsersId 
 where u.UserName = 'Dmozes'
+
 
 delete mc 
 from MealCourse mc 
@@ -63,7 +61,7 @@ where u.UserName = 'Dmozes'
 
 delete m 
 from meal m 
-join users u 
+join users u  
 on u.usersID = m.usersId 
 where u.username = 'Dmozes'  
 
@@ -80,10 +78,10 @@ where u.username = 'Dmozes'
 
 -- SM You should also add the ingredients and steps for the recipe.
 insert Recipe(CuisineID, UsersId, RecipeName, Calories, DateDrafted, DatePublished, DateArchived)
-select r.cuisineId, r.usersId, concat(r.recipeName, ' - clone'), r.calories, '01-02-2024', null, null 
+select r.cuisineId, r.usersId, concat(r.recipeName, ' - clone'), r.calories, getdate(), getdate(), null 
 from recipe r 
 where r.RecipeName = 'Ministroni Soup'
-
+;
 with x as(
 	select r.recipeID, r.recipeName 
 	from recipe r 
@@ -96,7 +94,7 @@ cross join Recipe r
 join RecipeIngredient ri 
 on ri.RecipeId = r.RecipeId 
 where r.RecipeName = 'Ministroni Soup'
-
+;
 with x as(
 	select r.recipeId, r.recipeName
 	from recipe r 
@@ -162,7 +160,7 @@ with x as(
 	end
 	from UnitOfMeasure um 
 	join RecipeIngredient ri 
-	on ri.UnitOfMeasureID = um.UnitOfMeaureID
+	on ri.UnitOfMeasureID = um.UnitOfMeasureID
 	join recipe r 
 	on r.RecipeId = ri.recipeId 
 )
@@ -190,19 +188,21 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 -- SM The CTE should return the avg amount of hours ALL recipes took to be published not per recipe.
 -- And then cross join to CTE and only show those that are still in draft and are more than the avg.
 -- SM Can't run this. See error. Don't join on recipe name.
+;
 with x as(
-	select r.recipeName,  AvgDaysInDraft = avg(DATEDIFF(day, r.datedrafted, r.datepublished))
+	select AvgHoursInDraft = avg(DATEDIFF(hour, r.datedrafted, r.datepublished))
 	from recipe r
 )
-select u.firstname, u.lastname, EmailAdress = concat(substring(u.firstname, 1, 1), u.lastname, '@heartyhearth.com'), 
+select R.RecipeStatus, u.firstname, u.lastname, 
+EmailAdress = concat(substring(u.firstname, 1, 1), u.lastname, '@heartyhearth.com'), 
 Alert = concat('Your recipe ', r.recipeName, ' is sitting in draft for ', DATEDIFF(hour, r.datedrafted, getdate()), ' hours.', 
-'That is ', datediff(hour, r.datedrafted, getdate()) - x.avgDaysInDraft, ' hours more than the average ', x.avgDaysInDraft, ' hours all other recipes took to be published.')
+		'That is ', datediff(hour, r.datedrafted, getdate()) - x.avgHoursInDraft, ' hours more than the average ', x.avgHoursInDraft, ' hours all other recipes took to be published.')
 from x 
 cross join recipe r 
 join users u 
 on u.usersId = r.usersId 
-where r.RecipeStatus = 'Drafted' 
-and x.AvgDaysInDraft > datediff(hour, r.DateDrafted, GETDATE())
+where r.RecipeStatus = 'Drafted'
+and x.AvgHoursInDraft > datediff(hour, r.DateDrafted, GETDATE())
 /*
 6) We want to send out marketing emails for books. Produce a result set with one row and one column "Email Body" as specified below.
 The email should have a unique guid link to follow, which should be shown in the format specified. 
