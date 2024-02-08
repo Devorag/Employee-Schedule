@@ -57,24 +57,24 @@ create table dbo.Recipe(
     DatePublished datetime null 
         constraint ck_Recipe_DatePublished_Cannot_be_future_Date check(DatePublished <= getdate()),
 -- SM Multi column constraints should be at the bottom.
-        constraint ck_Recipe_DatePublished_must_be_after_DateDrafted check(DatePublished >= DateDrafted), 
     DateArchived datetime null 
         constraint ck_Recipe_DateArchived_Cannot_be_future_Date check(DateArchived <= getdate()),
 -- SM Multi column constraints should be at the bottom. And this wont make sure date drafted is before date archived if date published is null
-        constraint ck_Recipe_DateArchived_must_be_after_DatePublished  check(DateArchived >= DatePublished), 
     RecipeStatus as 
         case 
             when datearchived is not null then 'Archived'
             when datearchived is null and datepublished is not null then 'Published'
             when datearchived is null and datepublished is null then 'Drafted' 
         end,
-    RecipePicture as concat('Recipe', '_', replace(RecipeName, ' ', '_'), '.jpg') persisted
+    RecipePicture as concat('Recipe', '_', replace(RecipeName, ' ', '_'), '.jpg') persisted,
+    constraint ck_Recipe_DateDrafted_before_DatePublished_and_DateArchived_and_DatePublished_before_Archived check(DateDrafted<= DatePublished and isnull(DatePublished,DateDrafted) <= DateArchived)
 )
 go
 create table dbo.UnitOfMeasure(
     UnitOfMeasureId int not null identity primary key,
 -- SM Should be unique and don't allow null.
-    MeasurementType varchar(50) null 
+    MeasurementType varchar(50) not null
+        constraint u_UnitOfMeasure_MeasurementType unique(MeasurementType) 
         constraint ck_recipe_measurementType_cannot_be_Blank check(MeasurementType <> '')
 ) 
 go
@@ -85,11 +85,11 @@ create table dbo.RecipeIngredient(
     IngredientId int not null 
         constraint f_Ingredients_RecipeIngredient foreign key references Ingredient(IngredientId),
 -- SM Here you should allow null for ingredients that dont have a UoM.
-    UnitOfMeasureId int not null 
+    UnitOfMeasureId int null 
         constraint f_UnitOfMeasure_RecipeIngredient foreign key references UnitOfMeasure(UnitOfMeasureId),
     MeasurementAmount decimal(4,2) not null 
 -- SM In constraint name you say that you don't allow 0 but in actual constraint you do allow?
-        constraint ck_recipe_MeasurementAmount_must_be_greater_than_zero check(MeasurementAmount >= 0),
+        constraint ck_recipe_MeasurementAmount_cannot_be_a_negative_number check(MeasurementAmount >= 0),
     IngredientSequence int not null 
         constraint ck_RecipeIngredient_IngredientSequence_must_be_greater_than_zero CHECK(IngredientSequence > 0),
     constraint u_RecipeIngredient_RecipeId_IngredientId unique(RecipeID, IngredientId),
@@ -103,7 +103,7 @@ create table dbo.RecipeSteps(
      Instructions  varchar(500) not null 
         constraint Ck_RecipeSteps_Instructions_cannot_be_blank check(Instructions <> ''),
     StepSequence int not null 
-        constraint ck_RecipeSteps_StepSequence_must_be_Greater_than_zero check(StepSequence > 0)
+        constraint ck_RecipeSteps_StepSequence_must_be_Greater_than_zero check(StepSequence > 0),
     constraint u_RecipeSteps_RecipeId_StepSequence unique(RecipeId, StepSequence)
 )
 go
@@ -146,7 +146,7 @@ create table dbo.MealCourseRecipe(
     RecipeId int not null 
         constraint f_MealCourseRecipe_Recipe foreign key references Recipe(RecipeId),
 -- SM The unique constraint has nothing with this column. Add a comma.
-    MainDish bit not null
+    MainDish bit not null,
         constraint u_MealCourseRecipe_MealCourseId_RecipeId unique(MealCourseId, RecipeId)
 )
 go
@@ -162,7 +162,7 @@ create table dbo.Cookbook(
     Active bit not null default 1, 
 -- SM Do allow current date.
     DateCreated date not null default getdate(),
-        constraint ck_Cookbook_DateCreated_cannot_be_future_Date check(DateCreated < getdate()),
+        constraint ck_Cookbook_DateCreated_cannot_be_future_Date check(DateCreated <= getdate()),
     CookbookPicture as concat('Cookbook', '_', replace(CookbookName, ' ', '_'), '.jpg') persisted
 )
 go 

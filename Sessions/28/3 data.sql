@@ -162,7 +162,7 @@ join recipe r
 on r.RecipeName = x.RecipeName 
 join ingredient i 
 on i.IngredientName = x.ingredientName  
-join UnitOfMeasure um
+left join UnitOfMeasure um
 on um.MeasurementType = x.MeasurementType 
 
 ;

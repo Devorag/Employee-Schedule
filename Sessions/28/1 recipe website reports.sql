@@ -30,13 +30,14 @@ Recipe list page:
 */
 -- SM Don't show null for published.
 -- Formatting tip: Indent everything part of the select.
-select RecipeName = case 
-when r.RecipeStatus = 'archived' then concat('<span style="color:gray">', r.recipename, '</span>') 
-else r.recipename end, 
-DatePublished = convert(varchar,r.DatePublished,101),
-DateArchived = isnull(convert(varchar, r.datearchived, 101), ''), 
-r.RecipeStatus, r.calories, 
-NumIngredients = count(distinct ri.ingredientId)
+select 
+    RecipeName = case 
+    when r.RecipeStatus = 'archived' then concat('<span style="color:gray">', r.recipename, '</span>') 
+    else r.recipename end, 
+    DatePublished = isnull(convert(varchar,r.DatePublished,101), ''),
+    DateArchived = isnull(convert(varchar, r.datearchived, 101), ''), 
+    r.RecipeStatus, r.calories, 
+    NumIngredients = count(distinct ri.ingredientId)
 from recipe r
 join Users u 
 on u.UsersId = r.UsersId 
@@ -249,7 +250,7 @@ For site administration page:
     e) List of archived recipes that were never published, and how long it took for them to be archived.
 */
 -- SM Add column name.
-select u.username, isnull(r.recipestatus, ' '), TotalRecipesCreated = count(distinct r.RecipeId)
+select u.username, RecipeStatus = isnull(r.recipestatus, ' '), TotalRecipesCreated = count(distinct r.RecipeId)
 from users u 
 left join recipe r 
 on r.UsersId  = u.UsersId 
