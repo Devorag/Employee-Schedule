@@ -111,6 +111,7 @@ create table dbo.Course(
         constraint u_course_coursetype unique,
 -- SM Should be unique.
     CourseSequence int not null 
+        constraint u_Course_CourseSequence unique(CourseSequence)
         constraint ck_Course_CourseSequence_must_be_greater_than_Zero check(CourseSequence > 0),
 )
 go

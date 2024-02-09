@@ -82,7 +82,7 @@ insert Recipe(CuisineID, UsersId, RecipeName, Calories, DateDrafted, DatePublish
 select (select c.cuisineId from Cuisine c where c.CuisineType = 'American'), u.usersID,  'Chocolate Chip Cookies', 450, '01-03-2023', null, '11-11-2023' from users u where u.lastname = 'Diena'
 union select (select c.cuisineId from Cuisine c where c.CuisineType = 'French'), u.usersId, 'Apple yogurt smoothie', 125, '04-05-2021', '12-10-2021', null from users u where u.LastName = 'Azoulay'
 union select (select c.cuisineId from Cuisine c where c.CuisineType = 'English'), u.usersId, 'Cheese bread', 350, '11-10-2017', '01-01-2018', '02-02-2019' from users u where u.lastname = 'Weinberger'
-union select (select c.CuisineId from cuisine c where c.CuisineType = 'American'), u.usersId, 'Butter muffins', 375, '01-01-2016', '03-03-2016', null from users u where u.LastName = 'Svei'
+union select (select c.CuisineId from cuisine c where c.CuisineType = 'American'), u.usersId, 'Butter muffins', 375, '01-01-2016', null , null from users u where u.LastName = 'Svei'
 union select (select c.cuisineId from Cuisine C where c.CuisineType = 'American'), u.usersId, 'Muddy Buddies', 300, '01-01-2019', '04-04-2019', '05-05-2020' from users u where u.lastname = 'Svei'
 union select (select c.cuisineId from cuisine c where c.CuisineType = 'French'), u.usersId, 'Ministroni soup', 200, '08-12-2023', null, '01-03-2024' from users u where u.lastname = 'Korb'
 union select (select c.cuisineId from cuisine c where c.cuisineType = 'Indian'), u.usersId, 'Roasted Vegetables', 150, '07-06-2015', '06-06-2016', null from users u where u.lastname = 'Mozes'

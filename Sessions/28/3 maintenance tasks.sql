@@ -45,7 +45,10 @@ where u.username = 'Dmozes'
 -- SM Why are you doing cross join? Use normal joins. You're issue before was that you joined on PK of meal course recipe table = PK of meal course table.
 delete mcr 
 from MealCourseRecipe mcr 
-cross join meal m 
+join mealcourse mc 
+on mc.mealCourseId = mcr.mealcourseID 
+join meal m 
+on m.mealId = mc.mealId  
 join users u 
 on u.UsersId = m.UsersId 
 where u.UserName = 'Dmozes'
@@ -99,7 +102,7 @@ where r.RecipeName = 'Ministroni Soup'
 with x as(
 	select r.recipeId, r.recipeName
 	from recipe r 
-	where r.RecipeName = 'Ministroni soup'
+	where r.RecipeName = 'Ministroni soup - clone'
 )
 insert RecipeSteps(RecipeId, Instructions, StepSequence)
 select x.recipeId, rs.instructions, rs.StepSequence 
@@ -107,7 +110,7 @@ from x
 cross join recipe r 
 join RecipeSteps rs 
 on rs.RecipeId = r.RecipeId 
-where r.RecipeName = 'Ministroni souop'
+where r.RecipeName = 'Ministroni soup'
 
 /*
 3) We offer users an option to auto-create a recipe book containing all of their recipes. 
@@ -190,16 +193,16 @@ with x as(
 	select AvgHoursInDraft = avg(DATEDIFF(hour, r.datedrafted, r.datepublished))
 	from recipe r
 )
-select R.RecipeStatus, u.firstname, u.lastname, 
+select u.firstname, u.lastname, 
 EmailAdress = concat(substring(u.firstname, 1, 1), u.lastname, '@heartyhearth.com'), 
-Alert = concat('Your recipe ', r.recipeName, ' is sitting in draft for ', DATEDIFF(hour, r.datedrafted, getdate()), ' hours.', 
-		'That is ', datediff(hour, r.datedrafted, getdate()) - x.avgHoursInDraft, ' hours more than the average ', x.avgHoursInDraft, ' hours all other recipes took to be published.')
+Alert = concat('Your recipe ', r.recipeName, ' is sitting in draft for ', DATEDIFF(hour, r.datedrafted, getdate()), ' hours. 
+		That is ', datediff(hour, r.datedrafted, getdate()) - x.avgHoursInDraft, ' hours more than the average ', x.avgHoursInDraft, ' hours all other recipes took to be published.')
 from x 
 cross join recipe r 
 join users u 
 on u.usersId = r.usersId 
 where r.RecipeStatus = 'Drafted'
-and x.AvgHoursInDraft > datediff(hour, r.DateDrafted, GETDATE())
+and datediff(hour, r.DateDrafted, GETDATE()) > x.AvgHoursInDraft
 /*
 6) We want to send out marketing emails for books. Produce a result set with one row and one column "Email Body" as specified below.
 The email should have a unique guid link to follow, which should be shown in the format specified. 
