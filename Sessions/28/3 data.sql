@@ -23,7 +23,7 @@ union select 'Dina', 'Azoulay', 'Dazoulay'
 union select 'Malky', 'Svei', 'Msvei'
 union select 'Miri', 'Weinberger', 'Mweinberger'
 union select 'Shira', 'Korb', 'Skorb'
-union select 'Lolly', 'Ludzker', 'Lludzer'
+union select 'Lolly', 'Ludzker', 'Lludzker'
 union select 'Leah', 'Katz', 'Lkatz'
 union select 'Miriam', 'Gross', 'Mgross'
 
