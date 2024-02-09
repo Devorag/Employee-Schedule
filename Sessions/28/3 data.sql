@@ -1,4 +1,4 @@
--- SM Excellent! See comment.
+-- SM Excellent! 100%
 
 use RecipeDb 
 go 
@@ -97,7 +97,6 @@ union select 'tbsp'
 union select 'tsp'
 union select 'pinch'
 
--- SM You'll need to update this after updating table. Not everything get's inserted.
 ;
 with x as(
     select RecipeName = 'Chocolate Chip Cookies', ingredientName = 'sugar', measurementAmount = 1, MeasurementType = 'cup', IngredientSequence = 1
