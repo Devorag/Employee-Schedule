@@ -42,7 +42,7 @@ on u.usersID = r.usersId
 where u.username = 'Dmozes'
 
 
--- SM There's one issue here that makes the delete of user fail.
+-- SM Why are you doing cross join? Use normal joins. You're issue before was that you joined on PK of meal course recipe table = PK of meal course table.
 delete mcr 
 from MealCourseRecipe mcr 
 cross join meal m 
@@ -95,6 +95,7 @@ join RecipeIngredient ri
 on ri.RecipeId = r.RecipeId 
 where r.RecipeName = 'Ministroni Soup'
 ;
+-- SM You have some issues here and this isn't inserting anything. Your issues are with both where clauses.
 with x as(
 	select r.recipeId, r.recipeName
 	from recipe r 
@@ -152,7 +153,6 @@ Write an update statement that changes the number of calories of a recipe for a 
 The statement should include at least two measurement types, like the example above. 
 */
 ;
--- SM Can't run this.
 with x as(
 	select Calories = case when um.MeasurementType = 'oz' then r.calories -(2 * ri.measurementAmount) 
 	when um.MeasurementType = 'stick' then r.calories - (10 * ri.measurementAmount) 
@@ -185,10 +185,7 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 		That is [Z] hours more than the average [Y] hours all other recipes took to be published.
 */
 ;
--- SM The CTE should return the avg amount of hours ALL recipes took to be published not per recipe.
--- And then cross join to CTE and only show those that are still in draft and are more than the avg.
--- SM Can't run this. See error. Don't join on recipe name.
-;
+-- SM Add recipe that this should return a value. Inspect what it returns and if it returns wrong results then change it.
 with x as(
 	select AvgHoursInDraft = avg(DATEDIFF(hour, r.datedrafted, r.datepublished))
 	from recipe r

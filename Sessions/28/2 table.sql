@@ -1,4 +1,4 @@
--- SM Excellent work! See comments, fix and resubmit.
+-- SM Excellent work! 100% See comment, no need to resubmit.
 
 use RecipeDb
 go 
@@ -57,10 +57,8 @@ create table dbo.Recipe(
         constraint ck_Recipe_DateDrafted_Cannot_be_future_Date check(DateDrafted <= getdate()),
     DatePublished datetime null 
         constraint ck_Recipe_DatePublished_Cannot_be_future_Date check(DatePublished <= getdate()),
--- SM Multi column constraints should be at the bottom.
     DateArchived datetime null 
         constraint ck_Recipe_DateArchived_Cannot_be_future_Date check(DateArchived <= getdate()),
--- SM Multi column constraints should be at the bottom. And this wont make sure date drafted is before date archived if date published is null
     RecipeStatus as 
         case 
             when datearchived is not null then 'Archived'
@@ -73,7 +71,6 @@ create table dbo.Recipe(
 go
 create table dbo.UnitOfMeasure(
     UnitOfMeasureId int not null identity primary key,
--- SM Should be unique and don't allow null.
     MeasurementType varchar(50) not null
         constraint u_UnitOfMeasure_MeasurementType unique(MeasurementType) 
         constraint ck_recipe_measurementType_cannot_be_Blank check(MeasurementType <> '')
@@ -85,11 +82,10 @@ create table dbo.RecipeIngredient(
         constraint F_Recipe_RecipeIngredient foreign key references Recipe(RecipeId),
     IngredientId int not null 
         constraint f_Ingredients_RecipeIngredient foreign key references Ingredient(IngredientId),
--- SM Here you should allow null for ingredients that dont have a UoM.
     UnitOfMeasureId int null 
         constraint f_UnitOfMeasure_RecipeIngredient foreign key references UnitOfMeasure(UnitOfMeasureId),
-    MeasurementAmount decimal(4,2) not null 
--- SM In constraint name you say that you don't allow 0 but in actual constraint you do allow?
+-- SM Don't allow 0. 0.5 > 0
+	MeasurementAmount decimal(4,2) not null 
         constraint ck_recipe_MeasurementAmount_cannot_be_a_negative_number check(MeasurementAmount >= 0),
     IngredientSequence int not null 
         constraint ck_RecipeIngredient_IngredientSequence_must_be_greater_than_zero CHECK(IngredientSequence > 0),
@@ -113,6 +109,7 @@ create table dbo.Course(
     CourseType varchar(100) not null 
         constraint ck_Course_CourseType_cannot_be_blank check(CourseType <> '')
         constraint u_course_coursetype unique,
+-- SM Should be unique.
     CourseSequence int not null 
         constraint ck_Course_CourseSequence_must_be_greater_than_Zero check(CourseSequence > 0),
 )
@@ -146,7 +143,6 @@ create table dbo.MealCourseRecipe(
         constraint f_MealCourseRecipe_MealCourse foreign key REFERENCES MealCourse(MealCourseId),
     RecipeId int not null 
         constraint f_MealCourseRecipe_Recipe foreign key references Recipe(RecipeId),
--- SM The unique constraint has nothing with this column. Add a comma.
     MainDish bit not null,
         constraint u_MealCourseRecipe_MealCourseId_RecipeId unique(MealCourseId, RecipeId)
 )
@@ -161,7 +157,6 @@ create table dbo.Cookbook(
     Price decimal (6,2)
         constraint ck_Cookbook_Price_must_be_greater_than_Zero check(Price > 0),
     Active bit not null default 1, 
--- SM Do allow current date.
     DateCreated date not null default getdate(),
         constraint ck_Cookbook_DateCreated_cannot_be_future_Date check(DateCreated <= getdate()),
     CookbookPicture as concat('Cookbook', '_', replace(CookbookName, ' ', '_'), '.jpg') persisted
