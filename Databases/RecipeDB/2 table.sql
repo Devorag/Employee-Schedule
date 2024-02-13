@@ -1,4 +1,4 @@
-`-- SM Excellent work! 100% See comment, no need to resubmit.
+-- SM Excellent work! 100% See comment, no need to resubmit.
 
 use RecipeDb
 go 
@@ -175,4 +175,3 @@ create table dbo.CookbookRecipe(
     constraint u_CookbookRecipe_CookbookId_RecipeSequence unique(CookbookId, RecipeSequence)
 )
 go 
-`

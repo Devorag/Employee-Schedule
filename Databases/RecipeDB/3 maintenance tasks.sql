@@ -1,5 +1,4 @@
--- SM Excellent work! See comments, fix and resubmit.
-
+-- SM Excellent work! 100%
 --Note: some of these scripts are needed for specific items, when the instructions say "specific" pick one item in your data and specify it in the where clause using a unique value that identifies it, do not use the primary key.
 
 --1) Sometimes when a staff member is fired. We need to eradicate everything from that user in our system. Write the SQL to delete a specific user and all the user's related records.
@@ -42,7 +41,6 @@ on u.usersID = r.usersId
 where u.username = 'Dmozes'
 
 
--- SM Why are you doing cross join? Use normal joins. You're issue before was that you joined on PK of meal course recipe table = PK of meal course table.
 delete mcr 
 from MealCourseRecipe mcr 
 join mealcourse mc 
@@ -79,7 +77,6 @@ from users u
 where u.username = 'Dmozes'
 --2) Sometimes we want to clone a recipe as a starting point and then edit it. For example we have a complex recipe (steps and ingredients) and want to make a modified version. Write the SQL that clones a specific recipe, add " - clone" to its name.
 
--- SM You should also add the ingredients and steps for the recipe.
 insert Recipe(CuisineID, UsersId, RecipeName, Calories, DateDrafted, DatePublished, DateArchived)
 select r.cuisineId, r.usersId, concat(r.recipeName, ' - clone'), r.calories, getdate(), getdate(), null 
 from recipe r 
@@ -98,7 +95,6 @@ join RecipeIngredient ri
 on ri.RecipeId = r.RecipeId 
 where r.RecipeName = 'Ministroni Soup'
 ;
--- SM You have some issues here and this isn't inserting anything. Your issues are with both where clauses.
 with x as(
 	select r.recipeId, r.recipeName
 	from recipe r 
@@ -188,7 +184,6 @@ Produce a result set that has 4 columns (Data values in brackets should be repla
 		That is [Z] hours more than the average [Y] hours all other recipes took to be published.
 */
 ;
--- SM Add recipe that this should return a value. Inspect what it returns and if it returns wrong results then change it.
 with x as(
 	select AvgHoursInDraft = avg(DATEDIFF(hour, r.datedrafted, r.datepublished))
 	from recipe r

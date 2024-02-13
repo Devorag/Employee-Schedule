@@ -55,7 +55,6 @@ Recipe details page:
         b) List of ingredients: show the measurement quantity, measurement type and ingredient in one column, sorted by sequence. Ex. 1 Teaspoon Salt  
         c) List of prep steps sorted by sequence.
 */
--- SM This doesn't work.
 select r.RecipeName, r.Calories, NumIngredients = count(distinct ri.ingredientID), NumSteps = count(distinct rs.instructions)
 from recipe r 
 join recipeIngredient ri 
