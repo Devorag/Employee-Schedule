@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             tblMain = new TableLayoutPanel();
-            button1 = new Button();
-            button2 = new Button();
+            gOutput = new DataGridView();
+            btnEvemtHandler1 = new Button();
+            btnEventHandler2 = new Button();
             button3 = new Button();
             button4 = new Button();
             tblOutput = new TableLayoutPanel();
-            gOutput = new DataGridView();
             txtOutput = new TextBox();
             tblMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gOutput).BeginInit();
@@ -49,8 +49,8 @@
             tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tblMain.Controls.Add(gOutput, 1, 0);
-            tblMain.Controls.Add(button1, 0, 1);
-            tblMain.Controls.Add(button2, 1, 1);
+            tblMain.Controls.Add(btnEvemtHandler1, 0, 1);
+            tblMain.Controls.Add(btnEventHandler2, 1, 1);
             tblMain.Controls.Add(button3, 2, 1);
             tblMain.Controls.Add(button4, 3, 1);
             tblMain.Controls.Add(tblOutput, 1, 0);
@@ -66,25 +66,37 @@
             tblMain.Size = new Size(707, 611);
             tblMain.TabIndex = 0;
             // 
-            // button1
+            // gOutput
             // 
-            button1.Dock = DockStyle.Fill;
-            button1.Location = new Point(4, 369);
-            button1.Name = "button1";
-            button1.Size = new Size(169, 115);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            gOutput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tblMain.SetColumnSpan(gOutput, 2);
+            gOutput.Dock = DockStyle.Fill;
+            gOutput.Location = new Point(180, 4);
+            gOutput.Name = "gOutput";
+            gOutput.RowHeadersWidth = 62;
+            gOutput.RowTemplate.Height = 33;
+            gOutput.Size = new Size(345, 236);
+            gOutput.TabIndex = 0;
             // 
-            // button2
+            // btnEvemtHandler1
             // 
-            button2.Dock = DockStyle.Fill;
-            button2.Location = new Point(180, 369);
-            button2.Name = "button2";
-            button2.Size = new Size(169, 115);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            btnEvemtHandler1.Dock = DockStyle.Fill;
+            btnEvemtHandler1.Location = new Point(4, 369);
+            btnEvemtHandler1.Name = "btnEvemtHandler1";
+            btnEvemtHandler1.Size = new Size(169, 115);
+            btnEvemtHandler1.TabIndex = 0;
+            btnEvemtHandler1.Text = "Event Handler 1 ";
+            btnEvemtHandler1.UseVisualStyleBackColor = true;
+            // 
+            // btnEventHandler2
+            // 
+            btnEventHandler2.Dock = DockStyle.Fill;
+            btnEventHandler2.Location = new Point(180, 369);
+            btnEventHandler2.Name = "btnEventHandler2";
+            btnEventHandler2.Size = new Size(169, 115);
+            btnEventHandler2.TabIndex = 1;
+            btnEventHandler2.Text = "Event Handler 2 ";
+            btnEventHandler2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -122,18 +134,6 @@
             tblOutput.Size = new Size(699, 115);
             tblOutput.TabIndex = 5;
             // 
-            // gOutput
-            // 
-            gOutput.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tblMain.SetColumnSpan(gOutput, 2);
-            gOutput.Dock = DockStyle.Fill;
-            gOutput.Location = new Point(180, 4);
-            gOutput.Name = "gOutput";
-            gOutput.RowHeadersWidth = 62;
-            gOutput.RowTemplate.Height = 33;
-            gOutput.Size = new Size(345, 236);
-            gOutput.TabIndex = 0;
-            // 
             // txtOutput
             // 
             txtOutput.Dock = DockStyle.Fill;
@@ -162,8 +162,8 @@
         #endregion
 
         private TableLayoutPanel tblMain;
-        private Button button1;
-        private Button button2;
+        private Button btnEvemtHandler1;
+        private Button btnEventHandler2;
         private Button button3;
         private Button button4;
         private TableLayoutPanel tblOutput;
