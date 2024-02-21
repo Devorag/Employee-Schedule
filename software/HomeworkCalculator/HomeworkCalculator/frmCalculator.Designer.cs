@@ -287,7 +287,6 @@
             txtFactor1.Name = "txtFactor1";
             txtFactor1.Size = new Size(160, 98);
             txtFactor1.TabIndex = 18;
-            txtFactor1.Text = "7";
             txtFactor1.TextAlign = HorizontalAlignment.Center;
             // 
             // txtOperator
@@ -299,7 +298,6 @@
             txtOperator.Name = "txtOperator";
             txtOperator.Size = new Size(160, 98);
             txtOperator.TabIndex = 19;
-            txtOperator.Text = "+";
             txtOperator.TextAlign = HorizontalAlignment.Center;
             // 
             // txtFactor2
@@ -311,7 +309,6 @@
             txtFactor2.Name = "txtFactor2";
             txtFactor2.Size = new Size(160, 98);
             txtFactor2.TabIndex = 20;
-            txtFactor2.Text = "8";
             txtFactor2.TextAlign = HorizontalAlignment.Center;
             // 
             // txtAnswer
