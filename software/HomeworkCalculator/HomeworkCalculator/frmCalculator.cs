@@ -37,34 +37,34 @@ namespace HomeworkCalculator
         private void BtnClear_Click(object? sender, EventArgs e)
         {
             //SM Make it a empty string, not a space.
-            txtFactor1.Text = " ";
-            txtOperator.Text = " ";
-            txtFactor2.Text = " ";
-            txtAnswer.Text = " ";
+            txtFactor1.Text = "";
+            txtOperator.Text = "";
+            txtFactor2.Text = "";
+            txtAnswer.Text = "";
         }
 
         private void BtnDivide_Click(object? sender, EventArgs e)
         {
             //SM Don't "add" the operator to the operator text box. Change it to the operator.
-            txtOperator.Text = txtOperator.Text + "/";
+            txtOperator.Text = "/";
         }
 
         private void BtnMultiply_Click(object? sender, EventArgs e)
         {
             //SM Don't "add" the operator to the operator text box. Change it to the operator.
-            txtOperator.Text = txtOperator.Text + "x";
+            txtOperator.Text = "x";
         }
 
         private void BtnSubtract_Click(object? sender, EventArgs e)
         {
             //SM Don't "add" the operator to the operator text box. Change it to the operator.
-            txtOperator.Text = txtOperator.Text + "-";
+            txtOperator.Text = "-";
         }
 
         private void BtnAdd_Click(object? sender, EventArgs e)
         {
             //SM Don't "add" the operator to the operator text box. Change it to the operator.
-            txtOperator.Text = txtOperator.Text + "+";
+            txtOperator.Text = "+";
         }
 
         private void Btn9_Click(object? sender, EventArgs e)
