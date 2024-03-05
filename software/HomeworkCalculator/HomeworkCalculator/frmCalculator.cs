@@ -111,6 +111,7 @@ namespace HomeworkCalculator
             if (b == false || b2 == false)
             {
                 txtAnswer.Text = "";
+                //SM Both are checking on same bool variable.
                 if (b == false)
                 {
                     txtFactor1.Text = "";
@@ -154,9 +155,11 @@ namespace HomeworkCalculator
             Calculate();
         }
 
+        //SM Add a procedure and call that procedure from here.
         private void BtnDecimal_Click(object? sender, EventArgs e)
         {
             string s = GetCurrentFactorValue();
+            //SM You should only do something when it does not contain.
             if (s.Contains("."))
             {
                 ImputCurrentFactorValue("");
@@ -167,6 +170,7 @@ namespace HomeworkCalculator
             }
         }
 
+        //SM Add a procedure and call that procedure from here.
         private void BtnSign_Click(object? sender, EventArgs e)
         {
             //overview    MakeValueNegative
@@ -176,6 +180,9 @@ namespace HomeworkCalculator
 
             //   make it become a negative VALUE(x -1)
             //   1. turn into an int
+
+            //SM Don't convert to int here. You should check if it has a - at the beggining. If it does, you should remove it. If it doesn't, you should add it.
+            //If I add a decimal, clicking on the sign makes the value 0
             int currentValueAsInt = 0;
             bool b = int.TryParse(currentValueAsString, out currentValueAsInt);
 
@@ -188,6 +195,8 @@ namespace HomeworkCalculator
 
 
             SetCurrentFactorValue(currentValueAsString);
+
+            //SM Remove the commented out code.
 
             //int currentBOX = DetermineCurrentFactor();
             //if (currentBOX == 1)
@@ -206,7 +215,6 @@ namespace HomeworkCalculator
 
         private void BtnClear_Click(object? sender, EventArgs e)
         {
-            //SM Make it a empty string, not a space.
             txtFactor1.Text = "";
             txtOperator.Text = "";
             txtFactor2.Text = "";
@@ -215,25 +223,21 @@ namespace HomeworkCalculator
 
         private void BtnDivide_Click(object? sender, EventArgs e)
         {
-            //SM Don't "add" the operator to the operator text box. Change it to the operator.
             txtOperator.Text = "/";
         }
 
         private void BtnMultiply_Click(object? sender, EventArgs e)
         {
-            //SM Don't "add" the operator to the operator text box. Change it to the operator.
             txtOperator.Text = "x";
         }
 
         private void BtnSubtract_Click(object? sender, EventArgs e)
         {
-            //SM Don't "add" the operator to the operator text box. Change it to the operator.
             txtOperator.Text = "-";
         }
 
         private void BtnAdd_Click(object? sender, EventArgs e)
         {
-            //SM Don't "add" the operator to the operator text box. Change it to the operator.
             txtOperator.Text = "+";
         }
 
