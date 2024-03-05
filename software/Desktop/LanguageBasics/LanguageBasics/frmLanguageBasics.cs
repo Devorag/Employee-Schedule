@@ -1,4 +1,7 @@
-﻿namespace LanguageBasics
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+
+namespace LanguageBasics
 {
     public partial class frmLanguageBasics : Form
     {
@@ -19,14 +22,91 @@
             btnIf2.Click += BtnIf2_Click;
         }
 
+        private string ConcatMessage(string value)
+        {
+            string s = "";
+            s = txtOutput.Text + value + Environment.NewLine;
+            return s;
+
+        }
+        private void DisplayMessage(string value, bool clearbox = false) {
+            if (clearbox == true)
+            {
+                txtOutput.Text = "";
+            }
+        txtOutput.Text = ConcatMessage(value);
+        }
+
+        private void DisplayMessage(string caption, string value, bool clearbox = false) {
+            string s = caption + " = " + value;
+            DisplayMessage(s, clearbox);
+        }
+
+        private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
+        {
+            Random rnd = new Random();
+            Color c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
+            return c;
+        }
+
+
+        private Color GetRandomColor()
+        {
+            return GetRandomColor(0, 256, 0, 256, 0, 256);
+        }
+
+
         private void BtnIf2_Click(object? sender, EventArgs e)
         {
-
+            //has red > 120 then forecolor blue
+            //else has blue > 128 then forecolor red 
+            //else has green > 128 then forecolor yellow
+            //all other cases black
+            Random rnd = new Random();
+            Color c = GetRandomColor();
+            Color fc = Color.Black;
+            txtOutput.BackColor = c;
+            if (c.R > 128)
+            {
+                fc = Color.Blue;
+            }
+            if (c.B > 128)
+            {
+                fc = Color.Red;
+            }
+            if (c.G > 128)
+            {
+                fc = Color.Yellow;
+            }
+            else
+            {
+                fc = Color.Black;
+            }
+            txtOutput.ForeColor = fc;
+            DisplayMessage("BackColor: ", c.ToString(), true);
+            DisplayMessage("ForeColor: ", fc.ToString());
         }
 
         private void BtnIf1_Click(object? sender, EventArgs e)
         {
-
+            //7 1st, 3 and 6 2nd prize, Try Again 
+            Random rnd = new Random();
+            int n = rnd.Next(1, 8);
+            string msg = "";
+            DisplayMessage(n.ToString(), true);
+            if (n == 7)
+            {
+                msg = "1st prize";
+            }
+            else if (n > 2 && n < 7)
+            {
+                msg = "2nd Prize";
+            }
+            else
+            {
+                msg = "try again";
+            }
+            DisplayMessage(msg);
         }
 
         private void BtnRandom_Click(object? sender, EventArgs e)
@@ -35,7 +115,7 @@
             int n = rnd.Next(0, 256);
             txtOutput.Text = "";
             txtOutput.Text = n.ToString();
-            Color c = Color.FromArgb(rnd.Next(0, 256), rnd.Next(0, 256), rnd.Next(0, 256));
+            Color c = GetRandomColor();
             txtOutput.BackColor = c;
         }
 
@@ -66,7 +146,7 @@
             txtOutput.BackColor = c;
             s += s;
             b = !b;
-            c = Color.FromArgb(200, 100, 50);
+            c = GetRandomColor(230, 256, 200, 250, 0, 256);
             txtOutput.Text = "s = " + s + ", b = " + b + ", c = " + c + Environment.NewLine;
             txtOutput.BackColor = c;
         }

@@ -317,6 +317,7 @@
             txtAnswer.Location = new Point(505, 4);
             txtAnswer.Multiline = true;
             txtAnswer.Name = "txtAnswer";
+            txtAnswer.ReadOnly = true;
             txtAnswer.Size = new Size(163, 98);
             txtAnswer.TabIndex = 21;
             // 

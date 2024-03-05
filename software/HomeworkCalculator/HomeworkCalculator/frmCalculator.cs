@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HomeworkCalculator
 {
@@ -32,6 +36,172 @@ namespace HomeworkCalculator
             btnMultiply.Click += BtnMultiply_Click;
             btnDivide.Click += BtnDivide_Click;
             btnClear.Click += BtnClear_Click;
+            btnSign.Click += BtnSign_Click;
+            btnDecimal.Click += BtnDecimal_Click;
+            btnEquals.Click += BtnEquals_Click;
+
+        }
+
+
+
+        private int DetermineCurrentFactor()
+        {
+            int n = 0;
+            if (txtFactor1.Text == "" || txtOperator.Text == "")
+            {
+                n = 1;
+            }
+            else if (txtFactor1.Text != "" && txtOperator.Text != "" && txtAnswer.Text == "")
+            {
+                n = 2;
+            }
+            return n;
+        }
+
+        private String GetCurrentFactorValue()
+        {
+            int n = DetermineCurrentFactor();
+            string factorval = "";
+            if (n == 1)
+            {
+                factorval = txtFactor1.Text;
+            }
+            else if (n == 2)
+            {
+                factorval = txtFactor2.Text;
+            }
+            return factorval;
+        }
+
+        private void SetCurrentFactorValue(string value)
+        {
+            //parameters allow you to take oUTseide info and use it inside this procedure
+
+
+            //find out which BOX needs adjustment
+            int n = DetermineCurrentFactor();
+
+
+            //actually ADJUST the box under discussion
+            if (n == 1) //means the first box needs the work
+            {
+                txtFactor1.Text = value; //actually does the work
+            }
+            else if (n == 2) //means box 2 needs work...
+            {
+                txtFactor2.Text = value; //actually does hw ork...
+            }
+
+        }
+
+        private void ImputCurrentFactorValue(string ButtonPressed)
+        {
+            string CurrentValueAsString = GetCurrentFactorValue() + ButtonPressed;
+            SetCurrentFactorValue(CurrentValueAsString);
+        }
+
+        private void Calculate()
+        {
+            int n = DetermineCurrentFactor();
+            decimal FirstBox = 0;
+            decimal SecondBox = 0;
+            bool b = decimal.TryParse(txtFactor1.Text, out FirstBox);
+            bool b2 = decimal.TryParse(txtFactor2.Text, out SecondBox);
+
+            if (b == false || b2 == false)
+            {
+                txtAnswer.Text = "";
+                if (b == false)
+                {
+                    txtFactor1.Text = "";
+                }
+                else if (b == false)
+                {
+                    txtFactor2.Text = "";
+                }
+            }
+            else if (n == 1)
+            {
+                txtAnswer.Text = "";
+            }
+            else if (n == 2)
+            {
+                if (txtOperator.Text == "+")
+                {
+                    txtAnswer.Text = decimal.Add(FirstBox, SecondBox).ToString();
+                }
+                else if (txtOperator.Text == "-")
+                {
+                    txtAnswer.Text = decimal.Subtract(FirstBox, SecondBox).ToString();
+                }
+                else if (txtOperator.Text == "x")
+                {
+                    txtAnswer.Text = decimal.Multiply(FirstBox, SecondBox).ToString();
+                }
+                else if (txtOperator.Text == "/" && txtFactor2.Text != "0")
+                {
+                    txtAnswer.Text = decimal.Divide(FirstBox, SecondBox).ToString();
+                }
+                else if (txtOperator.Text == "/" && txtFactor2.Text == "0")
+                {
+                    txtAnswer.Text = "";
+                }
+            }
+        }
+
+        private void BtnEquals_Click(object? sender, EventArgs e)
+        {
+            Calculate();
+        }
+
+        private void BtnDecimal_Click(object? sender, EventArgs e)
+        {
+            string s = GetCurrentFactorValue();
+            if (s.Contains("."))
+            {
+                ImputCurrentFactorValue("");
+            }
+            if (!s.Contains("."))
+            {
+                ImputCurrentFactorValue(".");
+            }
+        }
+
+        private void BtnSign_Click(object? sender, EventArgs e)
+        {
+            //overview    MakeValueNegative
+
+
+            string currentValueAsString = GetCurrentFactorValue();
+
+            //   make it become a negative VALUE(x -1)
+            //   1. turn into an int
+            int currentValueAsInt = 0;
+            bool b = int.TryParse(currentValueAsString, out currentValueAsInt);
+
+            //   2. make negative
+            currentValueAsInt = currentValueAsInt * -1;
+
+
+            //take new value and put in into the text of the box currently being adjusted
+            currentValueAsString = currentValueAsInt.ToString();
+
+
+            SetCurrentFactorValue(currentValueAsString);
+
+            //int currentBOX = DetermineCurrentFactor();
+            //if (currentBOX == 1)
+            //{
+            //    txtFactor1.Text = currentValueAsString;
+            //}
+            //else if (currentBOX == 2)
+            //{
+            //    txtFactor2.Text = currentValueAsString;
+            //}
+
+
+
+            //string factorval = GetCurrentFactorValue();
         }
 
         private void BtnClear_Click(object? sender, EventArgs e)
@@ -69,54 +239,53 @@ namespace HomeworkCalculator
 
         private void Btn9_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 9;
+            ImputCurrentFactorValue("9");
         }
 
         private void Btn8_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 8;
+            ImputCurrentFactorValue("8");
         }
 
         private void Btn7_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 7;
+            ImputCurrentFactorValue("7");
         }
 
         private void Btn6_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 6;
+            ImputCurrentFactorValue("6");
         }
 
         private void Btn5_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 5;
+            ImputCurrentFactorValue("5");
         }
 
         private void Btn4_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 4;
+            ImputCurrentFactorValue("4");
         }
 
         private void Btn3_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 3;
+            ImputCurrentFactorValue("3");
         }
 
         private void Btn2_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 2;
+            ImputCurrentFactorValue("2");
         }
 
         private void Btn1_Click(object? sender, EventArgs e)
         {
-            txtFactor1.Text = txtFactor1.Text + 1;
+            ImputCurrentFactorValue("1");
         }
 
         private void Btn0_Click(object? sender, EventArgs e)
-        {
-            txtFactor1.Text = txtFactor1.Text + 0;
-        }
 
-        //code goes here 
+        {
+            ImputCurrentFactorValue("0");
+        }
     }
 }
