@@ -116,7 +116,7 @@ namespace HomeworkCalculator
                 {
                     txtFactor1.Text = "";
                 }
-                else if (b == false)
+                else if (b2 == false)
                 {
                     txtFactor2.Text = "";
                 }
@@ -150,6 +150,38 @@ namespace HomeworkCalculator
             }
         }
 
+        private void ImputDecimal()
+        {
+            string s = GetCurrentFactorValue();
+            //SM You should only do something when it does not contain.
+            if (!s.Contains("."))
+            {
+                ImputCurrentFactorValue(".");
+            }
+        }
+
+        private void ImputSign()
+        {
+            string currentValueAsString = GetCurrentFactorValue();
+            bool b = currentValueAsString.StartsWith("-");
+            if (b == true)
+            {
+                decimal currentValueAsDecimal = 0;
+                bool b2 = decimal.TryParse(currentValueAsString, out currentValueAsDecimal);
+                currentValueAsDecimal = currentValueAsDecimal * -1;
+                currentValueAsString = currentValueAsDecimal.ToString();
+                SetCurrentFactorValue(currentValueAsString);
+            }
+            else if (b == false)
+            {
+                decimal currentValueAsDecimal = 0;
+                bool b2 = decimal.TryParse(currentValueAsString, out currentValueAsDecimal);
+                currentValueAsDecimal = currentValueAsDecimal * -1;
+                currentValueAsString = currentValueAsDecimal.ToString();
+                SetCurrentFactorValue(currentValueAsString);
+            }
+        }
+
         private void BtnEquals_Click(object? sender, EventArgs e)
         {
             Calculate();
@@ -158,59 +190,15 @@ namespace HomeworkCalculator
         //SM Add a procedure and call that procedure from here.
         private void BtnDecimal_Click(object? sender, EventArgs e)
         {
-            string s = GetCurrentFactorValue();
-            //SM You should only do something when it does not contain.
-            if (s.Contains("."))
-            {
-                ImputCurrentFactorValue("");
-            }
-            if (!s.Contains("."))
-            {
-                ImputCurrentFactorValue(".");
-            }
+            ImputDecimal();
         }
 
         //SM Add a procedure and call that procedure from here.
         private void BtnSign_Click(object? sender, EventArgs e)
         {
-            //overview    MakeValueNegative
-
-
-            string currentValueAsString = GetCurrentFactorValue();
-
-            //   make it become a negative VALUE(x -1)
-            //   1. turn into an int
+            ImputSign();
 
             //SM Don't convert to int here. You should check if it has a - at the beggining. If it does, you should remove it. If it doesn't, you should add it.
-            //If I add a decimal, clicking on the sign makes the value 0
-            int currentValueAsInt = 0;
-            bool b = int.TryParse(currentValueAsString, out currentValueAsInt);
-
-            //   2. make negative
-            currentValueAsInt = currentValueAsInt * -1;
-
-
-            //take new value and put in into the text of the box currently being adjusted
-            currentValueAsString = currentValueAsInt.ToString();
-
-
-            SetCurrentFactorValue(currentValueAsString);
-
-            //SM Remove the commented out code.
-
-            //int currentBOX = DetermineCurrentFactor();
-            //if (currentBOX == 1)
-            //{
-            //    txtFactor1.Text = currentValueAsString;
-            //}
-            //else if (currentBOX == 2)
-            //{
-            //    txtFactor2.Text = currentValueAsString;
-            //}
-
-
-
-            //string factorval = GetCurrentFactorValue();
         }
 
         private void BtnClear_Click(object? sender, EventArgs e)
