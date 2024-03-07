@@ -158,26 +158,17 @@ namespace HomeworkCalculator
             }
         }
 
-        private void ImputSign()
+        private void ImputSign(string value)
         {
             string currentValueAsString = GetCurrentFactorValue();
-            bool b = currentValueAsString.StartsWith("-");
-            if (b == true)
+            if (currentValueAsString.StartsWith(value))
             {
                 //SM Don't convert to decimal. Just add or remove the "-" based on if it starts with it or not.
-                decimal currentValueAsDecimal = 0;
-                bool b2 = decimal.TryParse(currentValueAsString, out currentValueAsDecimal);
-                currentValueAsDecimal = currentValueAsDecimal * -1;
-                currentValueAsString = currentValueAsDecimal.ToString();
-                SetCurrentFactorValue(currentValueAsString);
+                SetCurrentFactorValue(currentValueAsString.Remove(0, 1));
             }
-            else if (b == false)
+            else if (!currentValueAsString.StartsWith(value))
             {
-                decimal currentValueAsDecimal = 0;
-                bool b2 = decimal.TryParse(currentValueAsString, out currentValueAsDecimal);
-                currentValueAsDecimal = currentValueAsDecimal * -1;
-                currentValueAsString = currentValueAsDecimal.ToString();
-                SetCurrentFactorValue(currentValueAsString);
+                SetCurrentFactorValue(value + GetCurrentFactorValue());
             }
         }
 
@@ -193,7 +184,7 @@ namespace HomeworkCalculator
 
         private void BtnSign_Click(object? sender, EventArgs e)
         {
-            ImputSign();
+            ImputSign("-");
         }
 
         private void BtnClear_Click(object? sender, EventArgs e)

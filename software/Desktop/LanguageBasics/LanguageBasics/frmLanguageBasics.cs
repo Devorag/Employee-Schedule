@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using System.Data;
+using System.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace LanguageBasics
 {
@@ -11,8 +14,8 @@ namespace LanguageBasics
             InitializeComponent();
             //event subscription goes here
             btnEvemtHandler1.Click += BtnEvemtHandler1_Click;
-            //btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
-            //btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
+            btnEventHandler2.MouseMove += BtnEventHandler2_MouseMove;
+            btnEventHandler2.MouseLeave += BtnEventHandler2_MouseLeave;
             btnVariable1.Click += BtnVariable1_Click;
             btnVariable2.Click += BtnVariable2_Click;
             btnDataConversion1.Click += BtnDataConversion1_Click;
@@ -20,7 +23,11 @@ namespace LanguageBasics
             btnRandom.Click += BtnRandom_Click;
             btnIf1.Click += BtnIf1_Click;
             btnIf2.Click += BtnIf2_Click;
+            btnAddControl1.Click += BtnAddControl1_Click;
+            btnAddControl2.Click += BtnAddControl2_Click;
+            btnData.Click += BtnData_Click;
         }
+
 
         private string ConcatMessage(string value)
         {
@@ -29,15 +36,17 @@ namespace LanguageBasics
             return s;
 
         }
-        private void DisplayMessage(string value, bool clearbox = false) {
+        private void DisplayMessage(string value, bool clearbox = false)
+        {
             if (clearbox == true)
             {
                 txtOutput.Text = "";
             }
-        txtOutput.Text = ConcatMessage(value);
+            txtOutput.Text = ConcatMessage(value);
         }
 
-        private void DisplayMessage(string caption, string value, bool clearbox = false) {
+        private void DisplayMessage(string caption, string value, bool clearbox = false)
+        {
             string s = caption + " = " + value;
             DisplayMessage(s, clearbox);
         }
@@ -55,6 +64,126 @@ namespace LanguageBasics
             return GetRandomColor(0, 256, 0, 256, 0, 256);
         }
 
+        private Label GetRandomLabel(Form f)
+        {
+            Random rnd = new Random();
+            Label lbl = new Label();
+            lbl.AutoSize = false;
+            lbl.BackColor = GetRandomColor();
+            lbl.Location = new Point(rnd.Next(0, f.Width - 100), rnd.Next(0, f.Height - 100));
+            lbl.Size = new Size(rnd.Next(f.Width / 10, f.Width - 100), rnd.Next(f.Height / 10, f.Height - 100));
+            return lbl;
+        }
+
+        private string GetConnectionString(bool localdb = true)
+        {
+            string s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
+            if (localdb == false)
+            {
+               s = "Server = tcp:dev - devorag.database.windows.net,1433; Initial Catalog = RecordKeeperDB; Persist Security Info = False; User ID = devorag; Password ={ your_password}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30";
+            }
+            return s;
+        }
+
+        private DataTable GetDataTable(string sqlstatement)  //- take a SQL statement and return a DataTable
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = GetConnectionString(false);
+            conn.Open();
+            //DisplayMessage("Conn Status", conn.State.ToString());
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = sqlstatement;
+            SqlDataReader dr = cmd.ExecuteReader();
+            dt.Load(dr);
+            return dt;
+        }
+
+
+        private void ShowDataInGrid()
+        {
+            DataTable dt = GetDataTable("select * from president");
+        }
+
+        private void BtnData_Click(object? sender, EventArgs e)
+        {
+            ShowDataInGrid();
+        }
+
+
+        private void BtnAddControl1_Click(object? sender, EventArgs e)
+        {
+            Button btn = new Button() { BackColor = GetRandomColor(), Dock = DockStyle.Fill, Text = "New Button - Click Me" };
+            tblOutput.Controls.Add(btn, 2, 0);
+            btn.Click += Btn_Click;
+            //modern art form
+            Form f = new Form();
+            f.BackColor = Color.Black;
+            f.Height = this.Height - 100;
+            f.Width = this.Width - 100;
+            f.StartPosition = FormStartPosition.CenterParent;
+            f.Show();
+            Label lbl1 = (GetRandomLabel(f));
+            lbl1.Click += RandomLabel_Click;
+            f.Controls.Add(lbl1);
+
+            Label lbl2 = (GetRandomLabel(f));
+            lbl2.Click += RandomLabel_Click;
+            f.Controls.Add(lbl2);
+
+            Label lbl3 = (GetRandomLabel(f));
+            lbl3.Click += RandomLabel_Click;
+            f.Controls.Add(lbl3);
+        }
+
+        private void RandomLabel_Click(object? sender, EventArgs e)
+        {
+            Label l = (Label)sender;
+
+        }
+
+        private void BtnAddControl2_Click(object? sender, EventArgs e)
+        {
+            Label lbl = new Label() { Text = "Vacant. For Rent", Dock = DockStyle.Fill, BackColor = GetRandomColor() };
+            tblMain.Controls.Add(lbl, 2, 4);
+            Form f = new Form();
+            f.BackColor = Color.Black;
+            f.Height = this.Height - 100;
+            f.Width = this.Width - 100;
+
+            f.MouseMove += F_MouseMove;
+            f.DoubleClick += F_DoubleClick;
+            f.Show();
+        }
+
+        private void F_DoubleClick(object? sender, EventArgs e)
+        {
+            Form f = (Form)sender;
+            f.Controls.Clear();
+        }
+
+        private void F_MouseMove(object? sender, MouseEventArgs e)
+        {
+            Form f = (Form)sender;
+            if (e.Button != MouseButtons.None)
+            {
+                Color c = Color.Blue;
+                if (e.Button == MouseButtons.Left)
+                {
+                    c = GetRandomColor();
+                }
+                Label lbl = new Label() { BackColor = c, Height = 10, Width = 10, AutoSize = false };
+                lbl.Location = e.Location;
+                f.Controls.Add(lbl);
+
+            }
+        }
+
+        private void Btn_Click(object? sender, EventArgs e)
+        {
+            DisplayMessage("New Button", "Hi there :)");
+        }
 
         private void BtnIf2_Click(object? sender, EventArgs e)
         {
@@ -171,7 +300,7 @@ namespace LanguageBasics
 
         private void BtnEventHandler2_MouseMove(object? sender, MouseEventArgs e)
         {
-            txtOutput.Text = txtOutput.Text + "Mouse moved over BtnEventHandler2 " + DateTime.Now.TimeOfDay.ToString() + Environment.NewLine;
+            DisplayMessage("MouseMove = ", "Button = " + e.Button.ToString() + "location = " + e.Location.ToString());
             btnEventHandler2.BackColor = Color.DodgerBlue;
             btnEventHandler2.ForeColor = Color.OrangeRed;
         }
@@ -183,6 +312,11 @@ namespace LanguageBasics
         }
 
         private void gOutput_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnData_Click(object sender, EventArgs e)
         {
 
         }
