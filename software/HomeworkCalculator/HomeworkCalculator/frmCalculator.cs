@@ -111,7 +111,6 @@ namespace HomeworkCalculator
             if (b == false || b2 == false)
             {
                 txtAnswer.Text = "";
-                //SM Both are checking on same bool variable.
                 if (b == false)
                 {
                     txtFactor1.Text = "";
@@ -153,7 +152,6 @@ namespace HomeworkCalculator
         private void ImputDecimal()
         {
             string s = GetCurrentFactorValue();
-            //SM You should only do something when it does not contain.
             if (!s.Contains("."))
             {
                 ImputCurrentFactorValue(".");
@@ -166,6 +164,7 @@ namespace HomeworkCalculator
             bool b = currentValueAsString.StartsWith("-");
             if (b == true)
             {
+                //SM Don't convert to decimal. Just add or remove the "-" based on if it starts with it or not.
                 decimal currentValueAsDecimal = 0;
                 bool b2 = decimal.TryParse(currentValueAsString, out currentValueAsDecimal);
                 currentValueAsDecimal = currentValueAsDecimal * -1;
@@ -187,18 +186,14 @@ namespace HomeworkCalculator
             Calculate();
         }
 
-        //SM Add a procedure and call that procedure from here.
         private void BtnDecimal_Click(object? sender, EventArgs e)
         {
             ImputDecimal();
         }
 
-        //SM Add a procedure and call that procedure from here.
         private void BtnSign_Click(object? sender, EventArgs e)
         {
             ImputSign();
-
-            //SM Don't convert to int here. You should check if it has a - at the beggining. If it does, you should remove it. If it doesn't, you should add it.
         }
 
         private void BtnClear_Click(object? sender, EventArgs e)
