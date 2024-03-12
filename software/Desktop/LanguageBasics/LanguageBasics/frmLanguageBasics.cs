@@ -33,31 +33,6 @@ namespace LanguageBasics
             btnValueRefType.Click += BtnValueRefType_Click;
         }
 
-        private void BtnValueRefType_Click(object? sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnString_Click(object? sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnNew_Click(object? sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnNull_Click(object? sender, EventArgs e)
-        {
-
-        }
-
-        private void BtnObject_Click(object? sender, EventArgs e)
-        {
-
-        }
-
         private string ConcatMessage(string value)
         {
             string s = "";
@@ -134,6 +109,33 @@ namespace LanguageBasics
         {
             DataTable dt = GetDataTable("select * from president");
         }
+
+
+        private void BtnValueRefType_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnString_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnNew_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnNull_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnObject_Click(object? sender, EventArgs e)
+        {
+
+        }
+
 
         private void BtnData_Click(object? sender, EventArgs e)
         {
