@@ -35,7 +35,7 @@ namespace FrmSqlExecutor
             return Database;
         }
 
-
+        //SM Name this procedure GetConnectionString()
         private string LocalOrAzure()
         {
             string s = "";
@@ -43,6 +43,7 @@ namespace FrmSqlExecutor
             {
                 s = "Server=.\\SQLExpress;Database=" + DetermineCheckedDatabase() + ";Trusted_Connection=True";
             }
+            //SM This should be a else if. Or even an else as one (and only one) of the radio buttons must be checked.
             if (radioAzure.Checked == true)
             {
                 s = "Server=tcp:dev-devorag.database.windows.net,1433;Initial Catalog=" + DetermineCheckedDatabase() + ";Persist Security Info=False;User ID=devorag;Password=DEVO5401!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";

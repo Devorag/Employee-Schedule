@@ -102,6 +102,7 @@ namespace HomeworkCalculator
 
         private void Calculate()
         {
+            //SM You don't need to know the current factor. It will not calculate if there's no value in all textboxes.
             int n = DetermineCurrentFactor();
             decimal FirstBox = 0;
             decimal SecondBox = 0;
@@ -163,11 +164,11 @@ namespace HomeworkCalculator
             string currentValueAsString = GetCurrentFactorValue();
             if (currentValueAsString.StartsWith(value))
             {
-                //SM Don't convert to decimal. Just add or remove the "-" based on if it starts with it or not.
                 SetCurrentFactorValue(currentValueAsString.Remove(0, 1));
             }
             else if (!currentValueAsString.StartsWith(value))
             {
+                //SM DON'T call get procedure again. Use variable.
                 SetCurrentFactorValue(value + GetCurrentFactorValue());
             }
         }
