@@ -26,8 +26,37 @@ namespace LanguageBasics
             btnAddControl1.Click += BtnAddControl1_Click;
             btnAddControl2.Click += BtnAddControl2_Click;
             btnData.Click += BtnData_Click;
+            btnObject.Click += BtnObject_Click;
+            btnNull.Click += BtnNull_Click;
+            btnNew.Click += BtnNew_Click;
+            btnString.Click += BtnString_Click;
+            btnValueRefType.Click += BtnValueRefType_Click;
         }
 
+        private void BtnValueRefType_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnString_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnNew_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnNull_Click(object? sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnObject_Click(object? sender, EventArgs e)
+        {
+
+        }
 
         private string ConcatMessage(string value)
         {
@@ -80,7 +109,7 @@ namespace LanguageBasics
             string s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
             if (localdb == false)
             {
-               s = "Server = tcp:dev - devorag.database.windows.net,1433; Initial Catalog = RecordKeeperDB; Persist Security Info = False; User ID = devorag; Password ={ your_password}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30";
+                s = "Server = tcp:dev - devorag.database.windows.net,1433; Initial Catalog = RecordKeeperDB; Persist Security Info = False; User ID = devorag; Password ={ your_password}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30";
             }
             return s;
         }
