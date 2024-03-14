@@ -1,0 +1,84 @@
+    [
+        {
+            "num": 1,
+            "firstName": "George",
+            "lastName": "Washington",
+            "party": "None",
+            "executiveOrders": []
+        },
+        {
+            "num": 2,
+            "firstName": "John",
+            "lastName": "Adams",
+            "party": "Federalist",
+            "executiveOrders": []
+        },
+        {
+            "num": 3,
+            "firstName": "Thomas",
+            "lastName": "Jefferson",
+            "party": "Democratic-Republican",
+            "executiveOrders": [
+                "EO-1: Louisiana Purchase",
+                "EO-2: Lewis and Clark Expedition"
+            ]
+        },
+        {
+            "num": 4,
+            "firstName": "James",
+            "lastName": "Madison",
+            "party": "Democratic-Republican",
+            "executiveOrders": [
+                "EO-1: Establishment of Second Bank of the United States",
+                "EO-2: Establishment of Official Currency Medal"
+            ]
+        },
+        {
+            "num": 5,
+            "firstName": "James",
+            "lastName": "Monroe",
+            "party": "Democratic-Republican",
+            "executiveOrders": [
+                "EO-1: Monroe Doctrine Announcement"
+            ]
+        },
+        {
+            "num": 6,
+            "firstName": "John Quincy",
+            "lastName": "Adams",
+            "party": "Democratic-Republican",
+            "executiveOrders": []  // Assuming no executive orders for demonstration
+        },
+        {
+            "num": 7,
+            "firstName": "Andrew",
+            "lastName": "Jackson",
+            "party": "Democrat",
+            "executiveOrders": [
+                "EO-1: Establishment of Ethics Department"
+            ]
+        },
+        {
+            "num": 8,
+            "firstName": "Martin",
+            "lastName": "Van Buren",
+            "party": "Democrat",
+            "executiveOrders": []
+        },
+        {
+            "num": 9,
+            "firstName": "William Henry",
+            "lastName": "Harrison",
+            "party": "Whig",
+            "executiveOrders": []
+        },
+        {
+            "num": 10,
+            "firstName": "John",
+            "lastName": "Tyler",
+            "party": "Whig",
+            "executiveOrders": [
+                "EO-1: Veto of the National Bank Bill"
+            ]
+        }
+    ]
