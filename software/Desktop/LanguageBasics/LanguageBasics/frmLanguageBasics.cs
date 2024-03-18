@@ -3,12 +3,17 @@ using System.Runtime.CompilerServices;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Text;
 
 namespace LanguageBasics
 {
     public partial class frmLanguageBasics : Form
     {
-        //variables go here 
+        int nform = 0;
+        int noutput = 0;
+        private enum LineSeperatorEnum { NewLine, TripleDash, Colon, TripleLine }
+
+        private enum DBServerTypeEnum { Local, Azure }
         public frmLanguageBasics()
         {
             InitializeComponent();
@@ -31,15 +36,49 @@ namespace LanguageBasics
             btnNew.Click += BtnNew_Click;
             btnString.Click += BtnString_Click;
             btnValueRefType.Click += BtnValueRefType_Click;
+            btnScope1.Click += BtnScope1_Click;
+            btnSwitch.Click += BtnSwitch_Click;
+            btnTermary1.Click += BtnTermary1_Click;
+            btnTermary2.Click += BtnTermary2_Click;
+
         }
 
-        private string ConcatMessage(string value)
+
+
+        private void IncrementOutputMessageVariable()
+        {
+            noutput = noutput + 1;
+            this.Text = "Language Basics - " + noutput.ToString();
+        }
+
+        private string ConcatMessage(string value, LineSeperatorEnum lineSeperatortype = LineSeperatorEnum.NewLine)
         {
             string s = "";
-            s = txtOutput.Text + value + Environment.NewLine;
-            return s;
+            string lineseperator = "";
+
+            switch (lineSeperatortype)
+            {
+                case LineSeperatorEnum.Colon:
+                    lineseperator = ":";
+                    break;
+                case LineSeperatorEnum.TripleDash:
+                case LineSeperatorEnum.TripleLine:
+                    lineseperator = "---";
+                    break;
+                default:
+                    lineseperator = Environment.NewLine;
+                    break;
+            }
 
         }
+
+        private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
+        {
+            txtOutput.Text = value;
+            txtOutput.Text = ConcatMessage(valuename + " = " + value, LineSeperatorEnum.NewLine);
+            IncrementOutputMessageVariable();
+        }
+
         private void DisplayMessage(string value, bool clearbox = false)
         {
             if (clearbox == true)
@@ -47,6 +86,7 @@ namespace LanguageBasics
                 txtOutput.Text = "";
             }
             txtOutput.Text = ConcatMessage(value);
+            IncrementOutputMessageVariable();
         }
 
         private void DisplayMessage(string caption, string value, bool clearbox = false)
@@ -57,8 +97,8 @@ namespace LanguageBasics
 
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
-            Random rnd = new Random();
-            Color c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
+            Random rnd = new();
+            var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
 
@@ -79,10 +119,10 @@ namespace LanguageBasics
             return lbl;
         }
 
-        private string GetConnectionString(bool localdb = true)
+        private string GetConnectionString(DBServerTypeEnum dBServerType = DBServerTypeEnum.Local)
         {
-            string s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
-            if (localdb == false)
+            var s = "Server=.\\SQLExpress;Database=RecordKeeperDB;Trusted_Connection=true";
+            if (dBServerType == DBServerTypeEnum.Azure)
             {
                 s = "Server = tcp:dev - devorag.database.windows.net,1433; Initial Catalog = RecordKeeperDB; Persist Security Info = False; User ID = devorag; Password ={ your_password}; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30";
             }
@@ -91,15 +131,15 @@ namespace LanguageBasics
 
         private DataTable GetDataTable(string sqlstatement)  //- take a SQL statement and return a DataTable
         {
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = GetConnectionString(false);
+            DataTable dt = new();
+            SqlConnection conn = new();
+            conn.ConnectionString = GetConnectionString(DBServerTypeEnum.Local);
             conn.Open();
             //DisplayMessage("Conn Status", conn.State.ToString());
-            SqlCommand cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = sqlstatement;
-            SqlDataReader dr = cmd.ExecuteReader();
+            var dr = cmd.ExecuteReader();
             dt.Load(dr);
             return dt;
         }
@@ -110,30 +150,120 @@ namespace LanguageBasics
             DataTable dt = GetDataTable("select * from president");
         }
 
+        private void BtnSwitch_Click(object? sender, EventArgs e)
+        {
+            Random rnd = new();
+            int n = rnd.Next(1, 8);
+            DisplayValueAndCaption(n.ToString());
+            string msg = "";
+
+            switch (n)
+            {
+                case 7:
+                    msg = "1st Prize";
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    msg = "2nd Prize";
+                    break;
+                default:
+                    msg = "Try Again";
+                    break;
+            }
+        }
+
+        private void BtnTermary2_Click(object? sender, EventArgs e)
+        {
+            DisplayValueAndCaption(DateTime.Now.Second.ToString());
+            tblMain.BackColor = DateTime.Now.Second < 30 ? Color.Yellow : Color.Blue;
+        }
+
+        private void BtnTermary1_Click(object? sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            int n = rnd.Next(1, 3);
+            txtOutput.Text = n == 1 ? "Heads" : "Tails";
+        }
+
+        private void BtnScope1_Click(object? sender, EventArgs e)
+        {
+            int nlocal = 0;
+            nlocal = nlocal + 1;
+            nform = nform + 1;
+            DisplayValueAndCaption(nlocal.ToString());
+            DisplayValueAndCaption(nform.ToString());
+        }
 
         private void BtnValueRefType_Click(object? sender, EventArgs e)
         {
+            int n = 100;
+            int x = n;
+            n = n * 100;
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(x.ToString());
 
+            Button btn = btnValueRefType;
+            Button btn2 = btn;
+            btn.Text = "I was changed";
+            btn2.BackColor = Color.Blue;
+            btnValueRefType.FlatStyle = FlatStyle.Popup;
+            n = 1;
+            x = 1;
+            int y;
+            DoubleIt(n, out y, btn);
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(x.ToString());
         }
+
+        private void DoubleIt(int n, out int x, Button btn)
+        {
+            n = n * 2;
+            DisplayMessage("n inside DoubleIt", n.ToString());
+            x = 1;
+            x = x * 2;
+            btn.Text += btn.Text;
+        }
+
 
         private void BtnString_Click(object? sender, EventArgs e)
         {
-
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Hi");
+            sb.Append("How are you? ");
+            sb.Append(DateTime.Now.TimeOfDay);
+            DisplayValueAndCaption(sb.ToString());
         }
 
         private void BtnNew_Click(object? sender, EventArgs e)
         {
-
+            int n = new int();
+            DisplayValueAndCaption(n.ToString());
+            DateTime dt = new DateTime();
+            DisplayValueAndCaption(dt.ToString());
+            string s = new string("hello");
+            bool b = s.Contains("x");
+            string val = string.Join("-", "a", "b");
+            DisplayValueAndCaption(val);
         }
 
         private void BtnNull_Click(object? sender, EventArgs e)
         {
-
+            object o = null;
+            string s = null;
+            DisplayValueAndCaption(s);
         }
 
         private void BtnObject_Click(object? sender, EventArgs e)
         {
-
+            object o = new object();
+            DisplayValueAndCaption(o.ToString());
+            int x = 100;
+            o = x;
+            DisplayValueAndCaption(o.ToString());
+            o = btnObject;
+            DisplayValueAndCaption(o.ToString());
         }
 
 
@@ -155,6 +285,7 @@ namespace LanguageBasics
             f.Width = this.Width - 100;
             f.StartPosition = FormStartPosition.CenterParent;
             f.Show();
+
             Label lbl1 = (GetRandomLabel(f));
             lbl1.Click += RandomLabel_Click;
             f.Controls.Add(lbl1);
@@ -273,8 +404,7 @@ namespace LanguageBasics
         {
             Random rnd = new Random();
             int n = rnd.Next(0, 256);
-            txtOutput.Text = "";
-            txtOutput.Text = n.ToString();
+            DisplayValueAndCaption(n.ToString());
             Color c = GetRandomColor();
             txtOutput.BackColor = c;
         }
@@ -285,6 +415,7 @@ namespace LanguageBasics
             string s = txtOutput.Text;
             bool b = int.TryParse(s, out n);
             txtOutput.Text = "s = " + s + ", conversion worked = " + b + ", n = " + n + Environment.NewLine;
+            IncrementOutputMessageVariable();
         }
 
         private void BtnDataConversion1_Click(object? sender, EventArgs e)
@@ -293,9 +424,10 @@ namespace LanguageBasics
             n = (int)d;
             txtOutput.Text = "";
             txtOutput.Text = "d = " + d + ", n = " + n + Environment.NewLine;
-
+            IncrementOutputMessageVariable();
             bool b = int.TryParse(s, out n);
             txtOutput.Text = "s = " + s + ", b = " + b + ", n = " + n + Environment.NewLine;
+            IncrementOutputMessageVariable();
         }
 
         private void BtnVariable2_Click(object? sender, EventArgs e)
@@ -316,10 +448,15 @@ namespace LanguageBasics
             //int decimal datetime
             int n = 10; decimal d = .99m; DateTime dt = new DateTime(1989, 4, 25);
             txtOutput.Text = "";
-            txtOutput.Text = "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(d.ToString());
+            DisplayValueAndCaption(dt.ToString());
             n = n * 10000;
             d += d;
             dt = dt.AddDays(1000);
+            DisplayValueAndCaption(n.ToString());
+            DisplayValueAndCaption(d.ToString());
+            DisplayValueAndCaption(dt.ToString());
             txtOutput.Text = "n = " + n + ", d = " + d + ", dt = " + dt + Environment.NewLine;
         }
 
@@ -339,6 +476,7 @@ namespace LanguageBasics
         private void BtnEvemtHandler1_Click(object? sender, EventArgs e)
         {
             txtOutput.Text = txtOutput.Text + "BtnEventHandler1 was clicked " + DateTime.Now.TimeOfDay.ToString() + Environment.NewLine;
+            IncrementOutputMessageVariable();
 
         }
 

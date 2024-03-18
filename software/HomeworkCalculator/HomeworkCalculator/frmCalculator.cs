@@ -21,16 +21,16 @@ namespace HomeworkCalculator
         {
             InitializeComponent();
             //event subscription goes here
-            btn0.Click += Btn0_Click;
-            btn1.Click += Btn1_Click;
-            btn2.Click += Btn2_Click;
-            btn3.Click += Btn3_Click;
-            btn4.Click += Btn4_Click;
-            btn5.Click += Btn5_Click;
-            btn6.Click += Btn6_Click;
-            btn7.Click += Btn7_Click;
-            btn8.Click += Btn8_Click;
-            btn9.Click += Btn9_Click;
+            btn0.Click += Btn_Click;
+            btn1.Click += Btn_Click;
+            btn2.Click += Btn_Click;
+            btn3.Click += Btn_Click;
+            btn4.Click += Btn_Click;
+            btn5.Click += Btn_Click;
+            btn6.Click += Btn_Click;
+            btn7.Click += Btn_Click;
+            btn8.Click += Btn_Click;
+            btn9.Click += Btn_Click;
             btnAdd.Click += BtnAdd_Click;
             btnSubtract.Click += BtnSubtract_Click;
             btnMultiply.Click += BtnMultiply_Click;
@@ -42,7 +42,13 @@ namespace HomeworkCalculator
 
         }
 
+        private string BtnClickedString(object obj)
+        {
+            Button b = (Button)obj;
+            string s = b.Text;
 
+            return s;
+        }
 
         private int DetermineCurrentFactor()
         {
@@ -216,55 +222,9 @@ namespace HomeworkCalculator
             txtOperator.Text = "+";
         }
 
-        private void Btn9_Click(object? sender, EventArgs e)
+        private void Btn_Click(object? sender, EventArgs e)
         {
-            ImputCurrentFactorValue("9");
-        }
-
-        private void Btn8_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("8");
-        }
-
-        private void Btn7_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("7");
-        }
-
-        private void Btn6_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("6");
-        }
-
-        private void Btn5_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("5");
-        }
-
-        private void Btn4_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("4");
-        }
-
-        private void Btn3_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("3");
-        }
-
-        private void Btn2_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("2");
-        }
-
-        private void Btn1_Click(object? sender, EventArgs e)
-        {
-            ImputCurrentFactorValue("1");
-        }
-
-        private void Btn0_Click(object? sender, EventArgs e)
-
-        {
-            ImputCurrentFactorValue("0");
+            ImputCurrentFactorValue(BtnClickedString(sender));
         }
     }
 }

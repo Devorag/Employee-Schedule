@@ -13,7 +13,11 @@ using System.Windows.Forms;
 namespace FrmSqlExecutor
 {
     public partial class FrmSqlExecutor : Form
-    {
+    {   
+        private enum DBServerTypeEnum { LocalDB, Azure};
+        private enum DBDatabaseEnum { RecordKeeper, Recipe};
+        int nform = 0;
+        int ntabtext = 0;
         public FrmSqlExecutor()
         {
             InitializeComponent();
@@ -23,7 +27,7 @@ namespace FrmSqlExecutor
 
         private string DetermineCheckedDatabase()
         {
-            string Database = "";
+            var Database = "";
             if (radioRecordKeeper.Checked == true)
             {
                 Database = "RecordKeeperDB";
@@ -36,15 +40,11 @@ namespace FrmSqlExecutor
         }
 
         //SM Name this procedure GetConnectionString()
-        private string LocalOrAzure()
+        private string GetConnectionString(DBServerTypeEnum dbservertype = DBServerTypeEnum.LocalDB)
         {
-            string s = "";
-            if (radioLocalDB.Checked == true)
-            {
-                s = "Server=.\\SQLExpress;Database=" + DetermineCheckedDatabase() + ";Trusted_Connection=True";
-            }
+            var s = "s = \"Server=.\\\\SQLExpress;Database=\" + DetermineCheckedDatabase() + \";Trusted_Connection=True\";";
             //SM This should be a else if. Or even an else as one (and only one) of the radio buttons must be checked.
-            if (radioAzure.Checked == true)
+            if (dbservertype == DBServerTypeEnum.Azure)
             {
                 s = "Server=tcp:dev-devorag.database.windows.net,1433;Initial Catalog=" + DetermineCheckedDatabase() + ";Persist Security Info=False;User ID=devorag;Password=DEVO5401!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";
             }
@@ -53,11 +53,11 @@ namespace FrmSqlExecutor
 
         private DataTable GetDataTable(string sqlStatement)
         {
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = LocalOrAzure();
+            DataTable dt = new();
+            SqlConnection conn = new();
+            conn.ConnectionString = GetConnectionString();
             conn.Open();
-            SqlCommand cmd = new SqlCommand();
+            SqlCommand cmd = new();
             cmd.Connection = conn;
             cmd.CommandText = sqlStatement;
             SqlDataReader dr = cmd.ExecuteReader();
@@ -68,19 +68,27 @@ namespace FrmSqlExecutor
 
         private void ShowDataInGrid(DataGridView dg)
         {
-            DataTable dt = GetDataTable(txtQuery.Text);
+            var dt = GetDataTable(txtQuery.Text);
             dg.DataSource = dt;
         }
 
 
         private void BtnRunQuery_Click(object? sender, EventArgs e)
         {
-            TabPage p = new TabPage("Query " + (tabMain.TabPages.Count + 1).ToString());
-            DataGridView dgv = new DataGridView();
+            if (radioLocalDB.Checked == true && radioRecordKeeper.Checked == true)
+            {
+               var ntabtext = new TabPage((tabMain.TabPages.Count + 1).ToString() + DBServerTypeEnum.LocalDB + DBDatabaseEnum.RecordKeeper);
+            }
+            if (radioLocalDB.Checked == true && radioRecipe.Checked == true)
+            {
+                var ntabtext = new TabPage((tabMain.TabPages.Count + 1).ToString() + DBServerTypeEnum.LocalDB + DBDatabaseEnum.Recipe);
+            }
+            //var p = new TabPage((tabMain.TabPages.Count + 1).ToString());
+            var dgv = new DataGridView();
             dgv.Dock = DockStyle.Fill;
-            p.Controls.Add(dgv);
-            tabMain.TabPages.Add(p);
-            tabMain.SelectedTab = p;
+            ntabtext.Controls.Add(dgv);
+            tabMain.TabPages.Add(ntabtext);
+            tabMain.SelectedTab = ntabtext;
             ShowDataInGrid(dgv);
         }
     }
