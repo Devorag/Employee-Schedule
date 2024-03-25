@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -15,9 +16,10 @@ namespace FrmSqlExecutor
     public partial class FrmSqlExecutor : Form
     {   
         private enum DBServerTypeEnum { LocalDB, Azure};
-        private enum DBDatabaseEnum { RecordKeeper, Recipe};
-        int nform = 0;
-        int ntabtext = 0;
+        private enum DBDatabaseTypeEnum { RecordKeeperDB, RecipeDB};
+        DBDatabaseTypeEnum database = DBDatabaseTypeEnum.RecordKeeperDB;
+        DBServerTypeEnum server = DBServerTypeEnum.LocalDB;
+        int ntext = 0;
         public FrmSqlExecutor()
         {
             InitializeComponent();
@@ -27,28 +29,44 @@ namespace FrmSqlExecutor
 
         private string DetermineCheckedDatabase()
         {
-            var Database = "";
             if (radioRecordKeeper.Checked == true)
             {
-                Database = "RecordKeeperDB";
+                database = DBDatabaseTypeEnum.RecordKeeperDB;
             }
             if (radioRecipe.Checked == true)
             {
-                Database = "RecipeDB";
+                database = DBDatabaseTypeEnum.RecipeDB;
             }
-            return Database;
+            return database.ToString();
+        }
+
+        private string DetermineCheckedServer()
+        {
+            if (radioLocalDB.Checked == true)
+            {
+                server = DBServerTypeEnum.LocalDB;
+            }
+            if (radioAzure.Checked == true)
+            {
+                server = DBServerTypeEnum.Azure;
+            }
+            return server.ToString();
         }
 
         //SM Name this procedure GetConnectionString()
-        private string GetConnectionString(DBServerTypeEnum dbservertype = DBServerTypeEnum.LocalDB)
+        private string GetConnectionString()
         {
-            var s = "s = \"Server=.\\\\SQLExpress;Database=\" + DetermineCheckedDatabase() + \";Trusted_Connection=True\";";
-            //SM This should be a else if. Or even an else as one (and only one) of the radio buttons must be checked.
-            if (dbservertype == DBServerTypeEnum.Azure)
+            var s = "";
+            if (server == DBServerTypeEnum.LocalDB)
             {
-                s = "Server=tcp:dev-devorag.database.windows.net,1433;Initial Catalog=" + DetermineCheckedDatabase() + ";Persist Security Info=False;User ID=devorag;Password=DEVO5401!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";
+                s = "Server=.\\SQLExpress;Database=" + database.ToString() + ";Trusted_Connection=True";
             }
-            return s;
+                //SM This should be a else if. Or even an else as one (and only one) of the radio buttons must be checked.
+            if (server == DBServerTypeEnum.Azure)
+            {
+                    s = "Server=tcp:dev-devorag.database.windows.net,1433;Initial Catalog=" + database.ToString() + ";Persist Security Info=False;User ID=devorag;Password=DEVO5401!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30";
+            }
+                return s;
         }
 
         private DataTable GetDataTable(string sqlStatement)
@@ -75,16 +93,8 @@ namespace FrmSqlExecutor
 
         private void BtnRunQuery_Click(object? sender, EventArgs e)
         {
-            if (radioLocalDB.Checked == true && radioRecordKeeper.Checked == true)
-            {
-               var ntabtext = new TabPage((tabMain.TabPages.Count + 1).ToString() + DBServerTypeEnum.LocalDB + DBDatabaseEnum.RecordKeeper);
-            }
-            if (radioLocalDB.Checked == true && radioRecipe.Checked == true)
-            {
-                var ntabtext = new TabPage((tabMain.TabPages.Count + 1).ToString() + DBServerTypeEnum.LocalDB + DBDatabaseEnum.Recipe);
-            }
-            //var p = new TabPage((tabMain.TabPages.Count + 1).ToString());
-            var dgv = new DataGridView();
+            var ntabtext = new TabPage((tabMain.TabPages.Count + 1).ToString() + " " + DetermineCheckedServer() + " " + DetermineCheckedDatabase());
+            DataGridView dgv = new();
             dgv.Dock = DockStyle.Fill;
             ntabtext.Controls.Add(dgv);
             tabMain.TabPages.Add(ntabtext);

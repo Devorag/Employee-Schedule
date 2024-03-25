@@ -40,9 +40,13 @@ namespace LanguageBasics
             btnSwitch.Click += BtnSwitch_Click;
             btnTermary1.Click += BtnTermary1_Click;
             btnTermary2.Click += BtnTermary2_Click;
-
+            btnFor1.Click += BtnFor1_Click;
+            btnFor2.Click += BtnFor2_Click;
+            btnForEach1.Click += BtnForEach1_Click;
+            btnForEach2.Click += BtnForEach2_Click;
+            btnWhile1.Click += BtnWhile1_Click;
+            btnWhile2.Click += BtnWhile2_Click;
         }
-
 
 
         private void IncrementOutputMessageVariable()
@@ -69,7 +73,7 @@ namespace LanguageBasics
                     lineseperator = Environment.NewLine;
                     break;
             }
-
+            return s;
         }
 
         private void DisplayValueAndCaption(string value, [CallerArgumentExpression("value")] string valuename = "")
@@ -144,12 +148,67 @@ namespace LanguageBasics
             return dt;
         }
 
-
         private void ShowDataInGrid()
         {
             DataTable dt = GetDataTable("select * from president");
         }
 
+        private string GenerateRandomWord()
+        {
+            StringBuilder sb = new StringBuilder();
+            Random rnd = new Random();
+            for (int i = 1; i < 11; i++)
+            {
+                int n = rnd.Next(65, 91);
+                sb.Append((char)n);
+            }
+            return sb.ToString();
+        }
+
+        private void BtnWhile2_Click(object? sender, EventArgs e)
+        {
+            DateTime starttime = DateTime.Now;
+            while ((DateTime.Now - starttime).TotalSeconds <= 20)
+            {
+                DisplayMessage(GenerateRandomWord());
+                Application.DoEvents();
+            }
+        }
+
+        private void BtnWhile1_Click(object? sender, EventArgs e)
+        {
+            DateTime starttime = DateTime.Now;
+            while ((DateTime.Now - starttime).TotalSeconds <= 15)
+            {
+                DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
+                Application.DoEvents();
+            }
+        }
+
+        private void BtnForEach2_Click(object? sender, EventArgs e)
+        {
+            foreach (Control c in this.Controls)
+            {
+                c.BackColor = GetRandomColor();
+            }
+            foreach (Control c in tblMain.Controls)
+            {
+                c.BackColor = GetRandomColor();
+            }
+            foreach (Control c in tblOutput.Controls)
+            {
+                c.BackColor = GetRandomColor();
+            }
+        }
+
+        private void BtnForEach1_Click(object? sender, EventArgs e)
+        {
+            DataTable dt = GetDataTable("select recordname from worldrecord");
+            foreach (DataRow dr in dt.Rows)
+            {
+                DisplayValueAndCaption(dr[0].ToString());
+            }
+        }
         private void BtnSwitch_Click(object? sender, EventArgs e)
         {
             Random rnd = new();
@@ -172,6 +231,22 @@ namespace LanguageBasics
                     msg = "Try Again";
                     break;
             }
+        }
+
+        private void BtnFor2_Click(object? sender, EventArgs e)
+        {
+            DisplayValueAndCaption(GenerateRandomWord());
+        }
+
+        private void BtnFor1_Click(object? sender, EventArgs e)
+        {
+            for (int i = 1; i <= 100; i++)
+            {
+                string s = "";
+                s = "Loop Variable: " + i;
+                DisplayValueAndCaption(s);
+            }
+
         }
 
         private void BtnTermary2_Click(object? sender, EventArgs e)
@@ -486,6 +561,11 @@ namespace LanguageBasics
         }
 
         private void btnData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }

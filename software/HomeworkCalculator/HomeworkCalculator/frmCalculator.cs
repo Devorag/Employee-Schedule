@@ -68,14 +68,15 @@ namespace HomeworkCalculator
         {
             int n = DetermineCurrentFactor();
             string factorval = "";
-            if (n == 1)
+            switch (n) 
             {
-                factorval = txtFactor1.Text;
-            }
-            else if (n == 2)
-            {
-                factorval = txtFactor2.Text;
-            }
+                case 1:
+                   factorval = txtFactor1.Text;
+                   break;
+                case 2:
+                    factorval = txtFactor2.Text;
+                    break;    
+            } 
             return factorval;
         }
 
@@ -86,18 +87,17 @@ namespace HomeworkCalculator
 
             //find out which BOX needs adjustment
             int n = DetermineCurrentFactor();
-
+            switch (n)
+            {
+                case 1:
+                    txtFactor1.Text = value;
+                    break;
+                case 2:
+                    txtFactor2.Text = value;
+                    break;
+            }
 
             //actually ADJUST the box under discussion
-            if (n == 1) //means the first box needs the work
-            {
-                txtFactor1.Text = value; //actually does the work
-            }
-            else if (n == 2) //means box 2 needs work...
-            {
-                txtFactor2.Text = value; //actually does hw ork...
-            }
-
         }
 
         private void ImputCurrentFactorValue(string ButtonPressed)
@@ -114,6 +114,11 @@ namespace HomeworkCalculator
             decimal SecondBox = 0;
             bool b = decimal.TryParse(txtFactor1.Text, out FirstBox);
             bool b2 = decimal.TryParse(txtFactor2.Text, out SecondBox);
+
+            switch (b, b2)
+            {
+                case 
+            }
 
             if (b == false || b2 == false)
             {
@@ -159,6 +164,7 @@ namespace HomeworkCalculator
         private void ImputDecimal()
         {
             string s = GetCurrentFactorValue();
+            = !s.Contains(".") ? ImputCurrentFactorValue(".") : "";
             if (!s.Contains("."))
             {
                 ImputCurrentFactorValue(".");
@@ -168,6 +174,7 @@ namespace HomeworkCalculator
         private void ImputSign(string value)
         {
             string currentValueAsString = GetCurrentFactorValue();
+
             if (currentValueAsString.StartsWith(value))
             {
                 SetCurrentFactorValue(currentValueAsString.Remove(0, 1));
