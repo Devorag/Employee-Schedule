@@ -58,8 +58,8 @@
             btnForEach2 = new Button();
             btnWhile1 = new Button();
             btnWhile2 = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            btnTimer1 = new Button();
+            btnTimer2 = new Button();
             tblMain.SuspendLayout();
             tblOutput.SuspendLayout();
             SuspendLayout();
@@ -97,8 +97,8 @@
             tblMain.Controls.Add(btnForEach2, 0, 7);
             tblMain.Controls.Add(btnWhile1, 1, 7);
             tblMain.Controls.Add(btnWhile2, 2, 7);
-            tblMain.Controls.Add(button1, 3, 7);
-            tblMain.Controls.Add(button2, 0, 8);
+            tblMain.Controls.Add(btnTimer1, 3, 7);
+            tblMain.Controls.Add(btnTimer2, 0, 8);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -417,23 +417,25 @@
             btnWhile2.Text = "While 2 ";
             btnWhile2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnTimer1
             // 
-            button1.Location = new Point(979, 773);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 25;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            btnTimer1.Dock = DockStyle.Fill;
+            btnTimer1.Location = new Point(979, 773);
+            btnTimer1.Name = "btnTimer1";
+            btnTimer1.Size = new Size(321, 78);
+            btnTimer1.TabIndex = 25;
+            btnTimer1.Text = "Timer 1 ";
+            btnTimer1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnTimer2
             // 
-            button2.Location = new Point(4, 858);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 36);
-            button2.TabIndex = 26;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            btnTimer2.Dock = DockStyle.Fill;
+            btnTimer2.Location = new Point(4, 858);
+            btnTimer2.Name = "btnTimer2";
+            btnTimer2.Size = new Size(318, 80);
+            btnTimer2.TabIndex = 26;
+            btnTimer2.Text = "Timer 2 ";
+            btnTimer2.UseVisualStyleBackColor = true;
             // 
             // frmLanguageBasics
             // 
@@ -483,7 +485,7 @@
         private Button btnForEach2;
         private Button btnWhile1;
         private Button btnWhile2;
-        private Button button1;
-        private Button button2;
+        private Button btnTimer1;
+        private Button btnTimer2;
     }
 }

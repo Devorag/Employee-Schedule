@@ -53,14 +53,15 @@ namespace HomeworkCalculator
         private int DetermineCurrentFactor()
         {
             int n = 0;
-            if (txtFactor1.Text == "" || txtOperator.Text == "")
-            {
-                n = 1;
-            }
-            else if (txtFactor1.Text != "" && txtOperator.Text != "" && txtAnswer.Text == "")
-            {
-                n = 2;
-            }
+            n = txtFactor1.Text == "" || txtOperator.Text == "" ? 1 : 2;
+            //if (txtFactor1.Text == "" || txtOperator.Text == "")
+            //{
+             //   n = 1;
+            //}
+            //else if (txtFactor1.Text != "" && txtOperator.Text != "" && txtAnswer.Text == "")
+            //{
+             //   n = 2;
+            //}
             return n;
         }
 
@@ -115,22 +116,27 @@ namespace HomeworkCalculator
             bool b = decimal.TryParse(txtFactor1.Text, out FirstBox);
             bool b2 = decimal.TryParse(txtFactor2.Text, out SecondBox);
 
-            switch (b, b2)
-            {
-                case 
-            }
-
             if (b == false || b2 == false)
             {
                 txtAnswer.Text = "";
-                if (b == false)
+                switch (b)
                 {
-                    txtFactor1.Text = "";
+                    case false:
+                        txtFactor1.Text = "";
+                        break;
+                    case true:
+                        txtFactor2.Text = "";
+                        break;
+
                 }
-                else if (b2 == false)
-                {
-                    txtFactor2.Text = "";
-                }
+                //if (b == false)
+                //{
+                  //  txtFactor1.Text = "";
+                //}
+                //else if (b2 == false)
+                //{
+                  //  txtFactor2.Text = "";
+                //}
             }
             else if (n == 1)
             {
@@ -164,7 +170,6 @@ namespace HomeworkCalculator
         private void ImputDecimal()
         {
             string s = GetCurrentFactorValue();
-            = !s.Contains(".") ? ImputCurrentFactorValue(".") : "";
             if (!s.Contains("."))
             {
                 ImputCurrentFactorValue(".");

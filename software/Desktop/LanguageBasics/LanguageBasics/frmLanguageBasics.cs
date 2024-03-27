@@ -11,6 +11,8 @@ namespace LanguageBasics
     {
         int nform = 0;
         int noutput = 0;
+        System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 100 };
+        System.Windows.Forms.Timer tmrrnd = new System.Windows.Forms.Timer();
         private enum LineSeperatorEnum { NewLine, TripleDash, Colon, TripleLine }
 
         private enum DBServerTypeEnum { Local, Azure }
@@ -46,6 +48,10 @@ namespace LanguageBasics
             btnForEach2.Click += BtnForEach2_Click;
             btnWhile1.Click += BtnWhile1_Click;
             btnWhile2.Click += BtnWhile2_Click;
+            btnTimer1.Click += BtnTimer1_Click;
+            btnTimer2.Click += BtnTimer2_Click;
+            tmr.Tick += Tmr_Tick;
+            tmrrnd.Tick += Tmrrnd_Tick;
         }
 
 
@@ -165,6 +171,33 @@ namespace LanguageBasics
             return sb.ToString();
         }
 
+        private void ShowCurrentTime()
+        {
+            DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
+        }
+
+        private void Tmrrnd_Tick(object? sender, EventArgs e)
+        {
+            DisplayMessage(GenerateRandomWord());
+        }
+
+        private void Tmr_Tick(object? sender, EventArgs e)
+        {
+            ShowCurrentTime();
+        }
+
+
+        private void BtnTimer2_Click(object? sender, EventArgs e)
+        {
+            tmrrnd.Enabled = !tmr.Enabled;
+        }
+
+        private void BtnTimer1_Click(object? sender, EventArgs e)
+        {
+            tmr.Enabled = !tmr.Enabled;
+        }
+
+
         private void BtnWhile2_Click(object? sender, EventArgs e)
         {
             DateTime starttime = DateTime.Now;
@@ -180,7 +213,7 @@ namespace LanguageBasics
             DateTime starttime = DateTime.Now;
             while ((DateTime.Now - starttime).TotalSeconds <= 15)
             {
-                DisplayMessage(DateTime.Now.ToString("HH:mm:ss:fff"));
+                ShowCurrentTime();
                 Application.DoEvents();
             }
         }
