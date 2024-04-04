@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.VisualBasic.ApplicationServices;
 using System.Text;
+using gnuciDictionary;
 
 namespace LanguageBasics
 {
@@ -13,6 +12,8 @@ namespace LanguageBasics
         int noutput = 0;
         System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 100 };
         System.Windows.Forms.Timer tmrrnd = new System.Windows.Forms.Timer();
+        List<Button> lstbtn;
+        List<string> lstword;
         private enum LineSeperatorEnum { NewLine, TripleDash, Colon, TripleLine }
 
         private enum DBServerTypeEnum { Local, Azure }
@@ -52,7 +53,15 @@ namespace LanguageBasics
             btnTimer2.Click += BtnTimer2_Click;
             tmr.Tick += Tmr_Tick;
             tmrrnd.Tick += Tmrrnd_Tick;
+            btnList1.Click += BtnList1_Click;
+            btnList2.Click += BtnList2_Click;
+            btnEnum1.Click += BtnEnum1_Click;
+            btnEnum2.Click += BtnEnum2_Click;
+
+            lstbtn = new() { btnEnum2, btnEnum1, btnFor1, btnList2, btnRandom };
+            lstword = new() { "apple", "boy", "candy", "dog", "egg" };
         }
+
 
 
         private void IncrementOutputMessageVariable()
@@ -105,6 +114,10 @@ namespace LanguageBasics
             DisplayMessage(s, clearbox);
         }
 
+        private void DisplayHeader(string caption, bool clearbox = false)
+        {
+            DisplayMessage("---------" + caption + "---------^^", clearbox);
+        }
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
             Random rnd = new();
@@ -186,6 +199,125 @@ namespace LanguageBasics
             ShowCurrentTime();
         }
 
+        private void BtnEnum2_Click(object? sender, EventArgs e)
+        {
+            DisplayHeader("Display all the items in the list");
+            lstword.ForEach(s => DisplayValueAndCaption(s));
+
+            DisplayHeader("Display the count items with that letter");
+            DisplayValueAndCaption(lstword.Count(s => s.ToLower().Contains("e")).ToString());
+
+            DisplayHeader("Display true / false if any items contain that letter uppercase");
+            DisplayValueAndCaption(lstword.Exists(s => s.Contains("E")).ToString());
+
+            DisplayHeader("In one line of code change all the items that contain that letter");
+            lstword.Where(s => s.ToLower().Contains("e")).ToList().ForEach(s => DisplayValueAndCaption(s.Replace("e", "g")));
+
+            DisplayHeader("Create a function that takes a button as a parameter and have that function change the button");
+            lstword.ForEach(ChangeWord);
+        }
+
+        private void ChangeWord(string word)
+        {
+            DisplayValueAndCaption(string.Concat(word.ToUpper().Replace("e", "0").Reverse()));
+        }
+
+        private void BtnEnum1_Click(object? sender, EventArgs e)
+        {
+            DisplayHeader("Display all items in the list");
+            lstbtn.ForEach(btn => DisplayValueAndCaption(btn.Text));
+
+            DisplayHeader("DisplayHeader the count items with that letter");
+            DisplayValueAndCaption(lstbtn.Count(btn => btn.Text.ToLower().Contains("o")).ToString());
+
+            DisplayHeader("Display true / false if any items contain that letter uppercase");
+            DisplayValueAndCaption(lstbtn.Exists(btn => btn.Text.Contains("o")).ToString());
+
+            DisplayHeader("In one line of code change all the items that contain that letter.");
+            lstbtn.Where(btn => btn.Text.Contains("o")).ToList().ForEach(btn => btn.BackColor = Color.Orange);
+
+            DisplayHeader("Create a function that takes a button as a parameter and have that function change the button in 3 ways.Call that function");
+            lstbtn.ForEach(ChangeButton);
+
+        }
+
+        private void ChangeButton(Button btn)
+        {
+            btn.BackColor = GetRandomColor();
+            btn.ForeColor = GetRandomColor();
+            btn.Dock = DockStyle.None;
+            btn.Height = btn.Height / 25;
+            btn.Text = String.Concat(btn.Text.Reverse());
+        }
+
+        private void ShowWordList(List<string> lstword)
+        {
+            foreach (string word in lstword)
+            {
+                DisplayValueAndCaption(word);
+            }
+        }
+
+        private void BtnList2_Click(object? sender, EventArgs e)
+        {
+            DisplayHeader("Enumerate through the list");
+            ShowWordList(lstword);
+            DisplayHeader("Add another word");
+            lstword.Add("fish");
+            ShowWordList(lstword);
+            DisplayHeader("Remove a word");
+            lstword.Remove("dog");
+            ShowWordList(lstword);
+            DisplayHeader("Get a word by index");
+            string word = lstword[0];
+            DisplayValueAndCaption(word);
+            DisplayHeader("Count the items in the list");
+            DisplayValueAndCaption(lstword.Count().ToString());
+            DisplayHeader("Clear the list");
+            lstword.Clear();
+            ShowWordList(lstword);
+        }
+
+        private void ShowButtonList(List<Button> lst, Color colorval)
+        {
+            foreach (Button btn in lstbtn)
+            {
+                DisplayValueAndCaption(btn.Text);
+                btn.BackColor = colorval;
+            }
+        }
+
+        private void BtnList1_Click(object? sender, EventArgs e)
+        {
+
+            //Enumerate through the List
+            DisplayHeader("Enumerate through the list");
+            ShowButtonList(lstbtn, Color.Red);
+            //Add another button
+            DisplayHeader("Add another button");
+            lstbtn.Add(btnAddControl1);
+            ShowButtonList(lstbtn, Color.Green);
+            //Remove a button
+            DisplayHeader("Remove a button");
+            lstbtn.Remove(btnEnum2);
+            ShowButtonList(lstbtn, Color.Purple);
+            //Get a button by index
+            DisplayHeader("Get a button by index");
+            Button btn = lstbtn[0];
+            DisplayValueAndCaption(btn.Text);
+            btn.BackColor = Color.Yellow;
+            //Count the items in list
+            DisplayHeader("Count the items in the list");
+            DisplayValueAndCaption(lstbtn.Count().ToString());
+            //Clear the list
+            DisplayHeader("Clear the list");
+            lstbtn.Clear();
+            ShowButtonList(lstbtn, Color.Black);
+            List<Word> lstw = gnuciDictionary.EnglishDictionary.GetAllWords().ToList();
+            DisplayValueAndCaption(lstw.Count().ToString());
+            DisplayValueAndCaption(lstw[100].Value);
+            DisplayValueAndCaption(lstw[100].Definition);
+        }
 
         private void BtnTimer2_Click(object? sender, EventArgs e)
         {
@@ -242,6 +374,8 @@ namespace LanguageBasics
                 DisplayValueAndCaption(dr[0].ToString());
             }
         }
+
+
         private void BtnSwitch_Click(object? sender, EventArgs e)
         {
             Random rnd = new();

@@ -187,7 +187,7 @@ namespace HomeworkCalculator
             else if (!currentValueAsString.StartsWith(value))
             {
                 //SM DON'T call get procedure again. Use variable.
-                SetCurrentFactorValue(value + GetCurrentFactorValue());
+                SetCurrentFactorValue(value + currentValueAsString);
             }
         }
 
