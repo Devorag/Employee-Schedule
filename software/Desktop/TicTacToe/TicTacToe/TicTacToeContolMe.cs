@@ -21,6 +21,8 @@ namespace TicTacToe
 
         List<Button> lstbuttons;
         List<List<Button>> lstwinningsets;
+        List<Button> lstrankedbuttons
+
         Color defaultbackcolor;
         bool playcomputer = false;
 
@@ -46,7 +48,18 @@ namespace TicTacToe
 
             };
 
+            lstrankedbuttons = new() { btn5, btn1, btn3, btn7, btn9 };
+
             DisplayGameStatus();
+        }
+
+        private void DoComputerTurnRank()
+        {
+            var btn = lstrankedbuttons.FirstOrDefault(b => b.Text == " ");
+            if (btn != null)
+            {
+                DoTurn(btn);
+            }
         }
 
         private void StartGame()
@@ -81,11 +94,26 @@ namespace TicTacToe
                         {
                             currentturn = TurnEnum.X;
                         }
-
-                        if (currentturn == TurnEnum.O && playcomputer == true)
+                        if (playcomputer == true)
                         {
-                            DoComputerTurn();
+                            if (currentturn == TurnEnum.O)
+                            {
+                                DoComputerTurnOffenseDefense(TurnEnum.O);
+                                if (currentturn == TurnEnum.O && gamestatus == GameStatusEnum.Playing)
+                                {
+                                    DoComputerTurnOffenseDefense(TurnEnum.X);
+                                    if (currentturn == TurnEnum.O && gamestatus == GameStatusEnum.Playing)
+                                    {
+                                        DoComputerTurnRank();
+                                        if (currentturn == TurnEnum.O && gamestatus == GameStatusEnum.Playing)
+                                        {
+                                            DoComputerTurnRandomButton();
+                                        }
+                                    }
+                                }
+                            }
                         }
+
                     }
 
 
@@ -95,7 +123,19 @@ namespace TicTacToe
             DisplayGameStatus();
         }
 
-        private void DoComputerTurn()
+        private void DoComputerTurnOffenseDefense(TurnEnum turn)
+        {
+            var lst = lstwinningsets.FirstOrDefault(
+                l => l.Count(b => b.Text == turn.ToString()) == 2 
+                && l.Count(b => b.Text == "") == 1);
+         if (lst != null)
+            {
+                var btn = lst.First(b => b.Text == "");
+                DoTurn(btn);
+            }
+        }
+
+        private void DoComputerTurnRandomButton()
         {
             var lst = lstbuttons.Where(b => b.Text == "").ToList();
             var btn = lst[new Random().Next(0, lst.Count())];
