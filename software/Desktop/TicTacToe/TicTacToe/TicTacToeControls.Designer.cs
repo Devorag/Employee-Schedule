@@ -32,8 +32,8 @@
             tblToolBar = new TableLayoutPanel();
             btnStart = new Button();
             optTwoPlayer = new RadioButton();
-            lblStatus = new Label();
             optPlayComputer = new RadioButton();
+            lblStatus = new Label();
             tblSpots = new TableLayoutPanel();
             btn2 = new Button();
             btn3 = new Button();
@@ -76,14 +76,16 @@
             tblToolBar.ColumnStyles.Add(new ColumnStyle());
             tblToolBar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblToolBar.Controls.Add(btnStart, 0, 0);
-            tblToolBar.Controls.Add(optTwoPlayer, 1, 0);
-            tblToolBar.Controls.Add(lblStatus, 3, 0);
             tblToolBar.Controls.Add(optPlayComputer, 2, 0);
+            tblToolBar.Controls.Add(lblStatus, 0, 1);
+            tblToolBar.Controls.Add(optTwoPlayer, 1, 0);
             tblToolBar.Dock = DockStyle.Fill;
             tblToolBar.Location = new Point(3, 3);
             tblToolBar.Name = "tblToolBar";
-            tblToolBar.RowCount = 1;
-            tblToolBar.RowStyles.Add(new RowStyle());
+            tblToolBar.RowCount = 3;
+            tblToolBar.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblToolBar.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblToolBar.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tblToolBar.Size = new Size(1120, 103);
             tblToolBar.TabIndex = 0;
             // 
@@ -91,9 +93,9 @@
             // 
             btnStart.Anchor = AnchorStyles.Left;
             btnStart.AutoSize = true;
-            btnStart.Location = new Point(3, 27);
+            btnStart.Location = new Point(3, 3);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(112, 48);
+            btnStart.Size = new Size(112, 35);
             btnStart.TabIndex = 0;
             btnStart.Text = "&Start";
             btnStart.UseVisualStyleBackColor = true;
@@ -102,37 +104,38 @@
             // 
             optTwoPlayer.Anchor = AnchorStyles.Left;
             optTwoPlayer.AutoSize = true;
-            optTwoPlayer.Location = new Point(121, 30);
+            optTwoPlayer.Checked = true;
+            optTwoPlayer.Location = new Point(121, 3);
             optTwoPlayer.Name = "optTwoPlayer";
-            optTwoPlayer.Size = new Size(153, 42);
+            optTwoPlayer.Size = new Size(153, 35);
             optTwoPlayer.TabIndex = 1;
             optTwoPlayer.TabStop = true;
             optTwoPlayer.Text = "2 &Players";
             optTwoPlayer.UseVisualStyleBackColor = true;
+            // 
+            // optPlayComputer
+            // 
+            optPlayComputer.Anchor = AnchorStyles.Left;
+            optPlayComputer.AutoSize = true;
+            optPlayComputer.Location = new Point(280, 3);
+            optPlayComputer.Name = "optPlayComputer";
+            optPlayComputer.Size = new Size(324, 35);
+            optPlayComputer.TabIndex = 2;
+            optPlayComputer.Text = "Play &Against Computer";
+            optPlayComputer.UseVisualStyleBackColor = true;
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
             lblStatus.BackColor = SystemColors.Info;
             lblStatus.BorderStyle = BorderStyle.FixedSingle;
+            tblToolBar.SetColumnSpan(lblStatus, 4);
             lblStatus.Dock = DockStyle.Fill;
-            lblStatus.Location = new Point(610, 0);
+            lblStatus.Location = new Point(3, 41);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(507, 103);
+            lblStatus.Size = new Size(1114, 41);
             lblStatus.TabIndex = 3;
             lblStatus.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // optPlayComputer
-            // 
-            optPlayComputer.Anchor = AnchorStyles.Left;
-            optPlayComputer.AutoSize = true;
-            optPlayComputer.Location = new Point(280, 30);
-            optPlayComputer.Name = "optPlayComputer";
-            optPlayComputer.Size = new Size(324, 42);
-            optPlayComputer.TabIndex = 2;
-            optPlayComputer.TabStop = true;
-            optPlayComputer.Text = "Play &Against Computer";
-            optPlayComputer.UseVisualStyleBackColor = true;
             // 
             // tblSpots
             // 

@@ -184,7 +184,6 @@ namespace ArtGenerator
             {
                 StartSession();
                 ControlsEnabled();
-                tmr.Enabled = !tmr.Enabled;
             }
         }
 
