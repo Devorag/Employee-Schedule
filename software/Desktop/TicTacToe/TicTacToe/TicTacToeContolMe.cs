@@ -71,18 +71,35 @@ namespace TicTacToe
                 if (gamestatus == GameStatusEnum.Playing)
                 {
                     DetectTie();
-                    if (currentturn == TurnEnum.X)
+                    if (gamestatus == GameStatusEnum.Playing)
                     {
-                        currentturn = TurnEnum.O;
+                        if (currentturn == TurnEnum.X)
+                        {
+                            currentturn = TurnEnum.O;
+                        }
+                        else
+                        {
+                            currentturn = TurnEnum.X;
+                        }
+
+                        if (currentturn == TurnEnum.O && playcomputer == true)
+                        {
+                            DoComputerTurn();
+                        }
                     }
-                    else
-                    {
-                        currentturn = TurnEnum.X;
-                    }
+
+
                 }
             }
 
             DisplayGameStatus();
+        }
+
+        private void DoComputerTurn()
+        {
+            var lst = lstbuttons.Where(b => b.Text == "").ToList();
+            var btn = lst[new Random().Next(0, lst.Count())];
+            DoTurn(btn);
         }
 
         private void DetectWinner(List<Button> lst)
