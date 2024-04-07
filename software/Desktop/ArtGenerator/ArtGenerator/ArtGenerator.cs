@@ -21,10 +21,43 @@ namespace ArtGenerator
             btnStart.Click += BtnStart_Click;
             btnClear.Click += BtnClear_Click;
             btnRefresh.Click += BtnRefresh_Click;
+            optSeconds.Click += OptSeconds_Click;
+            optSpecific.Click += OptSpecific_Click;
+            optMilli.Click += OptMilli_Click;
             tmr.Tick += Tmr_Tick;
 
         }
 
+        private void OptMilli_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OptSpecific_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OptSeconds_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClearText()
+        {
+            if (optMilli.Checked != true)
+            {
+                txtMilli.Text = "";
+            }
+            if (optSeconds.Checked != true)
+            {
+                txtSeconds.Text = "";
+            }
+            if (optSpecific.Checked != true)
+            {
+                txtSpecific.Text = "";
+            }
+        }
         private void AddShapesForXSeconds()
         {
             DateTime starttime = DateTime.Now;
@@ -36,7 +69,7 @@ namespace ArtGenerator
         }
 
         private void AddShapesEveryMilliSecond()
-        {   
+        {
             var n = ConvertTextToInt(txtMilli.Text);
             tmr.Interval = n;
             tmr.Enabled = !tmr.Enabled;

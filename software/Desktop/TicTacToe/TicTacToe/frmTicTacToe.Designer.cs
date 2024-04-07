@@ -74,7 +74,7 @@
             ClientSize = new Size(1557, 1035);
             Controls.Add(tblMain);
             Name = "frmTicTacToe";
-            Text = "frmTicTacToe";
+            Text = "Tic Tac Toe";
             tblMain.ResumeLayout(false);
             ResumeLayout(false);
         }

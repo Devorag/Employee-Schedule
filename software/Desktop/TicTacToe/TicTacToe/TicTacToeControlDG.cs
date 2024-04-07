@@ -20,7 +20,7 @@ namespace TicTacToe
         public TicTacToeControlDG()
         {
             InitializeComponent();
-            lblName.Text = "Me";
+            lblName.Text = "DG";
             lstbuttons = new() { btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9 };
 
             lstbuttons.ForEach(b => b.Click += SpotButton_Click);
