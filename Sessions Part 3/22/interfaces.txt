@@ -1,0 +1,8 @@
+interface Party {
+    partyId: number;
+    partyName: string;
+    yearStart: number;
+    colorId: number;
+    partyDesc: string;
+    partyColor: string;
+}
