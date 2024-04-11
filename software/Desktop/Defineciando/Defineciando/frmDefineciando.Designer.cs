@@ -400,7 +400,7 @@
             tblFilter.RowCount = 1;
             tblFilter.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblFilter.Size = new Size(1639, 105);
-            tblFilter.TabIndex = 1;
+            tblFilter.TabIndex = 0;
             // 
             // lblFilter
             // 
@@ -410,7 +410,7 @@
             lblFilter.Location = new Point(87, 0);
             lblFilter.Name = "lblFilter";
             lblFilter.Size = new Size(128, 105);
-            lblFilter.TabIndex = 0;
+            lblFilter.TabIndex = 1;
             lblFilter.Text = "Filter:";
             lblFilter.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -422,7 +422,7 @@
             lblNumLetters.Location = new Point(221, 0);
             lblNumLetters.Name = "lblNumLetters";
             lblNumLetters.Size = new Size(223, 105);
-            lblNumLetters.TabIndex = 1;
+            lblNumLetters.TabIndex = 2;
             lblNumLetters.Text = "Number of Letters:";
             lblNumLetters.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -434,7 +434,7 @@
             lblSpecificLetters.Location = new Point(679, 0);
             lblSpecificLetters.Name = "lblSpecificLetters";
             lblSpecificLetters.Size = new Size(223, 105);
-            lblSpecificLetters.TabIndex = 3;
+            lblSpecificLetters.TabIndex = 4;
             lblSpecificLetters.Text = "Specific Letter (s):";
             lblSpecificLetters.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -446,7 +446,7 @@
             txtNumLetters.Multiline = true;
             txtNumLetters.Name = "txtNumLetters";
             txtNumLetters.Size = new Size(223, 99);
-            txtNumLetters.TabIndex = 4;
+            txtNumLetters.TabIndex = 3;
             txtNumLetters.TextAlign = HorizontalAlignment.Center;
             txtNumLetters.UseWaitCursor = true;
             // 
@@ -458,7 +458,7 @@
             txtSpecificLetters.Multiline = true;
             txtSpecificLetters.Name = "txtSpecificLetters";
             txtSpecificLetters.Size = new Size(223, 99);
-            txtSpecificLetters.TabIndex = 5;
+            txtSpecificLetters.TabIndex = 4;
             // 
             // lblInstructions
             // 

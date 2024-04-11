@@ -15,49 +15,45 @@ namespace ArtGenerator
     public partial class frmArtGenerator : Form
     {
         System.Windows.Forms.Timer tmr = new();
+        bool isrunning = false;
         public frmArtGenerator()
         {
             InitializeComponent();
             btnStart.Click += BtnStart_Click;
             btnClear.Click += BtnClear_Click;
             btnRefresh.Click += BtnRefresh_Click;
-            optSeconds.Click += OptSeconds_Click;
-            optSpecific.Click += OptSpecific_Click;
-            optMilli.Click += OptMilli_Click;
+            optMilli.Click += Opt_Click;
+            optSpecific.Click += Opt_Click;
+            optSeconds.Click += Opt_Click;
             tmr.Tick += Tmr_Tick;
-
         }
 
-        private void OptMilli_Click(object? sender, EventArgs e)
+        private void DisableShapeSettings()
         {
-            throw new NotImplementedException();
-        }
-
-        private void OptSpecific_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OptSeconds_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ClearText()
-        {
-            if (optMilli.Checked != true)
+            if (optMilli.Checked == true)
             {
+                txtSpecific.Enabled = false;
+                txtSeconds.Enabled = false;
+                txtMilli.Enabled = true;
                 txtMilli.Text = "";
             }
-            if (optSeconds.Checked != true)
+            if (optSeconds.Checked == true && txtSeconds.Text != "")
             {
+                txtMilli.Enabled = false;
+                txtSpecific.Enabled = false;
+                txtSeconds.Enabled = true;
                 txtSeconds.Text = "";
             }
-            if (optSpecific.Checked != true)
+            if (optSpecific.Checked == true && txtSpecific.Text != "")
             {
+                txtMilli.Enabled = false;
+                txtSeconds.Enabled = false;
+                txtSpecific.Enabled = true;
                 txtSpecific.Text = "";
             }
+
         }
+
         private void AddShapesForXSeconds()
         {
             DateTime starttime = DateTime.Now;
@@ -72,7 +68,7 @@ namespace ArtGenerator
         {
             var n = ConvertTextToInt(txtMilli.Text);
             tmr.Interval = n;
-            tmr.Enabled = !tmr.Enabled;
+            tmr.Enabled = true;
         }
 
         private void SpecificNumShapes()
@@ -87,17 +83,20 @@ namespace ArtGenerator
 
         private void AddShapes()
         {
-            if (optSpecific.Checked == true)
+            if (isrunning == true)
             {
-                SpecificNumShapes();
-            }
-            else if (optMilli.Checked == true)
-            {
-                AddShapesEveryMilliSecond();
-            }
-            else if (optSeconds.Checked == true)
-            {
-                AddShapesForXSeconds();
+                if (optSpecific.Checked == true)
+                {
+                    SpecificNumShapes();
+                }
+                else if (optMilli.Checked == true)
+                {
+                    AddShapesEveryMilliSecond();
+                }
+                else if (optSeconds.Checked == true)
+                {
+                    AddShapesForXSeconds();
+                }
             }
         }
         private int ConvertTextToInt(string txt)
@@ -110,7 +109,6 @@ namespace ArtGenerator
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
             Random rnd = new();
-            //SM You need to make sure that min <= max and that both are between 0 and 255. Otherwise this might crash.
             var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
@@ -128,7 +126,6 @@ namespace ArtGenerator
             lbl.AutoSize = false;
             lbl.BackColor = GetRandomColor();
             lbl.Location = new Point(rnd.Next(0, panel.Width - 100), rnd.Next(0, panel.Height - 100));
-            //SM You need to make sure that min <= max. Otherwise this might crash.
             lbl.Size = new Size(rnd.Next(panel.Width = ConvertTextToInt(txtMinWidth.Text), panel.Width = ConvertTextToInt(txtMaxWidth.Text)),
                 rnd.Next(panel.Height = ConvertTextToInt(txtMinHeight.Text), panel.Height = ConvertTextToInt(txtMaxHeight.Text)));
             return lbl;
@@ -136,23 +133,11 @@ namespace ArtGenerator
 
         private void CreateLabel()
         {
-            Label lbl1 = CreateShape(tblForm);
-            tblForm.Controls.Add(lbl1);
-        }
-
-
-        private string StartSession()
-        {
-            string s = "Start";
-            btnStart.Text = s;
-            return s;
-        }
-
-        private string StopSession()
-        {
-            string s = "Stop";
-            btnStart.Text = s;
-            return s;
+            if (isrunning == true)
+            {
+                Label lbl1 = CreateShape(tblForm);
+                tblForm.Controls.Add(lbl1);
+            }
         }
 
         private void ControlsEnabled()
@@ -193,12 +178,21 @@ namespace ArtGenerator
             CreateLabel();
         }
 
+        private void Opt_Click(object? sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            DisableShapeSettings();
+        }
+
         private void BtnRefresh_Click(object? sender, EventArgs e)
         {
-            //SM Refresh should refresh the colors of all labels in the output.
-            tblForm.Controls.Clear();
-            AddShapes();
+            foreach (Label l in tblForm.Controls)
+            {
+                l.BackColor = GetRandomColor();
+            }
+
         }
+
 
         private void BtnClear_Click(object? sender, EventArgs e)
         {
@@ -207,23 +201,21 @@ namespace ArtGenerator
 
         private void BtnStart_Click(object? sender, EventArgs e)
         {
+
             if (btnStart.Text == "Start")
             {
-                //SM Why do you need this procedure? It's just one line and you only call it once, add it here.
-                StopSession();
+                btnStart.Text = "Stop";
                 ControlsDisabled();
                 tblForm.Controls.Clear();
-                //SM Why do you need this here? It should be done in UI design.
-                tblForm.BackColor = Color.Black;
-                //SM Why do you need this here? It should be done in UI design.
-                tblForm.Dock = DockStyle.Fill;
+                isrunning = true;
                 AddShapes();
             }
-            else
+            else if (btnStart.Text == "Stop")
             {
-                //SM Why do you need this procedure? It's just one line and you only call it once, add it here.
-                StartSession();
+                btnStart.Text = "Start";
                 ControlsEnabled();
+                tmr.Enabled = false;
+                isrunning = false;
             }
         }
 

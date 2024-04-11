@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using gnuciDictionary;
 
 namespace Defineciando
 {
@@ -22,4 +23,6 @@ namespace Defineciando
 
         }
     }
+    //List<Word> lstw = gnuciDictionary.EnglishDictionary.GetAllWords().ToList();
+    // defintions gnuciDictionary.Dictionary.Definitions.Define
 }

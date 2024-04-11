@@ -671,6 +671,7 @@
             // 
             // tblForm
             // 
+            tblForm.BackColor = SystemColors.WindowText;
             tblForm.Dock = DockStyle.Fill;
             tblForm.Location = new Point(603, 3);
             tblForm.Name = "tblForm";
@@ -687,6 +688,7 @@
             Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(4, 5, 4, 5);
             Name = "frmArtGenerator";
+            Text = "Art Generator";
             tblShapes.ResumeLayout(false);
             tblShapes.PerformLayout();
             tblNum.ResumeLayout(false);
