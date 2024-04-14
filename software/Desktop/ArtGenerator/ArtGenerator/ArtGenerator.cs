@@ -109,6 +109,7 @@ namespace ArtGenerator
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
             Random rnd = new();
+            //SM You need to make sure that min <= max and that both are between 0 and 255. Otherwise this might crash.
             var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
             return c;
         }
@@ -126,6 +127,7 @@ namespace ArtGenerator
             lbl.AutoSize = false;
             lbl.BackColor = GetRandomColor();
             lbl.Location = new Point(rnd.Next(0, panel.Width - 100), rnd.Next(0, panel.Height - 100));
+            //SM You need to make sure that min <= max. Otherwise this might crash.
             lbl.Size = new Size(rnd.Next(panel.Width = ConvertTextToInt(txtMinWidth.Text), panel.Width = ConvertTextToInt(txtMaxWidth.Text)),
                 rnd.Next(panel.Height = ConvertTextToInt(txtMinHeight.Text), panel.Height = ConvertTextToInt(txtMaxHeight.Text)));
             return lbl;
