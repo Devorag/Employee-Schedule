@@ -93,20 +93,20 @@
             tblShapes.Controls.Add(optSpecific, 0, 0);
             tblShapes.Controls.Add(tblNum, 1, 0);
             tblShapes.Dock = DockStyle.Fill;
-            tblShapes.Location = new Point(3, 91);
+            tblShapes.Location = new Point(3, 94);
             tblShapes.Name = "tblShapes";
             tblShapes.RowCount = 3;
             tblShapes.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tblShapes.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tblShapes.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tblShapes.Size = new Size(594, 258);
+            tblShapes.Size = new Size(594, 267);
             tblShapes.TabIndex = 0;
             // 
             // optSeconds
             // 
             optSeconds.AutoSize = true;
             optSeconds.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            optSeconds.Location = new Point(3, 175);
+            optSeconds.Location = new Point(3, 181);
             optSeconds.Name = "optSeconds";
             optSeconds.Size = new Size(284, 34);
             optSeconds.TabIndex = 2;
@@ -117,7 +117,7 @@
             // 
             optMilli.AutoSize = true;
             optMilli.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            optMilli.Location = new Point(3, 89);
+            optMilli.Location = new Point(3, 92);
             optMilli.Name = "optMilli";
             optMilli.Size = new Size(340, 34);
             optMilli.TabIndex = 1;
@@ -153,7 +153,7 @@
             tblNum.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tblNum.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tblNum.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tblNum.Size = new Size(232, 252);
+            tblNum.Size = new Size(232, 261);
             tblNum.TabIndex = 0;
             // 
             // txtMilli
@@ -161,11 +161,11 @@
             txtMilli.BackColor = SystemColors.Window;
             txtMilli.BorderStyle = BorderStyle.FixedSingle;
             txtMilli.Dock = DockStyle.Fill;
-            txtMilli.Location = new Point(3, 87);
+            txtMilli.Location = new Point(3, 90);
             txtMilli.Multiline = true;
             txtMilli.Name = "txtMilli";
             txtMilli.PlaceholderText = "# of milliseconds";
-            txtMilli.Size = new Size(226, 78);
+            txtMilli.Size = new Size(226, 81);
             txtMilli.TabIndex = 1;
             txtMilli.Text = "1000";
             txtMilli.TextAlign = HorizontalAlignment.Center;
@@ -174,11 +174,11 @@
             // 
             txtSeconds.BorderStyle = BorderStyle.FixedSingle;
             txtSeconds.Dock = DockStyle.Fill;
-            txtSeconds.Location = new Point(3, 171);
+            txtSeconds.Location = new Point(3, 177);
             txtSeconds.Multiline = true;
             txtSeconds.Name = "txtSeconds";
             txtSeconds.PlaceholderText = "# of seconds";
-            txtSeconds.Size = new Size(226, 78);
+            txtSeconds.Size = new Size(226, 81);
             txtSeconds.TabIndex = 2;
             txtSeconds.Text = "10";
             txtSeconds.TextAlign = HorizontalAlignment.Center;
@@ -192,7 +192,7 @@
             txtSpecific.Multiline = true;
             txtSpecific.Name = "txtSpecific";
             txtSpecific.PlaceholderText = "# of shapes";
-            txtSpecific.Size = new Size(226, 78);
+            txtSpecific.Size = new Size(226, 81);
             txtSpecific.TabIndex = 0;
             txtSpecific.Text = "5";
             txtSpecific.TextAlign = HorizontalAlignment.Center;
@@ -209,7 +209,7 @@
             tblTitle.RowCount = 2;
             tblTitle.RowStyles.Add(new RowStyle(SizeType.Percent, 55F));
             tblTitle.RowStyles.Add(new RowStyle(SizeType.Percent, 45F));
-            tblTitle.Size = new Size(594, 82);
+            tblTitle.Size = new Size(594, 85);
             tblTitle.TabIndex = 8;
             // 
             // lblShapes
@@ -218,9 +218,9 @@
             lblShapes.BackColor = SystemColors.Window;
             lblShapes.Dock = DockStyle.Fill;
             lblShapes.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lblShapes.Location = new Point(3, 45);
+            lblShapes.Location = new Point(3, 46);
             lblShapes.Name = "lblShapes";
-            lblShapes.Size = new Size(588, 37);
+            lblShapes.Size = new Size(588, 39);
             lblShapes.TabIndex = 0;
             lblShapes.Text = "Shapes";
             // 
@@ -231,7 +231,7 @@
             lblTitle.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.Location = new Point(3, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(588, 45);
+            lblTitle.Size = new Size(588, 46);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Art Generator Settings";
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -256,22 +256,22 @@
             tblSize.Controls.Add(lblSize, 0, 0);
             tblSize.Controls.Add(lblMinWidth, 1, 2);
             tblSize.Dock = DockStyle.Fill;
-            tblSize.Location = new Point(3, 678);
+            tblSize.Location = new Point(3, 701);
             tblSize.Name = "tblSize";
             tblSize.RowCount = 3;
             tblSize.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tblSize.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tblSize.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tblSize.Size = new Size(594, 203);
+            tblSize.Size = new Size(594, 210);
             tblSize.TabIndex = 2;
             // 
             // lblWidth
             // 
             lblWidth.AutoSize = true;
             lblWidth.Dock = DockStyle.Fill;
-            lblWidth.Location = new Point(3, 134);
+            lblWidth.Location = new Point(3, 138);
             lblWidth.Name = "lblWidth";
-            lblWidth.Size = new Size(193, 69);
+            lblWidth.Size = new Size(193, 72);
             lblWidth.TabIndex = 10;
             lblWidth.Text = "Width:";
             lblWidth.TextAlign = ContentAlignment.MiddleLeft;
@@ -280,9 +280,9 @@
             // 
             lblHeight.AutoSize = true;
             lblHeight.Dock = DockStyle.Fill;
-            lblHeight.Location = new Point(3, 67);
+            lblHeight.Location = new Point(3, 69);
             lblHeight.Name = "lblHeight";
-            lblHeight.Size = new Size(193, 67);
+            lblHeight.Size = new Size(193, 69);
             lblHeight.TabIndex = 5;
             lblHeight.Text = "Height:";
             lblHeight.TextAlign = ContentAlignment.MiddleLeft;
@@ -291,9 +291,9 @@
             // 
             lblMinHeight.AutoSize = true;
             lblMinHeight.Dock = DockStyle.Fill;
-            lblMinHeight.Location = new Point(202, 67);
+            lblMinHeight.Location = new Point(202, 69);
             lblMinHeight.Name = "lblMinHeight";
-            lblMinHeight.Size = new Size(71, 67);
+            lblMinHeight.Size = new Size(71, 69);
             lblMinHeight.TabIndex = 6;
             lblMinHeight.Text = "Min";
             lblMinHeight.TextAlign = ContentAlignment.MiddleLeft;
@@ -302,10 +302,10 @@
             // 
             txtMinWidth.BorderStyle = BorderStyle.FixedSingle;
             txtMinWidth.Dock = DockStyle.Fill;
-            txtMinWidth.Location = new Point(279, 137);
+            txtMinWidth.Location = new Point(279, 141);
             txtMinWidth.Multiline = true;
             txtMinWidth.Name = "txtMinWidth";
-            txtMinWidth.Size = new Size(113, 63);
+            txtMinWidth.Size = new Size(113, 66);
             txtMinWidth.TabIndex = 2;
             txtMinWidth.Text = "100";
             // 
@@ -313,10 +313,10 @@
             // 
             txtMinHeight.BorderStyle = BorderStyle.FixedSingle;
             txtMinHeight.Dock = DockStyle.Fill;
-            txtMinHeight.Location = new Point(279, 70);
+            txtMinHeight.Location = new Point(279, 72);
             txtMinHeight.Multiline = true;
             txtMinHeight.Name = "txtMinHeight";
-            txtMinHeight.Size = new Size(113, 61);
+            txtMinHeight.Size = new Size(113, 63);
             txtMinHeight.TabIndex = 0;
             txtMinHeight.Text = "100";
             // 
@@ -324,9 +324,9 @@
             // 
             lblMaxWidth.AutoSize = true;
             lblMaxWidth.Dock = DockStyle.Fill;
-            lblMaxWidth.Location = new Point(398, 134);
+            lblMaxWidth.Location = new Point(398, 138);
             lblMaxWidth.Name = "lblMaxWidth";
-            lblMaxWidth.Size = new Size(71, 69);
+            lblMaxWidth.Size = new Size(71, 72);
             lblMaxWidth.TabIndex = 3;
             lblMaxWidth.Text = "Max";
             lblMaxWidth.TextAlign = ContentAlignment.MiddleLeft;
@@ -335,9 +335,9 @@
             // 
             lblMaxHeight.AutoSize = true;
             lblMaxHeight.Dock = DockStyle.Fill;
-            lblMaxHeight.Location = new Point(398, 67);
+            lblMaxHeight.Location = new Point(398, 69);
             lblMaxHeight.Name = "lblMaxHeight";
-            lblMaxHeight.Size = new Size(71, 67);
+            lblMaxHeight.Size = new Size(71, 69);
             lblMaxHeight.TabIndex = 8;
             lblMaxHeight.Text = "Max";
             lblMaxHeight.TextAlign = ContentAlignment.MiddleLeft;
@@ -346,10 +346,10 @@
             // 
             txtMaxWidth.BorderStyle = BorderStyle.FixedSingle;
             txtMaxWidth.Dock = DockStyle.Fill;
-            txtMaxWidth.Location = new Point(475, 137);
+            txtMaxWidth.Location = new Point(475, 141);
             txtMaxWidth.Multiline = true;
             txtMaxWidth.Name = "txtMaxWidth";
-            txtMaxWidth.Size = new Size(116, 63);
+            txtMaxWidth.Size = new Size(116, 66);
             txtMaxWidth.TabIndex = 3;
             txtMaxWidth.Text = "300";
             // 
@@ -357,10 +357,10 @@
             // 
             txtMaxHeight.BorderStyle = BorderStyle.FixedSingle;
             txtMaxHeight.Dock = DockStyle.Fill;
-            txtMaxHeight.Location = new Point(475, 70);
+            txtMaxHeight.Location = new Point(475, 72);
             txtMaxHeight.Multiline = true;
             txtMaxHeight.Name = "txtMaxHeight";
-            txtMaxHeight.Size = new Size(116, 61);
+            txtMaxHeight.Size = new Size(116, 63);
             txtMaxHeight.TabIndex = 1;
             txtMaxHeight.Text = "300";
             // 
@@ -372,7 +372,7 @@
             lblSize.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
             lblSize.Location = new Point(3, 0);
             lblSize.Name = "lblSize";
-            lblSize.Size = new Size(389, 67);
+            lblSize.Size = new Size(389, 69);
             lblSize.TabIndex = 0;
             lblSize.Text = "Size";
             // 
@@ -380,9 +380,9 @@
             // 
             lblMinWidth.AutoSize = true;
             lblMinWidth.Dock = DockStyle.Fill;
-            lblMinWidth.Location = new Point(202, 134);
+            lblMinWidth.Location = new Point(202, 138);
             lblMinWidth.Name = "lblMinWidth";
-            lblMinWidth.Size = new Size(71, 69);
+            lblMinWidth.Size = new Size(71, 72);
             lblMinWidth.TabIndex = 1;
             lblMinWidth.Text = "Min";
             lblMinWidth.TextAlign = ContentAlignment.MiddleLeft;
@@ -412,23 +412,23 @@
             tblColors.Controls.Add(txtMaxRed, 4, 1);
             tblColors.Controls.Add(lblColor, 0, 0);
             tblColors.Dock = DockStyle.Fill;
-            tblColors.Location = new Point(3, 355);
+            tblColors.Location = new Point(3, 367);
             tblColors.Name = "tblColors";
             tblColors.RowCount = 4;
             tblColors.RowStyles.Add(new RowStyle(SizeType.Percent, 12.7302933F));
             tblColors.RowStyles.Add(new RowStyle(SizeType.Percent, 29.09087F));
             tblColors.RowStyles.Add(new RowStyle(SizeType.Percent, 29.09087F));
             tblColors.RowStyles.Add(new RowStyle(SizeType.Percent, 29.087965F));
-            tblColors.Size = new Size(594, 317);
+            tblColors.Size = new Size(594, 328);
             tblColors.TabIndex = 1;
             // 
             // lblBlue
             // 
             lblBlue.AutoSize = true;
             lblBlue.Dock = DockStyle.Fill;
-            lblBlue.Location = new Point(3, 224);
+            lblBlue.Location = new Point(3, 231);
             lblBlue.Name = "lblBlue";
-            lblBlue.Size = new Size(191, 93);
+            lblBlue.Size = new Size(191, 97);
             lblBlue.TabIndex = 11;
             lblBlue.Text = "Blue:";
             lblBlue.TextAlign = ContentAlignment.MiddleLeft;
@@ -437,9 +437,9 @@
             // 
             lblMinBlue.AutoSize = true;
             lblMinBlue.Dock = DockStyle.Fill;
-            lblMinBlue.Location = new Point(200, 224);
+            lblMinBlue.Location = new Point(200, 231);
             lblMinBlue.Name = "lblMinBlue";
-            lblMinBlue.Size = new Size(73, 93);
+            lblMinBlue.Size = new Size(73, 97);
             lblMinBlue.TabIndex = 12;
             lblMinBlue.Text = "Min";
             lblMinBlue.TextAlign = ContentAlignment.MiddleLeft;
@@ -448,10 +448,10 @@
             // 
             txtMinBlue.BorderStyle = BorderStyle.FixedSingle;
             txtMinBlue.Dock = DockStyle.Fill;
-            txtMinBlue.Location = new Point(279, 227);
+            txtMinBlue.Location = new Point(279, 234);
             txtMinBlue.Multiline = true;
             txtMinBlue.Name = "txtMinBlue";
-            txtMinBlue.Size = new Size(112, 87);
+            txtMinBlue.Size = new Size(112, 91);
             txtMinBlue.TabIndex = 4;
             txtMinBlue.Text = "0";
             // 
@@ -459,9 +459,9 @@
             // 
             lblMaxBlue.AutoSize = true;
             lblMaxBlue.Dock = DockStyle.Fill;
-            lblMaxBlue.Location = new Point(397, 224);
+            lblMaxBlue.Location = new Point(397, 231);
             lblMaxBlue.Name = "lblMaxBlue";
-            lblMaxBlue.Size = new Size(73, 93);
+            lblMaxBlue.Size = new Size(73, 97);
             lblMaxBlue.TabIndex = 14;
             lblMaxBlue.Text = "Max";
             lblMaxBlue.TextAlign = ContentAlignment.MiddleLeft;
@@ -470,10 +470,10 @@
             // 
             txtMaxBlue.BorderStyle = BorderStyle.FixedSingle;
             txtMaxBlue.Dock = DockStyle.Fill;
-            txtMaxBlue.Location = new Point(476, 227);
+            txtMaxBlue.Location = new Point(476, 234);
             txtMaxBlue.Multiline = true;
             txtMaxBlue.Name = "txtMaxBlue";
-            txtMaxBlue.Size = new Size(115, 87);
+            txtMaxBlue.Size = new Size(115, 91);
             txtMaxBlue.TabIndex = 5;
             txtMaxBlue.Text = "255";
             // 
@@ -481,9 +481,9 @@
             // 
             lblGreen.AutoSize = true;
             lblGreen.Dock = DockStyle.Fill;
-            lblGreen.Location = new Point(3, 132);
+            lblGreen.Location = new Point(3, 136);
             lblGreen.Name = "lblGreen";
-            lblGreen.Size = new Size(191, 92);
+            lblGreen.Size = new Size(191, 95);
             lblGreen.TabIndex = 6;
             lblGreen.Text = "Green:";
             lblGreen.TextAlign = ContentAlignment.MiddleLeft;
@@ -492,9 +492,9 @@
             // 
             lblMinGreen.AutoSize = true;
             lblMinGreen.Dock = DockStyle.Fill;
-            lblMinGreen.Location = new Point(200, 132);
+            lblMinGreen.Location = new Point(200, 136);
             lblMinGreen.Name = "lblMinGreen";
-            lblMinGreen.Size = new Size(73, 92);
+            lblMinGreen.Size = new Size(73, 95);
             lblMinGreen.TabIndex = 7;
             lblMinGreen.Text = "Min";
             lblMinGreen.TextAlign = ContentAlignment.MiddleLeft;
@@ -503,10 +503,10 @@
             // 
             txtMinGreen.BorderStyle = BorderStyle.FixedSingle;
             txtMinGreen.Dock = DockStyle.Fill;
-            txtMinGreen.Location = new Point(279, 135);
+            txtMinGreen.Location = new Point(279, 139);
             txtMinGreen.Multiline = true;
             txtMinGreen.Name = "txtMinGreen";
-            txtMinGreen.Size = new Size(112, 86);
+            txtMinGreen.Size = new Size(112, 89);
             txtMinGreen.TabIndex = 2;
             txtMinGreen.Text = "0";
             // 
@@ -514,9 +514,9 @@
             // 
             lblMaxGreen.AutoSize = true;
             lblMaxGreen.Dock = DockStyle.Fill;
-            lblMaxGreen.Location = new Point(397, 132);
+            lblMaxGreen.Location = new Point(397, 136);
             lblMaxGreen.Name = "lblMaxGreen";
-            lblMaxGreen.Size = new Size(73, 92);
+            lblMaxGreen.Size = new Size(73, 95);
             lblMaxGreen.TabIndex = 9;
             lblMaxGreen.Text = "Max";
             lblMaxGreen.TextAlign = ContentAlignment.MiddleLeft;
@@ -525,10 +525,10 @@
             // 
             txtMaxGreen.BorderStyle = BorderStyle.FixedSingle;
             txtMaxGreen.Dock = DockStyle.Fill;
-            txtMaxGreen.Location = new Point(476, 135);
+            txtMaxGreen.Location = new Point(476, 139);
             txtMaxGreen.Multiline = true;
             txtMaxGreen.Name = "txtMaxGreen";
-            txtMaxGreen.Size = new Size(115, 86);
+            txtMaxGreen.Size = new Size(115, 89);
             txtMaxGreen.TabIndex = 3;
             txtMaxGreen.Text = "255";
             // 
@@ -536,9 +536,9 @@
             // 
             lblRed.AutoSize = true;
             lblRed.Dock = DockStyle.Fill;
-            lblRed.Location = new Point(3, 40);
+            lblRed.Location = new Point(3, 41);
             lblRed.Name = "lblRed";
-            lblRed.Size = new Size(191, 92);
+            lblRed.Size = new Size(191, 95);
             lblRed.TabIndex = 11;
             lblRed.Text = "Red:";
             lblRed.TextAlign = ContentAlignment.MiddleLeft;
@@ -547,9 +547,9 @@
             // 
             lblMinRed.AutoSize = true;
             lblMinRed.Dock = DockStyle.Fill;
-            lblMinRed.Location = new Point(200, 40);
+            lblMinRed.Location = new Point(200, 41);
             lblMinRed.Name = "lblMinRed";
-            lblMinRed.Size = new Size(73, 92);
+            lblMinRed.Size = new Size(73, 95);
             lblMinRed.TabIndex = 12;
             lblMinRed.Text = "Min";
             lblMinRed.TextAlign = ContentAlignment.MiddleLeft;
@@ -558,10 +558,10 @@
             // 
             txtMinRed.BorderStyle = BorderStyle.FixedSingle;
             txtMinRed.Dock = DockStyle.Fill;
-            txtMinRed.Location = new Point(279, 43);
+            txtMinRed.Location = new Point(279, 44);
             txtMinRed.Multiline = true;
             txtMinRed.Name = "txtMinRed";
-            txtMinRed.Size = new Size(112, 86);
+            txtMinRed.Size = new Size(112, 89);
             txtMinRed.TabIndex = 0;
             txtMinRed.Text = "0";
             // 
@@ -569,9 +569,9 @@
             // 
             lblMaxRed.AutoSize = true;
             lblMaxRed.Dock = DockStyle.Fill;
-            lblMaxRed.Location = new Point(397, 40);
+            lblMaxRed.Location = new Point(397, 41);
             lblMaxRed.Name = "lblMaxRed";
-            lblMaxRed.Size = new Size(73, 92);
+            lblMaxRed.Size = new Size(73, 95);
             lblMaxRed.TabIndex = 14;
             lblMaxRed.Text = "Max";
             lblMaxRed.TextAlign = ContentAlignment.MiddleLeft;
@@ -580,10 +580,10 @@
             // 
             txtMaxRed.BorderStyle = BorderStyle.FixedSingle;
             txtMaxRed.Dock = DockStyle.Fill;
-            txtMaxRed.Location = new Point(476, 43);
+            txtMaxRed.Location = new Point(476, 44);
             txtMaxRed.Multiline = true;
             txtMaxRed.Name = "txtMaxRed";
-            txtMaxRed.Size = new Size(115, 86);
+            txtMaxRed.Size = new Size(115, 89);
             txtMaxRed.TabIndex = 1;
             txtMaxRed.Text = "255";
             // 
@@ -619,7 +619,7 @@
             tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 20.689497F));
             tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 12.3434362F));
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblMain.Size = new Size(1329, 1011);
+            tblMain.Size = new Size(1329, 1045);
             tblMain.TabIndex = 0;
             // 
             // tblButtons
@@ -632,11 +632,11 @@
             tblButtons.Controls.Add(btnClear, 1, 0);
             tblButtons.Controls.Add(btnRefresh, 2, 0);
             tblButtons.Dock = DockStyle.Fill;
-            tblButtons.Location = new Point(3, 887);
+            tblButtons.Location = new Point(3, 917);
             tblButtons.Name = "tblButtons";
             tblButtons.RowCount = 1;
             tblButtons.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tblButtons.Size = new Size(594, 121);
+            tblButtons.Size = new Size(594, 125);
             tblButtons.TabIndex = 3;
             // 
             // btnStart
@@ -644,7 +644,7 @@
             btnStart.Dock = DockStyle.Fill;
             btnStart.Location = new Point(3, 3);
             btnStart.Name = "btnStart";
-            btnStart.Size = new Size(191, 115);
+            btnStart.Size = new Size(191, 119);
             btnStart.TabIndex = 0;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = true;
@@ -654,7 +654,7 @@
             btnClear.Dock = DockStyle.Fill;
             btnClear.Location = new Point(200, 3);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(192, 115);
+            btnClear.Size = new Size(192, 119);
             btnClear.TabIndex = 1;
             btnClear.Text = "Clear Shapes";
             btnClear.UseVisualStyleBackColor = true;
@@ -664,7 +664,7 @@
             btnRefresh.Dock = DockStyle.Fill;
             btnRefresh.Location = new Point(398, 3);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(193, 115);
+            btnRefresh.Size = new Size(193, 119);
             btnRefresh.TabIndex = 2;
             btnRefresh.Text = "Refresh Color";
             btnRefresh.UseVisualStyleBackColor = true;
@@ -676,13 +676,14 @@
             tblForm.Location = new Point(603, 3);
             tblForm.Name = "tblForm";
             tblMain.SetRowSpan(tblForm, 5);
-            tblForm.Size = new Size(723, 1005);
+            tblForm.Size = new Size(723, 1039);
             tblForm.TabIndex = 0;
             // 
             // frmArtGenerator
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             ClientSize = new Size(1329, 1011);
             Controls.Add(tblMain);
             Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);

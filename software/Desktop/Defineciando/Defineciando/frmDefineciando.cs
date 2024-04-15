@@ -18,7 +18,8 @@ namespace Defineciando
             InitializeComponent();
         }
 
-        private void frmDefineciando_Load(object sender, EventArgs e)
+
+        private void GameMessage()
         {
 
         }

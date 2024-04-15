@@ -35,21 +35,24 @@ namespace ArtGenerator
                 txtSpecific.Enabled = false;
                 txtSeconds.Enabled = false;
                 txtMilli.Enabled = true;
-                txtMilli.Text = "";
+                txtSeconds.Text = "";
+                txtSpecific.Text = "";
             }
-            if (optSeconds.Checked == true && txtSeconds.Text != "")
+            if (optSeconds.Checked == true)
             {
                 txtMilli.Enabled = false;
                 txtSpecific.Enabled = false;
                 txtSeconds.Enabled = true;
-                txtSeconds.Text = "";
+                txtMilli.Text = "";
+                txtSpecific.Text = "";
             }
-            if (optSpecific.Checked == true && txtSpecific.Text != "")
+            if (optSpecific.Checked == true)
             {
                 txtMilli.Enabled = false;
                 txtSeconds.Enabled = false;
                 txtSpecific.Enabled = true;
-                txtSpecific.Text = "";
+                txtMilli.Text = "";
+                txtSeconds.Text = "";
             }
 
         }
@@ -106,11 +109,56 @@ namespace ArtGenerator
             return n;
         }
 
+        public bool CheckIfRandomValueIsValid(int min, int max)
+
+        {
+
+            bool isvalid = false;
+
+            ///logic work reset b to represent if its VALID or not
+            //check that Max is Greater
+            //check that Max is less than 255
+            //check that min is greater than 0
+            if (min <= max && min >= 0 && max <= 255)
+            {
+                isvalid = true;
+            }
+            return isvalid;
+
+        }
+
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
             Random rnd = new();
+            int val1 = 0;
+            int val2 = 0;
+            int val3 = 0;
             //SM You need to make sure that min <= max and that both are between 0 and 255. Otherwise this might crash.
-            var c = Color.FromArgb(rnd.Next(minr, maxr), rnd.Next(ming, maxg), rnd.Next(minb, maxb));
+
+            //to do:
+            //get the min,
+            //get the max,
+            //check that Max is Greater
+            //check that Max is less than 255
+            //check that min is greater than 0
+
+            if (CheckIfRandomValueIsValid(minr, maxr) is true
+                && CheckIfRandomValueIsValid(ming, maxg) is true
+                && CheckIfRandomValueIsValid(minb, maxb) is true)
+            {
+                val1 = rnd.Next(minr, maxr);
+                val2 = rnd.Next(ming, maxg);
+                val3 = rnd.Next(minb, maxb);
+            }
+            else
+            {
+                ControlsDisabled();
+            }
+            //// var yfColor = Color.FromArgb(val1, val2, val3);
+
+
+
+            var c = Color.FromArgb(val1, val2, val3);
             return c;
         }
 
@@ -118,6 +166,16 @@ namespace ArtGenerator
         {
             return GetRandomColor(ConvertTextToInt(txtMinRed.Text), ConvertTextToInt(txtMaxRed.Text), ConvertTextToInt(txtMinGreen.Text),
                 ConvertTextToInt(txtMaxGreen.Text), ConvertTextToInt(txtMinBlue.Text), ConvertTextToInt(txtMaxBlue.Text));
+        }
+
+        private bool CheckMinAndMax(int min, int max)
+        {
+            bool isvalid = false;
+            if (min <= max)
+            {
+                isvalid = true;
+            }
+            return isvalid;
         }
 
         private Label CreateShape(Panel panel)
@@ -128,17 +186,24 @@ namespace ArtGenerator
             lbl.BackColor = GetRandomColor();
             lbl.Location = new Point(rnd.Next(0, panel.Width - 100), rnd.Next(0, panel.Height - 100));
             //SM You need to make sure that min <= max. Otherwise this might crash.
-            lbl.Size = new Size(rnd.Next(panel.Width = ConvertTextToInt(txtMinWidth.Text), panel.Width = ConvertTextToInt(txtMaxWidth.Text)),
+                lbl.Size = new Size(rnd.Next(panel.Width = ConvertTextToInt(txtMinWidth.Text), panel.Width = ConvertTextToInt(txtMaxWidth.Text)),
                 rnd.Next(panel.Height = ConvertTextToInt(txtMinHeight.Text), panel.Height = ConvertTextToInt(txtMaxHeight.Text)));
             return lbl;
+
         }
 
         private void CreateLabel()
         {
-            if (isrunning == true)
+            if (isrunning == true 
+                && CheckMinAndMax(ConvertTextToInt(txtMinHeight.Text), ConvertTextToInt(txtMaxHeight.Text)) is true
+                && CheckMinAndMax(ConvertTextToInt(txtMinWidth.Text), ConvertTextToInt(txtMaxWidth.Text)) is true)
             {
                 Label lbl1 = CreateShape(tblForm);
                 tblForm.Controls.Add(lbl1);
+            }
+            else
+            {
+                ControlsDisabled();
             }
         }
 

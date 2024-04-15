@@ -229,7 +229,7 @@
             lblMessage.Name = "lblMessage";
             lblMessage.Size = new Size(813, 102);
             lblMessage.TabIndex = 0;
-            lblMessage.Text = "     Good, Your choice is correct.";
+            lblMessage.Text = "   ";
             lblMessage.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblNumWordsTried
@@ -598,7 +598,6 @@
             Controls.Add(tblForm);
             Name = "frmDefineciando";
             Text = "frmDefineciando";
-            Load += frmDefineciando_Load;
             tblDef3.ResumeLayout(false);
             tblDef3.PerformLayout();
             tblDef1.ResumeLayout(false);
