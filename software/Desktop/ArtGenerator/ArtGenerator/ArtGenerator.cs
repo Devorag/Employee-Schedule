@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace ArtGenerator
                 txtSeconds.Text = "";
                 txtSpecific.Text = "";
             }
-            if (optSeconds.Checked == true)
+            else if (optSeconds.Checked == true)
             {
                 txtMilli.Enabled = false;
                 txtSpecific.Enabled = false;
@@ -46,7 +47,7 @@ namespace ArtGenerator
                 txtMilli.Text = "";
                 txtSpecific.Text = "";
             }
-            if (optSpecific.Checked == true)
+            else if (optSpecific.Checked == true)
             {
                 txtMilli.Enabled = false;
                 txtSeconds.Enabled = false;
@@ -130,9 +131,9 @@ namespace ArtGenerator
         private Color GetRandomColor(int minr, int maxr, int ming, int maxg, int minb, int maxb)
         {
             Random rnd = new();
-            int val1 = 0;
-            int val2 = 0;
-            int val3 = 0;
+            int val1 = rnd.Next(minr, maxr);
+            int val2 = rnd.Next(ming, maxg);
+            int val3 = rnd.Next(minb, maxb);
             //SM You need to make sure that min <= max and that both are between 0 and 255. Otherwise this might crash.
 
             //to do:
@@ -142,18 +143,6 @@ namespace ArtGenerator
             //check that Max is less than 255
             //check that min is greater than 0
 
-            if (CheckIfRandomValueIsValid(minr, maxr) is true
-                && CheckIfRandomValueIsValid(ming, maxg) is true
-                && CheckIfRandomValueIsValid(minb, maxb) is true)
-            {
-                val1 = rnd.Next(minr, maxr);
-                val2 = rnd.Next(ming, maxg);
-                val3 = rnd.Next(minb, maxb);
-            }
-            else
-            {
-                ControlsDisabled();
-            }
             //// var yfColor = Color.FromArgb(val1, val2, val3);
 
 
@@ -164,10 +153,24 @@ namespace ArtGenerator
 
         private Color GetRandomColor()
         {
-            return GetRandomColor(ConvertTextToInt(txtMinRed.Text), ConvertTextToInt(txtMaxRed.Text), ConvertTextToInt(txtMinGreen.Text),
-                ConvertTextToInt(txtMaxGreen.Text), ConvertTextToInt(txtMinBlue.Text), ConvertTextToInt(txtMaxBlue.Text));
+            var c = Color.Black;
+            int minr = ConvertTextToInt(txtMinRed.Text);
+            int maxr = ConvertTextToInt(txtMaxRed.Text);
+            int ming = ConvertTextToInt(txtMinGreen.Text);
+            int maxg = ConvertTextToInt(txtMaxGreen.Text);
+            int minb = ConvertTextToInt(txtMinBlue.Text);
+            int maxb = ConvertTextToInt(txtMaxBlue.Text);
+            if (CheckIfRandomValueIsValid(minr, maxr) && CheckIfRandomValueIsValid(ming, maxg) && CheckIfRandomValueIsValid(minb, maxb) is true)
+            {
+                c = GetRandomColor(minr, maxr, ming,maxg, minb, maxb);
+            }
+            else
+            {
+                MessageBox.Show("Error - Invalid Data");
+                Close();
+            }
+            return c;
         }
-
         private bool CheckMinAndMax(int min, int max)
         {
             bool isvalid = false;
@@ -186,24 +189,25 @@ namespace ArtGenerator
             lbl.BackColor = GetRandomColor();
             lbl.Location = new Point(rnd.Next(0, panel.Width - 100), rnd.Next(0, panel.Height - 100));
             //SM You need to make sure that min <= max. Otherwise this might crash.
-                lbl.Size = new Size(rnd.Next(panel.Width = ConvertTextToInt(txtMinWidth.Text), panel.Width = ConvertTextToInt(txtMaxWidth.Text)),
-                rnd.Next(panel.Height = ConvertTextToInt(txtMinHeight.Text), panel.Height = ConvertTextToInt(txtMaxHeight.Text)));
+            lbl.Size = new Size(rnd.Next(panel.Width = ConvertTextToInt(txtMinWidth.Text), panel.Width = ConvertTextToInt(txtMaxWidth.Text)),
+            rnd.Next(panel.Height = ConvertTextToInt(txtMinHeight.Text), panel.Height = ConvertTextToInt(txtMaxHeight.Text)));
             return lbl;
 
         }
 
         private void CreateLabel()
         {
-            if (isrunning == true 
+            if (isrunning == true
                 && CheckMinAndMax(ConvertTextToInt(txtMinHeight.Text), ConvertTextToInt(txtMaxHeight.Text)) is true
                 && CheckMinAndMax(ConvertTextToInt(txtMinWidth.Text), ConvertTextToInt(txtMaxWidth.Text)) is true)
             {
                 Label lbl1 = CreateShape(tblForm);
                 tblForm.Controls.Add(lbl1);
             }
-            else
+            else 
             {
-                ControlsDisabled();
+                MessageBox.Show("Error - Invalid Data");
+                Close();
             }
         }
 
@@ -285,6 +289,5 @@ namespace ArtGenerator
                 isrunning = false;
             }
         }
-
     }
 }

@@ -44,15 +44,15 @@
             lblScore = new Label();
             txxtScore = new TextBox();
             tblDefinitions = new TableLayoutPanel();
-            lblPick = new Label();
-            lblGiveup = new Label();
+            btnPick = new Label();
+            btnGiveup = new Label();
             optDefinition1 = new RadioButton();
             optDefinition2 = new RadioButton();
             optDefinition3 = new RadioButton();
-            lblEnter = new Label();
+            btnEnter = new Label();
             tblFilter = new TableLayoutPanel();
             lblFilter = new Label();
-            lblNumLetters = new Label();
+            lbllNumLetters = new Label();
             lblSpecificLetters = new Label();
             txtNumLetters = new TextBox();
             txtSpecificLetters = new TextBox();
@@ -190,12 +190,14 @@
             // 
             txtWord.BorderStyle = BorderStyle.FixedSingle;
             txtWord.Dock = DockStyle.Fill;
+            txtWord.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
             txtWord.Location = new Point(166, 3);
             txtWord.Multiline = true;
             txtWord.Name = "txtWord";
             tblWord.SetRowSpan(txtWord, 2);
             txtWord.Size = new Size(649, 96);
             txtWord.TabIndex = 1;
+            txtWord.TextAlign = HorizontalAlignment.Center;
             txtWord.UseWaitCursor = true;
             // 
             // tableLayoutPanel2
@@ -286,12 +288,12 @@
             tblDefinitions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.2666264F));
             tblDefinitions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.5106773F));
             tblDefinitions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15F));
-            tblDefinitions.Controls.Add(lblPick, 0, 0);
-            tblDefinitions.Controls.Add(lblGiveup, 1, 0);
+            tblDefinitions.Controls.Add(btnPick, 0, 0);
+            tblDefinitions.Controls.Add(btnGiveup, 1, 0);
             tblDefinitions.Controls.Add(optDefinition1, 2, 0);
             tblDefinitions.Controls.Add(optDefinition2, 3, 0);
             tblDefinitions.Controls.Add(optDefinition3, 4, 0);
-            tblDefinitions.Controls.Add(lblEnter, 5, 0);
+            tblDefinitions.Controls.Add(btnEnter, 5, 0);
             tblDefinitions.Dock = DockStyle.Fill;
             tblDefinitions.Location = new Point(3, 200);
             tblDefinitions.Name = "tblDefinitions";
@@ -300,31 +302,31 @@
             tblDefinitions.Size = new Size(1639, 102);
             tblDefinitions.TabIndex = 2;
             // 
-            // lblPick
+            // btnPick
             // 
-            lblPick.AutoSize = true;
-            lblPick.BorderStyle = BorderStyle.FixedSingle;
-            lblPick.Dock = DockStyle.Fill;
-            lblPick.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblPick.Location = new Point(3, 0);
-            lblPick.Name = "lblPick";
-            lblPick.Size = new Size(264, 102);
-            lblPick.TabIndex = 0;
-            lblPick.Text = "Pick a Word";
-            lblPick.TextAlign = ContentAlignment.MiddleCenter;
+            btnPick.AutoSize = true;
+            btnPick.BorderStyle = BorderStyle.FixedSingle;
+            btnPick.Dock = DockStyle.Fill;
+            btnPick.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPick.Location = new Point(3, 0);
+            btnPick.Name = "btnPick";
+            btnPick.Size = new Size(264, 102);
+            btnPick.TabIndex = 0;
+            btnPick.Text = "Pick a Word";
+            btnPick.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblGiveup
+            // btnGiveup
             // 
-            lblGiveup.AutoSize = true;
-            lblGiveup.BorderStyle = BorderStyle.FixedSingle;
-            lblGiveup.Dock = DockStyle.Fill;
-            lblGiveup.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblGiveup.Location = new Point(273, 0);
-            lblGiveup.Name = "lblGiveup";
-            lblGiveup.Size = new Size(264, 102);
-            lblGiveup.TabIndex = 1;
-            lblGiveup.Text = "I give up ";
-            lblGiveup.TextAlign = ContentAlignment.MiddleCenter;
+            btnGiveup.AutoSize = true;
+            btnGiveup.BorderStyle = BorderStyle.FixedSingle;
+            btnGiveup.Dock = DockStyle.Fill;
+            btnGiveup.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnGiveup.Location = new Point(273, 0);
+            btnGiveup.Name = "btnGiveup";
+            btnGiveup.Size = new Size(264, 102);
+            btnGiveup.TabIndex = 1;
+            btnGiveup.Text = "I give up ";
+            btnGiveup.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // optDefinition1
             // 
@@ -365,18 +367,18 @@
             optDefinition3.Text = "Definition 3 ";
             optDefinition3.UseVisualStyleBackColor = true;
             // 
-            // lblEnter
+            // btnEnter
             // 
-            lblEnter.AutoSize = true;
-            lblEnter.BorderStyle = BorderStyle.FixedSingle;
-            lblEnter.Dock = DockStyle.Fill;
-            lblEnter.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            lblEnter.Location = new Point(1394, 0);
-            lblEnter.Name = "lblEnter";
-            lblEnter.Size = new Size(242, 102);
-            lblEnter.TabIndex = 5;
-            lblEnter.Text = "Enter";
-            lblEnter.TextAlign = ContentAlignment.MiddleCenter;
+            btnEnter.AutoSize = true;
+            btnEnter.BorderStyle = BorderStyle.FixedSingle;
+            btnEnter.Dock = DockStyle.Fill;
+            btnEnter.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            btnEnter.Location = new Point(1394, 0);
+            btnEnter.Name = "btnEnter";
+            btnEnter.Size = new Size(242, 102);
+            btnEnter.TabIndex = 5;
+            btnEnter.Text = "Enter";
+            btnEnter.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tblFilter
             // 
@@ -390,7 +392,7 @@
             tblFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.003665F));
             tblFilter.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.62026F));
             tblFilter.Controls.Add(lblFilter, 1, 0);
-            tblFilter.Controls.Add(lblNumLetters, 2, 0);
+            tblFilter.Controls.Add(lbllNumLetters, 2, 0);
             tblFilter.Controls.Add(lblSpecificLetters, 4, 0);
             tblFilter.Controls.Add(txtNumLetters, 3, 0);
             tblFilter.Controls.Add(txtSpecificLetters, 5, 0);
@@ -414,17 +416,17 @@
             lblFilter.Text = "Filter:";
             lblFilter.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblNumLetters
+            // lbllNumLetters
             // 
-            lblNumLetters.AutoSize = true;
-            lblNumLetters.Dock = DockStyle.Fill;
-            lblNumLetters.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lblNumLetters.Location = new Point(221, 0);
-            lblNumLetters.Name = "lblNumLetters";
-            lblNumLetters.Size = new Size(223, 105);
-            lblNumLetters.TabIndex = 2;
-            lblNumLetters.Text = "Number of Letters:";
-            lblNumLetters.TextAlign = ContentAlignment.MiddleLeft;
+            lbllNumLetters.AutoSize = true;
+            lbllNumLetters.Dock = DockStyle.Fill;
+            lbllNumLetters.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lbllNumLetters.Location = new Point(221, 0);
+            lbllNumLetters.Name = "lbllNumLetters";
+            lbllNumLetters.Size = new Size(223, 105);
+            lbllNumLetters.TabIndex = 2;
+            lbllNumLetters.Text = "Number of Letters:";
+            lbllNumLetters.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblSpecificLetters
             // 
@@ -628,17 +630,17 @@
         private Label lblInstructions;
         private TableLayoutPanel tblFilter;
         private Label lblFilter;
-        private Label lblNumLetters;
+        private Label lbllNumLetters;
         private Label lblSpecificLetters;
         private TextBox txtNumLetters;
         private TextBox txtSpecificLetters;
         private TableLayoutPanel tblDefinitions;
-        private Label lblPick;
-        private Label lblGiveup;
+        private Label btnPick;
+        private Label btnGiveup;
         private RadioButton optDefinition1;
         private RadioButton optDefinition2;
         private RadioButton optDefinition3;
-        private Label lblEnter;
+        private Label btnEnter;
         private TableLayoutPanel tableLayoutPanel2;
         private Label lblMessage;
         private Label lblNumWordsTried;
