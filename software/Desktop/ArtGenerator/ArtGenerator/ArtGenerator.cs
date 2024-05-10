@@ -6,10 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using System.Xml.Schema;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ArtGenerator
 {
@@ -27,7 +31,14 @@ namespace ArtGenerator
             optSpecific.Click += Opt_Click;
             optSeconds.Click += Opt_Click;
             tmr.Tick += Tmr_Tick;
+
+
         }
+
+        //private void TxtSpecific_Click(object? sender, EventArgs e)
+        //{
+        //    IsNumeric(txtSpecific);
+        //}
 
         private void DisableShapeSettings()
         {
@@ -61,27 +72,49 @@ namespace ArtGenerator
         private void AddShapesForXSeconds()
         {
             DateTime starttime = DateTime.Now;
-            while ((DateTime.Now - starttime).TotalSeconds <= ConvertTextToInt(txtSeconds.Text))
+            if (CreateLabel() == false)
             {
-                CreateLabel();
-                Application.DoEvents();
+                MessageBox.Show("Error : Invalid Data");
+            }
+            else if (CreateLabel() == true)
+            {
+                while ((DateTime.Now - starttime).TotalSeconds <= ConvertTextToInt(txtSeconds.Text))
+                {
+                    CreateLabel();
+                    Application.DoEvents();
+                }
             }
         }
 
         private void AddShapesEveryMilliSecond()
         {
-            var n = ConvertTextToInt(txtMilli.Text);
-            tmr.Interval = n;
-            tmr.Enabled = true;
+            if (CreateLabel() == false)
+            {
+                MessageBox.Show("Error : Invalid Data");
+            }
+            else if (CreateLabel() == true)
+            {
+                var n = ConvertTextToInt(txtMilli.Text);
+                tmr.Interval = n;
+                tmr.Enabled = true;
+            }
         }
 
         private void SpecificNumShapes()
         {
             var n = ConvertTextToInt(txtSpecific.Text);
-            for (int i = 1; i <= n; i++)
+            if (CreateLabel() == false)
             {
-                CreateLabel();
-                Application.DoEvents();
+                tblForm.ForeColor = Color.Black;
+                MessageBox.Show("Error : Invalid Data");
+            }
+            else if (CreateLabel() == true)
+            {
+                for (int i = 1; i <= n; i++)
+                {
+                    CreateLabel();
+                    Application.DoEvents();
+                }
             }
         }
 
@@ -160,15 +193,11 @@ namespace ArtGenerator
             int maxg = ConvertTextToInt(txtMaxGreen.Text);
             int minb = ConvertTextToInt(txtMinBlue.Text);
             int maxb = ConvertTextToInt(txtMaxBlue.Text);
-            if (CheckIfRandomValueIsValid(minr, maxr) && CheckIfRandomValueIsValid(ming, maxg) && CheckIfRandomValueIsValid(minb, maxb) is true)
-            {
-                c = GetRandomColor(minr, maxr, ming,maxg, minb, maxb);
-            }
-            else
-            {
-                MessageBox.Show("Error - Invalid Data");
-                Close();
-            }
+
+            c = GetRandomColor(minr, maxr, ming, maxg, minb, maxb);
+
+
+
             return c;
         }
         private bool CheckMinAndMax(int min, int max)
@@ -195,20 +224,33 @@ namespace ArtGenerator
 
         }
 
-        private void CreateLabel()
+        private bool CreateLabel()
         {
+            //declare bool var here set it to false
+            bool create = true;
+            int minr = ConvertTextToInt(txtMinRed.Text);
+            int maxr = ConvertTextToInt(txtMaxRed.Text);
+            int ming = ConvertTextToInt(txtMinGreen.Text);
+            int maxg = ConvertTextToInt(txtMaxGreen.Text);
+            int minb = ConvertTextToInt(txtMinBlue.Text);
+            int maxb = ConvertTextToInt(txtMaxBlue.Text);
             if (isrunning == true
                 && CheckMinAndMax(ConvertTextToInt(txtMinHeight.Text), ConvertTextToInt(txtMaxHeight.Text)) is true
-                && CheckMinAndMax(ConvertTextToInt(txtMinWidth.Text), ConvertTextToInt(txtMaxWidth.Text)) is true)
+                && CheckMinAndMax(ConvertTextToInt(txtMinWidth.Text), ConvertTextToInt(txtMaxWidth.Text)) is true
+                && CheckIfRandomValueIsValid(minr, maxr) && CheckIfRandomValueIsValid(ming, maxg) && CheckIfRandomValueIsValid(minb, maxb) is true)
             {
                 Label lbl1 = CreateShape(tblForm);
                 tblForm.Controls.Add(lbl1);
+                create = true;
+
             }
-            else 
+            else if (CheckMinAndMax(ConvertTextToInt(txtMinHeight.Text), ConvertTextToInt(txtMaxHeight.Text)) is false
+                || CheckMinAndMax(ConvertTextToInt(txtMinWidth.Text), ConvertTextToInt(txtMaxWidth.Text)) is false
+                || CheckIfRandomValueIsValid(minr, maxr) || CheckIfRandomValueIsValid(ming, maxg) || CheckIfRandomValueIsValid(minb, maxb) is true)
             {
-                MessageBox.Show("Error - Invalid Data");
-                Close();
+                create = false;
             }
+            return create;
         }
 
         private void ControlsEnabled()
@@ -243,6 +285,16 @@ namespace ArtGenerator
             }
 
         }
+
+        //private void IsNumeric(Control textbox)
+        //{
+         //   int num;
+          //  if (!int.TryParse(textbox.Text, out num) && textbox.Text != "")
+           // {
+            //    MessageBox.Show("Error : Invalid Data");
+             //   return;
+            //} 
+        //}
 
         private void Tmr_Tick(object? sender, EventArgs e)
         {
@@ -280,6 +332,7 @@ namespace ArtGenerator
                 tblForm.Controls.Clear();
                 isrunning = true;
                 AddShapes();
+
             }
             else if (btnStart.Text == "Stop")
             {
@@ -289,5 +342,8 @@ namespace ArtGenerator
                 isrunning = false;
             }
         }
+
+
+
     }
 }

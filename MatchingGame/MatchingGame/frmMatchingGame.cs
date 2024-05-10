@@ -27,7 +27,7 @@ namespace MatchingGame
         public frmMatchingGame()
         {
             InitializeComponent();
-            AssignIconsToSquares();
+
             label1.Click += Label1_Click;
             label2.Click += Label1_Click;
             label3.Click += Label1_Click;
@@ -51,6 +51,8 @@ namespace MatchingGame
                 "!", "!", "N", "N", ",", ",", "k", "k",
                 "b", "b", "v", "v", "w", "W", "z", "z"
             };
+
+            AssignIconsToSquares();
         }
 
         private void CheckForWinner()
@@ -67,7 +69,7 @@ namespace MatchingGame
                 }
             }
             MessageBox.Show("You matched all the pictures!", "Congrats!");
-            Close();
+            
         }
 
         private void Tmr_Tick(object? sender, EventArgs e)

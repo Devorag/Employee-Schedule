@@ -133,7 +133,6 @@
             optSpecific.TabIndex = 0;
             optSpecific.TabStop = true;
             optSpecific.Text = "Specific Number of Shapes";
-            optSpecific.TextAlign = ContentAlignment.MiddleCenter;
             optSpecific.UseVisualStyleBackColor = true;
             // 
             // tblNum
@@ -190,6 +189,7 @@
             txtSpecific.TabIndex = 4;
             txtSpecific.Text = "10";
             txtSpecific.TextAlign = HorizontalAlignment.Center;
+   
             // 
             // tblTitle
             // 
