@@ -227,8 +227,8 @@
             // 
             // txtTermEnd
             // 
-            txtTermEnd.Dock = DockStyle.Fill;
-            txtTermEnd.Location = new Point(138, 283);
+            txtTermEnd.Anchor = AnchorStyles.Left;
+            txtTermEnd.Location = new Point(138, 328);
             txtTermEnd.Name = "txtTermEnd";
             txtTermEnd.Size = new Size(950, 39);
             txtTermEnd.TabIndex = 15;

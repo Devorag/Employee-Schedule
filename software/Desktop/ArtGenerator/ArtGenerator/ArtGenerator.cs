@@ -75,6 +75,7 @@ namespace ArtGenerator
             if (CreateLabel() == false)
             {
                 MessageBox.Show("Error : Invalid Data");
+                ControlsDisabled();
             }
             else if (CreateLabel() == true)
             {
@@ -91,6 +92,7 @@ namespace ArtGenerator
             if (CreateLabel() == false)
             {
                 MessageBox.Show("Error : Invalid Data");
+                ControlsDisabled();
             }
             else if (CreateLabel() == true)
             {
@@ -107,6 +109,7 @@ namespace ArtGenerator
             {
                 tblForm.ForeColor = Color.Black;
                 MessageBox.Show("Error : Invalid Data");
+                ControlsDisabled();
             }
             else if (CreateLabel() == true)
             {
@@ -286,15 +289,16 @@ namespace ArtGenerator
 
         }
 
-        //private void IsNumeric(Control textbox)
-        //{
-         //   int num;
-          //  if (!int.TryParse(textbox.Text, out num) && textbox.Text != "")
-           // {
-            //    MessageBox.Show("Error : Invalid Data");
-             //   return;
-            //} 
-        //}
+        private bool IsNumeric(Control textbox)
+        {
+            bool isNumeric = true;
+            int num;
+            if (!int.TryParse(textbox.Text, out num))
+            {
+                isNumeric = false;
+            }
+            return isNumeric;
+        }
 
         private void Tmr_Tick(object? sender, EventArgs e)
         {
@@ -324,22 +328,43 @@ namespace ArtGenerator
 
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-
-            if (btnStart.Text == "Start")
+            if ( IsNumeric(txtMinRed) is false || IsNumeric(txtMaxRed) is false || IsNumeric(txtMinGreen) is false
+                || IsNumeric(txtMaxGreen) is false || IsNumeric(txtMinBlue) is false || IsNumeric(txtMaxBlue) is false
+            || IsNumeric(txtMinHeight) is false || IsNumeric(txtMaxHeight) is false || IsNumeric(txtMinWidth) is false || IsNumeric(txtMaxWidth) is false)
             {
-                btnStart.Text = "Stop";
+                MessageBox.Show("Error : Invalid Data");
                 ControlsDisabled();
-                tblForm.Controls.Clear();
-                isrunning = true;
-                AddShapes();
-
-            }
-            else if (btnStart.Text == "Stop")
-            {
-                btnStart.Text = "Start";
                 ControlsEnabled();
-                tmr.Enabled = false;
-                isrunning = false;
+                return;
+            }
+            if (optMilli.Checked == true && txtMilli.Text == ""
+                || optSeconds.Checked == true && txtSeconds.Text == ""
+                || optSpecific.Checked == true && txtSpecific.Text == "")
+            {
+                MessageBox.Show("Error : Invalid Data");
+                ControlsDisabled();
+                ControlsEnabled();
+                return;
+            }
+            else
+            {
+                ControlsEnabled();
+                if (btnStart.Text == "Start")
+                {
+                    btnStart.Text = "Stop";
+                    ControlsDisabled();
+                    tblForm.Controls.Clear();
+                    isrunning = true;
+                    AddShapes();
+
+                }
+                else if (btnStart.Text == "Stop")
+                {
+                    btnStart.Text = "Start";
+                    ControlsEnabled();
+                    tmr.Enabled = false;
+                    isrunning = false;
+                }
             }
         }
 

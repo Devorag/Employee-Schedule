@@ -172,7 +172,7 @@
             txtMilli.Location = new Point(3, 87);
             txtMilli.Multiline = true;
             txtMilli.Name = "txtMilli";
-            txtMilli.PlaceholderText = "# of Milliseconds";
+            txtMilli.PlaceholderText = "# of milliseconds";
             txtMilli.Size = new Size(226, 78);
             txtMilli.TabIndex = 3;
             txtMilli.Text = "1000";
@@ -184,12 +184,11 @@
             txtSpecific.Location = new Point(3, 3);
             txtSpecific.Multiline = true;
             txtSpecific.Name = "txtSpecific";
-            txtSpecific.PlaceholderText = "# of Shapes";
+            txtSpecific.PlaceholderText = "# of shapes";
             txtSpecific.Size = new Size(226, 78);
             txtSpecific.TabIndex = 4;
             txtSpecific.Text = "10";
             txtSpecific.TextAlign = HorizontalAlignment.Center;
-   
             // 
             // tblTitle
             // 

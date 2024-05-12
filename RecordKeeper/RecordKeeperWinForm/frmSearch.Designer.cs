@@ -30,9 +30,9 @@
         {
             tblMain = new TableLayoutPanel();
             tblSearch = new TableLayoutPanel();
-            lblLastName = new Label();
             txtLastName = new TextBox();
             btnSearch = new Button();
+            lblLastName = new Label();
             gPresidents = new DataGridView();
             tblMain.SuspendLayout();
             tblSearch.SuspendLayout();
@@ -42,7 +42,7 @@
             // tblMain
             // 
             tblMain.ColumnCount = 1;
-            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblMain.Controls.Add(tblSearch, 0, 0);
             tblMain.Controls.Add(gPresidents, 0, 1);
             tblMain.Dock = DockStyle.Fill;
@@ -50,7 +50,7 @@
             tblMain.Name = "tblMain";
             tblMain.RowCount = 2;
             tblMain.RowStyles.Add(new RowStyle());
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblMain.Size = new Size(807, 707);
             tblMain.TabIndex = 0;
             // 
@@ -71,16 +71,6 @@
             tblSearch.Size = new Size(375, 41);
             tblSearch.TabIndex = 0;
             // 
-            // lblLastName
-            // 
-            lblLastName.Anchor = AnchorStyles.Left;
-            lblLastName.AutoSize = true;
-            lblLastName.Location = new Point(3, 8);
-            lblLastName.Name = "lblLastName";
-            lblLastName.Size = new Size(95, 25);
-            lblLastName.TabIndex = 0;
-            lblLastName.Text = "Last Name";
-            // 
             // txtLastName
             // 
             txtLastName.Anchor = AnchorStyles.Left;
@@ -99,6 +89,16 @@
             btnSearch.TabIndex = 2;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = true;
+            // 
+            // lblLastName
+            // 
+            lblLastName.Anchor = AnchorStyles.Left;
+            lblLastName.AutoSize = true;
+            lblLastName.Location = new Point(3, 8);
+            lblLastName.Name = "lblLastName";
+            lblLastName.Size = new Size(95, 25);
+            lblLastName.TabIndex = 0;
+            lblLastName.Text = "Last Name";
             // 
             // gPresidents
             // 
