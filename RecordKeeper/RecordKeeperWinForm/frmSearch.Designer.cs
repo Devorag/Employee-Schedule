@@ -34,6 +34,7 @@
             btnSearch = new Button();
             lblLastName = new Label();
             gPresidents = new DataGridView();
+            btnNew = new Button();
             tblMain.SuspendLayout();
             tblSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gPresidents).BeginInit();
@@ -57,18 +58,20 @@
             // tblSearch
             // 
             tblSearch.AutoSize = true;
-            tblSearch.ColumnCount = 3;
+            tblSearch.ColumnCount = 4;
+            tblSearch.ColumnStyles.Add(new ColumnStyle());
             tblSearch.ColumnStyles.Add(new ColumnStyle());
             tblSearch.ColumnStyles.Add(new ColumnStyle());
             tblSearch.ColumnStyles.Add(new ColumnStyle());
             tblSearch.Controls.Add(txtLastName, 1, 0);
             tblSearch.Controls.Add(btnSearch, 2, 0);
             tblSearch.Controls.Add(lblLastName, 0, 0);
+            tblSearch.Controls.Add(btnNew, 3, 0);
             tblSearch.Location = new Point(3, 3);
             tblSearch.Name = "tblSearch";
             tblSearch.RowCount = 1;
             tblSearch.RowStyles.Add(new RowStyle());
-            tblSearch.Size = new Size(375, 41);
+            tblSearch.Size = new Size(455, 41);
             tblSearch.TabIndex = 0;
             // 
             // txtLastName
@@ -111,6 +114,16 @@
             gPresidents.Size = new Size(801, 654);
             gPresidents.TabIndex = 1;
             // 
+            // btnNew
+            // 
+            btnNew.AutoSize = true;
+            btnNew.Location = new Point(378, 3);
+            btnNew.Name = "btnNew";
+            btnNew.Size = new Size(74, 35);
+            btnNew.TabIndex = 3;
+            btnNew.Text = "&New";
+            btnNew.UseVisualStyleBackColor = true;
+            // 
             // frmSearch
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -135,5 +148,6 @@
         private Button btnSearch;
         private Label lblLastName;
         private DataGridView gPresidents;
+        private Button btnNew;
     }
 }

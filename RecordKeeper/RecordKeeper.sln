@@ -5,7 +5,13 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordKeeperWinForm", "RecordKeeperWinForm\RecordKeeperWinForm.csproj", "{58B4CFE6-07EC-4D4D-A67E-131E24950B0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPUFramework", "..\..\CPUFramework\CPUFramework.csproj", "{8B2F143B-6287-442A-A202-ECD0FBA0CB47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUFramework", "..\..\CPUFramework\CPUFramework.csproj", "{8B2F143B-6287-442A-A202-ECD0FBA0CB47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPUWindowsFormFramework", "..\..\CPUWindowsFormFramework\CPUWindowsFormFramework.csproj", "{5AE99F54-D586-40BD-8FC1-82FD5A117829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeperSystem", "RecordKeeperSystem\RecordKeeperSystem.csproj", "{5D470385-494B-4A98-96AE-AE67BE68E495}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordKeeperTest", "RecordKeeperTest\RecordKeeperTest.csproj", "{3F704FF0-03A5-477F-8FA4-798691AC6177}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{8B2F143B-6287-442A-A202-ECD0FBA0CB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B2F143B-6287-442A-A202-ECD0FBA0CB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B2F143B-6287-442A-A202-ECD0FBA0CB47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AE99F54-D586-40BD-8FC1-82FD5A117829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AE99F54-D586-40BD-8FC1-82FD5A117829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AE99F54-D586-40BD-8FC1-82FD5A117829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AE99F54-D586-40BD-8FC1-82FD5A117829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D470385-494B-4A98-96AE-AE67BE68E495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D470385-494B-4A98-96AE-AE67BE68E495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D470385-494B-4A98-96AE-AE67BE68E495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D470385-494B-4A98-96AE-AE67BE68E495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F704FF0-03A5-477F-8FA4-798691AC6177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F704FF0-03A5-477F-8FA4-798691AC6177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F704FF0-03A5-477F-8FA4-798691AC6177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F704FF0-03A5-477F-8FA4-798691AC6177}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

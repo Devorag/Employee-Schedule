@@ -4,6 +4,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,18 +16,22 @@ namespace MatchingGame
 {
     public partial class frmMatchingGame : Form
     {
+        System.Windows.Forms.Timer tmr = new() { Interval = 950 };
 
         Random random = new Random();
 
         Label firstClicked = null;
         Label secondClicked = null;
 
-        System.Windows.Forms.Timer tmr = new System.Windows.Forms.Timer() { Interval = 750 };
-
-        List<string> icons;
+        List<string> icons = new()
+            {
+                "!", "!", "N", "N", ",", ",", "k", "k",
+                "b", "b", "v", "v", "w", "W", "z", "z"
+            };
         public frmMatchingGame()
         {
             InitializeComponent();
+            Start(); 
 
             label1.Click += Label1_Click;
             label2.Click += Label1_Click;
@@ -45,53 +50,96 @@ namespace MatchingGame
             label15.Click += Label1_Click;
             label16.Click += Label1_Click;
             tmr.Tick += Tmr_Tick;
+            BtnStart.Click += BtnStart_Click;
 
-            icons = new List<string>()
+        }
+
+        private void Start()
+        {
+            foreach (Control c in tblBoard.Controls)
             {
-                "!", "!", "N", "N", ",", ",", "k", "k",
-                "b", "b", "v", "v", "w", "W", "z", "z"
-            };
+                Label iconLabel = (Label)c;
+                if (iconLabel != null)
+                {
+                    iconLabel.ForeColor = iconLabel.BackColor;
+                }
+            }
+        }
 
-            AssignIconsToSquares();
+        private void ControlsDisabled()
+        {
+            foreach (Control c in tblBoard.Controls)
+            {
+                Label iconLabel = (Label)c;
+                if (iconLabel != null)
+                {
+                    c.Enabled = false;
+                }
+            }
+        }
+
+        private void ControlsEnabled()
+        {
+            foreach (Control c in tblBoard.Controls)
+            {
+                Label iconLabel = (Label)c;
+                if (iconLabel != null)
+                {
+                    c.Enabled = true;
+                }
+            }
         }
 
         private void CheckForWinner()
         {
             foreach (Control control in tblBoard.Controls)
             {
-                Label iconLabel = (Label) control;
+                Label iconLabel = (Label)control;
                 if (iconLabel != null)
                 {
                     if (iconLabel.ForeColor == iconLabel.BackColor)
-                    {
                         return;
-                    }
+
                 }
             }
-            MessageBox.Show("You matched all the pictures!", "Congrats!");
-            
+            MessageBox.Show("You matched all the pictures!");
+            ControlsDisabled();
+        }
+
+        private void AssignIconsToSquares()
+        {
+            foreach (Control control in tblBoard.Controls)
+            {
+                Label iconLabel = (Label)control;
+                if (iconLabel != null)
+                {
+                    int randomNumber = random.Next(icons.Count);
+                    iconLabel.Text = icons[randomNumber];
+                    iconLabel.ForeColor = iconLabel.BackColor;
+                    icons.RemoveAt(randomNumber);
+                }
+            }
         }
 
         private void Tmr_Tick(object? sender, EventArgs e)
         {
             tmr.Stop();
             firstClicked.ForeColor = firstClicked.BackColor;
-            firstClicked.ForeColor = secondClicked.BackColor;
+            secondClicked.ForeColor = secondClicked.BackColor;
 
             firstClicked = null;
             secondClicked = null;
         }
 
         private void Label1_Click(object? sender, EventArgs e)
-        {   
+        {
             if (tmr.Enabled == true)
-            {
                 return;
-            }
 
-            Label clickedLbl = (Label) sender;
 
-            if (clickedLbl != null) 
+            Label clickedLbl = (Label)sender;
+
+            if (clickedLbl != null)
             {
                 if (clickedLbl.ForeColor == Color.Black)
                 {
@@ -120,19 +168,13 @@ namespace MatchingGame
             }
         }
 
-        private void AssignIconsToSquares()
-        {
-            foreach (Control control in tblBoard.Controls)
-            {
-                Label iconLabel = (Label)control;
-                if (iconLabel != null)
-                {
-                    int randomNumber = random.Next(icons.Count);
-                    iconLabel.Text = icons[randomNumber];
-                    iconLabel.ForeColor = iconLabel.BackColor;
-                    icons.RemoveAt(randomNumber);
-                }
-            }
+        private void BtnStart_Click(object? sender, EventArgs e)
+        {   
+            AssignIconsToSquares();
+            ControlsEnabled();
         }
+
+
+
     }
 }

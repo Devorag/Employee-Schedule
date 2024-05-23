@@ -1,33 +1,61 @@
 ﻿using System.Data;
-using CPUFramework;
 namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
     {
+        DataTable dtPresident;
+
         public frmPresident()
         {
             InitializeComponent();
+            btnSave.Click += BtnSave_Click;
+            btnDelete.Click += BtnDelete_Click;
         }
 
 
         public void ShowForm(int presidentid)
         {
-            string sql = " select p.*, y.PartyName from president p join party y on p.PartyId = y.PartyId where p.PresidentId = " + presidentid.ToString();
-            DataTable dt = SQLUtility.GetDataTable(sql);
-            lblParty.DataBindings.Add("Text", dt, "PartyName");
-            lblNum.DataBindings.Add("Text", dt, "Num");
-            txtLastName.DataBindings.Add("Text", dt, "LastName");
-            txtFirstName.DataBindings.Add("Text", dt, "FirstName");
-            txtDateBorn.DataBindings.Add("Text", dt, "DateBorn");
-            txtDateDied.DataBindings.Add("Text", dt, "DateDied");
-            txtTermStart.DataBindings.Add("Text", dt, "TermStart");
-            txtTermEnd.DataBindings.Add("Text", dt, "TermEnd");
+            dtPresident = President.Load(presidentid);
+            if (presidentid == 0)
+            {
+                dtPresident.Rows.Add();
+            }
+            DataTable dtParties = President.GetPartyList();
+            WindowsFormsUtility.SetListBinding(lstPartyName, dtParties, dtPresident, "Party");
+            //SetControlBinding(lblPartyName, dtPresident);
+            WindowsFormsUtility.SetControlBinding(txtNum, dtPresident);
+            WindowsFormsUtility.SetControlBinding(txtLastName, dtPresident);
+            WindowsFormsUtility.SetControlBinding(txtFirstName, dtPresident);
+            WindowsFormsUtility.SetControlBinding(dtpDateBorn, dtPresident);
+            WindowsFormsUtility.SetControlBinding(txtDateDied, dtPresident);
+            WindowsFormsUtility.SetControlBinding(txtTermStart, dtPresident);
+            WindowsFormsUtility.SetControlBinding(txtTermEnd, dtPresident);
+
             this.Show();
         }
 
-        private void tblMain_Paint(object sender, PaintEventArgs e)
-        {
 
+        private void Save()
+        {
+            President.Save(dtPresident);
         }
+
+        private void Delete()
+        {
+            President.Delete(dtPresident);
+            this.Close();
+        }
+
+        private void BtnDelete_Click(object? sender, EventArgs e)
+        {
+            Delete();
+        }
+
+        private void BtnSave_Click(object? sender, EventArgs e)
+        {
+            Save();
+        }
+
+
     }
 }

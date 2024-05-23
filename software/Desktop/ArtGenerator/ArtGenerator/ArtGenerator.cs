@@ -119,6 +119,8 @@ namespace ArtGenerator
                     Application.DoEvents();
                 }
             }
+            btnStart.Text = "Start";
+            ControlsEnabled();
         }
 
         private void AddShapes()
@@ -293,7 +295,7 @@ namespace ArtGenerator
         {
             bool isNumeric = true;
             int num;
-            if (!int.TryParse(textbox.Text, out num))
+            if (!int.TryParse(textbox.Text, out num) && textbox.Text != "")
             {
                 isNumeric = false;
             }
@@ -328,7 +330,8 @@ namespace ArtGenerator
 
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-            if ( IsNumeric(txtMinRed) is false || IsNumeric(txtMaxRed) is false || IsNumeric(txtMinGreen) is false
+            if (IsNumeric(txtSeconds) is false || IsNumeric(txtSpecific)is false || IsNumeric(txtMilli) is false 
+                || IsNumeric(txtMinRed) is false || IsNumeric(txtMaxRed) is false || IsNumeric(txtMinGreen) is false
                 || IsNumeric(txtMaxGreen) is false || IsNumeric(txtMinBlue) is false || IsNumeric(txtMaxBlue) is false
             || IsNumeric(txtMinHeight) is false || IsNumeric(txtMaxHeight) is false || IsNumeric(txtMinWidth) is false || IsNumeric(txtMaxWidth) is false)
             {

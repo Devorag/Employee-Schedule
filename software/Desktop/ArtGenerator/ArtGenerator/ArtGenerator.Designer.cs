@@ -160,7 +160,6 @@
             txtSeconds.Location = new Point(3, 171);
             txtSeconds.Multiline = true;
             txtSeconds.Name = "txtSeconds";
-            txtSeconds.PlaceholderText = "# of seconds";
             txtSeconds.Size = new Size(226, 78);
             txtSeconds.TabIndex = 2;
             txtSeconds.Text = "10";
@@ -172,7 +171,6 @@
             txtMilli.Location = new Point(3, 87);
             txtMilli.Multiline = true;
             txtMilli.Name = "txtMilli";
-            txtMilli.PlaceholderText = "# of milliseconds";
             txtMilli.Size = new Size(226, 78);
             txtMilli.TabIndex = 3;
             txtMilli.Text = "1000";
@@ -184,7 +182,6 @@
             txtSpecific.Location = new Point(3, 3);
             txtSpecific.Multiline = true;
             txtSpecific.Name = "txtSpecific";
-            txtSpecific.PlaceholderText = "# of shapes";
             txtSpecific.Size = new Size(226, 78);
             txtSpecific.TabIndex = 4;
             txtSpecific.Text = "10";

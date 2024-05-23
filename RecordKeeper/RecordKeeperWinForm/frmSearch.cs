@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
 using CPUFramework;
+
+
 namespace RecordKeeperWinForm
 {
     public partial class frmSearch : Form
@@ -11,7 +13,8 @@ namespace RecordKeeperWinForm
             InitializeComponent();
             btnSearch.Click += BtnSearch_Click;
             gPresidents.CellDoubleClick += GPresidents_CellDoubleClick;
-            FormatGrid();
+            btnNew.Click += BtnNew_Click;
+            WindowsFormsUtility.FormatGridForSearchResults(gPresidents);
         }
 
 
@@ -22,27 +25,23 @@ namespace RecordKeeperWinForm
         //bind the grid
 
         {
-            string sql = "select PresidentId, Num, LastName, FirstName from president p where p.lastname like '%" + lastname + "%'";
-            Debug.Print(sql);
-            DataTable dt = SQLUtility.GetDataTable(sql);
+            DataTable dt = President.SearchPresidents(lastname);
             gPresidents.DataSource = dt;
             gPresidents.Columns["PresidentId"].Visible = false;
         }
 
         private void ShowPresidentForm(int rowindex)
         {
-            int id = (int)gPresidents.Rows[rowindex].Cells["PresidentId"].Value;
+            int id = 0;
+            if (rowindex > -1)
+            {
+                id = (int)gPresidents.Rows[rowindex].Cells["PresidentId"].Value;
+            }
             frmPresident frm = new frmPresident();
             frm.ShowForm(id);
         }
 
-        private void FormatGrid()
-        {
-            gPresidents.AllowUserToAddRows = false;
-            gPresidents.ReadOnly = true;
-            gPresidents.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            gPresidents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        }
+
 
         private void GPresidents_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
         {
@@ -54,5 +53,9 @@ namespace RecordKeeperWinForm
             SearchForPresident(txtLastName.Text);
         }
 
+        private void BtnNew_Click(object? sender, EventArgs e)
+        {
+            ShowPresidentForm(-1);
+        }
     }
 }

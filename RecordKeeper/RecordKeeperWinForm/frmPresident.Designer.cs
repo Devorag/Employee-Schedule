@@ -2,6 +2,8 @@
 {
     partial class frmPresident
     {
+        private const int V = 0;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPresident));
             tblMain = new TableLayoutPanel();
             lblCaptionParty = new Label();
             lblCaptionNum = new Label();
@@ -37,15 +40,21 @@
             lblCaptionDateDied = new Label();
             lblCaptionTermStart = new Label();
             lblCaptionTermEnd = new Label();
-            lblParty = new Label();
-            lblNum = new Label();
             txtFirstName = new TextBox();
             txtLastName = new TextBox();
-            txtDateBorn = new TextBox();
             txtDateDied = new TextBox();
             txtTermStart = new TextBox();
             txtTermEnd = new TextBox();
+            lstPartyName = new ComboBox();
+            txtNum = new TextBox();
+            dtpDateBorn = new DateTimePicker();
+            tsMain = new ToolStrip();
+            btnSave = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnDelete = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
             tblMain.SuspendLayout();
+            tsMain.SuspendLayout();
             SuspendLayout();
             // 
             // tblMain
@@ -61,16 +70,15 @@
             tblMain.Controls.Add(lblCaptionDateDied, 0, 5);
             tblMain.Controls.Add(lblCaptionTermStart, 0, 6);
             tblMain.Controls.Add(lblCaptionTermEnd, 0, 7);
-            tblMain.Controls.Add(lblParty, 1, 0);
-            tblMain.Controls.Add(lblNum, 1, 1);
             tblMain.Controls.Add(txtFirstName, 1, 2);
             tblMain.Controls.Add(txtLastName, 1, 3);
-            tblMain.Controls.Add(txtDateBorn, 1, 4);
             tblMain.Controls.Add(txtDateDied, 1, 5);
             tblMain.Controls.Add(txtTermStart, 1, 6);
             tblMain.Controls.Add(txtTermEnd, 1, 7);
-            tblMain.Dock = DockStyle.Fill;
-            tblMain.Location = new Point(0, 0);
+            tblMain.Controls.Add(lstPartyName, 1, 0);
+            tblMain.Controls.Add(txtNum, 1, 1);
+            tblMain.Controls.Add(dtpDateBorn, 1, 4);
+            tblMain.Location = new Point(0, 73);
             tblMain.Name = "tblMain";
             tblMain.RowCount = 8;
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
@@ -81,9 +89,8 @@
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.Size = new Size(1091, 416);
-            tblMain.TabIndex = 0;
-            tblMain.Paint += tblMain_Paint;
+            tblMain.Size = new Size(1141, 608);
+            tblMain.TabIndex = 2;
             // 
             // lblCaptionParty
             // 
@@ -165,32 +172,12 @@
             lblCaptionTermEnd.TabIndex = 7;
             lblCaptionTermEnd.Text = "Term End";
             // 
-            // lblParty
-            // 
-            lblParty.BackColor = Color.WhiteSmoke;
-            lblParty.BorderStyle = BorderStyle.FixedSingle;
-            lblParty.Dock = DockStyle.Fill;
-            lblParty.Location = new Point(138, 0);
-            lblParty.Name = "lblParty";
-            lblParty.Size = new Size(950, 40);
-            lblParty.TabIndex = 8;
-            // 
-            // lblNum
-            // 
-            lblNum.BackColor = Color.WhiteSmoke;
-            lblNum.BorderStyle = BorderStyle.FixedSingle;
-            lblNum.Dock = DockStyle.Fill;
-            lblNum.Location = new Point(138, 40);
-            lblNum.Name = "lblNum";
-            lblNum.Size = new Size(950, 40);
-            lblNum.TabIndex = 9;
-            // 
             // txtFirstName
             // 
             txtFirstName.Dock = DockStyle.Fill;
             txtFirstName.Location = new Point(138, 83);
             txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(950, 39);
+            txtFirstName.Size = new Size(1000, 39);
             txtFirstName.TabIndex = 10;
             // 
             // txtLastName
@@ -198,23 +185,15 @@
             txtLastName.Dock = DockStyle.Fill;
             txtLastName.Location = new Point(138, 123);
             txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(950, 39);
+            txtLastName.Size = new Size(1000, 39);
             txtLastName.TabIndex = 11;
-            // 
-            // txtDateBorn
-            // 
-            txtDateBorn.Dock = DockStyle.Fill;
-            txtDateBorn.Location = new Point(138, 163);
-            txtDateBorn.Name = "txtDateBorn";
-            txtDateBorn.Size = new Size(950, 39);
-            txtDateBorn.TabIndex = 12;
             // 
             // txtDateDied
             // 
             txtDateDied.Dock = DockStyle.Fill;
             txtDateDied.Location = new Point(138, 203);
             txtDateDied.Name = "txtDateDied";
-            txtDateDied.Size = new Size(950, 39);
+            txtDateDied.Size = new Size(1000, 39);
             txtDateDied.TabIndex = 13;
             // 
             // txtTermStart
@@ -222,22 +201,85 @@
             txtTermStart.Dock = DockStyle.Fill;
             txtTermStart.Location = new Point(138, 243);
             txtTermStart.Name = "txtTermStart";
-            txtTermStart.Size = new Size(950, 39);
+            txtTermStart.Size = new Size(1000, 39);
             txtTermStart.TabIndex = 14;
             // 
             // txtTermEnd
             // 
-            txtTermEnd.Anchor = AnchorStyles.Left;
-            txtTermEnd.Location = new Point(138, 328);
+            txtTermEnd.Location = new Point(138, 283);
             txtTermEnd.Name = "txtTermEnd";
-            txtTermEnd.Size = new Size(950, 39);
+            txtTermEnd.Size = new Size(1000, 39);
             txtTermEnd.TabIndex = 15;
+            // 
+            // lstPartyName
+            // 
+            lstPartyName.FormattingEnabled = true;
+            lstPartyName.Location = new Point(138, 3);
+            lstPartyName.Name = "lstPartyName";
+            lstPartyName.Size = new Size(385, 40);
+            lstPartyName.TabIndex = 16;
+            // 
+            // txtNum
+            // 
+            txtNum.Dock = DockStyle.Fill;
+            txtNum.Location = new Point(138, 43);
+            txtNum.Name = "txtNum";
+            txtNum.Size = new Size(1000, 39);
+            txtNum.TabIndex = 17;
+            // 
+            // dtpDateBorn
+            // 
+            dtpDateBorn.Format = DateTimePickerFormat.Short;
+            dtpDateBorn.Location = new Point(138, 163);
+            dtpDateBorn.Name = "dtpDateBorn";
+            dtpDateBorn.Size = new Size(263, 39);
+            dtpDateBorn.TabIndex = 18;
+            // 
+            // tsMain
+            // 
+            tsMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            tsMain.ImageScalingSize = new Size(24, 24);
+            tsMain.Items.AddRange(new ToolStripItem[] { btnSave, toolStripSeparator1, btnDelete, toolStripSeparator2 });
+            tsMain.Location = new Point(0, 0);
+            tsMain.Name = "tsMain";
+            tsMain.Size = new Size(1141, 41);
+            tsMain.TabIndex = 1;
+            tsMain.Text = "toolStrip1";
+            // 
+            // btnSave
+            // 
+            btnSave.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnSave.Image = (Image)resources.GetObject("btnSave.Image");
+            btnSave.ImageTransparentColor = Color.Magenta;
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(68, 36);
+            btnSave.Text = "&Save";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 41);
+            // 
+            // btnDelete
+            // 
+            btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDelete.Image = (Image)resources.GetObject("btnDelete.Image");
+            btnDelete.ImageTransparentColor = Color.Magenta;
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(88, 36);
+            btnDelete.Text = "&Delete";
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 41);
             // 
             // frmPresident
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1091, 416);
+            ClientSize = new Size(1141, 678);
+            Controls.Add(tsMain);
             Controls.Add(tblMain);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(4);
@@ -245,13 +287,15 @@
             Text = "President";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
+            tsMain.ResumeLayout(false);
+            tsMain.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TableLayoutPanel tblMain;
-        private Label lblCaptionParty;
         private Label lblCaptionNum;
         private Label lblCaptionFirstName;
         private Label lblCaptionLastName;
@@ -259,13 +303,19 @@
         private Label lblCaptionDateDied;
         private Label lblCaptionTermStart;
         private Label lblCaptionTermEnd;
-        private Label lblParty;
-        private Label lblNum;
         private TextBox txtFirstName;
         private TextBox txtLastName;
-        private TextBox txtDateBorn;
         private TextBox txtDateDied;
         private TextBox txtTermStart;
         private TextBox txtTermEnd;
+        private ToolStrip tsMain;
+        private ToolStripButton btnSave;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnDelete;
+        private ToolStripSeparator toolStripSeparator2;
+        private Label lblCaptionParty;
+        private ComboBox lstPartyName;
+        private TextBox txtNum;
+        private DateTimePicker dtpDateBorn;
     }
 }

@@ -212,7 +212,7 @@ with x as(
     union select 'Sesame Chicken', 'coat chicken cutlets', 2
     union select 'Sesame Chicken', 'heat oil in frying pan', 3
     union select 'Sesame Chicken', 'fry chicken cutlets', 4
-    union select 'Sesame Chicken', 'mix all the remainding ingredients', 5
+    union select 'Sesame Chicken', 'mix all the remaining ingredients', 5
     union select 'Sesame Chicken', 'coat fried chicken cutlets with sauce', 6
     union select 'Sesame Chicken', 'cook for one hour', 7
 )
