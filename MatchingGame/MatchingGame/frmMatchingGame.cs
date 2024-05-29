@@ -31,7 +31,8 @@ namespace MatchingGame
         public frmMatchingGame()
         {
             InitializeComponent();
-            Start(); 
+            InitialSetup();
+            ControlsDisabled();
 
             label1.Click += Label1_Click;
             label2.Click += Label1_Click;
@@ -54,7 +55,8 @@ namespace MatchingGame
 
         }
 
-        private void Start()
+
+        private void InitialSetup()
         {
             foreach (Control c in tblBoard.Controls)
             {
@@ -168,8 +170,9 @@ namespace MatchingGame
             }
         }
 
+
         private void BtnStart_Click(object? sender, EventArgs e)
-        {   
+        {
             AssignIconsToSquares();
             ControlsEnabled();
         }
