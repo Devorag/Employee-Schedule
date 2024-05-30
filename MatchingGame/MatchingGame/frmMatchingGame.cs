@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace MatchingGame
 
         Label firstClicked = null;
         Label secondClicked = null;
+
 
         List<string> icons = new()
             {
@@ -55,6 +57,23 @@ namespace MatchingGame
 
         }
 
+        private void Start()
+        {
+            foreach (Control c in tblBoard.Controls)
+            {
+                Label iconLabel = (Label)c;
+                if (iconLabel != null)
+                {
+                    if (iconLabel.ForeColor != iconLabel.BackColor)
+                    {
+                        iconLabel.ForeColor = iconLabel.BackColor;
+                        return;
+                    }
+                }
+            }
+            AssignIconsToSquares();
+            ControlsEnabled();
+        }
 
         private void InitialSetup()
         {
@@ -173,8 +192,7 @@ namespace MatchingGame
 
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-            AssignIconsToSquares();
-            ControlsEnabled();
+            Start();
         }
 
 
