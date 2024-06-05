@@ -1,0 +1,26 @@
+{
+  "name": "@username/repo name",
+  "private": false,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npx tsc --project tsconfig.json",
+    "lint": "…", //leave as is
+    "preview": "vite preview"
+  },
+  "dependencies": {…}, //leave as is   "devDependencies": {…}, //leave as is
+  "description": "Reusable…",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {"registry": "https://npm.pkg.github.com/"},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/username/repo.git"
+  },
+  "keywords": [],
+  "author": "Your Name",
+  "license": "MIT"
+}
