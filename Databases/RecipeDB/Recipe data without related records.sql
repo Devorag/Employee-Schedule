@@ -7,7 +7,7 @@ union select (select c.CuisineId from cuisine c where c.CuisineType = 'American'
 union select (select c.cuisineId from Cuisine C where c.CuisineType = 'American'), u.usersId, 'Smores', 300, '01-01-2019', '04-04-2019', '05-05-2020' from users u where u.lastname = 'Svei'
 union select (select c.cuisineId from cuisine c where c.CuisineType = 'French'), u.usersId, 'Waffles', 200, '08-12-2023', null, '01-03-2024' from users u where u.lastname = 'Korb'
 union select (select c.cuisineId from cuisine c where c.cuisineType = 'Indian'), u.usersId, 'Roasted Potatoes', 150, '07-06-2015', '06-06-2016', null from users u where u.lastname = 'Mozes'
-select (select c.cuisineId from cuisine c where c.CuisineType = 'Chinese'), u.usersId, 'Chicken Poppers', 325, '01-01-2021', '03-04-2021', '11-11-2021' from users u where u.lastname = 'Katz'
+union select (select c.cuisineId from cuisine c where c.CuisineType = 'Chinese'), u.usersId, 'Chicken Poppers', 325, '01-01-2021', '03-04-2021', '11-11-2021' from users u where u.lastname = 'Katz'
 
 insert Cuisine(CuisineType)
 select 'French'

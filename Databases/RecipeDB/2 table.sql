@@ -1,6 +1,6 @@
 -- SM Excellent work! 100% See comment, no need to resubmit.
 
-use RecipeDb
+--use RecipeDb
 go 
 drop table if exists CookbookRecipe
 drop table if exists Cookbook 
@@ -39,7 +39,7 @@ create table dbo.Cuisine(
     CuisineId int not null identity primary key,
     CuisineType varchar(100) not null 
         constraint ck_Cuisine_CuisineType_cannot_be_Blank check(CuisineType <> ''),
-        constraint u_Cuisine_CuisineType unique(CuisineType)
+        --constraint u_Cuisine_CuisineType unique(CuisineType)
 )
 go 
 create table dbo.Recipe(
@@ -67,6 +67,7 @@ create table dbo.Recipe(
         end,
     RecipePicture as concat('Recipe', '_', replace(RecipeName, ' ', '_'), '.jpg') persisted,
     constraint ck_Recipe_DateDrafted_before_DatePublished_and_DateArchived_and_DatePublished_before_Archived check(DateDrafted<= DatePublished and isnull(DatePublished,DateDrafted) <= DateArchived)
+    
 )
 go
 create table dbo.UnitOfMeasure(
@@ -78,7 +79,7 @@ create table dbo.UnitOfMeasure(
 go
 create table dbo.RecipeIngredient(
     RecipeIngredientId int not null identity primary key,
-    RecipeId int not null  
+    RecipeId int not null
         constraint F_Recipe_RecipeIngredient foreign key references Recipe(RecipeId),
     IngredientId int not null 
         constraint f_Ingredients_RecipeIngredient foreign key references Ingredient(IngredientId),

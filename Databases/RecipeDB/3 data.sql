@@ -1,6 +1,6 @@
 -- SM Excellent! 100%
 
-use RecipeDb 
+--use RecipeDb 
 go 
 delete CookbookRecipe
 delete cookbook
