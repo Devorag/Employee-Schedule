@@ -66,7 +66,7 @@ create table dbo.Recipe(
             when datearchived is null and datepublished is null then 'Drafted' 
         end,
     RecipePicture as concat('Recipe', '_', replace(RecipeName, ' ', '_'), '.jpg') persisted,
-    constraint ck_Recipe_DateDrafted_before_DatePublished_and_DateArchived_and_DatePublished_before_Archived check(DateDrafted<= DatePublished and isnull(DatePublished,DateDrafted) <= DateArchived)
+    --constraint ck_Recipe_DateDrafted_before_DatePublished_and_DateArchived_and_DatePublished_before_Archived check(DateDrafted<= DatePublished and isnull(DatePublished,DateDrafted) <= DateArchived)
     
 )
 go
