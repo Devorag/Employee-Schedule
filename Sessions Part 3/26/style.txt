@@ -1,0 +1,11 @@
+<style>
+{`
+a {
+margin: 0 2px;
+border: solid black 1px;
+text-decoration: none;
+color: blue;
+font-size: 10px;
+}
+`}
+</style>
