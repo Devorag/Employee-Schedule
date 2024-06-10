@@ -1,6 +1,6 @@
 
 create or alter procedure dbo.UsersGet(@UsersId int = 0, @All bit = 0, @UsersName varchar(100) = '')
-as 
+as  
 begin 
 
 	select @UsersName = nullif(@UsersName, '')

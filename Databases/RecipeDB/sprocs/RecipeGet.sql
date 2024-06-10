@@ -14,7 +14,7 @@ end
 go
 
 exec RecipeGet @RecipeName = '' 
-exec RecipeGet @RecipeName = 'e'
+exec RecipeGet @RecipeName = 'ea'
 
 exec RecipeGet @All = 1
 

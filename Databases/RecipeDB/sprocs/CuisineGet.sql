@@ -22,4 +22,4 @@ exec CuisineGet @All = 1
 
 declare @id int
 select top 1 @id = c.CuisineId from Cuisine c
-exec CuisineGet @CuisineId = @id
+exec CuisineGet @CuisineId = @id 
