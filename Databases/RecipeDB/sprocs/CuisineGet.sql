@@ -1,3 +1,5 @@
+use RecipeDB 
+go 
 
 create or alter procedure dbo.CuisineGet(@CuisineId int = 0, @All bit = 0, @CuisineType  varchar(300) = '')
 as 

@@ -18,6 +18,6 @@ exec UsersGet @UsersName = 'a'
 
 exec UsersGet @All = 1
 
-declare @id int
+declare @id int 
 select top 1 @id = u.UsersId from Users u 
 exec UsersGet @UsersId = @id
