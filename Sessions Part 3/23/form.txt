@@ -1,0 +1,33 @@
+<form action="" method="post" class="needs-validation">
+    <div class="mb-3">
+        <label for="partyId" class="form-label">Party ID:</label>
+        <input type="number" id="partyId" name="partyId" value="0" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="partyName" class="form-label">Party Name:</label>
+        <input type="text" id="partyName" name="partyName" value="coffee party" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="yearStart" class="form-label">Year Start:</label>
+        <input type="number" id="yearStart" name="yearStart" value="2000" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="colorId" class="form-label">Color ID:</label>
+        <input type="number" id="colorId" name="colorId" value="17" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="partyDesc" class="form-label">Party Description:</label>
+        <input type="text" id="partyDesc" name="partyDesc" value="drink coffee" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="partyColor" class="form-label">Party Color:</label>
+        <input type="text" id="partyColor" name="partyColor" value="black" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
