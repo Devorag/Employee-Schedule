@@ -1,9 +1,4 @@
 ﻿using System.Data;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
 using gnuciDictionary;
 
 namespace Defineciando
@@ -27,7 +22,11 @@ namespace Defineciando
             btnPick.Click += BtnPick_Click;
             btnEnter.Click += BtnEnter_Click;
             btnGiveup.Click += BtnGiveup_Click;
+
+            txtSpecificLetters.KeyPress += txtSpecificLetters_KeyPress;
+            txtNumLetters.KeyPress += TxtNumLetters_KeyPress;
         }
+
 
         private void InitializeLists()
         {
@@ -36,16 +35,6 @@ namespace Defineciando
             lstSpecific = new List<Word>();
         }
 
-        private void BtnGiveup_Click(object? sender, EventArgs e)
-        {
-            UpdateScore(false, true);
-            ClearPreviousState();
-        }
-
-        private void BtnEnter_Click(object? sender, EventArgs e)
-        {
-            CheckAnswer();
-        }
 
         private void CheckAnswer()
         {
@@ -174,35 +163,8 @@ namespace Defineciando
         }
 
 
-        private void BtnPick_Click(object? sender, EventArgs e)
-        {
-            ClearPreviousState();
-
-            string word = DisplayWord();
-            if (word == null) return;
-
-            txtTheWord.Text = word;
-            txtNumWordsTried.Text = (ConvertTextToInt(txtNumWordsTried.Text) + 1).ToString();
-
-            correctDefinition = GetCorrectDefinition(word);
-
-            List<String> definitions = new List<string> {correctDefinition};
-            definitions.Add(GetWrongDefinition(definitions));
-            definitions.Add(GetWrongDefinition(definitions));
-            Shuffle(definitions);
-
-            txtDef1.Text = definitions[0];
-            txtDef2.Text = definitions[1];
-            txtDef3.Text = definitions[2];
-
-            optDefinition1.Checked = false;
-            optDefinition2.Checked = false;
-            optDefinition3.Checked = false;
-        }
-
         private void ClearPreviousState()
         {
-
             txtDef1.Text = "";
             txtDef2.Text = "";
             txtDef3.Text = "";
@@ -210,6 +172,9 @@ namespace Defineciando
             txt1.Text = "";
             txt2.Text = "";
             txt3.Text = "";
+
+            lblMessage.Text = "";
+            txtTheWord.Text = "";
 
             txt1.BackColor = Color.White;
             txt2.BackColor = Color.White;
@@ -248,15 +213,73 @@ namespace Defineciando
             txtNumWordsTried.Text = numWordsTried.ToString();
         }
 
-        private void GameMessage()
+        private void SelectAndDisplayWord()
         {
 
+            string word = DisplayWord();
+            if (word == null) return;
+
+            txtTheWord.Text = word;
+            txtNumWordsTried.Text = (ConvertTextToInt(txtNumWordsTried.Text) + 1).ToString();
+
+            correctDefinition = GetCorrectDefinition(word);
         }
 
-        private void txxtScore_TextChanged(object sender, EventArgs e)
+        private void Definitions()
         {
+            List<String> definitions = new List<string> { correctDefinition };
+            definitions.Add(GetWrongDefinition(definitions));
+            definitions.Add(GetWrongDefinition(definitions));
+            Shuffle(definitions);
 
+            txtDef1.Text = definitions[0];
+            txtDef2.Text = definitions[1];
+            txtDef3.Text = definitions[2];
         }
+
+        private void BtnGiveup_Click(object? sender, EventArgs e)
+        {
+            UpdateScore(false, true);
+            ClearPreviousState();
+            txtNumLetters.Text = "";
+            txtSpecificLetters.Text = "";
+        }
+
+        private void BtnEnter_Click(object? sender, EventArgs e)
+        {
+            CheckAnswer();
+        }
+
+
+        private void BtnPick_Click(object? sender, EventArgs e)
+        {
+            ClearPreviousState();
+
+            SelectAndDisplayWord();
+
+            Definitions();
+
+            optDefinition1.Checked = false;
+            optDefinition2.Checked = false;
+            optDefinition3.Checked = false;
+        }
+
+        private void txtSpecificLetters_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar >= 32)
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private void TxtNumLetters_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar >= 32)
+            {
+                e.Handled = true; // Ignore the key press if it's not a digit or control character
+            }
+        }
+
     }
 }
     // defintions gnuciDictionary.Dictionary.Definitions.Define

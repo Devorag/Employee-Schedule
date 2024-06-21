@@ -13,11 +13,11 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+          if (disposing && (components != null))
+        {
+          components.Dispose();
+        }
+        base.Dispose(disposing);
         }
 
 
@@ -34,10 +34,10 @@
             lblDef3 = new Label();
             txtDef3 = new TextBox();
             tblDef2 = new TableLayoutPanel();
-            lblDef2 = new TextBox();
             txtDef2 = new TextBox();
-            lblDef1 = new TextBox();
+            lblDef2 = new Label();
             txtDef1 = new TextBox();
+            lblDef1 = new Label();
             tblDef1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             lblMessage = new Label();
@@ -123,34 +123,16 @@
             tblDef2.ColumnCount = 2;
             tblDef2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tblDef2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tblDef2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tblDef2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tblDef2.Controls.Add(lblDef2, 0, 0);
             tblDef2.Controls.Add(txtDef2, 1, 0);
+            tblDef2.Controls.Add(lblDef2, 0, 0);
             tblDef2.Dock = DockStyle.Fill;
             tblDef2.Location = new Point(3, 739);
             tblDef2.Name = "tblDef2";
             tblDef2.RowCount = 2;
             tblDef2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tblDef2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblDef2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tblDef2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tblDef2.Size = new Size(816, 209);
             tblDef2.TabIndex = 8;
-            // 
-            // lblDef2
-            // 
-            lblDef2.Dock = DockStyle.Fill;
-            lblDef2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            lblDef2.ForeColor = Color.FromArgb(192, 192, 255);
-            lblDef2.ImeMode = ImeMode.On;
-            lblDef2.Location = new Point(3, 3);
-            lblDef2.Multiline = true;
-            lblDef2.Name = "lblDef2";
-            lblDef2.Size = new Size(198, 98);
-            lblDef2.TabIndex = 0;
-            lblDef2.Text = "Def #2";
-            lblDef2.TextAlign = HorizontalAlignment.Center;
             // 
             // txtDef2
             // 
@@ -164,19 +146,19 @@
             txtDef2.TabIndex = 1;
             txtDef2.UseWaitCursor = true;
             // 
-            // lblDef1
+            // lblDef2
             // 
-            lblDef1.Dock = DockStyle.Fill;
-            lblDef1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            lblDef1.ForeColor = Color.FromArgb(255, 128, 128);
-            lblDef1.ImeMode = ImeMode.On;
-            lblDef1.Location = new Point(3, 3);
-            lblDef1.Multiline = true;
-            lblDef1.Name = "lblDef1";
-            lblDef1.Size = new Size(198, 98);
-            lblDef1.TabIndex = 0;
-            lblDef1.Text = "Def #1:";
-            lblDef1.TextAlign = HorizontalAlignment.Center;
+            lblDef2.AutoSize = true;
+            lblDef2.BackColor = SystemColors.ControlLightLight;
+            lblDef2.Dock = DockStyle.Fill;
+            lblDef2.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDef2.ForeColor = Color.FromArgb(192, 0, 192);
+            lblDef2.Location = new Point(3, 0);
+            lblDef2.Name = "lblDef2";
+            lblDef2.Size = new Size(198, 104);
+            lblDef2.TabIndex = 2;
+            lblDef2.Text = "Def #2";
+            lblDef2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtDef1
             // 
@@ -190,13 +172,27 @@
             txtDef1.TabIndex = 1;
             txtDef1.UseWaitCursor = true;
             // 
+            // lblDef1
+            // 
+            lblDef1.AutoSize = true;
+            lblDef1.BackColor = SystemColors.ControlLightLight;
+            lblDef1.Dock = DockStyle.Fill;
+            lblDef1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            lblDef1.ForeColor = Color.FromArgb(255, 128, 128);
+            lblDef1.Location = new Point(3, 0);
+            lblDef1.Name = "lblDef1";
+            lblDef1.Size = new Size(198, 104);
+            lblDef1.TabIndex = 2;
+            lblDef1.Text = "Def #1";
+            lblDef1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // tblDef1
             // 
             tblDef1.ColumnCount = 2;
             tblDef1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tblDef1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tblDef1.Controls.Add(lblDef1, 0, 0);
             tblDef1.Controls.Add(txtDef1, 1, 0);
+            tblDef1.Controls.Add(lblDef1, 0, 0);
             tblDef1.Dock = DockStyle.Fill;
             tblDef1.Location = new Point(3, 524);
             tblDef1.Name = "tblDef1";
@@ -288,7 +284,6 @@
             txtScore.TabIndex = 4;
             txtScore.Text = "0";
             txtScore.TextAlign = HorizontalAlignment.Center;
-            txtScore.TextChanged += txxtScore_TextChanged;
             // 
             // tblWord
             // 
@@ -513,7 +508,6 @@
             txtNumLetters.Name = "txtNumLetters";
             txtNumLetters.Size = new Size(223, 99);
             txtNumLetters.TabIndex = 0;
-            txtNumLetters.Text = "\r\n";
             txtNumLetters.TextAlign = HorizontalAlignment.Center;
             txtNumLetters.UseWaitCursor = true;
             // 
@@ -527,7 +521,6 @@
             txtSpecificLetters.Name = "txtSpecificLetters";
             txtSpecificLetters.Size = new Size(223, 99);
             txtSpecificLetters.TabIndex = 1;
-            txtSpecificLetters.Text = "\r\n\r\n";
             txtSpecificLetters.TextAlign = HorizontalAlignment.Center;
             // 
             // lblInstructions
@@ -680,18 +673,17 @@
         private TextBox txtNumWordsTried;
         private Label lblScore;
         private TextBox txtScore;
-        //private TextBox txtWord;
-        private TextBox lblDef1;
         private TextBox txtDef1;
         private TableLayoutPanel tblCorrect;
         private TextBox txt1;
         private TextBox txt2;
         private TextBox txt3;
-        private TextBox lblDef2;
         private Label lblDef3;
         private TextBox txtDef3;
         private TextBox txtDef2;
         private Label lblWords;
         private TextBox txtTheWord;
+        private Label lblDef1;
+        private Label lblDef2;
     }
 }
