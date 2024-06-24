@@ -110,6 +110,7 @@
             // 
             // txtDef3
             // 
+            txtDef3.BorderStyle = BorderStyle.FixedSingle;
             txtDef3.Dock = DockStyle.Fill;
             txtDef3.Location = new Point(207, 3);
             txtDef3.Multiline = true;
@@ -117,6 +118,7 @@
             tblDef3.SetRowSpan(txtDef3, 2);
             txtDef3.Size = new Size(606, 207);
             txtDef3.TabIndex = 1;
+            txtDef3.TabStop = false;
             // 
             // tblDef2
             // 
@@ -143,7 +145,8 @@
             txtDef2.Name = "txtDef2";
             tblDef2.SetRowSpan(txtDef2, 2);
             txtDef2.Size = new Size(606, 203);
-            txtDef2.TabIndex = 1;
+            txtDef2.TabIndex = 0;
+            txtDef2.TabStop = false;
             txtDef2.UseWaitCursor = true;
             // 
             // lblDef2
@@ -156,7 +159,7 @@
             lblDef2.Location = new Point(3, 0);
             lblDef2.Name = "lblDef2";
             lblDef2.Size = new Size(198, 104);
-            lblDef2.TabIndex = 2;
+            lblDef2.TabIndex = 1;
             lblDef2.Text = "Def #2";
             lblDef2.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -169,7 +172,8 @@
             txtDef1.Name = "txtDef1";
             tblDef1.SetRowSpan(txtDef1, 2);
             txtDef1.Size = new Size(606, 203);
-            txtDef1.TabIndex = 1;
+            txtDef1.TabIndex = 0;
+            txtDef1.TabStop = false;
             txtDef1.UseWaitCursor = true;
             // 
             // lblDef1
@@ -182,7 +186,7 @@
             lblDef1.Location = new Point(3, 0);
             lblDef1.Name = "lblDef1";
             lblDef1.Size = new Size(198, 104);
-            lblDef1.TabIndex = 2;
+            lblDef1.TabIndex = 1;
             lblDef1.Text = "Def #1";
             lblDef1.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -257,7 +261,7 @@
             txtNumWordsTried.Multiline = true;
             txtNumWordsTried.Name = "txtNumWordsTried";
             txtNumWordsTried.Size = new Size(157, 96);
-            txtNumWordsTried.TabIndex = 2;
+            txtNumWordsTried.TabIndex = 8;
             txtNumWordsTried.TextAlign = HorizontalAlignment.Center;
             // 
             // lblScore
@@ -268,7 +272,7 @@
             lblScore.Location = new Point(1312, 0);
             lblScore.Name = "lblScore";
             lblScore.Size = new Size(157, 102);
-            lblScore.TabIndex = 3;
+            lblScore.TabIndex = 9;
             lblScore.Text = "Score:";
             lblScore.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -281,7 +285,7 @@
             txtScore.Multiline = true;
             txtScore.Name = "txtScore";
             txtScore.Size = new Size(161, 96);
-            txtScore.TabIndex = 4;
+            txtScore.TabIndex = 9;
             txtScore.Text = "0";
             txtScore.TextAlign = HorizontalAlignment.Center;
             // 
@@ -324,7 +328,8 @@
             txtTheWord.Multiline = true;
             txtTheWord.Name = "txtTheWord";
             txtTheWord.Size = new Size(649, 96);
-            txtTheWord.TabIndex = 1;
+            txtTheWord.TabIndex = 10;
+            txtTheWord.TabStop = false;
             txtTheWord.TextAlign = HorizontalAlignment.Center;
             // 
             // tblDefinitions
@@ -362,7 +367,7 @@
             btnPick.Location = new Point(3, 0);
             btnPick.Name = "btnPick";
             btnPick.Size = new Size(264, 102);
-            btnPick.TabIndex = 0;
+            btnPick.TabIndex = 2;
             btnPick.Text = "Pick a Word";
             btnPick.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -377,7 +382,7 @@
             btnGiveup.Location = new Point(273, 0);
             btnGiveup.Name = "btnGiveup";
             btnGiveup.Size = new Size(264, 102);
-            btnGiveup.TabIndex = 7;
+            btnGiveup.TabIndex = 3;
             btnGiveup.Text = "I give up ";
             btnGiveup.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -390,7 +395,7 @@
             optDefinition1.Location = new Point(543, 3);
             optDefinition1.Name = "optDefinition1";
             optDefinition1.Size = new Size(275, 96);
-            optDefinition1.TabIndex = 1;
+            optDefinition1.TabIndex = 4;
             optDefinition1.TabStop = true;
             optDefinition1.Text = "Definition 1 ";
             optDefinition1.UseVisualStyleBackColor = true;
@@ -404,7 +409,7 @@
             optDefinition2.Location = new Point(824, 3);
             optDefinition2.Name = "optDefinition2";
             optDefinition2.Size = new Size(277, 96);
-            optDefinition2.TabIndex = 2;
+            optDefinition2.TabIndex = 5;
             optDefinition2.TabStop = true;
             optDefinition2.Text = "Definition 2 ";
             optDefinition2.UseVisualStyleBackColor = true;
@@ -418,7 +423,7 @@
             optDefinition3.Location = new Point(1107, 3);
             optDefinition3.Name = "optDefinition3";
             optDefinition3.Size = new Size(281, 96);
-            optDefinition3.TabIndex = 3;
+            optDefinition3.TabIndex = 6;
             optDefinition3.TabStop = true;
             optDefinition3.Text = "Definition 3 ";
             optDefinition3.UseVisualStyleBackColor = true;
@@ -434,7 +439,7 @@
             btnEnter.Location = new Point(1394, 0);
             btnEnter.Name = "btnEnter";
             btnEnter.Size = new Size(242, 102);
-            btnEnter.TabIndex = 4;
+            btnEnter.TabIndex = 7;
             btnEnter.Text = "Enter";
             btnEnter.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -460,7 +465,7 @@
             tblFilter.RowCount = 1;
             tblFilter.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tblFilter.Size = new Size(1639, 105);
-            tblFilter.TabIndex = 0;
+            tblFilter.TabIndex = 1;
             // 
             // lblFilter
             // 
@@ -470,7 +475,7 @@
             lblFilter.Location = new Point(87, 0);
             lblFilter.Name = "lblFilter";
             lblFilter.Size = new Size(128, 105);
-            lblFilter.TabIndex = 1;
+            lblFilter.TabIndex = 0;
             lblFilter.Text = "Filter:";
             lblFilter.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -482,7 +487,7 @@
             lbllNumLetters.Location = new Point(221, 0);
             lbllNumLetters.Name = "lbllNumLetters";
             lbllNumLetters.Size = new Size(223, 105);
-            lbllNumLetters.TabIndex = 2;
+            lbllNumLetters.TabIndex = 1;
             lbllNumLetters.Text = "Number of Letters:";
             lbllNumLetters.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -494,7 +499,7 @@
             lblSpecificLetters.Location = new Point(679, 0);
             lblSpecificLetters.Name = "lblSpecificLetters";
             lblSpecificLetters.Size = new Size(223, 105);
-            lblSpecificLetters.TabIndex = 4;
+            lblSpecificLetters.TabIndex = 2;
             lblSpecificLetters.Text = "Specific Letter (s):";
             lblSpecificLetters.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -595,6 +600,7 @@
             txt1.Name = "txt1";
             txt1.Size = new Size(402, 208);
             txt1.TabIndex = 0;
+            txt1.TabStop = false;
             // 
             // txt2
             // 
@@ -605,6 +611,7 @@
             txt2.Name = "txt2";
             txt2.Size = new Size(402, 208);
             txt2.TabIndex = 1;
+            txt2.TabStop = false;
             // 
             // txt3
             // 
@@ -616,6 +623,7 @@
             txt3.Name = "txt3";
             txt3.Size = new Size(402, 209);
             txt3.TabIndex = 2;
+            txt3.TabStop = false;
             // 
             // frmDefineciando
             // 

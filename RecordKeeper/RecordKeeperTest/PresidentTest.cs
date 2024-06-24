@@ -20,8 +20,8 @@ namespace RecordKeeperTest
             DataTable dt = SQLUtility.GetDataTable("select * from president where presidentid = 0");
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
-            int partyid = SQLUtility.GetFirstColumnFirstRowValue("select top 1 partyid from party");
-            int maxnum = SQLUtility.GetFirstColumnFirstRowValue("select max(num) from president");
+            int partyid = SQLUtility.GetFirstCFirstRValue("select top 1 partyid from party");
+            int maxnum = SQLUtility.GetFirstCFirstRValue("select max(num) from president");
             Assume.That(partyid > 0, "Can't run test, no parties in the db");
             
             maxnum = maxnum + 1;

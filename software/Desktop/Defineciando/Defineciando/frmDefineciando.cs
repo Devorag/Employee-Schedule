@@ -15,6 +15,7 @@ namespace Defineciando
             InitializeComponent();
             InitializeEventHandlers();
             InitializeLists();
+            SetInitialControlStates();
         }
 
         private void InitializeEventHandlers()
@@ -27,7 +28,6 @@ namespace Defineciando
             txtNumLetters.KeyPress += TxtNumLetters_KeyPress;
         }
 
-
         private void InitializeLists()
         {
             lstw = gnuciDictionary.EnglishDictionary.GetAllWords().ToList();
@@ -35,13 +35,39 @@ namespace Defineciando
             lstSpecific = new List<Word>();
         }
 
+        private void SetInitialControlStates()
+        {
+            txtTheWord.Enabled = false;
+            txtDef1.Enabled = false;
+            txtDef2.Enabled = false;
+            txtDef3.Enabled = false;
+            txt1.Enabled = false;
+            txt2.Enabled = false;
+            txt3.Enabled = false;
+            txtNumWordsTried.Enabled = false;
+            txtScore.Enabled = false;
+            btnEnter.Enabled = false;
+            btnGiveup.Enabled = false;
+        }
+
+        private void UpdateControlStatesAfterWordSelection()
+        {
+            btnEnter.Enabled = true;
+            btnGiveup.Enabled = true;
+        }
+
+        private void UpdateControlStatesAfterAnswer()
+        {
+            btnEnter.Enabled = false;
+            btnGiveup.Enabled = false;
+        }
 
         private void CheckAnswer()
         {
             string selectedDef = GetSelectedDefinition();
             bool isCorrect = selectedDef == correctDefinition;
 
-            DisplayCorrectMessage(isCorrect);
+            DisplayResult(isCorrect);
             UpdateScore(isCorrect);
 
             lblMessage.Text = isCorrect ? "Good, your choice is correct" : "Sorry, your choice is wrong";
@@ -56,7 +82,7 @@ namespace Defineciando
             return string.Empty;
         }
 
-        private void DisplayCorrectMessage(bool isCorrect)
+        private void DisplayResult(bool isCorrect)
         {
             txt1.BackColor = Color.White;
             txt2.BackColor = Color.White;
@@ -65,17 +91,14 @@ namespace Defineciando
             if (optDefinition1.Checked)
             {
                 txt1.Text = isCorrect ? "CORRECT" : "INCORRECT";
-                txt1.BackColor = isCorrect ? Color.Green : Color.Red;
             }
             else if (optDefinition2.Checked)
             {
                 txt2.Text = isCorrect ? "CORRECT" : "INCORRECT";
-                txt2.BackColor = isCorrect ? Color.Green : Color.Red;
             }
             else if (optDefinition3.Checked)
             {
                 txt3.Text = isCorrect ? "CORRECT" : "INCORRECT";
-                txt3.BackColor = isCorrect ? Color.Green : Color.Red;
             }
 
             UpdateDefinitionColors();
@@ -243,11 +266,13 @@ namespace Defineciando
             ClearPreviousState();
             txtNumLetters.Text = "";
             txtSpecificLetters.Text = "";
+            UpdateControlStatesAfterAnswer();
         }
 
         private void BtnEnter_Click(object? sender, EventArgs e)
         {
             CheckAnswer();
+            UpdateControlStatesAfterAnswer();
         }
 
 
@@ -262,6 +287,8 @@ namespace Defineciando
             optDefinition1.Checked = false;
             optDefinition2.Checked = false;
             optDefinition3.Checked = false;
+
+            UpdateControlStatesAfterWordSelection();
         }
 
         private void txtSpecificLetters_KeyPress(object sender, KeyPressEventArgs e)
