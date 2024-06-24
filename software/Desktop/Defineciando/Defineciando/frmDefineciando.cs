@@ -26,6 +26,10 @@ namespace Defineciando
 
             txtSpecificLetters.KeyPress += txtSpecificLetters_KeyPress;
             txtNumLetters.KeyPress += TxtNumLetters_KeyPress;
+
+            optDefinition1.CheckedChanged += RadioButton_CheckedChanged;
+            optDefinition2.CheckedChanged += RadioButton_CheckedChanged;
+            optDefinition3.CheckedChanged += RadioButton_CheckedChanged;
         }
 
         private void InitializeLists()
@@ -52,8 +56,8 @@ namespace Defineciando
 
         private void UpdateControlStatesAfterWordSelection()
         {
-            btnEnter.Enabled = true;
             btnGiveup.Enabled = true;
+            btnEnter.Enabled = false;
         }
 
         private void UpdateControlStatesAfterAnswer()
@@ -88,19 +92,6 @@ namespace Defineciando
             txt2.BackColor = Color.White;
             txt3.BackColor = Color.White;
 
-            if (optDefinition1.Checked)
-            {
-                txt1.Text = isCorrect ? "CORRECT" : "INCORRECT";
-            }
-            else if (optDefinition2.Checked)
-            {
-                txt2.Text = isCorrect ? "CORRECT" : "INCORRECT";
-            }
-            else if (optDefinition3.Checked)
-            {
-                txt3.Text = isCorrect ? "CORRECT" : "INCORRECT";
-            }
-
             UpdateDefinitionColors();
         }
 
@@ -129,7 +120,7 @@ namespace Defineciando
 
         private string GetCorrectDefinition(string word)
         {
-            return lstw.First(w=> w.Value == word).Definition;
+            return lstw.First(w => w.Value == word).Definition;
         }
 
         private int ConvertTextToInt(string txt)
@@ -175,7 +166,7 @@ namespace Defineciando
             if (string.IsNullOrEmpty(txtNumLetters.Text))
             {
                 lstAmount = new List<Word>(lstw);
-            } 
+            }
             else
             {
                 int numLetters = ConvertTextToInt(txtNumLetters.Text);
@@ -295,7 +286,7 @@ namespace Defineciando
         {
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar >= 32)
             {
-                e.Handled = true; 
+                e.Handled = true;
             }
         }
 
@@ -307,7 +298,19 @@ namespace Defineciando
             }
         }
 
+        private void RadioButton_CheckedChanged(object? sender, EventArgs e)
+        {
+            if (optDefinition1.Checked || optDefinition2.Checked || optDefinition3.Checked)
+            {
+                btnEnter.Enabled = true;
+            }
+            else
+            {
+                btnEnter.Enabled = false;
+            }
+        }
     }
 }
+
     // defintions gnuciDictionary.Dictionary.Definitions.Define
 
