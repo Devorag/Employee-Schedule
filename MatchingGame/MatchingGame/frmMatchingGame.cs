@@ -1,60 +1,38 @@
-﻿
-using System;
-using System.CodeDom;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 
 namespace MatchingGame
 {
     public partial class frmMatchingGame : Form
     {
         System.Windows.Forms.Timer tmr = new() { Interval = 950 };
-
         Random random = new Random();
-
         Label firstClicked = null;
         Label secondClicked = null;
-
-
         List<string> icons = new()
-            {
-                "!", "!", "N", "N", ",", ",", "k", "k",
-                "b", "b", "v", "v", "w", "W", "z", "z"
-            };
+        {
+            "!", "!", "N", "N", ",", ",", "k", "k",
+            "b", "b", "v", "v", "w", "W", "z", "z"
+        };
+
         public frmMatchingGame()
         {
             InitializeComponent();
             InitialSetup();
             ControlsDisabled();
 
-            label1.Click += Label1_Click;
-            label2.Click += Label1_Click;
-            label3.Click += Label1_Click;
-            label4.Click += Label1_Click;
-            label5.Click += Label1_Click;
-            label6.Click += Label1_Click;
-            label7.Click += Label1_Click;
-            label8.Click += Label1_Click;
-            label9.Click += Label1_Click;
-            label10.Click += Label1_Click;
-            label11.Click += Label1_Click;
-            label12.Click += Label1_Click;
-            label13.Click += Label1_Click;
-            label14.Click += Label1_Click;
-            label15.Click += Label1_Click;
-            label16.Click += Label1_Click;
+            foreach (Control c in tblBoard.Controls)
+            {
+                if (c is Label)
+                {
+                    c.Click += Label_Click;
+                }
+            }
+
             tmr.Tick += Tmr_Tick;
             BtnStart.Click += BtnStart_Click;
-
         }
 
         private void Start()
@@ -82,7 +60,9 @@ namespace MatchingGame
                 Label iconLabel = (Label)c;
                 if (iconLabel != null)
                 {
-                    iconLabel.ForeColor = iconLabel.BackColor;
+                    iconLabel.BackColor = Color.CornflowerBlue;
+                    iconLabel.ForeColor = iconLabel.BackColor; // Hide text initially
+                    iconLabel.Text = string.Empty; // Ensure no text is displayed initially
                 }
             }
         }
@@ -91,11 +71,7 @@ namespace MatchingGame
         {
             foreach (Control c in tblBoard.Controls)
             {
-                Label iconLabel = (Label)c;
-                if (iconLabel != null)
-                {
-                    c.Enabled = false;
-                }
+                c.Enabled = false;
             }
         }
 
@@ -103,11 +79,7 @@ namespace MatchingGame
         {
             foreach (Control c in tblBoard.Controls)
             {
-                Label iconLabel = (Label)c;
-                if (iconLabel != null)
-                {
-                    c.Enabled = true;
-                }
+                c.Enabled = true;
             }
         }
 
@@ -120,7 +92,6 @@ namespace MatchingGame
                 {
                     if (iconLabel.ForeColor == iconLabel.BackColor)
                         return;
-
                 }
             }
             MessageBox.Show("You matched all the pictures!");
@@ -129,16 +100,29 @@ namespace MatchingGame
 
         private void AssignIconsToSquares()
         {
-            foreach (Control control in tblBoard.Controls)
+            try
             {
-                Label iconLabel = (Label)control;
-                if (iconLabel != null)
+                icons = new List<string>
                 {
-                    int randomNumber = random.Next(icons.Count);
-                    iconLabel.Text = icons[randomNumber];
-                    iconLabel.ForeColor = iconLabel.BackColor;
-                    icons.RemoveAt(randomNumber);
+                    "!", "!", "N", "N", ",", ",", "k", "k",
+                    "b", "b", "v", "v", "w", "W", "z", "z"
+                };
+
+                foreach (Control control in tblBoard.Controls)
+                {
+                    Label iconLabel = (Label)control;
+                    if (iconLabel != null)
+                    {
+                        int randomNumber = random.Next(icons.Count);
+                        iconLabel.Text = icons[randomNumber];
+                        iconLabel.ForeColor = iconLabel.BackColor; // Hide the text initially
+                        icons.RemoveAt(randomNumber);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while assigning icons: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -147,16 +131,14 @@ namespace MatchingGame
             tmr.Stop();
             firstClicked.ForeColor = firstClicked.BackColor;
             secondClicked.ForeColor = secondClicked.BackColor;
-
             firstClicked = null;
             secondClicked = null;
         }
 
-        private void Label1_Click(object? sender, EventArgs e)
+        private void Label_Click(object? sender, EventArgs e)
         {
             if (tmr.Enabled == true)
                 return;
-
 
             Label clickedLbl = (Label)sender;
 
@@ -170,13 +152,11 @@ namespace MatchingGame
                 {
                     firstClicked = clickedLbl;
                     firstClicked.ForeColor = Color.Black;
-
                     return;
                 }
 
                 secondClicked = clickedLbl;
                 secondClicked.ForeColor = Color.Black;
-
                 CheckForWinner();
 
                 if (firstClicked.Text == secondClicked.Text)
@@ -189,13 +169,32 @@ namespace MatchingGame
             }
         }
 
-
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-            Start();
+            try
+            {
+                ClearBoard(); // Clear the board
+                Start(); // Start the game
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-
-
+        private void ClearBoard()
+        {
+            foreach (Control control in tblBoard.Controls)
+            {
+                Label iconLabel = control as Label;
+                if (iconLabel != null)
+                {
+                    iconLabel.Text = string.Empty; // Clear the text
+                    iconLabel.BackColor = Color.CornflowerBlue; // Set the initial background color to blue
+                    iconLabel.ForeColor = iconLabel.BackColor; // Hide the text
+                }
+            }
+        }
     }
 }
+

@@ -36,7 +36,7 @@ namespace RecordKeeperTest
             r["TermStart"] = termstart;
             President.Save(dt);
 
-            int newid = SQLUtility.GetFirstColumnFirstRowValue("Select * from president p where num = ") + maxnum;
+            int newid = SQLUtility.GetFirstCFirstRValue("Select * from president p where num = ") + maxnum;
 
             Assert.IsTrue(newid > 0, "president with num = " + maxnum + " is not gound in db");
             TestContext.WriteLine("President with " + maxnum + "is found in db with pk value");
@@ -48,7 +48,7 @@ namespace RecordKeeperTest
         {
             int presidentid = GetExistingPresidentId();
             Assume.That(presidentid > 0, "No presidents in DB, can't run test");
-            int termstart = SQLUtility.GetFirstColumnFirstRowValue("select termstart from president where presidentid = " + presidentid);
+            int termstart = SQLUtility.GetFirstCFirstRValue("select termstart from president where presidentid = " + presidentid);
             TestContext.WriteLine("termstart for presidentid " + presidentid + " is " + termstart);
             termstart = termstart + 1;
             TestContext.WriteLine("Change termstart to " + termstart);
@@ -56,10 +56,40 @@ namespace RecordKeeperTest
             dt.Rows[0]["termstart"] = termstart;
             President.Save(dt);
 
-            int newtermstart = SQLUtility.GetFirstColumnFirstRowValue("select termstart from president where presidentid = " + presidentid);
+            int newtermstart = SQLUtility.GetFirstCFirstRValue("select termstart from president where presidentid = " + presidentid);
             Assert.IsTrue(newtermstart == termstart, "termstart for president (" + presidentid + ") = " + newtermstart);
             TestContext.WriteLine("termstart for president (" + presidentid + ") = " + newtermstart);
         }
+
+        public void ChangeExistingPresidentToInvalidTermstart()
+        {
+            int presidentid = GetExistingPresidentId();
+            int termStart = 0;
+            Assume.That(presidentid > 0, "No presidents in DB, can't run test");
+            int termEnd = SQLUtility.GetFirstCFirstRValue("select termend from president where presidentid = " + presidentid);
+            TestContext.WriteLine("termend for presidentid " + presidentid + " is " + termEnd);
+            termStart = termEnd + 1;
+            TestContext.WriteLine("Change termstart to " + termStart);
+            DataTable dt = President.Load(presidentid);
+            dt.Rows[0]["termstart"] = termStart;
+            Exception ex = Assert.Throws<Exception>(()=> President.Save(dt), "TermEnd cannot be before TermStart");
+            TestContext.WriteLine(ex.Message);
+        }
+
+        public void ChangeExistingPresidentToInvalidNum()
+        {
+            int presidentid = GetExistingPresidentId();
+            Assume.That(presidentid > 0, "No presidents in DB, can't run test");
+            int num = SQLUtility.GetFirstCFirstRValue("select top 1 num from president where presidentid <> " + presidentid);
+            int currentNum = SQLUtility.GetFirstCFirstRValue("select top 1 num from president where presidentid = " + presidentid);
+            Assume.That(num > 0, "Cannot run test because there is no other president record in the table");
+            TestContext.WriteLine("Change presidentid " + presidentid + "from " + currentNum + " to " + num);
+            DataTable dt = President.Load(presidentid);
+            dt.Rows[0]["num"] = num;
+            Exception ex = Assert.Throws<Exception>(() => President.Save(dt), "TermEnd cannot be before TermStart");
+            TestContext.WriteLine(ex.Message);
+        }
+
 
         [Test] 
         public void DeletePresident()
@@ -79,6 +109,25 @@ namespace RecordKeeperTest
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from president where presidentid = " + presidentid);
             Assert.IsTrue(dtafterdelete.Rows.Count == 0, "Record with president id " + presidentid + "exists in DB");
             TestContext.WriteLine("Record with president id " + presidentid + "does not exist in DB");
+        }
+
+        public void DeletePresidentWithExecutiveOrder()
+        {
+            DataTable dt = SQLUtility.GetDataTable("select top 1 p.presidentid from president p left join executiveorder e on e.presidentid = p.presidentid");
+            int presidentid = 0;
+            string prezdesc = "";
+            if (dt.Rows.Count > 0)
+            {
+                presidentid = (int)dt.Rows[0]["presidentid"];
+                prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
+            }
+            Assume.That(presidentid > 0, "No presidents with executive order in DB, can't run test");
+            TestContext.WriteLine("existing president with executive order, with id = " + presidentid + " " + prezdesc);
+            TestContext.WriteLine("ensure that app cannnot delete " + presidentid);
+
+            Exception ex = Assert.Throws<Exception>(()=> President.Delete(dt));
+
+            TestContext.WriteLine(ex.Message);
         }
 
         [Test] 
@@ -121,7 +170,7 @@ namespace RecordKeeperTest
             //get the number of parties in db
             //DataTable dtpartycount = SQLUtility.GetDataTable("select total = count(*) from party");
             //int partycount =(int) dtpartycount.Rows[0]["total"];
-            int partycount = SQLUtility.GetFirstColumnFirstRowValue("select total = count(*) from party");
+            int partycount = SQLUtility.GetFirstCFirstRValue("select total = count(*) from party");
             Assume.That(partycount > 0, "No parties in DB, can't test"); 
             TestContext.WriteLine("Num of parties in DB = " + partycount);
             TestContext.WriteLine("Ensure that num of rows return by app matches " + partycount);
@@ -133,7 +182,7 @@ namespace RecordKeeperTest
 
         private int GetExistingPresidentId()
         {
-            return SQLUtility.GetFirstColumnFirstRowValue("select top 1 presidentid from president");
+            return SQLUtility.GetFirstCFirstRValue("select top 1 presidentid from president");
         }
     }
 }

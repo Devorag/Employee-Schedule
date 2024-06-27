@@ -9,12 +9,3 @@ union select (select c.cuisineId from cuisine c where c.CuisineType = 'French'),
 union select (select c.cuisineId from cuisine c where c.cuisineType = 'Indian'), u.usersId, 'Roasted Potatoes', 150, '07-06-2015', '06-06-2016', null from users u where u.lastname = 'Mozes'
 union select (select c.cuisineId from cuisine c where c.CuisineType = 'Chinese'), u.usersId, 'Chicken Poppers', 325, '01-01-2021', '03-04-2021', '11-11-2021' from users u where u.lastname = 'Katz'
 
-insert Cuisine(CuisineType)
-select 'French'
-union select 'American'
-union select 'Chinese'
-union select 'Indian'
-union select 'Greek'
-union select 'English'
-union select 'Italian'
-union select 'Dutch'

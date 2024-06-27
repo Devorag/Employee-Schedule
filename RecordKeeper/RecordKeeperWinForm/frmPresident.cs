@@ -1,9 +1,9 @@
-﻿using System.Data;
+﻿
 namespace RecordKeeperWinForm
 {
     public partial class frmPresident : Form
     {
-        DataTable dtPresident;
+        DataTable dtPresident = new DataTable();
 
         public frmPresident()
         {
@@ -37,13 +37,38 @@ namespace RecordKeeperWinForm
 
         private void Save()
         {
-            President.Save(dtPresident);
+            Application.UseWaitCursor = true;
+            try
+            {
+                President.Save(dtPresident);
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Record Keeper");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
         }
 
         private void Delete()
         {
-            President.Delete(dtPresident);
-            this.Close();
+            Application.UseWaitCursor = true;
+            try
+            {
+                President.Delete(dtPresident);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Record Keeper");
+            }
+            finally
+            {
+                Application.UseWaitCursor = false;
+            }
         }
 
         private void BtnDelete_Click(object? sender, EventArgs e)
