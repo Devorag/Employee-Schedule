@@ -9,7 +9,7 @@ namespace RecordKeeperSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet");
-            cmd.Parameters["@LastName"].Value = lastname;
+            SQLUtility.SetParamValue(cmd,"@LastName", lastname);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -18,7 +18,7 @@ namespace RecordKeeperSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet");
-            cmd.Parameters["@PresidentId"].Value = presidentid;
+            SQLUtility.SetParamValue(cmd,"@PresidentId",presidentid);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -27,7 +27,7 @@ namespace RecordKeeperSystem
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PartyGet");
-            cmd.Parameters["@All"].Value = 1;
+            SQLUtility.SetParamValue(cmd,"@All",1);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
 
@@ -65,8 +65,9 @@ namespace RecordKeeperSystem
         public static void Delete(DataTable dtpresident)
         {
             int id = (int)dtpresident.Rows[0]["PresidentId"];
-            string sql = "delete president where PresidentId = " + id;
-            SQLUtility.ExecuteSQL(sql);
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentDelete");
+            SQLUtility.SetParamValue(cmd, "@PresidentId", id); 
+            SQLUtility.ExecuteSQL(cmd);
         }
     }
 }

@@ -54,7 +54,7 @@ namespace RecordKeeperWinForm
         }
 
         private void Delete()
-        {
+        {   MessageBox.Show("Are you sure you want to delete this president?")
             Application.UseWaitCursor = true;
             try
             {

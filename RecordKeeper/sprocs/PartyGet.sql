@@ -1,10 +1,14 @@
+use recordkeeperdb
+go 
 create or alter procedure dbo.PartyGet(@PartyId int = 0, @PartyName varchar(35) = '', @All bit = 0) 
 as
 begin
 	select @PartyName = nullif(@PartyName, '')
 
-	select pt.ColorId, pt.PartyName, pt.YearBegan 
+	select pt.ColorId, pt.PartyName, pt.colorid, PartyColor = c.colorName
 	from Party pt 
+	left join color c 
+	on c.colorid = pt.colorid
 	where pt.PartyId = @PartyId
 	or @All = 1 
 	or pt.PartyName like '%' + @PartyName + '%'

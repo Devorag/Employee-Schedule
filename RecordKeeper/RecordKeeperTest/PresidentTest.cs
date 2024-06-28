@@ -93,8 +93,19 @@ namespace RecordKeeperTest
 
         [Test] 
         public void DeletePresident()
-        {   
-            DataTable dt = SQLUtility.GetDataTable("select top 1 p.presidentid from president p left join executiveorder e on e.presidentid = p.presidentid where e.executiveorder is null");
+        {
+            string sql = @" 
+select top 1 p.presidentid, p.num, p.lastname
+from president p 
+left join executiveorder e 
+on e.presidentid = p.presidentid 
+left join presidentmedal pm 
+on pm.presidentid = p.presidentid 
+where e.executiveorderid is null 
+and pm.presidentmedalid is null 
+order by p.presidentid
+";
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int presidentid = 0;
             string prezdesc = "";
             if (dt.Rows.Count > 0)
@@ -103,7 +114,7 @@ namespace RecordKeeperTest
                 prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
             }
             Assume.That(presidentid > 0, "No presidents without executive order in DB, can't run test");
-            TestContext.WriteLine("existing president without executive order, with id = " + presidentid + " " + prezdesc);
+            TestContext.WriteLine("existing president without executive order and medal, with id = " + presidentid + " " + prezdesc);
             TestContext.WriteLine("ensure that app can delete " + presidentid);
             President.Delete(dt);
             DataTable dtafterdelete = SQLUtility.GetDataTable("select * from president where presidentid = " + presidentid);
