@@ -54,7 +54,12 @@ namespace RecordKeeperWinForm
         }
 
         private void Delete()
-        {   MessageBox.Show("Are you sure you want to delete this president?")
+        {
+            var response = MessageBox.Show("Are you sure you want to delete this president?", "Record Keeper", MessageBoxButtons.YesNo);
+            if (response == DialogResult.No)
+            {
+                return;
+            }
             Application.UseWaitCursor = true;
             try
             {
