@@ -1,0 +1,3 @@
+const hasErrorMessage = <T>(data: T): data is T & { errorMessage?: string } => {
+        return (data as { errorMessage?: string }).errorMessage !== undefined;
+    };
