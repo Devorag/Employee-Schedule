@@ -1,93 +1,78 @@
--- SM Excellent! 100%
 use RecordKeeperDB
+go
 drop table if exists PresidentMedal
-drop table if exists Medal 
-drop table if exists orders
-drop table if exists president
-drop table if exists party
-drop table if exists Colors
+drop table if exists Medal
+drop table if exists ExecutiveOrder
+drop table if exists President
+drop table if exists Party
+drop table if exists Color
 go
-
-create table dbo.colors(
-	ColorId int not null identity primary key, 
-	Color varchar(50) not null constraint u_colors_color unique 
-	CONSTRAINT ck_colors_color_cannot_be_blank check(color <> '')
+create table dbo.Color(
+      ColorId int not null identity primary key,
+      ColorName varchar(20) not null 
+            constraint u_Color_ColorName unique
+            constraint ck_Color_color_name_cannot_be_blank check(ColorName > '')
 )
-
-create table dbo.party(
+go
+go
+create table dbo.Party(
 	PartyId int not null identity primary key,
-	ColorId int null CONSTRAINT f_colors_party foreign key references colors(ColorId), 
-	PartyName varchar(50) not null constraint u_party_name unique
-	constraint ck_party_name_cannot_be_blank check(PartyName <> ''),
-	YearBegan int not null
-	CONSTRAINT ck_party_year_began_must_be_after_1776_and_before_current_Date CHECK(YearBegan between 1776 and year(GETDATE())),
+	PartyName varchar(35) not null 
+        constraint u_Party_PartyName unique,
+        constraint ck_party_partyname_cannot_be_blank check(PartyName <> ''),
+	YearStart smallint not null constraint ck_party_year_start_must_be_after_1789_and_cannot_be_in_future check(YearStart between 1789 and year(getdate())),
+	ColorId int null constraint f_Color_Party foreign key references Color(ColorId)
+
 )
-go 
-		create table dbo.president(
+go
+
+create table dbo.President(
 		PresidentId int not null identity (1000,1) primary key,
-		PartyId int not null constraint f_party_president foreign key REFERENCES party(PartyId),
-		Num int not null CONSTRAINT u_president_Num unique
-		constraint ck_president_num_must_be_greater_than_zero check(num > 0), 
-		FirstName varchar(100) not null
-		constraint ck_president_first_name_cannot_be_blank CHECK(FirstName <> ''), 
-		LastName varchar(100) not null
-		CONSTRAINT ck_president_last_name_cannot_be_blank check(LastName <> ''), 
-		DateBorn date not null, 
-		constraint ck_date_born_cannot_be_future_Date CHECK(dateborn < GETDATE()),
-		DateDied DATETIME2 constraint ck_president_date_died_cannot_be_future_date check(GETDATE() >= DateDied),
-		TermStart int not null constraint ck_president_term_Start_cannot_Be_Before_1776 check(TermStart >= 1776),
+		PartyId int not null constraint f_Party_President foreign key references Party(PartyId),
+		Num int not null 
+			constraint u_President_Num unique
+			constraint ck_President_Num_cannot_be_negative check (Num > 0),
+		FirstName varchar(100) not null constraint ck_President_FirstName_cannot_be_blank check (FirstName <> ''), 
+		LastName varchar(100) not null constraint ck_President_LastName_cannot_be_blank check (LastName <> ''),
+		DateBorn date not null,
+		DateDied datetime2,
+		TermStart int not null constraint ck_President_TermStart_must_be_after_1776 check (TermStart >= 1776),
 		TermEnd int,
--- SM One minor thing, you still allow TermEnd to be null even if DateDied is not null.
-		CONSTRAINT ck_president_term_end_Cannot_be_before_term_start CHECK(TermEnd >= TermStart),
-		constraint ck_president_must_be_at_least_35_years_old check(TermStart - year(dateborn) >= 35),
-		CONSTRAINT ck_president_president_must_be_alive_during_full_term CHECK(year(DateDied) >= TermEnd),
-	)  
+		constraint ck_TermEnd_cannot_be_before_TermStart check (TermEnd >= TermStart),
+		constraint ck_a_president_must_be_at_least_35_years_old check (termstart - year(DateBorn) >= 35)  
+	)
 go
-alter table president drop column if exists AgeAtDeath
-go
-alter table president add AgeAtDeath as  DATEDIFF (year, DateBorn, DateDied) PERSISTED 
-go
-alter table president drop column if exists YearsServed 
-go
-alter table president add YearsServed as termend - termstart PERSISTED 
-go
-alter table president drop column if EXISTS NumberOfFullTermsServed
-go
-alter table president add NumberOfFullTermsServed as (termend - termstart) / 4 PERSISTED
-go
-alter table president add AgeAtTermStart as termstart - year(dateborn) persisted
 
-create table dbo.orders(
-	OrderId int not null identity primary key, 
-	PresidentId int not null constraint f_president_orders foreign key references president(presidentId),
-	OrderNumber int not null CONSTRAINT u_orders_order_number UNIQUE
-	constraint cl_orders_order_number_must_be_greater_than_zero check(OrderNumber > 0),
-	VolumeNumber int not null constraint ck_orders_volume_number_must_be_3 check(VolumeNumber = 3),
-	CodeName CHAR(6) not null CONSTRAINT ck_orders_code_name_must_be_C_F_R CHECK(CodeName = 'C.F.R.'),
-	PageNumber int not null
-	constraint ck_orders_page_number_must_be_greater_than_zero check(PageNumber > 0),
--- SM Should be before the current "year".
-	YearIssued int not null CONSTRAINT ck_orders_year_issued_after_1776_and_before_current_year check(YearIssued between 1776 and GETDATE()),
-	OrderName varchar(200) not null CONSTRAINT ck_orders_order_name_cannot_be_blank CHECK(OrderName <> ''),
-	OrderUpheld bit not null,
-	DateRecorded DATETIME not null  DEFAULT GETDATE(),
+create table dbo.ExecutiveOrder(
+	ExecutiveOrderId int not null identity primary key,
+	PresidentId int not null constraint f_ExecutiveOrder_President foreign key references President(PresidentId),
+	OrderNumber int not null 
+        constraint u_ExecutiveOrder_OrderNumber unique,
+        constraint ck_ExecutiveOrder_OrderNumber_must_be_greater_than_0 check(OrderNumber > 0),
+	PageNum int not null constraint ck_ExecutiveOrder_PageNum_must_be_greater_than_0 check(PageNum > 0),
+	YearIssued int not null
+        constraint ck_ExecutiveOrder_year_issued_between_1776_and_today check(YearIssued between 1776 and year(getdate())),
+        constraint ck_ExecutiveOrder_YearIssued_cannot_be_in_the_future check(YearIssued <= datepart(year,getdate())),
+	OrderName varchar(1000) not null constraint ck_ExecutiveOrder_OrderName_cannot_be_blank check(OrderName <> ''),
+	Reference as concat('Exec. Order No. ', OrderNumber, ', ', '3 C.F.R.', PageNum, ' ', YearIssued, '. ', OrderName) persisted,
+	UpheldByCourt bit not null,
+	DateInserted date not null default getdate()
 )
--- SM Computed columns can be added in table using ColumnName as...
-alter table orders add OfficialFormat as concat('Exec. Order No.', ' ', OrderNumber, ' ', VolumeNumber, ' ', CodeName, ' ', PageNumber, ' ', yearissued, '. ', OrderName ) persisted 
+go
 
-go 
-create table dbo.medal(
-    MedalId int not null identity primary key, 
-    MedalName varchar(200) not null constraint u_medal_medalname unique 
-	constraint ck_medal_medalname_cannot_be_blank check(medalname <> '')
+create table dbo.Medal(
+      MedalId int not null identity primary key,
+      MedalName varchar(100) not null 
+            constraint u_Medal_Name unique
+            constraint ck_Medal_Name_cannot_be_blank check(MedalName > '')
 )
-go 
+go
 
 create table dbo.PresidentMedal(
-    PresidentMedalId int not null identity primary key, 
-    PresidentId int not null constraint f_president_presidentmedal foreign key REFERENCES president(PresidentId),
-    MedalId int not null constraint f_medal_presidentmedal foreign key references medal(MedalId),
-    DateAwarded datetime not null default getdate() 
-	constraint u_presidentId_medalId UNIQUE(presidentId, MedalId)
+      PresidentMedalId int not null identity primary key,
+      PresidentId int not null constraint f_President_PresidentMedal foreign key references President(PresidentId),
+      MedalId int not null constraint f_Medal_PresidentMedal foreign key references Medal(MedalId),
+      TimeRecieved datetime not null default getdate() constraint ck_PresidentMedal_time_recieved_cannot_be_in_future check(TimeRecieved <= getdate()),
+      constraint u_PresidentMedal_PresidentId_MedalId unique(PresidentId, MedalId)
 )
 go
