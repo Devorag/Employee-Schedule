@@ -13,9 +13,9 @@ namespace RecordKeeperTest
         }
 
         [Test]
-        [TestCase("Sam", "Test1", "2035-01-01", 2075)]
-        [TestCase("Sam", "Test2", "1800-01-01", 1836)]
-        public void InsertNewPresident(string firstname, string lastname, DateTime dateborn, int termstart)
+        [TestCase("Sam", "Test1", "2035-01-01", 2075, 2079)]
+        [TestCase("Sam", "Test2", "1800-01-01", 1836, 1840)]
+        public void InsertNewPresident(string firstname, string lastname, DateTime dateborn, int termstart, int termend)
         {
             DataTable dt = SQLUtility.GetDataTable("select * from president where presidentid = 0");
             DataRow r = dt.Rows.Add();
@@ -34,12 +34,20 @@ namespace RecordKeeperTest
             r["LastName"] = lastname;
             r["DateBorn"] = dateborn;
             r["TermStart"] = termstart;
+            r["TermEnd"] = termend;
             President.Save(dt);
 
-            int newid = SQLUtility.GetFirstCFirstRValue("Select * from president p where num = ") + maxnum;
+            int newNum = SQLUtility.GetFirstCFirstRValue("Select * from president p where num = ") + maxnum;
+            int pkid = 0; 
+            if (r["PresidentId"] != DBNull.Value)
+            {
+                pkid = (int)r["PresidentId"];
+            }
 
-            Assert.IsTrue(newid > 0, "president with num = " + maxnum + " is not gound in db");
-            TestContext.WriteLine("President with " + maxnum + "is found in db with pk value");
+            Assert.IsTrue(newNum > 0, "president with num = " + maxnum + " is not gound in db");
+            Assert.IsTrue(pkid > 0, "primary key not updated in datatable");
+            TestContext.WriteLine("President with " + maxnum + "is found in db with pk value" + newNum);
+            TestContext.WriteLine("new primary key = " + pkid);
 
         }
 
@@ -122,9 +130,18 @@ order by p.presidentid
             TestContext.WriteLine("Record with president id " + presidentid + "does not exist in DB");
         }
 
-        public void DeletePresidentWithExecutiveOrder()
+        [Test]
+        public void DeletePresidentWithUpheldExecutiveOrder()
         {
-            DataTable dt = SQLUtility.GetDataTable("select top 1 p.presidentid from president p left join executiveorder e on e.presidentid = p.presidentid");
+            string sql = @" 
+select top 1 p.presidentid 
+from president p 
+left join executiveorder e 
+on e.presidentid = p.presidentid
+where e.upheldbycourt = 1
+";
+
+            DataTable dt = SQLUtility.GetDataTable(sql);
             int presidentid = 0;
             string prezdesc = "";
             if (dt.Rows.Count > 0)
@@ -132,8 +149,8 @@ order by p.presidentid
                 presidentid = (int)dt.Rows[0]["presidentid"];
                 prezdesc = dt.Rows[0]["Num"] + " " + dt.Rows[0]["LastName"];
             }
-            Assume.That(presidentid > 0, "No presidents with executive order in DB, can't run test");
-            TestContext.WriteLine("existing president with executive order, with id = " + presidentid + " " + prezdesc);
+            Assume.That(presidentid > 0, "No presidents with upheld executive order in DB, can't run test");
+            TestContext.WriteLine("existing president with upheld executive order, with id = " + presidentid + " " + prezdesc);
             TestContext.WriteLine("ensure that app cannnot delete " + presidentid);
 
             Exception ex = Assert.Throws<Exception>(()=> President.Delete(dt));

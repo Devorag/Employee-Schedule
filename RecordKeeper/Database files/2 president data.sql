@@ -100,13 +100,14 @@ union select 'Democracy Champion'
 go
 
 ;with x as(
-      select pr.Num, Medal = 'World Leader'
-      from President pr
-      join Party pa
-      on pa.PartyId = pr.PartyId
-      where pa.PartyName = 'Republican'
-      and pr.TermStart between 1800 and 1900
-      union select pr.Num, Medal = 'Made America Great'
+      --select pr.Num, Medal = 'World Leader'
+      --from President pr
+      --join Party pa
+      --on pa.PartyId = pr.PartyId
+      --where pa.PartyName = 'Republican'
+      --and pr.TermStart between 1800 and 1900
+      --union 
+	  select pr.Num, Medal = 'Made America Great'
       from President pr
       join Party pa
       on pa.PartyId = pr.PartyId
