@@ -7,7 +7,9 @@ create or alter procedure dbo.PresidentGet(
 	@All bit = 0)
 as 
 begin 
-	select p.PresidentId, p.PartyId, p.FirstName, p.LastName, p.DateBorn, p.DateDied, p.TermStart, p.TermEnd 
+	select p.PresidentId, p.PartyId, p.FirstName, p.LastName, p.DateBorn, p.DateDied, p.TermStart, p.TermEnd,  
+	PresidentDesc = dbo.PresidentDesc(p.PresidentId), 
+	IsDeleteAllowed = dbo.IsPresidentDeleteAllowed(p.presidentid)
 	from President p 
 	where p.PresidentId = @PresidentId 
 	or @All = 1 

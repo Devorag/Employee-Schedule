@@ -55,6 +55,17 @@ namespace RecordKeeperWinForm
 
         private void Delete()
         {
+
+            if (dtPresident.Rows.Count > 0)
+            {
+                string allowedDelete = "";
+                allowedDelete = dtPresident.Rows[0]["IsDeleteAllowed"].ToString();
+                if (allowedDelete != "")
+                {
+                    MessageBox.Show(allowedDelete);
+                    return;
+                }
+            }
             var response = MessageBox.Show("Are you sure you want to delete this president?", "Record Keeper", MessageBoxButtons.YesNo);
             if (response == DialogResult.No)
             {
