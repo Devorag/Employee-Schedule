@@ -1,0 +1,36 @@
+using Microsoft.OpenApi.Models;
+using RecordKeeperAPI;
+//existing code
+builder.Services.AddSwaggerGen(
+    c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+
+        // Define the BearerAuth scheme
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "Bearer" // The name of the HTTP Authorization scheme to be used in the Authorization header. In this case "Bearer".
+        });
+
+       c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+    }
+    );
+
+//existing code

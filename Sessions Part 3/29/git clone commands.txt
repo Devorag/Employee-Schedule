@@ -1,0 +1,27 @@
+#replace [personal-repo-name] with your repo name
+#replace [branch-name] with your branch name
+cd C:\Users\[personal-repo-name]\source\repos
+
+rmdir /s /q [personal-repo-name]-cloned
+rmdir /s /q CPUFramework-cloned
+rmdir /s /q ReactUtils-cloned
+
+git -C [personal-repo-name] switch main
+git -C CPUFramework switch main
+git -C ReactUtils switch main
+
+git -C [personal-repo-name] fetch --all
+git -C CPUFramework fetch --all
+git -C ReactUtils fetch --all
+
+git -C [personal-repo-name] pull
+git -C CPUFramework pull
+git -C ReactUtils pull
+
+git clone [personal-repo-name] [personal-repo-name]-cloned
+git clone CPUFramework CPUFramework-cloned
+git clone ReactUtils ReactUtils-cloned
+
+git -C [personal-repo-name]-cloned switch [branch-name]
+git -C CPUFramework-cloned switch [branch-name]
+git -C ReactUtils-cloned switch [branch-name]
