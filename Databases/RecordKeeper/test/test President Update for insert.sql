@@ -23,7 +23,7 @@ from President p order by p.num
 
 select @FirstName = reverse (@FirstName), @TermEnd = @TermSTart + 4 
 
-exec  @return = PresidentUpdate
+exec  @return = UpdatePresident
 	@PresidentId = @presidentid output, 
 	@PartyId = @partyid, 
 	@Num = @num, 

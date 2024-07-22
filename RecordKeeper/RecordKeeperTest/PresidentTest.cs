@@ -21,15 +21,15 @@ namespace RecordKeeperTest
             DataRow r = dt.Rows.Add();
             Assume.That(dt.Rows.Count == 1);
             int partyid = SQLUtility.GetFirstCFirstRValue("select top 1 partyid from party");
-            int maxnum = SQLUtility.GetFirstCFirstRValue("select max(num) from president");
             Assume.That(partyid > 0, "Can't run test, no parties in the db");
+            int maxnum = SQLUtility.GetFirstCFirstRValue("select max(num) from president");
             
             maxnum = maxnum + 1;
 
             TestContext.WriteLine("insert president with num = " + maxnum);
 
             r["partyid"] = partyid;
-            r["Num"] = maxnum + 1;
+            r["Num"] = maxnum;
             r["FirstName"] = firstname;
             r["LastName"] = lastname;
             r["DateBorn"] = dateborn;
@@ -37,14 +37,14 @@ namespace RecordKeeperTest
             r["TermEnd"] = termend;
             President.Save(dt);
 
-            int newNum = SQLUtility.GetFirstCFirstRValue("Select * from president p where num = ") + maxnum;
+            int newNum = SQLUtility.GetFirstCFirstRValue("Select * from president p where num = " + maxnum);
             int pkid = 0; 
             if (r["PresidentId"] != DBNull.Value)
             {
                 pkid = (int)r["PresidentId"];
             }
 
-            Assert.IsTrue(newNum > 0, "president with num = " + maxnum + " is not gound in db");
+            Assert.IsTrue(newNum > 0, "president with num = " + maxnum + " is not found in db");
             Assert.IsTrue(pkid > 0, "primary key not updated in datatable");
             TestContext.WriteLine("President with " + maxnum + "is found in db with pk value" + newNum);
             TestContext.WriteLine("new primary key = " + pkid);
@@ -134,7 +134,7 @@ order by p.presidentid
         public void DeletePresidentWithUpheldExecutiveOrder()
         {
             string sql = @" 
-select top 1 p.presidentid 
+select top 1 p.presidentid, p.num, p.lastname
 from president p 
 left join executiveorder e 
 on e.presidentid = p.presidentid
@@ -182,11 +182,12 @@ where e.upheldbycourt = 1
             string criteria = "a";
             int num = SQLUtility.GetFirstCFirstRValue("select total = count(*) from president where lastname like '%" + criteria + "%'");
             Assume.That(num > 0, "There are no presidents that match the search for " + num);
-            TestContext.WriteLine(num + " presidentst that match " + criteria);
+            TestContext.WriteLine(num + " presidents that match " + criteria);
             TestContext.WriteLine("Ensure that president search returns " + num + " rows");
 
-            DataTable dt = President.SearchPresidents(criteria);
+            DataTable dt = President.SearchPresidents(0,criteria,0,0);
             int results = dt.Rows.Count;
+
             Assert.IsTrue(results == num, "Results of President does not match number of presidents, " + results + "<>" + num);
             TestContext.WriteLine("Number of rows returned by president search is " + results);
         }
@@ -206,6 +207,28 @@ where e.upheldbycourt = 1
             Assert.IsTrue(dt.Rows.Count  == partycount, "num rows returned by app " + dt.Rows.Count + " <> " + partycount);
             TestContext.WriteLine("Number of rows in Parties return by app = " + dt.Rows.Count);
 
+        }
+
+        [Test] 
+
+        public void SaveMultipleRows()
+        {
+            string sql = "delete season where seasonname in ('TestSeason1', 'TestSeason2')";
+            SQLUtility.ExecuteSQL(sql);
+            sql = "update season set seasonname = '' where seasonname = 'TestChange1'";
+            SQLUtility.ExecuteSQL(sql);
+
+            DataTable dt = DataMaintenance.GetDataList("Season");
+            var dr = dt.Rows.Add();
+            dr["SeasonName"] = "TestSeason1";
+            dr = dt.Rows.Add();
+            dr["SeasonName"] = "TestSeason2";
+            dt.Rows[0]["SeasonName"] = "TestChange1";
+            SQLUtility.SaveDataTable(dt, "SeasonUpdate");
+            sql = "select * from season where seasonname in ('TestSeason1', 'TestSeason2', 'TestChange1')";
+            DataTable dtcheck = SQLUtility.GetDataTable(sql);
+            Assert.IsTrue(dtcheck.Rows.Count == 3, $"num rows of dtcheck is {dtcheck.Rows.Count} not 3 rows");
+            TestContext.WriteLine($"num rows of dtcheck should be and it is {dtcheck.Rows.Count}");
         }
 
         private int GetExistingPresidentId()

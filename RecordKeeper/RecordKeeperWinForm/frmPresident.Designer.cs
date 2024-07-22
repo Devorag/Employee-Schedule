@@ -30,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPresident));
             tblMain = new TableLayoutPanel();
             lblCaptionParty = new Label();
@@ -48,20 +49,32 @@
             lstPartyName = new ComboBox();
             txtNum = new TextBox();
             dtpDateBorn = new DateTimePicker();
+            tbChildRecords = new TabControl();
+            tbMedal = new TabPage();
+            tblMedals = new TableLayoutPanel();
+            btnSaveMedal = new Button();
+            gMedal = new DataGridView();
+            tbExectiveOrder = new TabPage();
             tsMain = new ToolStrip();
             btnSave = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
+            ttPresident = new ToolTip(components);
             tblMain.SuspendLayout();
+            tbChildRecords.SuspendLayout();
+            tbMedal.SuspendLayout();
+            tblMedals.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gMedal).BeginInit();
             tsMain.SuspendLayout();
             SuspendLayout();
             // 
             // tblMain
             // 
+            tblMain.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tblMain.ColumnCount = 2;
             tblMain.ColumnStyles.Add(new ColumnStyle());
-            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tblMain.Controls.Add(lblCaptionParty, 0, 0);
             tblMain.Controls.Add(lblCaptionNum, 0, 1);
             tblMain.Controls.Add(lblCaptionFirstName, 0, 2);
@@ -78,35 +91,37 @@
             tblMain.Controls.Add(lstPartyName, 1, 0);
             tblMain.Controls.Add(txtNum, 1, 1);
             tblMain.Controls.Add(dtpDateBorn, 1, 4);
-            tblMain.Location = new Point(0, 73);
+            tblMain.Controls.Add(tbChildRecords, 0, 8);
+            tblMain.Location = new Point(0, 36);
             tblMain.Name = "tblMain";
-            tblMain.RowCount = 8;
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tblMain.Size = new Size(1141, 608);
+            tblMain.RowCount = 9;
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle());
+            tblMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tblMain.Size = new Size(942, 734);
             tblMain.TabIndex = 2;
             // 
             // lblCaptionParty
             // 
             lblCaptionParty.Anchor = AnchorStyles.Left;
             lblCaptionParty.AutoSize = true;
-            lblCaptionParty.Location = new Point(3, 4);
+            lblCaptionParty.Location = new Point(3, 7);
             lblCaptionParty.Name = "lblCaptionParty";
             lblCaptionParty.Size = new Size(66, 32);
             lblCaptionParty.TabIndex = 0;
-            lblCaptionParty.Text = "Party";
+            lblCaptionParty.Text = "&Party";
             // 
             // lblCaptionNum
             // 
             lblCaptionNum.Anchor = AnchorStyles.Left;
             lblCaptionNum.AutoSize = true;
-            lblCaptionNum.Location = new Point(3, 44);
+            lblCaptionNum.Location = new Point(3, 52);
             lblCaptionNum.Name = "lblCaptionNum";
             lblCaptionNum.Size = new Size(67, 32);
             lblCaptionNum.TabIndex = 1;
@@ -116,100 +131,102 @@
             // 
             lblCaptionFirstName.Anchor = AnchorStyles.Left;
             lblCaptionFirstName.AutoSize = true;
-            lblCaptionFirstName.Location = new Point(3, 84);
+            lblCaptionFirstName.Location = new Point(3, 97);
             lblCaptionFirstName.Name = "lblCaptionFirstName";
             lblCaptionFirstName.Size = new Size(129, 32);
-            lblCaptionFirstName.TabIndex = 2;
+            lblCaptionFirstName.TabIndex = 3;
             lblCaptionFirstName.Text = "First Name";
             // 
             // lblCaptionLastName
             // 
             lblCaptionLastName.Anchor = AnchorStyles.Left;
             lblCaptionLastName.AutoSize = true;
-            lblCaptionLastName.Location = new Point(3, 124);
+            lblCaptionLastName.Location = new Point(3, 142);
             lblCaptionLastName.Name = "lblCaptionLastName";
             lblCaptionLastName.Size = new Size(126, 32);
-            lblCaptionLastName.TabIndex = 3;
+            lblCaptionLastName.TabIndex = 5;
             lblCaptionLastName.Text = "Last Name";
             // 
             // lblCaptionDateBorn
             // 
             lblCaptionDateBorn.Anchor = AnchorStyles.Left;
             lblCaptionDateBorn.AutoSize = true;
-            lblCaptionDateBorn.Location = new Point(3, 164);
+            lblCaptionDateBorn.Location = new Point(3, 187);
             lblCaptionDateBorn.Name = "lblCaptionDateBorn";
             lblCaptionDateBorn.Size = new Size(121, 32);
-            lblCaptionDateBorn.TabIndex = 4;
+            lblCaptionDateBorn.TabIndex = 7;
             lblCaptionDateBorn.Text = "Date Born";
             // 
             // lblCaptionDateDied
             // 
             lblCaptionDateDied.Anchor = AnchorStyles.Left;
             lblCaptionDateDied.AutoSize = true;
-            lblCaptionDateDied.Location = new Point(3, 204);
+            lblCaptionDateDied.Location = new Point(3, 232);
             lblCaptionDateDied.Name = "lblCaptionDateDied";
             lblCaptionDateDied.Size = new Size(121, 32);
-            lblCaptionDateDied.TabIndex = 5;
+            lblCaptionDateDied.TabIndex = 9;
             lblCaptionDateDied.Text = "Date Died";
             // 
             // lblCaptionTermStart
             // 
             lblCaptionTermStart.Anchor = AnchorStyles.Left;
             lblCaptionTermStart.AutoSize = true;
-            lblCaptionTermStart.Location = new Point(3, 244);
+            lblCaptionTermStart.Location = new Point(3, 277);
             lblCaptionTermStart.Name = "lblCaptionTermStart";
             lblCaptionTermStart.Size = new Size(122, 32);
-            lblCaptionTermStart.TabIndex = 6;
+            lblCaptionTermStart.TabIndex = 11;
             lblCaptionTermStart.Text = "Term Start";
+            ttPresident.SetToolTip(lblCaptionTermStart, "Enter a Year, not a date ");
             // 
             // lblCaptionTermEnd
             // 
             lblCaptionTermEnd.AutoSize = true;
-            lblCaptionTermEnd.Location = new Point(3, 287);
+            lblCaptionTermEnd.Location = new Point(3, 323);
             lblCaptionTermEnd.Margin = new Padding(3, 7, 3, 0);
             lblCaptionTermEnd.Name = "lblCaptionTermEnd";
             lblCaptionTermEnd.Size = new Size(114, 32);
-            lblCaptionTermEnd.TabIndex = 7;
+            lblCaptionTermEnd.TabIndex = 13;
             lblCaptionTermEnd.Text = "Term End";
+            ttPresident.SetToolTip(lblCaptionTermEnd, "Enter a Year, not a date ");
             // 
             // txtFirstName
             // 
             txtFirstName.Dock = DockStyle.Fill;
-            txtFirstName.Location = new Point(138, 83);
+            txtFirstName.Location = new Point(138, 94);
             txtFirstName.Name = "txtFirstName";
-            txtFirstName.Size = new Size(1000, 39);
-            txtFirstName.TabIndex = 10;
+            txtFirstName.Size = new Size(801, 39);
+            txtFirstName.TabIndex = 4;
             // 
             // txtLastName
             // 
             txtLastName.Dock = DockStyle.Fill;
-            txtLastName.Location = new Point(138, 123);
+            txtLastName.Location = new Point(138, 139);
             txtLastName.Name = "txtLastName";
-            txtLastName.Size = new Size(1000, 39);
-            txtLastName.TabIndex = 11;
+            txtLastName.Size = new Size(801, 39);
+            txtLastName.TabIndex = 6;
             // 
             // txtDateDied
             // 
             txtDateDied.Dock = DockStyle.Fill;
-            txtDateDied.Location = new Point(138, 203);
+            txtDateDied.Location = new Point(138, 229);
             txtDateDied.Name = "txtDateDied";
-            txtDateDied.Size = new Size(1000, 39);
-            txtDateDied.TabIndex = 13;
+            txtDateDied.Size = new Size(801, 39);
+            txtDateDied.TabIndex = 10;
             // 
             // txtTermStart
             // 
             txtTermStart.Dock = DockStyle.Fill;
-            txtTermStart.Location = new Point(138, 243);
+            txtTermStart.Location = new Point(138, 274);
             txtTermStart.Name = "txtTermStart";
-            txtTermStart.Size = new Size(1000, 39);
-            txtTermStart.TabIndex = 14;
+            txtTermStart.Size = new Size(801, 39);
+            txtTermStart.TabIndex = 12;
             // 
             // txtTermEnd
             // 
-            txtTermEnd.Location = new Point(138, 283);
+            txtTermEnd.Location = new Point(138, 319);
             txtTermEnd.Name = "txtTermEnd";
-            txtTermEnd.Size = new Size(1000, 39);
-            txtTermEnd.TabIndex = 15;
+            txtTermEnd.Size = new Size(801, 39);
+            txtTermEnd.TabIndex = 14;
             // 
             // lstPartyName
             // 
@@ -217,23 +234,93 @@
             lstPartyName.Location = new Point(138, 3);
             lstPartyName.Name = "lstPartyName";
             lstPartyName.Size = new Size(385, 40);
-            lstPartyName.TabIndex = 16;
+            lstPartyName.TabIndex = 0;
             // 
             // txtNum
             // 
             txtNum.Dock = DockStyle.Fill;
-            txtNum.Location = new Point(138, 43);
+            txtNum.Location = new Point(138, 49);
             txtNum.Name = "txtNum";
-            txtNum.Size = new Size(1000, 39);
-            txtNum.TabIndex = 17;
+            txtNum.Size = new Size(801, 39);
+            txtNum.TabIndex = 2;
             // 
             // dtpDateBorn
             // 
             dtpDateBorn.Format = DateTimePickerFormat.Short;
-            dtpDateBorn.Location = new Point(138, 163);
+            dtpDateBorn.Location = new Point(138, 184);
             dtpDateBorn.Name = "dtpDateBorn";
             dtpDateBorn.Size = new Size(263, 39);
-            dtpDateBorn.TabIndex = 18;
+            dtpDateBorn.TabIndex = 8;
+            // 
+            // tbChildRecords
+            // 
+            tblMain.SetColumnSpan(tbChildRecords, 2);
+            tbChildRecords.Controls.Add(tbMedal);
+            tbChildRecords.Controls.Add(tbExectiveOrder);
+            tbChildRecords.Dock = DockStyle.Fill;
+            tbChildRecords.Location = new Point(3, 364);
+            tbChildRecords.Name = "tbChildRecords";
+            tbChildRecords.SelectedIndex = 0;
+            tbChildRecords.Size = new Size(936, 367);
+            tbChildRecords.TabIndex = 15;
+            // 
+            // tbMedal
+            // 
+            tbMedal.Controls.Add(tblMedals);
+            tbMedal.Location = new Point(4, 41);
+            tbMedal.Name = "tbMedal";
+            tbMedal.Padding = new Padding(3);
+            tbMedal.Size = new Size(928, 322);
+            tbMedal.TabIndex = 0;
+            tbMedal.Text = "Medals";
+            tbMedal.UseVisualStyleBackColor = true;
+            // 
+            // tblMedals
+            // 
+            tblMedals.ColumnCount = 1;
+            tblMedals.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tblMedals.Controls.Add(btnSaveMedal, 0, 0);
+            tblMedals.Controls.Add(gMedal, 0, 1);
+            tblMedals.Dock = DockStyle.Fill;
+            tblMedals.Location = new Point(3, 3);
+            tblMedals.Name = "tblMedals";
+            tblMedals.RowCount = 2;
+            tblMedals.RowStyles.Add(new RowStyle());
+            tblMedals.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tblMedals.Size = new Size(922, 316);
+            tblMedals.TabIndex = 0;
+            // 
+            // btnSaveMedal
+            // 
+            btnSaveMedal.AutoSize = true;
+            btnSaveMedal.BackColor = Color.LightGray;
+            btnSaveMedal.Location = new Point(3, 3);
+            btnSaveMedal.Name = "btnSaveMedal";
+            btnSaveMedal.Size = new Size(136, 58);
+            btnSaveMedal.TabIndex = 0;
+            btnSaveMedal.Text = "Save";
+            btnSaveMedal.UseVisualStyleBackColor = false;
+            // 
+            // gMedal
+            // 
+            gMedal.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gMedal.Dock = DockStyle.Fill;
+            gMedal.Location = new Point(3, 67);
+            gMedal.Name = "gMedal";
+            gMedal.RowHeadersWidth = 62;
+            gMedal.RowTemplate.Height = 33;
+            gMedal.Size = new Size(916, 246);
+            gMedal.TabIndex = 1;
+            // 
+            // tbExectiveOrder
+            // 
+            tbExectiveOrder.Location = new Point(4, 34);
+            tbExectiveOrder.Name = "tbExectiveOrder";
+            tbExectiveOrder.Padding = new Padding(3);
+            tbExectiveOrder.Size = new Size(1133, 428);
+            tbExectiveOrder.TabIndex = 1;
+            tbExectiveOrder.Text = "Executive Orders";
+            tbExectiveOrder.UseVisualStyleBackColor = true;
             // 
             // tsMain
             // 
@@ -242,8 +329,9 @@
             tsMain.Items.AddRange(new ToolStripItem[] { btnSave, toolStripSeparator1, btnDelete, toolStripSeparator2 });
             tsMain.Location = new Point(0, 0);
             tsMain.Name = "tsMain";
-            tsMain.Size = new Size(1141, 41);
+            tsMain.Size = new Size(926, 41);
             tsMain.TabIndex = 1;
+            tsMain.TabStop = true;
             tsMain.Text = "toolStrip1";
             // 
             // btnSave
@@ -278,7 +366,7 @@
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1141, 678);
+            ClientSize = new Size(926, 770);
             Controls.Add(tsMain);
             Controls.Add(tblMain);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -287,6 +375,11 @@
             Text = "President";
             tblMain.ResumeLayout(false);
             tblMain.PerformLayout();
+            tbChildRecords.ResumeLayout(false);
+            tbMedal.ResumeLayout(false);
+            tblMedals.ResumeLayout(false);
+            tblMedals.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)gMedal).EndInit();
             tsMain.ResumeLayout(false);
             tsMain.PerformLayout();
             ResumeLayout(false);
@@ -317,5 +410,12 @@
         private ComboBox lstPartyName;
         private TextBox txtNum;
         private DateTimePicker dtpDateBorn;
+        private ToolTip ttPresident;
+        private TabControl tbChildRecords;
+        private TabPage tbMedal;
+        private TabPage tbExectiveOrder;
+        private TableLayoutPanel tblMedals;
+        private Button btnSaveMedal;
+        private DataGridView gMedal;
     }
 }

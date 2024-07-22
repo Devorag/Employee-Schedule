@@ -5,11 +5,14 @@ namespace RecordKeeperSystem
 {
     public class President
     {
-        public static DataTable SearchPresidents(string lastname)
+        public static DataTable SearchPresidents(int partyid, string lastname, int begintermstart, int endtermstart)
         {
             DataTable dt = new();
-            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentGet");
+            SqlCommand cmd = SQLUtility.GetSQLCommand("PresidentSearch");
             SQLUtility.SetParamValue(cmd,"@LastName", lastname);
+            SQLUtility.SetParamValue(cmd, "@PartyId", partyid);
+            SQLUtility.SetParamValue(cmd, "@BeginTermStart", begintermstart);
+            SQLUtility.SetParamValue(cmd, "@EndTermStart", endtermstart);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
         }
@@ -23,11 +26,12 @@ namespace RecordKeeperSystem
             return dt;
         }
 
-        public static DataTable GetPartyList()
+        public static DataTable GetPartyList(bool includeBlank = false)
         {
             DataTable dt = new();
             SqlCommand cmd = SQLUtility.GetSQLCommand("PartyGet");
             SQLUtility.SetParamValue(cmd,"@All",1);
+            SQLUtility.SetParamValue(cmd, "@IncludeBlank", includeBlank);
             dt = SQLUtility.GetDataTable(cmd);
             return dt;
 

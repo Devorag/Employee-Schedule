@@ -14,7 +14,7 @@ namespace MatchingGame
         List<string> icons = new()
         {
             "!", "!", "N", "N", ",", ",", "k", "k",
-            "b", "b", "v", "v", "w", "W", "z", "z"
+            "b", "b", "v", "v", "w", "w", "z", "z"
         };
 
         public frmMatchingGame()
