@@ -1,0 +1,89 @@
+import { useEffect, useState } from "react";
+import { fetchPresidentByPartyId } from "./DataUtil";
+import { IPresident } from "./DataInterfaces";
+import PresidentCard from "./PresidentCard";
+import { PresidentEdit } from "./PresidentEdit";
+
+interface Props {
+    partyId: number;
+}
+export default function MainScreen({ partyId }: Props) {
+    const [prezlist, setPrezList] = useState<IPresident[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [presidentid, setPresidentId] = useState(0);
+
+    useEffect(() => {
+        if (partyId > 0) {
+            setIsLoading(true);
+            const fetchdata = async () => {
+                const data = await fetchPresidentByPartyId(partyId);
+                setPrezList(data);
+                setIsLoading(false);
+                setPresidentId(0);
+            };
+            fetchdata();
+        }
+    }, [partyId]);
+
+    function handlePresidentEdit(presidentid: number) {
+        setPresidentId(presidentid);
+    }
+
+    function handlePresidentDelete(deletedpresidentid: number) {
+        setPrezList(prezlist.filter(p => p.presidentId != deletedpresidentid))
+    }
+    function handleUpdatePresident(updatedPresident: IPresident) {
+        const presidentExists = prezlist.some(p => p.presidentId === updatedPresident.presidentId);
+        if (presidentExists) {
+            setPrezList(prevList =>
+                prevList.map(p => p.presidentId === updatedPresident.presidentId ? updatedPresident : p)
+            );
+        } else {
+            setPrezList([...prezlist, updatedPresident]);
+        }
+        //setPresidentId(0);
+    }
+
+    return (
+        <>
+            <div className="row align-items-center mb-3">
+                <div className="col-md-10">
+                    <div className={isLoading ? "placeholder-glow" : ""}>
+                        <h2 className="mt-2 bg-light">
+                            <span className={isLoading ? "placeholder" : ""}>
+                                {presidentid === 0 ? `${prezlist.length} Presidents` :
+                                    presidentid === -1 ? "New President" : `Edit President`}
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+                <div className="col-md-2 text-end">
+                    {
+                        presidentid == 0 ?
+                            <button className="btn btn-secondary" onClick={() => setPresidentId(-1)}>New President</button>
+                            :
+                            <button className="btn btn-warning" onClick={() => setPresidentId(0)}>Back</button>
+                    }
+                </div>
+            </div>
+            <div className="row">
+                {
+                    presidentid === 0
+                        ?
+                        prezlist.map(p =>
+                            <div key={p.presidentId} className="col-md-6 col-lg-3 mb-2">
+                                <PresidentCard president={p} onPresidentEdit={handlePresidentEdit} />
+                            </div>
+                        )
+                        :
+                        <PresidentEdit
+                            president={prezlist.find(p => p.presidentId === presidentid)!}
+                            onCancel={() => handlePresidentEdit(0)}
+                            onPresidentUpdate={handleUpdatePresident}
+                            onPresidentDelete={handlePresidentDelete}
+                        />
+                }
+            </div>
+        </>
+    );
+}

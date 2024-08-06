@@ -1,0 +1,39 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 250px;
+    /* Increase the width as needed */
+}
+
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    /* Adjust font size if needed */
+}
+
+.card-text {
+    padding: 0;
+    list-style: none;
+    /* Remove default list styling */
+}
+
+.card-text li {
+    margin-bottom: 0.5rem;
+    /* Space between list items */
+    font-size: 0.9rem;
+    /* Adjust font size if needed */
+}
+
+.card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
