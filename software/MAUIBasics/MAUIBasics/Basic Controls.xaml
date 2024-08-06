@@ -5,7 +5,9 @@
              Title="Basic Controls"
              BackgroundColor="Green">
     <VerticalStackLayout BackgroundColor="White" Margin="10" Spacing="10">
-        <Label x:Name="lblMessage"/>
+        <Frame BorderColor="Black">
+            <Label x:Name="lblMessage" Text="Message"/>
+        </Frame>
         <Label Text="Last Name" BackgroundColor="LightGreen"/>
         <Entry x:Name="txtLastName" Placeholder="Last Name"/>
         <HorizontalStackLayout>

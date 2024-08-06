@@ -65,6 +65,9 @@
             btnList2 = new Button();
             btnEnum1 = new Button();
             btnEnum2 = new Button();
+            btnArray = new Button();
+            btnDictionary = new Button();
+            btnQueue = new Button();
             tblMain.SuspendLayout();
             tblOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -114,6 +117,9 @@
             tblMain.Controls.Add(btnList2, 2, 8);
             tblMain.Controls.Add(btnEnum1, 3, 8);
             tblMain.Controls.Add(btnEnum2, 0, 9);
+            tblMain.Controls.Add(btnArray, 1, 9);
+            tblMain.Controls.Add(btnDictionary, 2, 9);
+            tblMain.Controls.Add(btnQueue, 3, 9);
             tblMain.Dock = DockStyle.Fill;
             tblMain.Location = new Point(0, 0);
             tblMain.Name = "tblMain";
@@ -340,7 +346,6 @@
             btnFor1.TabIndex = 19;
             btnFor1.Text = "For Loop 1 ";
             btnFor1.UseVisualStyleBackColor = true;
-            btnFor1.Click += button1_Click;
             // 
             // btnFor2
             // 
@@ -421,7 +426,6 @@
             btnData.TabIndex = 3;
             btnData.Text = "Show Data in Grid";
             btnData.UseVisualStyleBackColor = true;
-            btnData.Click += btnData_Click;
             // 
             // tblOutput
             // 
@@ -503,6 +507,36 @@
             btnEnum2.Text = "Enumerable Functions 2";
             btnEnum2.UseVisualStyleBackColor = true;
             // 
+            // btnArray
+            // 
+            btnArray.Dock = DockStyle.Fill;
+            btnArray.Location = new Point(246, 1013);
+            btnArray.Name = "btnArray";
+            btnArray.Size = new Size(235, 100);
+            btnArray.TabIndex = 31;
+            btnArray.Text = "Array";
+            btnArray.UseVisualStyleBackColor = true;
+            // 
+            // btnDictionary
+            // 
+            btnDictionary.Dock = DockStyle.Fill;
+            btnDictionary.Location = new Point(488, 1013);
+            btnDictionary.Name = "btnDictionary";
+            btnDictionary.Size = new Size(235, 100);
+            btnDictionary.TabIndex = 32;
+            btnDictionary.Text = "Dictionary";
+            btnDictionary.UseVisualStyleBackColor = true;
+            // 
+            // btnQueue
+            // 
+            btnQueue.Dock = DockStyle.Fill;
+            btnQueue.Location = new Point(730, 1013);
+            btnQueue.Name = "btnQueue";
+            btnQueue.Size = new Size(235, 100);
+            btnQueue.TabIndex = 33;
+            btnQueue.Text = "Stack Queue";
+            btnQueue.UseVisualStyleBackColor = true;
+            // 
             // frmLanguageBasics
             // 
             AutoScaleDimensions = new SizeF(15F, 38F);
@@ -560,5 +594,8 @@
         private Button btnList2;
         private Button btnEnum1;
         private Button btnEnum2;
+        private Button btnArray;
+        private Button btnDictionary;
+        private Button btnQueue;
     }
 }

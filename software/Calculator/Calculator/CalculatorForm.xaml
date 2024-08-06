@@ -9,23 +9,23 @@
         <Label Text="" Grid.Column="1" Grid.Row="0" BackgroundColor="LightGray"/>
         <Label Text="" Grid.Column="2" Grid.Row="0" BackgroundColor="LightGray"/>
         <Label Text="" Grid.Column="3" Grid.Row="0" BackgroundColor="LightGray"/>
-        <Button Text="C" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="MistyRose" TextColor="Black"/>
-        <Button Text="/" Grid.Column="3" Grid.Row="1" BackgroundColor="MistyRose" TextColor="Black"/>
-        <Button Text="7" Grid.Column="0" Grid.Row="2" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="8" Grid.Column="1" Grid.Row="2" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="9" Grid.Column="2" Grid.Row="2" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="x" Grid.Column="3" Grid.Row="2" BackgroundColor="MistyRose" TextColor="Black"/>
+        <Button Text="C" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#EA9999" TextColor="Black"/>
+        <Button Text="/" Grid.Column="3" Grid.Row="1" BackgroundColor="#EA9999" TextColor="Black"/>
+        <Button Text="7" Grid.Column="0" Grid.Row="2" BackgroundColor="#9FC5F8" TextColor="Black"/>
+        <Button Text="8" Grid.Column="1" Grid.Row="2" BackgroundColor="#9FC5F8" TextColor="Black"/>
+        <Button Text="9" Grid.Column="2" Grid.Row="2" BackgroundColor="#9FC5F8" TextColor="Black"/>
+        <Button Text="x" Grid.Column="3" Grid.Row="2" BackgroundColor="#EA9999" TextColor="Black"/>
         <Button Text="4" Grid.Column="0" Grid.Row="3" BackgroundColor="SkyBlue" TextColor="Black"/>
         <Button Text="5" Grid.Column="1" Grid.Row="3" BackgroundColor="SkyBlue" TextColor="Black"/>
         <Button Text="6" Grid.Column="2" Grid.Row="3" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="-" Grid.Column="3" Grid.Row="3" BackgroundColor="MistyRose" TextColor="Black"/>
+        <Button Text="-" Grid.Column="3" Grid.Row="3" BackgroundColor="#EA9999" TextColor="Black"/>
         <Button Text="1" Grid.Column="0" Grid.Row="4" BackgroundColor="SkyBlue" TextColor="Black"/>
         <Button Text="2" Grid.Column="1" Grid.Row="4" BackgroundColor="SkyBlue" TextColor="Black"/>
         <Button Text="3" Grid.Column="2" Grid.Row="4" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="+" Grid.Column="3" Grid.Row="4" BackgroundColor="MistyRose" TextColor="Black"/>
+        <Button Text="+" Grid.Column="3" Grid.Row="4" BackgroundColor="#EA9999" TextColor="Black"/>
         <Button Text="-/+" Grid.Column="0" Grid.Row="5" BackgroundColor="SkyBlue" TextColor="Black"/>
         <Button Text="0" Grid.Column="1" Grid.Row="5" BackgroundColor="SkyBlue" TextColor="Black"/>
         <Button Text="." Grid.Column="2" Grid.Row="5" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="=" Grid.Column="3" Grid.Row="5" BackgroundColor="MistyRose" TextColor="Black"/>
+        <Button Text="=" Grid.Column="3" Grid.Row="5" BackgroundColor="#EA9999" TextColor="Black"/>
     </Grid>
 </ContentPage>
