@@ -3,29 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Calculator.CalculatorForm"
              Title="Calculator">
+    <ContentPage.Resources>
+        <Style TargetType="Frame">
+            <Setter Property="BorderColor" Value="Gray"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+        </Style>
 
-    <Grid Margin="10" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*" ColumnSpacing="10" RowSpacing="10">
-        <Label Text="" Grid.Column="0" Grid.Row="0" BackgroundColor="LightGray"/>
-        <Label Text="" Grid.Column="1" Grid.Row="0" BackgroundColor="LightGray"/>
-        <Label Text="" Grid.Column="2" Grid.Row="0" BackgroundColor="LightGray"/>
-        <Label Text="" Grid.Column="3" Grid.Row="0" BackgroundColor="LightGray"/>
-        <Button Text="C" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" BackgroundColor="#EA9999" TextColor="Black"/>
-        <Button Text="/" Grid.Column="3" Grid.Row="1" BackgroundColor="#EA9999" TextColor="Black"/>
-        <Button Text="7" Grid.Column="0" Grid.Row="2" BackgroundColor="#9FC5F8" TextColor="Black"/>
-        <Button Text="8" Grid.Column="1" Grid.Row="2" BackgroundColor="#9FC5F8" TextColor="Black"/>
-        <Button Text="9" Grid.Column="2" Grid.Row="2" BackgroundColor="#9FC5F8" TextColor="Black"/>
-        <Button Text="x" Grid.Column="3" Grid.Row="2" BackgroundColor="#EA9999" TextColor="Black"/>
-        <Button Text="4" Grid.Column="0" Grid.Row="3" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="5" Grid.Column="1" Grid.Row="3" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="6" Grid.Column="2" Grid.Row="3" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="-" Grid.Column="3" Grid.Row="3" BackgroundColor="#EA9999" TextColor="Black"/>
-        <Button Text="1" Grid.Column="0" Grid.Row="4" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="2" Grid.Column="1" Grid.Row="4" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="3" Grid.Column="2" Grid.Row="4" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="+" Grid.Column="3" Grid.Row="4" BackgroundColor="#EA9999" TextColor="Black"/>
-        <Button Text="-/+" Grid.Column="0" Grid.Row="5" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="0" Grid.Column="1" Grid.Row="5" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="." Grid.Column="2" Grid.Row="5" BackgroundColor="SkyBlue" TextColor="Black"/>
-        <Button Text="=" Grid.Column="3" Grid.Row="5" BackgroundColor="#EA9999" TextColor="Black"/>
+        <Style TargetType="Label">
+            <Setter Property="BackgroundColor" Value="LightGray"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+
+        </Style>
+    </ContentPage.Resources>
+    
+    <Frame BorderColor="Black" HasShadow="False" >
+        
+        <Grid Margin="10" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*" ColumnSpacing="10" RowSpacing="10">
+        <Frame Grid.Column="0" Grid.Row="0">
+            <Label x:Name="lbl1" Text=""/>
+        </Frame>
+        <Frame Grid.Column="1" Grid.Row="0">
+            <Label x:Name="lbl2" Text=""/>
+        </Frame>
+        <Frame Grid.Column="2" Grid.Row="0">
+            <Label x:Name="lbl3" Text=""/>
+        </Frame>
+        <Frame Grid.Column="3" Grid.Row="0">
+            <Label x:Name="lblAnswer" Text=""/>
+        </Frame>
+        <Button Text="C" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource Key=operation-button}"/>
+            <Button Text="/" Grid.Column="3" Grid.Row="1" BackgroundColor="#EA9999"/>
+            <Button Text="7" Grid.Column="0" Grid.Row="2" BackgroundColor="#9FC5F8"/>
+            <Button Text="8" Grid.Column="1" Grid.Row="2" BackgroundColor="#9FC5F8"/>
+            <Button Text="9" Grid.Column="2" Grid.Row="2" BackgroundColor="#9FC5F8"/>
+            <Button Text="x" Grid.Column="3" Grid.Row="2" BackgroundColor="#EA9999"/>
+            <Button Text="4" Grid.Column="0" Grid.Row="3" BackgroundColor="#9FC5F8"/>
+            <Button Text="5" Grid.Column="1" Grid.Row="3" BackgroundColor="#9FC5F8"/>
+            <Button Text="6" Grid.Column="2" Grid.Row="3" BackgroundColor="#9FC5F8"/>
+            <Button Text="-" Grid.Column="3" Grid.Row="3" BackgroundColor="#EA9999"/>
+            <Button Text="1" Grid.Column="0" Grid.Row="4" BackgroundColor="#9FC5F8"/>
+            <Button Text="2" Grid.Column="1" Grid.Row="4" BackgroundColor="#9FC5F8"/>
+            <Button Text="3" Grid.Column="2" Grid.Row="4" BackgroundColor="#9FC5F8"/>
+            <Button Text="+" Grid.Column="3" Grid.Row="4" BackgroundColor="#EA9999"/>
+            <Button Text="-/+" Grid.Column="0" Grid.Row="5" BackgroundColor="#9FC5F8"/>
+            <Button Text="0" Grid.Column="1" Grid.Row="5" BackgroundColor="#9FC5F8"/>
+            <Button Text="." Grid.Column="2" Grid.Row="5" BackgroundColor="#9FC5F8"/>
+        <Button Text="=" Grid.Column="3" Grid.Row="5" Style="{StaticResource Key=operation-button}"/>
     </Grid>
+    </Frame>
 </ContentPage>
