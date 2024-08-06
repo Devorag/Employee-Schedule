@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using gnuciDictionary;
+using System.Runtime.InteropServices;
 
 namespace LanguageBasics
 {
@@ -57,12 +58,13 @@ namespace LanguageBasics
             btnList2.Click += BtnList2_Click;
             btnEnum1.Click += BtnEnum1_Click;
             btnEnum2.Click += BtnEnum2_Click;
+            btnArray.Click += BtnArray_Click;
+            btnDictionary.Click += BtnDictionary_Click;
+            btnQueue.Click += BtnQueue_Click;
 
             lstbtn = new() { btnEnum2, btnEnum1, btnFor1, btnList2, btnRandom };
             lstword = new() { "apple", "boy", "candy", "dog", "egg" };
         }
-
-
 
         private void IncrementOutputMessageVariable()
         {
@@ -722,21 +724,78 @@ namespace LanguageBasics
 
         }
 
-        private void gOutput_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void BtnArray_Click(object? sender, EventArgs e)
         {
+            Button[] btns = { btnArray, btnData };
+            DisplayValueAndCaption(btns.Length.ToString());
+            btns[0] = btnScope1;
+            foreach (var btn in btns)
+            {
+                DisplayValueAndCaption(btn.Name);
+            }
+            var lst = btns.ToList<Button>();
+            lst.Add(btnSwitch);
+            lst.ForEach(b => DisplayValueAndCaption(b.Name));
 
+            Button[] btns2 = new Button[3];
+            btns2[0] = btnScope1;
+            btns2[1] = btnString;
         }
-
-        private void btnData_Click(object sender, EventArgs e)
+        private void BtnDictionary_Click(object? sender, EventArgs e)
         {
+            Dictionary<string, Button> dibtns = new();
+            dibtns.Add("scope", btnScope1);
+            dibtns.Add("switch", btnSwitch);
+            dibtns.Add("if", btnIf1);
+            dibtns.Add("enumerable", btnEnum1);
 
+            Button btn = dibtns["scope"];
+            DisplayValueAndCaption(btn.Name);
+            DisplayValueAndCaption(dibtns.Count.ToString());
+            dibtns.Remove("scope");
+            DisplayValueAndCaption(dibtns.Count.ToString());
+
+            foreach (KeyValuePair<string, Button> kv in dibtns)
+            {
+                DisplayValueAndCaption(kv.Key);
+                DisplayValueAndCaption(kv.Value.Name);
+                DisplayValueAndCaption(kv.ToString());
+            }
+
+            DisplayMessage("------------");
+            dibtns.ToList().ForEach(kv => DisplayValueAndCaption(kv.ToString()));
+
+            DisplayMessage("------------");
+            Dictionary<string, Button> newdi = dibtns.Where(kv => kv.Key.Contains("i")).ToDictionary(kv2 => kv2.Key, kv2 => kv2.Value);
+            foreach (var kv in newdi)
+            {
+                DisplayValueAndCaption(kv.ToString());
+            }
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnQueue_Click(object? sender, EventArgs e)
         {
+            Queue<Button> qbtns = new();
+            qbtns.Enqueue(btnAddControl1);
+            qbtns.Enqueue(btnAddControl2);
+            qbtns.Enqueue(btnArray);
+            DisplayMessage("-------------where");
+            var newq = new Queue<Button>(qbtns.Where(b => b.Name.Contains("d")));
 
+            DisplayMessage("-------------foreach on the new q");
+            foreach (var b in newq)
+            {
+                DisplayValueAndCaption(b.Name);
+            }
+            DisplayMessage("-------------");
+            var btn = qbtns.Dequeue();
+            DisplayValueAndCaption(btn.Name);
+            DisplayMessage("-------------");
+
+            while (qbtns.Count > 0)
+            {
+                DisplayValueAndCaption(qbtns.Dequeue().Name);
+            }
         }
-
 
         //code goes here 
     }

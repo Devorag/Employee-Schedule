@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HelloWorldWeb.Pages
@@ -16,5 +16,7 @@ namespace HelloWorldWeb.Pages
         {
 
         }
+
+        public string Message { get { return " Hello World my name is Devora Goldenberg " +  DateTime.Now.ToString(); } }
     }
 }

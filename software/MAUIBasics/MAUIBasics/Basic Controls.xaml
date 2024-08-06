@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIBasics.Basic_Controls"
+             Title="Basic Controls"
+             BackgroundColor="Green">
+    <VerticalStackLayout BackgroundColor="White" Margin="10" Spacing="10">
+        <Label x:Name="lblMessage"/>
+        <Label Text="Last Name" BackgroundColor="LightGreen"/>
+        <Entry x:Name="txtLastName" Placeholder="Last Name"/>
+        <HorizontalStackLayout>
+            <Label Text="Active" VerticalOptions="Center"/>
+            <CheckBox x:Name="chkActive"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <RadioButton x:Name="rbPrivate" Content="Private" IsChecked="true" Value="private"/>
+            <RadioButton x:Name="rbPublic" Content="Public" Value="public"/>
+        </HorizontalStackLayout>
+        <Switch x:Name="swOnOff" IsToggled="False"/>
+        <Slider x:Name="slHeight" Minimum="1" Maximum="100"/>
+        <Button x:Name="btnSave" Text="Save" Clicked="btnSave_Clicked"/>
+    </VerticalStackLayout>
+</ContentPage>

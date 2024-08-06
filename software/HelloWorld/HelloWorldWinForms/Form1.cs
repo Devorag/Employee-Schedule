@@ -7,9 +7,9 @@ namespace HelloWorldWinForms
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnClick_Click(object sender, EventArgs e)
         {
-            label1.Text = "Hello World my name is Devora Goldenberg. The current time is " + DateTime.Now.TimeOfDay.ToString();
+            lblText.Text = "Hello World my name is Devora Goldenberg. The current time is " + DateTime.Now.ToString();
         }
     }
 }

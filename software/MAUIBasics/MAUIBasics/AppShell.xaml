@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MAUIBasics.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MAUIBasics"
+    Shell.FlyoutBehavior="Disabled"
+    Title="MAUIBasics">
+
+
+    <TabBar>
+        <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:Home}"
+        Route="Home" />
+
+        <ShellContent
+        Title="Basic Controls"
+        ContentTemplate="{DataTemplate local:Basic_Controls}"
+        Route="BasicControls" />
+
+        <ShellContent
+         Title="The Grid"
+         ContentTemplate="{DataTemplate local:Grid}"
+         Route="Grid" />
+
+        <ShellContent
+         Title="Tic Tac Toe"
+         ContentTemplate="{DataTemplate local:TicTacToe}"
+         Route="TicTacToe" />
+
+    </TabBar>
+
+</Shell>

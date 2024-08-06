@@ -28,47 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            label1 = new Label();
+            btnClick = new Button();
+            lblText = new Label();
             SuspendLayout();
             // 
-            // button1
+            // btnClick
             // 
-            button1.Location = new Point(367, 601);
-            button1.Margin = new Padding(4, 5, 4, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(432, 52);
-            button1.TabIndex = 0;
-            button1.Text = "click me to say hello";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btnClick.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btnClick.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClick.Location = new Point(409, 721);
+            btnClick.Name = "btnClick";
+            btnClick.Size = new Size(689, 70);
+            btnClick.TabIndex = 0;
+            btnClick.Text = "Click me to say Hello";
+            btnClick.UseVisualStyleBackColor = true;
+            btnClick.Click += btnClick_Click;
             // 
-            // label1
+            // lblText
             // 
-            label1.BackColor = Color.FromArgb(255, 192, 192);
-            label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Location = new Point(26, 280);
-            label1.Name = "label1";
-            label1.Size = new Size(1135, 81);
-            label1.TabIndex = 1;
+            lblText.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblText.BackColor = SystemColors.ControlLightLight;
+            lblText.Location = new Point(186, 384);
+            lblText.Name = "lblText";
+            lblText.Size = new Size(1132, 115);
+            lblText.TabIndex = 1;
+            lblText.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(15F, 38F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1227, 684);
-            Controls.Add(label1);
-            Controls.Add(button1);
-            Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            Margin = new Padding(4, 5, 4, 5);
+            ClientSize = new Size(1512, 977);
+            Controls.Add(lblText);
+            Controls.Add(btnClick);
             Name = "Form1";
-            Text = "DG Hello World";
+            Text = "Hello World";
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Button button1;
-        private Label label1;
+        private Button btnClick;
+        private Label lblText;
     }
 }
