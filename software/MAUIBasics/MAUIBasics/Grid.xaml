@@ -5,7 +5,8 @@
              Title="Grid">
     <Grid BackgroundColor="Silver" ColumnDefinitions="*,*" RowDefinitions="*,*,*"
           ColumnSpacing="25" RowSpacing="25">
-        <Button Text="1" Grid.Column="0" Grid.Row="0"/>
+        <Button Text="1" Grid.Column="0" Grid.Row="0"
+                ImageSource="p1p.jpeg"/>
         <Button Text="2" Grid.Column="1" Grid.Row="0"/>
         <Button Text="3" Grid.Column="0" Grid.Row="1"/>
         <Button Text="4" Grid.Column="1" Grid.Row="1"/>

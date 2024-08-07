@@ -29,6 +29,25 @@
          ContentTemplate="{DataTemplate local:TicTacToe}"
          Route="TicTacToe" />
 
+        <ShellContent
+         Title="Horizontal Stack Layout"
+         ContentTemplate="{DataTemplate local:HorizontalStackLayout}"
+         Route="HorizontalStackLayout" />
+
+        <ShellContent
+         Title="Vertical Stack Layout"
+         ContentTemplate="{DataTemplate local:VerticalStackLayout}"
+         Route="VerticalStackLayout" />
+
+        <ShellContent
+         Title="Absolute Layout Panel"
+         ContentTemplate="{DataTemplate local:AbsoluteLayoutPanel}"
+         Route="AbsoluteLayoutPanel" />
+
+        <ShellContent
+         Title="Centered Page"
+         ContentTemplate="{DataTemplate local:CenteredPage}"
+         Route="CenteredPage" />
     </TabBar>
 
 </Shell>

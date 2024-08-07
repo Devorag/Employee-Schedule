@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIBasics.AbsoluteLayoutPanel"
+             Title="AbsoluteLayoutPanel">
+    <AbsoluteLayout>
+        <BoxView Color="Red" AbsoluteLayout.LayoutBounds="100,500"/>
+        <BoxView Color="Blue" AbsoluteLayout.LayoutBounds="100,300,100,100"/>
+        <BoxView Color="Blue" AbsoluteLayout.LayoutBounds="110,320,100,100" Opacity=".5" CornerRadius="10"/>
+    </AbsoluteLayout>
+</ContentPage>

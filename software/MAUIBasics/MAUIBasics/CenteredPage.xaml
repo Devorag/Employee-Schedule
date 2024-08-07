@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIBasics.CenteredPage"
+             Title="CenteredPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="BoxView">
+                <Setter Property="MinimumHeightRequest" Value="100"/>
+                <Setter Property="MinimumWidthRequest" Value="100"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="Centered Layout" FontSize="Medium" HorizontalOptions="Center"/>
+        <Border Stroke="Purple" StrokeThickness="3" Padding="10">
+            <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto" HorizontalOptions="Center">
+                <BoxView Color="Red" Grid.Column="0" Grid.Row="0"/>
+                <BoxView Color="Blue" Grid.Column="1" Grid.Row="0"/>
+                <BoxView Color="Green" Grid.Column="0" Grid.Row="1"/>
+                <BoxView Color="Yellow" Grid.Column="1" Grid.Row="1"/>
+            </Grid>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>
