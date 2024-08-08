@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Person
+    public class Person : INotifyPropertyChanged
     {
         public enum GenderEnum { Unknown, Male, Female };
 
         private string _middlename = "";
+        private string _firstname = "";
+        private string _lastname = "";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void InvokePropertyChanged([CallerMemberName]string propertyname = "") {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
 
         public Person(string lastnamevalue = "")
         {
@@ -18,8 +23,26 @@ namespace OOPBasics
             this.LastName = lastnamevalue;
         }
 
-        public string FirstName { get; set; } = "";
-        public string LastName { get; set; } = "";
+        public string FirstName
+        {
+            get => _firstname;
+            set
+            {
+                _firstname = value;
+                InvokePropertyChanged();
+                InvokePropertyChanged("Description");
+            }
+        }
+        public string LastName
+        {
+            get => _lastname;
+            set
+            {
+                _lastname = value;
+                InvokePropertyChanged();
+                InvokePropertyChanged("Description");
+            }
+        }
 
         public string MiddleName
         {

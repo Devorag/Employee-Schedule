@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOPBasics
+﻿namespace OOPBasics
 {
     public class School
     {
+        public EventHandler? SchoolChanged;
 
         public List<Teacher> Teacher { get; set; } = new();
         public void AddTeacher(Teacher teacher)
         {
             this.Teacher.Add(teacher);
+            SchoolChanged?.Invoke(this, new EventArgs());
         }
 
         public List<Student> Student { get; set; } = new();
@@ -20,6 +16,7 @@ namespace OOPBasics
         public void AddStudent(Student student)
         {
             this.Student.Add(student);
+            SchoolChanged?.Invoke(this, new EventArgs());
         }
         public string Description
         {

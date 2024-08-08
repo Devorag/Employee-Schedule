@@ -1,20 +1,37 @@
-﻿namespace OOPBasics
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace OOPBasics
 {
-    public class Teacher
+    public class Teacher : INotifyPropertyChanged
     {
         public enum TitleEnum { Morah, Mrs };
+
+
+        private string _maidenName = "";
+        private string _lastName = "";
+        private string _subject = "";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
         public Teacher(string lastnamevalue = "")
         {
             this.Subject = "Vocabulary";
-            this.LastName = lastnamevalue;
+            this.tLastName = lastnamevalue;
         }
 
-        private int _yearstaught;
-
-        private string _maidenName = "";
-
         public string FirstName { get; set; } = "";
-        public string LastName { get; set; } = "";
+        public string tLastName { get => _lastName;
+            set 
+            {
+                _lastName = value;
+                InvokePropertyChanged();
+                InvokePropertyChanged("Description");
+            } 
+        }
         public string MaidenName
         {
             get { return _maidenName; }
@@ -31,13 +48,20 @@
 
         public TitleEnum Title { get; set; } = TitleEnum.Mrs;
 
-        public string Subject { get; set; } 
+        public string Subject { get => _subject;
+            set
+            {
+                _subject = value;
+                InvokePropertyChanged();
+                InvokePropertyChanged("Description");
+            }
+        } 
 
         public string Description
         {
             get
             {
-                string desc = $" {this.Title} {this.FirstName} {this.LastName} ( {this.MaidenName} ) has been teaching {this.Subject} for {YearsTaught} years";
+                string desc = $" {this.Title} {this.FirstName} {this.tLastName} ( {this.MaidenName} ) has been teaching {this.Subject} for {YearsTaught} years";
 
                 return desc;
             }

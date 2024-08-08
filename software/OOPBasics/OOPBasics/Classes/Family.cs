@@ -1,22 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OOPBasics
+﻿namespace OOPBasics
 {
     public class Family
     {
-        public Person Father { get; set; } 
+        private Person _father;
+        private Person _mother;
 
-        public Person Mother { get; set; }
+        public event EventHandler? FamilyChanged;
+
+        public Person Father
+        {
+            get => _father;
+            set
+            {
+                _father = value;
+                FamilyChanged?.Invoke(this, new EventArgs());
+            }
+        }
+
+        public Person Mother
+        {
+            get => _mother;
+            set
+            {
+                _mother = value;
+                FamilyChanged?.Invoke(this, new EventArgs());
+            }
+        }
 
         public List<Person> Children { get; private set; } = new();
 
         public void AddChild(Person person)
         {
             this.Children.Add(person);
+            FamilyChanged?.Invoke(this, new EventArgs());
         }
 
         public List<Animal> Pets { get; private set; } = new();
@@ -24,6 +40,7 @@ namespace OOPBasics
         public void AddPet(Animal animal)
         {
             this.Pets.Add(animal);
+            FamilyChanged?.Invoke(this, new EventArgs());
         }
 
         public string Description
@@ -32,7 +49,7 @@ namespace OOPBasics
             {
                 string desc = "";
 
-                desc = $"Father : {this.Father?.Description} Mother : {this.Mother.Description}";
+                desc = $"Father : {this.Father?.Description} Mother : {this.Mother?.Description}";
                 this.Children.ForEach(c => desc = desc + Environment.NewLine + "Child :" + c.Description);
                 this.Pets.ForEach(p => desc = desc + Environment.NewLine + p.AnimalType.ToString());
 
