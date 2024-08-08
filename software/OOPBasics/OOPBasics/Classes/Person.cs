@@ -9,8 +9,23 @@ namespace OOPBasics
     public class Person
     {
         public enum GenderEnum { Unknown, Male, Female };
+
+        private string _middlename = "";
+
+        public Person(string lastnamevalue = "")
+        {
+            this.DOB = DateTime.Now;
+            this.LastName = lastnamevalue;
+        }
+
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
+
+        public string MiddleName
+        {
+            get { return _middlename;  }
+            set { _middlename = value; }
+        }
 
         public GenderEnum Gender { get; set; } = GenderEnum.Unknown;
 
@@ -20,7 +35,7 @@ namespace OOPBasics
         {
             get
             {
-                string desc = $"{this.FirstName} {this.LastName} {this.Gender} {this.Age} years old";
+                string desc = $"{this.FirstName} {this.MiddleName} {this.LastName} {this.Gender} {this.Age} years old";
 
                 return desc;
             }
@@ -29,7 +44,8 @@ namespace OOPBasics
 
         public int Age
         {
-            get { return DateTime.Now.Year - DOB.Year; }
+            get => DateTime.Now.Year - DOB.Year; 
+            set => this.DOB = DateTime.Now.AddYears(-value); 
         }
     }
 }
