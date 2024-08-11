@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicTacToeMaui.MainPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Button" x:Key="game-button">
+            <Setter Property="CornerRadius" Value="40" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid  ColumnDefinitions="*" RowDefinitions="*,5*">
+        <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*" Grid.Column="0" Grid.Row="0">
+            <Button x:Name="StartBtn"
+                    Clicked ="StartBtn_Clicked"
+                    Margin="20" Text="Start" 
+                    Grid.Column="0" Grid.Row="0"
+                    TextTransform="Uppercase"
+                    FontSize="Medium"
+                    CharacterSpacing="10"
+                    CornerRadius="0"
+                    />
+            <RadioButton Content="2 Player" Grid.Column="1" Grid.Row="0"/>
+            <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" Grid.Column="2" Grid.Row="0"/>
+            <Label Text="{Binding GameStatusDescription}" Grid.Column="3" Grid.Row="0"
+                   VerticalOptions="Center" HorizontalOptions="Center"
+                   />
+        </Grid>
+        <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="1">
+            <Button x:Name="btn1" Grid.Column="0" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[0]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn2" Grid.Column="1" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[1]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn3" Grid.Column="2" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[2]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn4" Grid.Column="0" Grid.Row="1" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[3]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn5" Grid.Column="1" Grid.Row="1" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[4]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn6" Grid.Column="2" Grid.Row="1" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[5]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn7" Grid.Column="0" Grid.Row="2" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[6]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn8" Grid.Column="1" Grid.Row="2" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[7]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+            <Button x:Name="btn9" Grid.Column="2" Grid.Row="2" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[8]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>

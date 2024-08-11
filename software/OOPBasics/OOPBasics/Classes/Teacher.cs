@@ -9,7 +9,7 @@ namespace OOPBasics
 
 
         private string _maidenName = "";
-        private string _lastName = "";
+        private string _tlastName = "";
         private string _subject = "";
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -23,11 +23,11 @@ namespace OOPBasics
             this.tLastName = lastnamevalue;
         }
 
-        public string FirstName { get; set; } = "";
-        public string tLastName { get => _lastName;
+        public string FirstName { get; set; } 
+        public string tLastName { get => _tlastName;
             set 
             {
-                _lastName = value;
+                _tlastName = value;
                 InvokePropertyChanged();
                 InvokePropertyChanged("Description");
             } 

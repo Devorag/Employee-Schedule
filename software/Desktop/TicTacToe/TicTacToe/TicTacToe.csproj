@@ -9,4 +9,8 @@
     <AssemblyName>Tic Tac Toe</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TicTacToeSystem\TicTacToeSystem.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OOPBasics.MainPage">
-s
-    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*,*,*,*,*">
+
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*,*,*,*,*, *">
         <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
             <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0" Clicked="PersonBtn_Clicked"/>
             <Button x:Name="FamilyBtn" Text="Family" Grid.Column="1" Grid.Row="0" Clicked="FamilyBtn_Clicked"/>
@@ -15,19 +15,19 @@ s
         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
             <Label x:Name="DisplayLbl" BackgroundColor="LightPink" FontSize="14"/>
         </Border>
-        <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
+        <Border Grid.Row="2" Grid.Column="1" StrokeThickness="4">
             <Label x:Name="BindLbl" BackgroundColor="LightPink" Text=" {Binding FirstName}"/>
         </Border>
-        <Border Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
+        <Border Grid.Row="3" Grid.Column="1"  StrokeThickness="4">
             <Label x:Name="BindLbl2" BackgroundColor="LightPink" Text=" {Binding LastName}"/>
         </Border>
-        <Border Grid.Row="4" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
+        <Border Grid.Row="4" Grid.Column="1"  StrokeThickness="4">
             <Label x:Name="BindLbl3" BackgroundColor="LightPink" Text=" {Binding Description}"/>
         </Border>
-        <Border Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
+        <Border Grid.Row="5" Grid.Column="1" StrokeThickness="4">
             <Label x:Name="BindLbl4" BackgroundColor="LightPink" Text=" {Binding Subject}"/>
         </Border>
-        <Border Grid.Row="6" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
+        <Border Grid.Row="6" Grid.Column="1" StrokeThickness="4">
             <Label x:Name="BindLbl5" BackgroundColor="LightPink" Text=" {Binding tLastName}"/>
         </Border>
     </Grid>
