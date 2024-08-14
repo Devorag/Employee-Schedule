@@ -19,10 +19,12 @@ namespace OOPBasics
 
         public Person(string lastnamevalue = "")
         {
+            Popoulation++;
             this.DOB = DateTime.Now;
             this.LastName = lastnamevalue;
         }
 
+        public static int Popoulation { get; set; }
         public string FirstName
         {
             get => _firstname;

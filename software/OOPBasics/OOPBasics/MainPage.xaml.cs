@@ -51,6 +51,7 @@
         private void DisplayValue(string value)
         {
             DisplayLbl.Text = DisplayLbl.Text + Environment.NewLine + "------------" + Environment.NewLine + value;
+            DisplayPopulation();
         }
 
         private void DisplayTeacher(Teacher teacher)
@@ -58,15 +59,18 @@
             DisplayValue(teacher.Description);
         }
 
+        private void DisplayPopulation()
+        {
+            StaticLbl.Text = "Population: " + Person.Popoulation;
+        }
+
         private void FamilyBtn_Clicked(object sender, EventArgs e)
         {
-
             Family.Father = new Person("Jones") { FirstName = "John", MiddleName = "Jack", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35) };
             Family.Mother = new Person() { FirstName = "Sue", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-34) };
             Family.AddChild(new Person() { FirstName = "Adam", LastName="Smith", Gender = Person.GenderEnum.Male, Age = 1});
             Family.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-2) });
             Family.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
-
         }
 
         private void TeacherBtn_Clicked(object sender, EventArgs e)

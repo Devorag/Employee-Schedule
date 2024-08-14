@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OOPBasics.MainPage">
 
-    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*,*,*,*,*, *">
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*,*,*,*,*, *, *">
         <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
             <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0" Clicked="PersonBtn_Clicked"/>
             <Button x:Name="FamilyBtn" Text="Family" Grid.Column="1" Grid.Row="0" Clicked="FamilyBtn_Clicked"/>
@@ -29,6 +29,9 @@
         </Border>
         <Border Grid.Row="6" Grid.Column="1" StrokeThickness="4">
             <Label x:Name="BindLbl5" BackgroundColor="LightPink" Text=" {Binding tLastName}"/>
+        </Border>
+        <Border Grid.Row="7" Grid.Column="1" StrokeThickness="4">
+            <Label x:Name="StaticLbl" BackgroundColor="LightPink" />
         </Border>
     </Grid>
 
