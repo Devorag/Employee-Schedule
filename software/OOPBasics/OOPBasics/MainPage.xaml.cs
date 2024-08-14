@@ -81,16 +81,14 @@
             //t.tLastName = "Green";
             //t.MaidenName = "Klein";
             t.Subject = "Chumash";
-            t.YearsTaught = 7;
             t.FirstDayTeaching = DateTime.Now.AddYears(-10);
 
             Teacher t2 = new();
             t2.Title = Teacher.TitleEnum.Mrs;
             t2.FirstName = "Sarah";
-            t2.tLastName = "Stein";
+            t2.LastName = "Stein";
             t2.MaidenName = "Avraham"; 
             t2.Subject = "Chemistry";
-            t2.YearsTaught = 19;
             t2.FirstDayTeaching = DateTime.Now.AddYears(-3);
 
             DisplayTeacher(t);
@@ -100,8 +98,8 @@
         private void SchoolBtn_Clicked(object sender, EventArgs e)
         {
             school.AddTeacher(new Teacher("Munk") { Title = Teacher.TitleEnum.Morah, FirstName = "Chaya", MaidenName = "Goldberg", Subject = "Navi", FirstDayTeaching = DateTime.Now.AddYears(-12)});
-            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Chava", tLastName = "Levy", MaidenName = "Spira", Subject = "Math", FirstDayTeaching = DateTime.Now.AddYears(-7)});
-            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Tzippora", tLastName = "Kohn", MaidenName = "Freund", FirstDayTeaching = DateTime.Now.AddYears(-33)});
+            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Chava", LastName = "Levy", MaidenName = "Spira", Subject = "Math", FirstDayTeaching = DateTime.Now.AddYears(-7)});
+            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Tzippora", LastName = "Kohn", MaidenName = "Freund", FirstDayTeaching = DateTime.Now.AddYears(-33)});
             school.AddStudent(new Student() { FirstName = "Miriam", LastName = "Gross", Grade = Student.StudentGradeEnum.Grade1});
             school.AddStudent(new Student() { FirstName = "Shana", LastName = "Mandel", Grade = Student.StudentGradeEnum.Grade3 });
             school.AddStudent(new Student() { FirstName = "Liba", LastName = "Ungar", Grade = Student.StudentGradeEnum.Grade11 });
@@ -117,8 +115,42 @@
         private void BindSchoolBtn_Clicked(object sender, EventArgs e)
         {
             this.BindingContext = teacher;
-            teacher.tLastName = "Snow " + DateTime.Now.Millisecond;
+            teacher.LastName = "Snow " + DateTime.Now.Millisecond;
             teacher.Subject = "Grammar " + DateTime.Now.Millisecond; 
+        }
+
+        private void InheritanceBtn_Clicked(object sender, EventArgs e)
+        {
+            Animal a = new();
+            a.AnimalType = Animal.AnimalTypeEnum.Cat;
+            a.Gender = Creature.GenderEnum.Female;
+            a.Age = 3;
+            DisplayLbl.Text = "";
+            DisplayValue(a.Description);
+
+            Alien i = new();
+            i.Planet = Alien.PlanetEnum.Venus;
+            i.Gender = Creature.GenderEnum.Male;
+            i.Age = 300;
+            DisplayValue(i.Description);
+        }
+
+        private void HWInheritanceBtn_Clicked(object sender, EventArgs e)
+        {
+            Teacher t = new();
+            t.Title = Teacher.TitleEnum.Morah;
+            t.FirstName = "Lea";
+            t.LastName = "Samuels";
+            t.MaidenName = "Munk";
+            t.Subject = "Historia";
+            t.FirstDayTeaching = DateTime.Now.AddYears(-7);
+            DisplayValue(t.Description);
+
+            Assistant s = new();
+            s.FirstName = "Baila";
+            s.LastName = "Fine";
+            s.Status = Assistant.StatusEnum.married;
+            DisplayValue(s.Description);
         }
     }
 

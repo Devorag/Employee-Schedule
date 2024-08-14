@@ -3,13 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Teacher : INotifyPropertyChanged
+    public class Teacher : Human, INotifyPropertyChanged
     {
         public enum TitleEnum { Morah, Mrs };
 
-
         private string? _maidenName;
-        private string? _tlastName;
+
         private string _subject = "";
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -20,18 +19,9 @@ namespace OOPBasics
         public Teacher(string lastnamevalue = "")
         {
             this.Subject = "Vocabulary";
-            this.tLastName = lastnamevalue;
+            this.LastName = lastnamevalue;
         }
 
-        public string FirstName { get; set; } 
-        public string? tLastName { get => _tlastName;
-            set 
-            {
-                _tlastName = value;
-                InvokePropertyChanged();
-                InvokePropertyChanged("Description");
-            } 
-        }
         public string? MaidenName
         {
             get { return _maidenName; }
@@ -61,7 +51,7 @@ namespace OOPBasics
         {
             get
             {
-                string desc = $" {this.Title} {this.FirstName} {this.tLastName} ( {this.MaidenName} ) has been teaching {this.Subject} for {YearsTaught} years";
+                string desc = $" {this.Title} {this.FirstName} {this.LastName} ( {this.MaidenName} ) has been teaching {this.Subject} for {YearsTaught} years";
 
                 return desc;
             }
