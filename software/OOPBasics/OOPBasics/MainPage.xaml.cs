@@ -73,14 +73,12 @@
         {
             Teacher t = new();
             t.Title = Teacher.TitleEnum.Morah;
-            //t.FirstName = "Chana";
-            t.tLastName = "Green";
-            t.MaidenName = "Klein";
+            t.FirstName = "Chana";
+            //t.tLastName = "Green";
+            //t.MaidenName = "Klein";
             t.Subject = "Chumash";
             t.YearsTaught = 7;
             t.FirstDayTeaching = DateTime.Now.AddYears(-10);
-
-            DisplayValue(t.FirstName?.Length.ToString());
 
             Teacher t2 = new();
             t2.Title = Teacher.TitleEnum.Mrs;

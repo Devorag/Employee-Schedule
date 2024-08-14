@@ -8,8 +8,8 @@ namespace OOPBasics
         public enum TitleEnum { Morah, Mrs };
 
 
-        private string _maidenName = "";
-        private string _tlastName = "";
+        private string? _maidenName;
+        private string? _tlastName;
         private string _subject = "";
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -24,7 +24,7 @@ namespace OOPBasics
         }
 
         public string FirstName { get; set; } 
-        public string tLastName { get => _tlastName;
+        public string? tLastName { get => _tlastName;
             set 
             {
                 _tlastName = value;
@@ -32,7 +32,7 @@ namespace OOPBasics
                 InvokePropertyChanged("Description");
             } 
         }
-        public string MaidenName
+        public string? MaidenName
         {
             get { return _maidenName; }
             set { _maidenName = value; }
