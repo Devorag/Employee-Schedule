@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Teacher : Human, INotifyPropertyChanged
+    public class Teacher : Human
     {
         public enum TitleEnum { Morah, Mrs };
 
@@ -11,11 +11,6 @@ namespace OOPBasics
 
         private string _subject = "";
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-        }
         public Teacher(string lastnamevalue = "")
         {
             this.Subject = "Vocabulary";

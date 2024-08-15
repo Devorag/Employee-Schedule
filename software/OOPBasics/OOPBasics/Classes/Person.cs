@@ -3,19 +3,13 @@ using System.Runtime.CompilerServices;
 
 namespace OOPBasics
 {
-    public class Person : Creature, INotifyPropertyChanged
+    public class Person : Creature
     {
 
 
         private string _middlename = "";
         private string _firstname = "";
         private string _lastname = "";
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void InvokePropertyChanged([CallerMemberName]string propertyname = "") {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-        }
 
         public Person(string lastnamevalue = "")
         {

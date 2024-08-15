@@ -6,11 +6,19 @@
         Person Person = new Person();
         School school = new School();
         Teacher teacher = new Teacher();
+        Animal animal = new();
+        Alien alien = new();
+        Student student = new();
+        Assistant assistant = new();
         public MainPage()
         {
             InitializeComponent();
             Family.FamilyChanged += Family_FamilyChanged;
             school.SchoolChanged += School_SchoolChanged;
+            AnimalLbl.BindingContext = animal;
+            AlienLbl.BindingContext = alien;
+            AssistantLbl.BindingContext = assistant;
+            StudentLbl.BindingContext = student;
         }
 
         private void School_SchoolChanged(object? sender, EventArgs e)
@@ -110,13 +118,23 @@
             this.BindingContext = Person;
             Person.FirstName = "John " + DateTime.Now.Millisecond;
             Person.LastName = "Smith " + DateTime.Now.Millisecond;
+            animal.Age = 3;
+            animal.Gender = Creature.GenderEnum.Female;
+            animal.AnimalType = animal.AnimalType == Animal.AnimalTypeEnum.Cat ? Animal.AnimalTypeEnum.Dog : Animal.AnimalTypeEnum.Cat;
+            alien.Age = 245;
+            alien.Planet = alien.Planet == Alien.PlanetEnum.Mars ? Alien.PlanetEnum.Venus : Alien.PlanetEnum.Mars;
         }
-
         private void BindSchoolBtn_Clicked(object sender, EventArgs e)
         {
             this.BindingContext = teacher;
             teacher.LastName = "Snow " + DateTime.Now.Millisecond;
-            teacher.Subject = "Grammar " + DateTime.Now.Millisecond; 
+            teacher.Subject = "Grammar " + DateTime.Now.Millisecond;
+            student.FirstName = "Bracha";
+            student.LastName = "Leiser";
+            student.Grade = student.Grade == Student.StudentGradeEnum.Grade2 ? Student.StudentGradeEnum.Grade4 : Student.StudentGradeEnum.Grade2;
+            assistant.FirstName = "Atara";
+            assistant.LastName = "Stern";
+            assistant.Status = assistant.Status == Assistant.StatusEnum.single ? Assistant.StatusEnum.married : Assistant.StatusEnum.single;
         }
 
         private void InheritanceBtn_Clicked(object sender, EventArgs e)
