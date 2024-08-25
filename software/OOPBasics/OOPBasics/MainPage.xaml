@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="OOPBasics.MainPage">
 
-    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,*,*,*,*,*,*,*,*,*,*,*">
-        <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*">
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,4*,*,*,*,*,*,*,*,*,*,*">
+        <Grid Grid.Row="0" Grid.Column="0" ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*">
             <Button x:Name="PersonBtn" Text="Person" Grid.Column="0" Grid.Row="0" Clicked="PersonBtn_Clicked"/>
             <Button x:Name="FamilyBtn" Text="Family" Grid.Column="1" Grid.Row="0" Clicked="FamilyBtn_Clicked"/>
             <Button x:Name="BindBtn" Text="Bind Family" Grid.Column="0" Grid.Row="1" Clicked="BindBtn_Clicked"/>
@@ -13,6 +13,8 @@
             <Button x:Name="SchoolBtn" Text="School" Grid.Column="1" Grid.Row="2" Clicked="SchoolBtn_Clicked"/>
             <Button x:Name="InheritanceBtn" Text="Inheritance" Grid.Column="0" Grid.Row="3" Clicked="InheritanceBtn_Clicked"/>
             <Button x:Name="HWInheritanceBtn" Text="Inheritance HW" Grid.Column="1" Grid.Row="3" Clicked="HWInheritanceBtn_Clicked"/>
+            <Button x:Name="ReflectionBtn" Text="Reflection" Grid.Column="0" Grid.Row="4" Clicked="ReflectionBtn_Clicked"/>
+            <Button x:Name="GenericsBtn" Text="Generics" Grid.Column="1" Grid.Row="4" Clicked="GenericsBtn_Clicked"/>
         </Grid>
         <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" StrokeThickness="4">
             <Label x:Name="DisplayLbl" BackgroundColor="LightPink" FontSize="14"/>

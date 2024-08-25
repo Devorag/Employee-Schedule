@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOPBasics
 {
-    public class Alien : Creature
+    public class Alien : Creature<Alien>
     {
         PlanetEnum _planet;
         public enum PlanetEnum { Jupiter, Mars, Venus }

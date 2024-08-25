@@ -10,6 +10,7 @@ namespace TicTacToeSystem
     {
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? ScoreChanged;
         public enum GameStatusEnum { NotStarted, Playing, Winner, Tie }
         public enum TurnEnum { None, X, O }
         List<List<Spot>> lstwinningsets = new();
@@ -17,8 +18,16 @@ namespace TicTacToeSystem
         bool iscomputerturn;
         GameStatusEnum _gamestatus = GameStatusEnum.NotStarted;
         TurnEnum _currentturn = TurnEnum.None;
+
+        private static int scorexwins;
+        private static int scoreowins;
+        private static int scoreties;
+        private static int numgames;
+
         public Game()
-        {
+        {;
+            numgames++;
+            this.GameName = "Game" + numgames;
             for (int i = 0; i < 9; i++)
             {
                 this.Spots.Add(new Spot());
@@ -40,6 +49,8 @@ namespace TicTacToeSystem
         }
 
         public List<Spot> Spots { get; private set; } = new();
+
+        public string GameName { get; private set; }
         public GameStatusEnum GameStatus
         {
             get => _gamestatus; private set
@@ -47,6 +58,7 @@ namespace TicTacToeSystem
                 _gamestatus = value;
                 this.InvokePropertyChanged();
                 this.InvokePropertyChanged("GameStatusDescription");
+                this.InvokePropertyChanged("StartButtonText");
             }
         }
         public TurnEnum CurrentTurn
@@ -58,25 +70,87 @@ namespace TicTacToeSystem
                 this.InvokePropertyChanged("GameStatusDescription");
             }
         }
-        public string GameStatusDescription { get => $"{this.GameStatus.ToString()} Current Turn: {this.CurrentTurn.ToString()}"; }
+        public string GameStatusDescription
+        {
+            get
+            {
+                string s = $"{this.GameName}, {this.GameMode}: ";
+                switch (this.GameStatus)
+                {
+                    case GameStatusEnum.NotStarted:
+                        s = s + "Click Start";
+                        break;
+                    case GameStatusEnum.Playing:
+                        s = s + "Current Turn " + this.CurrentTurn;
+                        break;
+                    case GameStatusEnum.Winner:
+                        s = s + this.GameStatus + " is " + this.CurrentTurn;
+                        break;
+                    case GameStatusEnum.Tie:
+                        s = s + this.GameStatus;
+                        break;
+                }
+                return s;
+            }
+        }
         public TurnEnum Winner { get; private set; }
         public bool PlayAgainstComputer { get; set; }
+
+        public string GameMode { get => this.PlayAgainstComputer ? "Play the computer" : "2 Player"; }
+
+        public string GameModeHeader { get => "For " + this.GameName; }
+
+        public string StartButtonText
+        {
+            get
+            {
+                string s = "";
+                switch (this.GameStatus)
+                {
+                    case GameStatusEnum.NotStarted:
+                        s = "Start ";
+                        break;
+                    case GameStatusEnum.Playing:
+                    case GameStatusEnum.Winner:
+                    case GameStatusEnum.Tie:
+                        s = "Stop ";
+                        break;
+                }
+                s = s + this.GameName;
+                return s;
+            }
+        }
+
         public System.Drawing.Color SpotWinnerColor { get; set; } = System.Drawing.Color.Red;
         public System.Drawing.Color SpotTieColor { get; set; } = System.Drawing.Color.Gray;
         public System.Drawing.Color SpotPlayingColor { get; set; } = System.Drawing.Color.Silver;
         public System.Drawing.Color SpotNotStartedColor { get; set; } = System.Drawing.Color.Black;
 
+        public static string Score { get => $"X wins = {scorexwins}: O wins = {scoreowins}: Ties = {scoreties} "; }
+
         public void StartGame(bool playagainstcomputer = false)
         {
-            this.PlayAgainstComputer = playagainstcomputer; 
-            this.Spots.ForEach(b =>
-            {
-                b.Clear();
-                b.BackColor = this.SpotPlayingColor;
-            });
+            this.PlayAgainstComputer = playagainstcomputer;
+            ClearButtons();
             this.GameStatus = GameStatusEnum.Playing;
             this.CurrentTurn = TurnEnum.X;
         }
+
+        public void StopGame()
+        {
+            this.GameStatus = GameStatusEnum.NotStarted;
+            ClearButtons();
+        }
+
+        private void ClearButtons()
+        {
+            this.Spots.ForEach(b =>
+                {
+                    b.Clear();
+                    b.BackColor = this.SpotPlayingColor;
+                });
+        }
+
         public void TakeSpot(int spotnum)
         {
             Spot spot = this.Spots[spotnum];
@@ -138,6 +212,15 @@ namespace TicTacToeSystem
                 this.GameStatus = GameStatusEnum.Winner;
                 this.Winner = this.CurrentTurn;
                 lst.ForEach(b => b.BackColor = this.SpotWinnerColor);
+                if (this.CurrentTurn == TurnEnum.X)
+                {
+                    scorexwins++;
+                }
+                else
+                {
+                    scoreowins++;
+                }
+                ScoreChanged?.Invoke(this, new EventArgs());
             }
         }
         private void DetectTie()
@@ -146,6 +229,8 @@ namespace TicTacToeSystem
             {
                 this.GameStatus = GameStatusEnum.Tie;
                 this.Spots.ForEach(b => b.BackColor = this.SpotTieColor);
+                scoreties++;
+                ScoreChanged?.Invoke(this, new EventArgs());
             }
         }
 

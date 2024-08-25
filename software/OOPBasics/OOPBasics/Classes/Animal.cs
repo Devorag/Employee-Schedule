@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OOPBasics
 {
-    public class Animal : Creature
+    public class Animal : Creature<Animal>
     {
         AnimalTypeEnum _animaltype;
         public Animal() : base(GenderEnum.Unknown)

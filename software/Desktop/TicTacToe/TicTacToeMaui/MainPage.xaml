@@ -6,26 +6,41 @@
     <ContentPage.Resources>
         <Style TargetType="Button" x:Key="game-button">
             <Setter Property="CornerRadius" Value="40" />
+            <Setter Property="FontSize" Value="36"/>
         </Style>
     </ContentPage.Resources>
-    <Grid  ColumnDefinitions="*" RowDefinitions="*,5*">
-        <Grid ColumnDefinitions="*,Auto,Auto,*" RowDefinitions="*" Grid.Column="0" Grid.Row="0">
-            <Button x:Name="StartBtn"
-                    Clicked ="StartBtn_Clicked"
-                    Margin="20" Text="Start" 
-                    Grid.Column="0" Grid.Row="0"
+    <Grid  ColumnDefinitions="*" RowDefinitions="Auto,Auto,*">
+        <FlexLayout Wrap="Wrap" Grid.Column="0" Grid.Row="0" JustifyContent="SpaceAround" AlignItems="Start" >
+            <VerticalStackLayout Margin="4">
+                <Label Text="3 simultaneous games." />
+                <Label Text="Choose which one to play" />
+                <RadioButton x:Name="Game1Rb" Content="{OnIdiom {Binding GameStatusName}, Desktop={Binding GameStatusDescription}, Tablet={Binding GameStatusDescription}}" CheckedChanged="Game_CheckedChanged" IsChecked="True"/>
+                <RadioButton x:Name="Game2Rb" Content="{OnIdiom {Binding GameStatusName}, Desktop={Binding GameStatusDescription}, Tablet={Binding GameStatusDescription}}" CheckedChanged="Game_CheckedChanged"/>
+                <RadioButton x:Name="Game3Rb" Content="{OnIdiom {Binding GameStatusName}, Desktop={Binding GameStatusDescription}, Tablet={Binding GameStatusDescription}}" CheckedChanged="Game_CheckedChanged"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout >
+                <Label Text="{Binding GameModeHeader }" />
+                <RadioButton Content="2 Player"  />
+                <RadioButton x:Name="PlayAgainstComputerRb" Content="Play the Computer" />
+            </VerticalStackLayout>
+            <HorizontalStackLayout VerticalOptions="Center">
+                <Button x:Name="StartBtn"
+                    Clicked="StartBtn_Clicked"
+                    Text="{Binding StartButtonText}" 
                     TextTransform="Uppercase"
-                    FontSize="Medium"
-                    CharacterSpacing="10"
-                    CornerRadius="0"
+                    CornerRadius="5"
+                    MaximumWidthRequest="300"
+                    MaximumHeightRequest="100"
                     />
-            <RadioButton Content="2 Player" Grid.Column="1" Grid.Row="0"/>
-            <RadioButton x:Name="PlayAgainstComputerRb" Content="Play Against the Computer" Grid.Column="2" Grid.Row="0"/>
-            <Label Text="{Binding GameStatusDescription}" Grid.Column="3" Grid.Row="0"
-                   VerticalOptions="Center" HorizontalOptions="Center"
-                   />
-        </Grid>
-        <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="1">
+            </HorizontalStackLayout>
+        </FlexLayout>
+        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+            <Line BackgroundColor="Black" StrokeThickness="1"/>
+            <Label x:Name="ScoreLbl" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding GameStatusDescription}" HorizontalTextAlignment="Center" BackgroundColor="LightYellow"/>
+        </VerticalStackLayout>
+        <Grid Margin="20" ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" Grid.Column="0" Grid.Row="2">
             <Button x:Name="btn1" Grid.Column="0" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[0]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
             <Button x:Name="btn2" Grid.Column="1" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[1]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>
             <Button x:Name="btn3" Grid.Column="2" Grid.Row="0" Style="{StaticResource Key=game-button}" Clicked="btn_Clicked" BindingContext="{Binding Spots[2]}" Text="{Binding SpotValueDescription}" BackgroundColor="{Binding BackColorMaui}"/>

@@ -79,6 +79,9 @@
 	  <MauiXaml Update="CenteredPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="FlexLayoutPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Grid.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

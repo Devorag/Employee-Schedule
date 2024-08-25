@@ -37,7 +37,6 @@
     <Style TargetType="Button">
         <Setter Property="BorderColor" Value="gray"/>
         <Setter Property="BorderWidth" Value="4"/>
-        <Setter Property="Margin" Value="10"/>
         <Setter Property="Shadow">
             <Shadow Brush="Black" Offset="10,10" Radius="20" Opacity=".8"/>
         </Setter>

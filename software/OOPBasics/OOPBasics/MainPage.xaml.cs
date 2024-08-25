@@ -76,7 +76,7 @@
         {
             Family.Father = new Person("Jones") { FirstName = "John", MiddleName = "Jack", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-35) };
             Family.Mother = new Person() { FirstName = "Sue", LastName = "Smith", Gender = Person.GenderEnum.Female, DOB = DateTime.Now.AddYears(-34) };
-            Family.AddChild(new Person() { FirstName = "Adam", LastName="Smith", Gender = Person.GenderEnum.Male, Age = 1});
+            Family.AddChild(new Person() { FirstName = "Adam", LastName = "Smith", Gender = Person.GenderEnum.Male, Age = 1 });
             Family.AddChild(new Person() { FirstName = "Jane", LastName = "Smith", Gender = Person.GenderEnum.Male, DOB = DateTime.Now.AddYears(-2) });
             Family.AddPet(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
         }
@@ -95,7 +95,7 @@
             t2.Title = Teacher.TitleEnum.Mrs;
             t2.FirstName = "Sarah";
             t2.LastName = "Stein";
-            t2.MaidenName = "Avraham"; 
+            t2.MaidenName = "Avraham";
             t2.Subject = "Chemistry";
             t2.FirstDayTeaching = DateTime.Now.AddYears(-3);
 
@@ -105,10 +105,10 @@
 
         private void SchoolBtn_Clicked(object sender, EventArgs e)
         {
-            school.AddTeacher(new Teacher("Munk") { Title = Teacher.TitleEnum.Morah, FirstName = "Chaya", MaidenName = "Goldberg", Subject = "Navi", FirstDayTeaching = DateTime.Now.AddYears(-12)});
-            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Chava", LastName = "Levy", MaidenName = "Spira", Subject = "Math", FirstDayTeaching = DateTime.Now.AddYears(-7)});
-            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Tzippora", LastName = "Kohn", MaidenName = "Freund", FirstDayTeaching = DateTime.Now.AddYears(-33)});
-            school.AddStudent(new Student() { FirstName = "Miriam", LastName = "Gross", Grade = Student.StudentGradeEnum.Grade1});
+            school.AddTeacher(new Teacher("Munk") { Title = Teacher.TitleEnum.Morah, FirstName = "Chaya", MaidenName = "Goldberg", Subject = "Navi", FirstDayTeaching = DateTime.Now.AddYears(-12) });
+            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Chava", LastName = "Levy", MaidenName = "Spira", Subject = "Math", FirstDayTeaching = DateTime.Now.AddYears(-7) });
+            school.AddTeacher(new Teacher() { Title = Teacher.TitleEnum.Mrs, FirstName = "Tzippora", LastName = "Kohn", MaidenName = "Freund", FirstDayTeaching = DateTime.Now.AddYears(-33) });
+            school.AddStudent(new Student() { FirstName = "Miriam", LastName = "Gross", Grade = Student.StudentGradeEnum.Grade1 });
             school.AddStudent(new Student() { FirstName = "Shana", LastName = "Mandel", Grade = Student.StudentGradeEnum.Grade3 });
             school.AddStudent(new Student() { FirstName = "Liba", LastName = "Ungar", Grade = Student.StudentGradeEnum.Grade11 });
         }
@@ -119,7 +119,7 @@
             Person.FirstName = "John " + DateTime.Now.Millisecond;
             Person.LastName = "Smith " + DateTime.Now.Millisecond;
             animal.Age = 3;
-            animal.Gender = Creature.GenderEnum.Female;
+            animal.Gender = Animal.GenderEnum.Female;
             animal.AnimalType = animal.AnimalType == Animal.AnimalTypeEnum.Cat ? Animal.AnimalTypeEnum.Dog : Animal.AnimalTypeEnum.Cat;
             alien.Age = 245;
             alien.Planet = alien.Planet == Alien.PlanetEnum.Mars ? Alien.PlanetEnum.Venus : Alien.PlanetEnum.Mars;
@@ -141,14 +141,14 @@
         {
             Animal a = new();
             a.AnimalType = Animal.AnimalTypeEnum.Cat;
-            a.Gender = Creature.GenderEnum.Female;
+            a.Gender = Animal.GenderEnum.Female;
             a.Age = 3;
             DisplayLbl.Text = "";
             DisplayValue(a.Description);
 
             Alien i = new();
             i.Planet = Alien.PlanetEnum.Venus;
-            i.Gender = Creature.GenderEnum.Male;
+            i.Gender = Alien.GenderEnum.Male;
             i.Age = 300;
             DisplayValue(i.Description);
         }
@@ -170,6 +170,33 @@
             s.Status = Assistant.StatusEnum.married;
             DisplayValue(s.Description);
         }
-    }
 
+        private void ReflectionBtn_Clicked(object sender, EventArgs e)
+        {
+            Creature<Animal> c = new();
+            //c = new Person() { LastName = "Jones", Gender = Creature.GenderEnum.Female, Age = 10 };
+            c = new Animal() { Age = 5, AnimalType = Animal.AnimalTypeEnum.Cat };
+            DisplayLbl.Text = "";
+            DisplayValue(c.ReflectionInfo);
+        }
+
+        private void GenericsBtn_Clicked(object sender, EventArgs e)
+        {
+            DisplayLbl.Text = "";
+            var a = new Animal() { Age = 5, AnimalType = Animal.AnimalTypeEnum.Cat };
+
+            a.Children.Add(new Animal() { AnimalType = Animal.AnimalTypeEnum.Cat });
+            a.Children.Add(new Animal() { AnimalType = Animal.AnimalTypeEnum.Dog });
+            a.AddChild();
+            a.AddChild();
+            a.Children.ForEach(c =>
+            {
+                DisplayValue(a.GetType() + " " + c.AnimalType.ToString());
+            });
+
+            //var p = new Person() { LastName = "Jones", Gender = Person.GenderEnum.Female, Age = 10 };
+            //p.Children.Add(new Person());
+        }
+
+    }
 }
