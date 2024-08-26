@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The Book Nook - This site offers a comprehensive list of the incredible resources in our library</title>
+    <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md bg-primary navbar-dark shadow mb-3">
+            <div class="container-fluid">
+                <a href="/index.html" class="navbar-brand">
+                    <img src="/images/books.jpg" class="img-fluid d-inline-block rounded" style="max-width:80px" />
+                    The Book Nook
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarlinks">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarlinks">
+                    <div class="navbar-nav">
+                        <a href="/index.html" class="nav-link active">Home</a>
+                        <a href="/LibraryCatalog.html" class="nav-link">Book Catalog</a>
+                        <a href="/Videos.html" class="nav-link">Videos</a>
+                        <a href="/Events.html" class="nav-link">Events</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col bg-body-secondary p-3 rounded-4 text-center text-black mb-3">
+                    <h2>This site offers a comprehensive list of the incredible resources in our library, including books, videos, and special events.</h2>
+                    <p class="fs-5">
+                        Explore the wide range of materials our library has to offer. Whether you're looking for the latest bestsellers, educational videos, or upcoming events,
+                        you'll find everything you need right here. Our carefully selected collection is designed to inspire, educated, and entertain. Stay updated with our special events calendar
+                        to participate in workshops, clubs, and important gatherings.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="/images/card-catalog.jpg" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Book Catalog
+                            </h5>
+                            <p class="card-text">
+                                List of our Books
+                            </p>
+                            <a href="/LibraryCatalog.html" class="btn btn-primary">See more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="/images/card-videos.jpg" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Videos
+                            </h5>
+                            <p class="card-text">
+                                List of our Videos
+                            </p>
+                            <a href="/Videos.html" class="btn btn-primary">See more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="/images/card-events.jpg" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Events
+                            </h5>
+                            <p class="card-text">
+                                List of our Special Events
+                            </p>
+                            <a href="#offcanv" class="btn btn-primary" data-bs-toggle="offcanvas">Save the date</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="offcanvas offcanvas-end text-center" tabindex="1" id="offcanv">
+        <div class="offcanvas-header">
+            <h5>Special Events Calendar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <h2>Save the date</h2>
+            <p class="bg-danger text-white fs-3 p-4">Coming Soon!</p>
+        </div>
+    </div>
+    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
