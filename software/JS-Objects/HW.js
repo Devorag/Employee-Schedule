@@ -8,6 +8,7 @@ Your goal is to create, manipulate, and display student records using JavaScript
     grade (string): Grade or class of the student.
     subjects (array): An array of the subjects a student is enrolled in. Technical note: To make a property an array use [] for the propery value. subjects:[]
     name, age, grade can be specified when student is created.
+
 2) A student may enroll in one or more majors, each major has a set of subjects.
     A student enrolls in a major not a single subject.
     We currently offer:
@@ -29,3 +30,74 @@ Your goal is to create, manipulate, and display student records using JavaScript
    Put them into a new array, and add a prop to each of them for the school name and give it a value (students without a school name are part of our school). 
 6) At the bottom of the script output to the console each student array, show each student with all props and the subjects they are enrolled in.   
 */
+
+//1)
+function Student(name, age, grade) {
+    this.name = name; 
+    this.age = age; 
+    this.grade = grade; 
+    this.subjects = [];
+}
+const s = new Student("Lea", 13, "8th Grade");
+console.log(s);
+
+//2) 
+const majors = {
+    "Science": ["Earth Science", "Biology", "Chemistry"],
+    "Math": ["Alegbra I", "Alegbra II", "Geometry"],
+    "Literature": ["English Literature", "World Literature", "Poetry"]
+}
+for (const subject in majors) {
+        console.log(`${subject}: ${majors[subject].join(", ")}`);
+}
+//3)
+function addMajorToStudent(student,major) {
+    student.subjects.push(...majors[major]);
+}
+addMajorToStudent(s, "Science");
+
+//4)
+const student1 = new Student("Ruth", 15, "10th Grade");
+const student2 = new Student("Sara", 16, "11th Grade");
+const student3 = new Student("Alice", 14, "9th Grade");
+
+addMajorToStudent(student1,"Science");
+addMajorToStudent(student2,"Math");
+addMajorToStudent(student3, "Science");
+addMajorToStudent(student3, "Math");
+addMajorToStudent(student3, "Literature");
+
+const students = [student1, student2, student3];
+
+//5)  
+const doubleDegree = students.map(student => {
+    const newStudent = Object.assign({}, student);
+    newStudent.school = "Other School";
+    return newStudent;
+});
+
+
+//6)
+
+console.log("------------")
+console.log("students:");
+
+students.forEach(student => {
+    console.log(`Student Name: ${student.name}`);
+    console.log(`Age: ${student.age}`);
+    console.log(`Grade: ${student.grade}`);
+    console.log(`Subjects: ${student.subjects.join(", ")}`);
+    console.log("");
+});
+
+console.log("------------");
+console.log("Double Degree Students:"); 
+
+doubleDegree.forEach(student => {
+    console.log(`Student Name: ${student.name}`);
+    console.log(`Age: ${student.age}`);
+    console.log(`Grade: ${student.grade}`);
+    console.log(`School: ${student.school}`);
+    console.log(`Subjects: ${student.subjects.join(", ")}`);
+    console.log("");
+});
