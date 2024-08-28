@@ -40,14 +40,12 @@ function Student(name, age, grade) {
     this.subjects = [];
 }
 //AS This is extra, take it out.
-const s = new Student("Lea", 13, "8th Grade");
-console.log(s);
 
 //2) 
 const majors = {
     "Science": ["Earth Science", "Biology", "Chemistry"],
 //AS -1 The 3 subjects were algebra, geometry and calculus
-    "Math": ["Alegbra I", "Alegbra II", "Geometry"],
+    "Math": ["Alegbra", "Calculus", "Geometry"],
     "Literature": ["English Literature", "World Literature", "Poetry"]
 }
 for (const subject in majors) {
@@ -58,27 +56,28 @@ function addMajorToStudent(student,major) {
     student.subjects.push(...majors[major]);
 }
 //AS This is also extra.
-addMajorToStudent(s, "Science");
+
 
 //4)
 //AS -4 Following the instructions you should be putting all 3 students into an array without instantiating 3 variables.
-const student1 = new Student("Ruth", 15, "10th Grade");
-const student2 = new Student("Sara", 16, "11th Grade");
-const student3 = new Student("Alice", 14, "9th Grade");
+const students = [ 
+    new Student("Ruth", 15, "10th Grade"),
+    new Student("Sara", 16, "11th Grade"),
+    new Student("Alice", 14, "9th Grade")
+];
 
 
-addMajorToStudent(student1,"Science");
-addMajorToStudent(student2,"Math");
+addMajorToStudent(students[0],"Science");
+addMajorToStudent(students[1],"Math");
 //AS -2 Adding all 3 majors to the 3rd student should be done in one line of code.
-addMajorToStudent(student3, "Science");
-addMajorToStudent(student3, "Math");
-addMajorToStudent(student3, "Literature");
 
-const students = [student1, student2, student3];
+for(const major in majors) {
+    addMajorToStudent(students[2], major);
+}
 
 //5)  
 //AS -4 Instructions were that only the first 2 students joined the double degree program
-const doubleDegree = students.map(student => {
+const doubleDegree = students.slice(0,2).map(student => {
     const newStudent = Object.assign({}, student);
     newStudent.school = "Other School";
     return newStudent;
