@@ -1,4 +1,4 @@
-//AS Good job, 89% Please see comments and resubmit.
+//AS Good job,100%
 /*
 You are tasked with creating a student record system for a school.
 Each student has specific information that needs to be managed.
@@ -39,12 +39,10 @@ function Student(name, age, grade) {
     this.grade = grade; 
     this.subjects = [];
 }
-//AS This is extra, take it out.
 
 //2) 
 const majors = {
     "Science": ["Earth Science", "Biology", "Chemistry"],
-//AS -1 The 3 subjects were algebra, geometry and calculus
     "Math": ["Alegbra", "Calculus", "Geometry"],
     "Literature": ["English Literature", "World Literature", "Poetry"]
 }
@@ -55,7 +53,6 @@ for (const subject in majors) {
 function addMajorToStudent(student,major) {
     student.subjects.push(...majors[major]);
 }
-//AS This is also extra.
 
 
 //4)
@@ -69,14 +66,12 @@ const students = [
 
 addMajorToStudent(students[0],"Science");
 addMajorToStudent(students[1],"Math");
-//AS -2 Adding all 3 majors to the 3rd student should be done in one line of code.
 
 for(const major in majors) {
     addMajorToStudent(students[2], major);
 }
 
 //5)  
-//AS -4 Instructions were that only the first 2 students joined the double degree program
 const doubleDegree = students.slice(0,2).map(student => {
     const newStudent = Object.assign({}, student);
     newStudent.school = "Other School";
