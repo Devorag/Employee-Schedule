@@ -1,3 +1,5 @@
+//LB: Great job! The function works, but the code could be more concise by combining the logic for both cases into a single assignment. Please try to modify your code. Optional to resubmit.
+
 let openlist = "<ul>";
 let closelist = "</ul>"
 let searchresults;
