@@ -1,3 +1,4 @@
+
 let b = "----------------";
 function calculatePrice(itemname, price, f) {
     const newprice = f(price);
@@ -35,4 +36,4 @@ console.log(b);
 calculatePrice("Camera",350, randomSurcharge);
 console.log(b);
 calculatePrice("Book", 50, fiftyPercentDiscount);
-console.log(b);
+console.log(b); 
