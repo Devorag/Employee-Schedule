@@ -1,0 +1,118 @@
+﻿@page
+@model JS_WebBasics.Pages.BasicsModel
+@{
+}
+
+<div class="row">
+    <div class="col-12">
+        <h1>Basics</h1>
+    </div>
+    <div class="row">
+        <div class="col-2"><button id="btn1" class="btn btn-primary">change the first p tag</button></div>
+        <div class="col-2"><button id="btn2" class="btn btn-primary">change all p tags</button></div>
+        <div class="col-2"><button id="btn3" class="btn btn-primary">change all with class site info</button></div>
+        <div class="col-2"><button id="btn4" class="btn btn-primary">change images</button></div>
+        <div class="col-2"><input type="text" class="form-control" value="" id="txtValue"/></div>
+        <div class="col-2">
+            <input type="radio" class="" name="choice" value="1" id="opt1" checked/>
+            <label for="opt1">Choice 1</label><br/>
+            <input type="radio" class="" name="choice" value="2" id="opt2"/>
+            <label for="opt2">Choice 2</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"><button id="btn5" class="btn btn-primary">Change outer HTML</button></div>
+        <div class="col-2"><button id="btn6" class="btn btn-primary">Change by WildCard</button></div>
+        <div class="col-2"><button class="btn btn-primary"></button></div>
+        <div class="col-2"><button class="btn btn-primary"></button></div>
+        <div class="col-2"><button class="btn btn-primary"></button></div>
+        <div class="col-2"><button class="btn btn-primary"></button></div>
+    </div>
+    <div class="row">
+        <div class="col-12" bg-="info" id="msg">
+
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <p class="siteinfo" id="p1">
+                Sapien elit in malesuada semper mi, id sollicitudin urna fermentum.
+            </p>
+        </div>
+        <div class="col-3">
+            <p class="siteinfo">
+                Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+            </p>
+        </div>
+        <div class="col-3">
+            <p class="siteinfo">
+                Consectetur adipiscing elit fusce vel.
+            </p>
+        </div>
+        <div class="col-3">
+            <div class="siteinfo">
+                Urna fermentum ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3"><img src="images/p1p.jpg" alt="" class="img-fluid imgchange"/></div>
+        <div class="col-3"><img src="images/p1p.jpg" alt="" class="img-fluid imgchange"/></div>
+        <div class="col-3"><img src="images/p1p.jpg" alt="" class="img-fluid imgchange"/></div>
+    </div>
+</div>
+
+<script>
+    document.querySelector("#btn1").addEventListener("click", changeP1);
+    document.querySelector("#btn2").addEventListener("click", changeAllPtags);
+    document.querySelector("#btn3").addEventListener("click", changeByClass);
+    document.querySelector("#btn4").addEventListener("click", changeImages);
+    document.querySelector("#btn5").addEventListener("click", () => document.querySelector("#msg").outerHTML = "<button>Click me I was a div</>");
+    document.querySelector("#btn5").addEventListener("click", changeByWildCard);
+    const msg = document.querySelector("#msg");
+    let imgnum = 1;
+
+    function changeP1() {
+        const p =  document.querySelector("#p1");
+        p.innerHTML = "I was changed because of my id!<<br />img=src='images/p3p.jpg' class='img-fluid'>";
+        p.classList.add("bg-danger");
+        p.style.border = "10px solid green";
+        p.style.borderTop = "20px solid purple"
+        const txt = document.querySelector("#txtValue");
+        txt.value = "hi";
+    }
+
+    function changeAllPtags() {
+        const lst = document.querySelectorAll("p");
+        msg.innerHTML = `${lst.length} p tags found`;
+        lst.forEach(p => p.innerHTML = "I was changed");
+    }
+
+    function changeByClass() {
+        const lst = document.querySelectorAll(".siteinfo");
+        msg.innerHTML = `${lst.length} p tags found with class = siteinfo`;
+        lst.forEach(p => p.innerHTML = "I was changed because of class = siteinfo");
+    }
+
+    function changeImages() {
+
+        const lst = document.querySelectorAll(".imgchange");
+        if (imgnum >= 9) {imgnum = 0} 
+        lst.forEach(
+            i => { 
+                i.src = `images/p${++imgnum}p.jpg` 
+                console.log(i.src);
+            }
+        );
+        //images/p1p.jpg
+    }
+
+    function changeByWildCard() {
+        const s = document.querySelector("#txtValue").value;
+        msg.innerHTML = s;
+        const lst = document.querySelectorAll(`[class*='${s}']`);
+        lst.forEach(e => e.outerHTML = "");
+    }
+</script>
+

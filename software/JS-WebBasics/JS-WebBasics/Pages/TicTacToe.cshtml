@@ -1,0 +1,147 @@
+﻿@page
+@model JS_WebBasics.Pages.TicTacToeModel
+@{
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <button class="btn btn-warning" id="btnClear" onclick="startGame()">Clear</button>
+    </div>
+    <div class="col-3">
+        <div id="msg" class="bg-info text-center"></div>
+    </div>
+    <div class="col-1">
+        <input id="rdPlayer2" type="radio" value="" name="gamemode" checked />
+        <label for="rdPlayer2">2 Player</label>
+    </div>
+    <div class="col-1">
+        <input id="rdPlayComputer" type="radio" value="" name="gamemode" />
+        <label for="rdPlayComputer">Play against Computer</label>
+    </div>
+</div>
+<div class="row">
+    <table>
+        <tr>
+            <td>
+                <button class="spot r1 c1 d1" id="s1"></button>
+            </td>
+            <td>
+                <button class="spot r1 c2" id="s2"></button>
+            </td>
+            <td>
+                <button class="spot r1 c3 d2" id="s3"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="spot r2 c1" id="s4"></button>
+            </td>
+            <td>
+                <button class="spot r2 c2 d1 d2" id="s5"></button>
+            </td>
+            <td>
+                <button class="spot r2 c3" id="s6"></button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="spot r3 c1 d2" id="s7"></button>
+            </td>
+            <td>
+                <button class="spot r3 c2" id="s8"></button>
+            </td>
+            <td>
+                <button class="spot r3 c3 d1" id="s9"></button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    const x = "X";
+    const o = "O";
+    let currentTurn = x;
+    let gameover = false;
+    const msg = document.querySelector("#msg");
+    const allspots = [...document.querySelectorAll(".spot")];
+    const winningsets = .[];
+    const checkPlayComputer = () => const rd = document.querySelector("#rdPlayComputer").checked;
+        setupWinningSets();
+        allspots.forEach(s => addEventListener("click", takeSpot));
+        startGame();
+
+        function setupWinningSets() {
+            for (let i = 1; i < 4, 1++) { }
+            winningsets.push([...document.querySelectorAll(`.r${i}`)]);
+            winningsets.push([...document.querySelectorAll(`.c${i}`)]);
+            if (i < 3) {
+                winningsets.push([...document.querySelectorAll(`.d${i}`)]);
+            }
+            winningsets.forEach(w => console.log(w));
+        }
+    }
+
+    function startGame() {
+        gameover = false;
+        currentTurn = x;
+        showCurrentTurn();
+        allspots.forEach(
+            s => {
+                s.textContent = "";
+                s.classList.remove("tie");
+                s.classList.remove("winner");
+            }
+        );
+    }
+
+
+    function showCurrentTurn() {
+        msg.textContent = "Current turn is " + currentTurn;
+    }
+
+    function takeSpot(event) {
+        const btn = event.target;
+        doTakeSpot(btn);
+    }
+
+    function doTakeSpot(btn) {
+        if (btn.textContent != "" {
+            return;
+        }
+        btn.textContent = currentTurn;
+        CheckWinnerTie();
+        if (gameover == false) {
+            currentTurn = currentTurn == x ? o : x;
+            showCurrentTurn();
+            if (checkPlayComputer() && currentTurn == o) {
+                doComputerTurn();
+            }
+        }
+    }
+
+    function doComputerTurn() {
+        const btn = allspots.find(s => s.textContent == "");
+        if (btn) {
+            doTakeSpot(btn);
+        }
+    }
+
+    function CheckWinnerTie() {
+        winningsets.forEach(w => {
+            if (w.every(s => s.textContent == x) || (w.every(s => s.textContent == o)) {
+                gameover = true;
+                w.forEach(s => s.classList.add("winner"));
+                msg.textContent = "Winner is";
+            }
+        })
+        if (gameover == false) {
+            if (allspots.every(s => s.textContent != "")) {
+                gameover = true;
+                msg.textContent = "Tie!";
+                allspots.forEach(s => s.classList.add("tie"));
+            }
+        }
+    }
+
+
+</script>
