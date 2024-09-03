@@ -1,0 +1,4 @@
+npm install @mui/x-data-grid @mui/material @mui/icons-material
+npm i @emotion/react @emotion/styled
+
+npm uninstall ag-grid-react ag-grid-community
