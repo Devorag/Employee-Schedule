@@ -20,7 +20,7 @@ var FoodForm;
     FoodForm["Concentrate"] = "c";
 })(FoodForm || (FoodForm = {}));
 ;
-let orderNumber = 1000;
+let orderNumber = 999;
 let orders = [];
 function outputOrder(quantity, method, item, form, specialInstructions) {
     orderNumber++;

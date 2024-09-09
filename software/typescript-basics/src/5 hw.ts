@@ -4,7 +4,7 @@ enum FoodForm {Regular = "r", Concentrate = "c"};
 
 type Order = [number, number, DeliveryMethod, MenuItem, FoodForm, string];
 
-let orderNumber = 1000;
+let orderNumber = 999;
 let orders: Order[] = [];
 
 function outputOrder(quantity: number, method: DeliveryMethod, item: MenuItem, form: FoodForm, specialInstructions: string): void {
