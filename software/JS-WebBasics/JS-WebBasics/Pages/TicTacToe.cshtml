@@ -64,22 +64,23 @@
     let gameover = false;
     const msg = document.querySelector("#msg");
     const allspots = [...document.querySelectorAll(".spot")];
-    const winningsets = .[];
-    const checkPlayComputer = () => const rd = document.querySelector("#rdPlayComputer").checked;
+    const winningsets = [];
+    const checkPlayComputer = () => document.querySelector("#rdPlayComputer").checked;
         setupWinningSets();
         allspots.forEach(s => addEventListener("click", takeSpot));
         startGame();
 
         function setupWinningSets() {
-            for (let i = 1; i < 4, 1++) { }
-            winningsets.push([...document.querySelectorAll(`.r${i}`)]);
-            winningsets.push([...document.querySelectorAll(`.c${i}`)]);
-            if (i < 3) {
-                winningsets.push([...document.querySelectorAll(`.d${i}`)]);
+            for (let i = 1; i < 4; i++) {
+                winningsets.push([...document.querySelectorAll(`.r${i}`)]);
+                winningsets.push([...document.querySelectorAll(`.c${i}`)]);
+                if (i < 3) {
+                    winningsets.push([...document.querySelectorAll(`.d${i}`)]);
+                }
             }
             winningsets.forEach(w => console.log(w));
         }
-    }
+
 
     function startGame() {
         gameover = false;
@@ -105,7 +106,7 @@
     }
 
     function doTakeSpot(btn) {
-        if (btn.textContent != "" {
+        if (btn.textContent != "") {
             return;
         }
         btn.textContent = currentTurn;
@@ -128,7 +129,7 @@
 
     function CheckWinnerTie() {
         winningsets.forEach(w => {
-            if (w.every(s => s.textContent == x) || (w.every(s => s.textContent == o)) {
+            if (w.every(s => s.textContent == x) || w.every(s => s.textContent == o)) {
                 gameover = true;
                 w.forEach(s => s.classList.add("winner"));
                 msg.textContent = "Winner is";
