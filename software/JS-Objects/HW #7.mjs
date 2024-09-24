@@ -16,7 +16,8 @@ async function getUsers(pageNumber) {
         else {
             return `Error: Failed to fetch users. Status code: ${r.status}`;
         }
-    } catch (error) {
+    }
+    catch (error) {
         return `Error: ${error.message}`;
     }
 }   
