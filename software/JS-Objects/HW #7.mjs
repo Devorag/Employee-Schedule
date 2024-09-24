@@ -1,25 +1,22 @@
-let s = await getLocation("Hilltop Place");
-console.log(s);
-s = await getLocation("Noam Court");
-console.log(s);
+let users = await getUsers(1);
+console.log(users);
+users = await getUsers(2);
+console.log(users);
 
-async function getLocation(street) {
-    let url = "http://api.positionstack.com/v1/forward?";
+async function getUsers(pageNumber) {
+    let url = "http://reqres.in/api/users?";
     let sp = new URLSearchParams();
-    sp.append("access_key", "014a07bcdd6fa2b569127b8f188f7b88");
-    sp.append("Query", street);
+    sp.append("page", pageNumber);
     try {
-    let r = await fetch(url + sp.toString); 
-    if(r.ok) {
-        let l = await r.json();
-        let ldesc = `the location of `;
-        return ldesc;
-    }
-    else {
-        return `Error: Received a ${r.status} response`;
-    }
-    }
-    catch(e) {
-        return (e.message);
+        let r = await fetch(url + sp.toString());
+        if (r.status === 200) {
+            let data = await r.json();
+            return `Page ${data.page} has ${data.per_page} users out of ${data.total}.`;
+        }
+        else {
+            return `Error: Failed to fetch users. Status code: ${r.status}`;
+        }
+    } catch (error) {
+        return `Error: ${error.message}`;
     }
 }
