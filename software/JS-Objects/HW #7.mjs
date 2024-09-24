@@ -19,4 +19,4 @@ async function getUsers(pageNumber) {
     } catch (error) {
         return `Error: ${error.message}`;
     }
-}
+}   
