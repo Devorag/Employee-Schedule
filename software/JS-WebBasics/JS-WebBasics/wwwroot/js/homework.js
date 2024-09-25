@@ -48,5 +48,4 @@ function fetchAPI(url) {
         return o;
     });
 }
-//
 //# sourceMappingURL=homework.js.map

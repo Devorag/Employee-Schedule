@@ -1,0 +1,35 @@
+﻿@page
+@model JS_WebBasics.Pages.HeartyHearthModel
+@{
+}
+
+
+<h1 class="text-center mb-4" style="font-weight: bold">Hearty Hearth API</h1>
+<div class="d-flex justify-content-center mb-4">
+    <button class="btn btn-info me" onclick="loadRecipes()">View Recipes</button>
+    <button class="btn btn-info me" onclick="loadMeals()">View Meals</button>
+    <button class="btn btn-info" onclick="loadCookbooks()">View Cookbooks</button>
+</div>
+
+<div id="output"></div>
+
+<script src="/js/HeartyHearth.js"></script>
+
+<style>
+    .btn {
+        padding: 10px 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .me {
+        margin-right: 30px;
+    }
+
+    .d-flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
