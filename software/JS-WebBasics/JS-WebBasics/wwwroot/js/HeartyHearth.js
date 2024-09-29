@@ -10,23 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const recipeDomain = window.location.hostname;
 console.log(recipeDomain);
 console.log(window.location);
+window.onload = loadCount;
 let url = 'https://localhost:7205';
-function getNumberOfIngredients(recipeId) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const response = yield fetch(`${url}/api/ingredients/${recipeId}`);
-            if (!response.ok) {
-                throw new Error(`Error fetching ingredients for recipe ID: ${recipeId}`);
-            }
-            const ingredients = yield response.json();
-            return ingredients.length;
-        }
-        catch (error) {
-            console.error('Error fetching number of ingredients:', error);
-            return 0;
-        }
-    });
-}
 function loadData(endPoint, headers, mapRow) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -65,14 +50,13 @@ function displayTable(data, headers, mapRow) {
 }
 function mapRecipeRow(recipe) {
     return __awaiter(this, void 0, void 0, function* () {
-        // const numOfIngredients = await getNumberOfIngredients(recipe.recipeId);
         return [
             recipe.recipeName,
             recipe.recipeStatus,
             recipe.usersName,
             recipe.calories !== null ? recipe.calories.toString() : 'N/A',
-            //numOfIngredients.toString(),
-            recipe.isVegan == 1 ? 'Yesff' : 'Nggo'
+            recipe.numIngredients.toString(),
+            recipe.isVegan
         ];
     });
 }
@@ -81,9 +65,9 @@ function mapMealRow(meal) {
         return [
             meal.mealName,
             meal.usersName,
-            meal.calories !== null ? meal.calories.toString() : 'N/A',
-            meal.courses !== null ? meal.courses.toString() : 'N/A',
-            meal.recipes !== null ? meal.recipes.toString() : 'N/A',
+            meal.numCalories.toString(),
+            meal.numCourses.toString(),
+            meal.numRecipes.toString(),
             meal.mealDescription
         ];
     });
@@ -91,12 +75,41 @@ function mapMealRow(meal) {
 function mapCookbookRow(cookbook) {
     return __awaiter(this, void 0, void 0, function* () {
         return [
-            cookbook.cookbookName,
+            cookbook.cookbookname,
             cookbook.author,
-            cookbook.recipes !== null ? cookbook.recipes.toString() : 'N/A',
-            cookbook.price !== null ? `$${cookbook.price.toFixed(2)}` : 'N/A',
-            cookbook.skillLevelDesc
+            cookbook.numRecipes.toString(),
+            cookbook.price.toString(),
+            cookbook.skillLevelDescription
         ];
+    });
+}
+function loadCount() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const response = yield fetch(`${url}/api/Count`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const counts = yield response.json();
+            counts.forEach((count) => {
+                switch (count.type) {
+                    case 'Recipes':
+                        document.getElementById('recipesButton').innerText = `View ${count.number} Recipes`;
+                        break;
+                    case 'Meals':
+                        document.getElementById('mealsButton').innerText = `View ${count.number} Meals`;
+                        break;
+                    case 'Cookbooks':
+                        document.getElementById('cookbooksButton').innerText = `View ${count.number} Cookbooks`;
+                        break;
+                    default:
+                        console.error(`Unknown type: ${count.type}`);
+                }
+            });
+        }
+        catch (error) {
+            console.error('Error loading counts:', error);
+        }
     });
 }
 function loadRecipes() {

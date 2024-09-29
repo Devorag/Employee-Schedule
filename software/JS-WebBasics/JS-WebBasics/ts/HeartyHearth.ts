@@ -1,67 +1,48 @@
 ﻿
 type Recipe = {
     recipeId: number;
-    cuisineId: number;
-    usersId: number;
     usersName: string;
     recipeName: string;
     calories: number | null;
     recipeStatus: string;
-    dateDrafted: Date | null;
-    datePublished: Date | null;
-    dateArchived: Date | null;
-    isVegan: number | null;
+    numIngredients: string;
+    isVegan: string;
 };
-
-type User = {
-    UserId: number;
-    UsersName: string;
-}
-
-type Ingredient = {
-    ingredientId: number;
-    recipeId: number;
-    ingredientName: string;
-    quantity: string;
-}
 
 type Meal = {
     mealId: number;
     mealName: string;
     usersName: string;
-    calories: number | null;
-    courses: number | null;
-    recipes: number | null;
+    numCalories: number | null;
+    numCourses: number | null;
+    numRecipes: number | null;
     mealDescription: string;
 };
 
 type Cookbook = {
     cookbookId: number;
-    cookbookName: string;
+    cookbookname: string;
     author: string;
-    recipes: number | null;
+    numRecipes: number | null;
     price: number | null;
-    skillLevelDesc: string;
+    skillLevelDescription: string;
+};
+
+type Count = {
+    type: string;
+    number: number;
 };
 
 const recipeDomain = window.location.hostname;
 console.log(recipeDomain);
 console.log(window.location);
+window.onload = loadCount;
 
-let url = 'https://localhost:7205';
-async function getNumberOfIngredients(recipeId: number): Promise<number> {
-    try {
-        const response = await fetch(`${url}/api/ingredients/${recipeId}`);
-        if (!response.ok) {
-            throw new Error(`Error fetching ingredients for recipe ID: ${recipeId}`);
-        }
-        const ingredients: Ingredient[] = await response.json();
-        return ingredients.length;
-    } catch (error) {
-        console.error('Error fetching number of ingredients:', error);
-        return 0; 
-    }
+let url = "https://dgrecipeapi.azurewebsites.net";
+if (domain.toLowerCase() == "localhost") {
+    url = "https://localhost:7205";
 }
+
 async function loadData<T>(endPoint: string, headers: string[], mapRow: (item: T) => Promise<string[]>): Promise<void> {
     try {
         const response = await fetch(`${url}/api/${endPoint}`);
@@ -100,48 +81,74 @@ async function displayTable<T>(data: T[], headers: string[], mapRow: (item: T) =
 }
 
 async function mapRecipeRow(recipe: Recipe): Promise<string[]> {
-   // const numOfIngredients = await getNumberOfIngredients(recipe.recipeId);
-        return [
-            recipe.recipeName,
-            recipe.recipeStatus,
-            recipe.usersName,
-            recipe.calories !== null ? recipe.calories.toString() : 'N/A',
-            //numOfIngredients.toString(),
-            recipe.isVegan == 1 ? 'Yesff' : 'Nggo'
-        ];
-    }
-    async function mapMealRow(meal: Meal): Promise<string[]> {
-        return [
-            meal.mealName,
-            meal.usersName,
-            meal.calories !== null ? meal.calories.toString() : 'N/A',
-            meal.courses !== null ? meal.courses.toString() : 'N/A',
-            meal.recipes !== null ? meal.recipes.toString() : 'N/A',
-            meal.mealDescription
-        ];
-    }
-    async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
-        return [
-            cookbook.cookbookName,
-            cookbook.author,
-            cookbook.recipes !== null ? cookbook.recipes.toString() : 'N/A',
-            cookbook.price !== null ? `$${cookbook.price.toFixed(2)}` : 'N/A',
-            cookbook.skillLevelDesc
-        ];
-    }
+    return [
+        recipe.recipeName,
+        recipe.recipeStatus,
+        recipe.usersName,
+        recipe.calories !== null ? recipe.calories.toString() : 'N/A',
+        recipe.numIngredients.toString(),
+        recipe.isVegan
+    ];
+}
+async function mapMealRow(meal: Meal): Promise<string[]> {
+    return [
+        meal.mealName,
+        meal.usersName,
+        meal.numCalories.toString(),
+        meal.numCourses.toString(),
+        meal.numRecipes.toString(),
+        meal.mealDescription
+    ];
+}
+async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
+    return [
+        cookbook.cookbookname,
+        cookbook.author,
+        cookbook.numRecipes.toString(),
+        cookbook.price.toString(),
+        cookbook.skillLevelDescription
+    ];
+}
+async function loadCount() {
+    try {
+        const response = await fetch(`${url}/api/Count`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const counts = await response.json();
 
-    function loadRecipes(): Promise<void> {
-
-        const recipeHeaders = ['Recipe Name', 'Status', 'User', 'Calories', 'Num of Ingredients', 'Vegan'];
-        return loadData('recipe', recipeHeaders, mapRecipeRow);
+        counts.forEach((count: Count) => {
+            switch (count.type) {
+                case 'Recipes':
+                    document.getElementById('recipesButton').innerText = `View ${count.number} Recipes`;
+                    break;
+                case 'Meals':
+                    document.getElementById('mealsButton').innerText = `View ${count.number} Meals`;
+                    break;
+                case 'Cookbooks':
+                    document.getElementById('cookbooksButton').innerText = `View ${count.number} Cookbooks`;
+                    break;
+                default:
+                    console.error(`Unknown type: ${count.type}`);
+            }
+        });
+    } catch (error) {
+        console.error('Error loading counts:', error);
     }
+}
 
-    function loadMeals(): Promise<void> {
-        const mealHeaders = ['Meal Name', 'User', 'Calories', 'Courses', 'Recipes', 'Description'];
-        return loadData('meal', mealHeaders, mapMealRow);
-    }
+function loadRecipes(): Promise<void> {
 
-    function loadCookbooks(): Promise<void> {
-        const cookbookHeaders = ['Cookbook Name', 'Author', 'Recipes', 'Price', 'Skill Level'];
-        return loadData('cookbook', cookbookHeaders, mapCookbookRow);
-    }
+    const recipeHeaders = ['Recipe Name', 'Status', 'User', 'Calories', 'Num of Ingredients', 'Vegan'];
+    return loadData('recipe', recipeHeaders, mapRecipeRow);
+}
+
+function loadMeals(): Promise<void> {
+    const mealHeaders = ['Meal Name', 'User', 'Calories', 'Courses', 'Recipes', 'Description'];
+    return loadData('meal', mealHeaders, mapMealRow);
+}
+
+function loadCookbooks(): Promise<void> {
+    const cookbookHeaders = ['Cookbook Name', 'Author', 'Recipes', 'Price', 'Skill Level'];
+    return loadData('cookbook', cookbookHeaders, mapCookbookRow);
+}
