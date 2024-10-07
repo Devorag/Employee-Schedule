@@ -33,12 +33,26 @@ type Count = {
     number: number;
 };
 
+type CookbookRecipe = {
+    recipeName: string;
+    recipeSequence: number | null;
+}
+
 const recipeDomain = window.location.hostname;
 console.log(recipeDomain);
 console.log(window.location);
-window.onload = loadCount;
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cookbookId = urlParams.get('cookbookId');
+    if (cookbookId) {
+        loadRecipesForCookbook(parseInt(cookbookId));
+    } else {
+        loadCount(); 
+    }
+};
 
-let url = "https://dgrecipeapi.azurewebsites.net";
+
+let url = "https://dgrecipeapi.azurewebsites.net"; 
 if (domain.toLowerCase() == "localhost") {
     url = "https://localhost:7205";
 }
@@ -101,13 +115,22 @@ async function mapMealRow(meal: Meal): Promise<string[]> {
     ];
 }
 async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
+    const recipesLink = `<a href="?cookbookId=${cookbook.cookbookId}">See Recipes</a>`;
     return [
         cookbook.cookbookname,
         cookbook.author,
         cookbook.numRecipes.toString(),
         cookbook.price.toString(),
-        cookbook.skillLevelDescription
+        cookbook.skillLevelDescription,
+        recipesLink
     ];
+}
+
+async function mapCookbookRecipeRow(cookbookrecipe: CookbookRecipe): Promise<string[]> {
+    return [
+        cookbookrecipe.recipeName, 
+        cookbookrecipe.recipeSequence.toString()
+    ]
 }
 async function loadCount() {
     try {
@@ -135,6 +158,11 @@ async function loadCount() {
     } catch (error) {
         console.error('Error loading counts:', error);
     }
+}
+
+async function loadRecipesForCookbook(cookbookId: number) {
+    const recipeHeaders = ['Recipe Name', 'Sequence'];
+    await loadData(`cookbook/${cookbookId}`, recipeHeaders, mapCookbookRecipeRow)
 }
 
 function loadRecipes(): Promise<void> {

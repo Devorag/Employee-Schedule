@@ -10,8 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const recipeDomain = window.location.hostname;
 console.log(recipeDomain);
 console.log(window.location);
-window.onload = loadCount;
-let url = 'https://localhost:7205';
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cookbookId = urlParams.get('cookbookId');
+    if (cookbookId) {
+        loadRecipesForCookbook(parseInt(cookbookId));
+    }
+    else {
+        loadCount();
+    }
+};
+let url = "https://dgrecipeapi.azurewebsites.net";
+if (domain.toLowerCase() == "localhost") {
+    url = "https://localhost:7205";
+}
 function loadData(endPoint, headers, mapRow) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -74,12 +86,22 @@ function mapMealRow(meal) {
 }
 function mapCookbookRow(cookbook) {
     return __awaiter(this, void 0, void 0, function* () {
+        const recipesLink = `<a href="?cookbookId=${cookbook.cookbookId}">See Recipes</a>`;
         return [
             cookbook.cookbookname,
             cookbook.author,
             cookbook.numRecipes.toString(),
             cookbook.price.toString(),
-            cookbook.skillLevelDescription
+            cookbook.skillLevelDescription,
+            recipesLink
+        ];
+    });
+}
+function mapCookbookRecipeRow(cookbookrecipe) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return [
+            cookbookrecipe.recipeName,
+            cookbookrecipe.recipeSequence.toString()
         ];
     });
 }
@@ -110,6 +132,12 @@ function loadCount() {
         catch (error) {
             console.error('Error loading counts:', error);
         }
+    });
+}
+function loadRecipesForCookbook(cookbookId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const recipeHeaders = ['Recipe Name', 'Sequence'];
+        yield loadData(`cookbook/${cookbookId}`, recipeHeaders, mapCookbookRecipeRow);
     });
 }
 function loadRecipes() {
