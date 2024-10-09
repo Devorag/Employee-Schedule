@@ -43,9 +43,9 @@ console.log(recipeDomain);
 console.log(window.location);
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const cookbookId = urlParams.get('cookbookId');
-    if (cookbookId) {
-        loadRecipesForCookbook(parseInt(cookbookId));
+    const cookbookName = urlParams.get('cookbookName');
+    if (cookbookName) {
+        loadRecipesForCookbook(cookbookName);
     } else {
         loadCount(); 
     }
@@ -115,7 +115,7 @@ async function mapMealRow(meal: Meal): Promise<string[]> {
     ];
 }
 async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
-    const recipesLink = `<a href="?cookbookId=${cookbook.cookbookId}">See Recipes</a>`;
+    const recipesLink = `<a href="?cookbookName=${cookbook.cookbookname}">See Recipes</a>`;
     return [
         cookbook.cookbookname,
         cookbook.author,
@@ -160,9 +160,9 @@ async function loadCount() {
     }
 }
 
-async function loadRecipesForCookbook(cookbookId: number) {
+async function loadRecipesForCookbook(cookbookName: string) {
     const recipeHeaders = ['Recipe Name', 'Sequence'];
-    await loadData(`cookbook/${cookbookId}`, recipeHeaders, mapCookbookRecipeRow)
+    await loadData(`cookbook/${cookbookName}`, recipeHeaders, mapCookbookRecipeRow)
 }
 
 function loadRecipes(): Promise<void> {

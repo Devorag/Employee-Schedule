@@ -1,47 +1,158 @@
 [
     {
         "Name": "Chocolate Chip Cookies",
-        "Steps": [],
-        "Ingredients": ,
+        "Steps": [
+            "combine sugar, oil, and eggs in a bowl",
+            "beat for 5 minutes",
+            "add flour, vanilla sugar, baking powder, and baking soda",
+            "mix well",
+            "add chocolate chips",
+            "roll into balls and place spread out on a cookie sheet",
+            "bake on 350 for 10 min.",
+            "freeze for 1-2 hours"
+        ],
+        "Ingredients": [
+            "baking powder",
+            "baking soda",
+            "chocolate chips",
+            "eggs",
+            "flour",
+            "oil",
+            "sugar"
+        ]
     },
     {
         "Name": "Apple yogurt smoothie",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "peel the apples and dice",
+            "combine all ingredients in bowl except for apples and ice cubes",
+            "add apples and ice cubes",
+            "mix until smooth",
+            "pour into glasses"
+        ],
+        "Ingredients": [
+            "granny smith apples",
+            "honey",
+            "ice cubes",
+            "orange juice",
+            "sugar",
+            "vanilla yogurt"
+        ]
     },
     {
         "Name": "Cheese bread",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "combine all ingredients in bowl",
+            "slit bread every 3\/4 inch",
+            "fill slits with cheese mixture",
+            "wrap bread into a foil and bake for 30 minutes."
+        ],
+        "Ingredients": [
+            "black pepper",
+            "butter",
+            "club bread",
+            "garlic cloves",
+            "shredded cheese"
+        ]
     },
     {
         "Name": "Butter muffins",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "add eggs and mix well",
+            "Cream butter with sugars",
+            "slowly add rest of ingredients and mix well",
+            "fill muffin pans 3\/4 full and bake for 30 minutes."
+        ],
+        "Ingredients": [
+            "baking powder",
+            "butter",
+            "eggs",
+            "flour",
+            "sugar",
+            "vanilla pudding",
+            "whipped cream cheese"
+        ]
     },
     {
         "Name": "Muddy Buddies",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "melt margarine",
+            "add peanuts butter and chocolate chips",
+            "mix in rice chex cereal",
+            "Shake in ziploc bag with confectioners sugar",
+            "allow to cool",
+            "freeze"
+        ],
+        "Ingredients": [
+            "chocolate chips",
+            "confectioners sugar",
+            "margarine",
+            "peanut butter",
+            "rice chex"
+        ]
     },
     {
         "Name": "Ministroni soup",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "boil water",
+            "add in pasta",
+            "add in spices",
+            "add tomato sauce",
+            "cook for 2 hours with pot covered",
+            "toss in vegetables",
+            "let simmer for half hour"
+        ],
+        "Ingredients": [
+            "black pepper",
+            "chickpeas",
+            "pasta",
+            "tomato sauce",
+            "tomatoes",
+            "Waters"
+        ]
     },
     {
         "Name": "Roasted Vegetables",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "preheat oven to 450",
+            "cut all vegetables into very thin slices",
+            "mix well with oil",
+            "salt and pepper"
+        ],
+        "Ingredients": [
+            "black pepper",
+            "oil",
+            "peppers",
+            "tomatoes"
+        ]
     },
     {
         "Name": "Sesame Chicken",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [
+            "preheat oven to 400",
+            "heat oil in frying pan",
+            "coat chicken cutlets",
+            "fry chicken cutlets",
+            "mix all the remainding ingredients",
+            "coat fried chicken cutlets with sauce",
+            "cook for one hour"
+        ],
+        "Ingredients": [
+            "bread crumbs",
+            "chicken cutlets",
+            "duck sauce",
+            "honey",
+            "oil",
+            "sesame seeds",
+            "soy sauce"
+        ]
     },
     {
         "Name": "Falafel balls",
-        "Steps": ,
-        "Ingredients": ,
+        "Steps": [],
+        "Ingredients": [
+            "bread crumbs",
+            "oil"
+        ]
     }
 ]

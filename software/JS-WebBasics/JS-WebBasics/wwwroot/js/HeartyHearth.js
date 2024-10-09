@@ -12,9 +12,9 @@ console.log(recipeDomain);
 console.log(window.location);
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const cookbookId = urlParams.get('cookbookId');
-    if (cookbookId) {
-        loadRecipesForCookbook(parseInt(cookbookId));
+    const cookbookName = urlParams.get('cookbookName');
+    if (cookbookName) {
+        loadRecipesForCookbook(cookbookName);
     }
     else {
         loadCount();
@@ -86,7 +86,7 @@ function mapMealRow(meal) {
 }
 function mapCookbookRow(cookbook) {
     return __awaiter(this, void 0, void 0, function* () {
-        const recipesLink = `<a href="?cookbookId=${cookbook.cookbookId}">See Recipes</a>`;
+        const recipesLink = `<a href="?cookbookName=${cookbook.cookbookname}">See Recipes</a>`;
         return [
             cookbook.cookbookname,
             cookbook.author,
@@ -134,10 +134,10 @@ function loadCount() {
         }
     });
 }
-function loadRecipesForCookbook(cookbookId) {
+function loadRecipesForCookbook(cookbookName) {
     return __awaiter(this, void 0, void 0, function* () {
         const recipeHeaders = ['Recipe Name', 'Sequence'];
-        yield loadData(`cookbook/${cookbookId}`, recipeHeaders, mapCookbookRecipeRow);
+        yield loadData(`cookbook/${cookbookName}`, recipeHeaders, mapCookbookRecipeRow);
     });
 }
 function loadRecipes() {
