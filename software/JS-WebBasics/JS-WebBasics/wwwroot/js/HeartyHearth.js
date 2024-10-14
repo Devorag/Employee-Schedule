@@ -13,6 +13,7 @@ console.log(window.location);
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const cookbookname = urlParams.get('cookbookname');
+    console.log('Cookbook Name from URL:', cookbookname);
     if (cookbookname) {
         loadRecipesForCookbook(cookbookname);
     }
@@ -30,7 +31,7 @@ function loadData(endPoint, headers, mapRow) {
         try {
             const response = yield fetch(`${url}/api/${endPoint}`);
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
             }
             const data = yield response.json();
             console.log(data);
@@ -87,7 +88,7 @@ function mapMealRow(meal) {
 }
 function mapCookbookRow(cookbook) {
     return __awaiter(this, void 0, void 0, function* () {
-        const recipesLink = `<a href="?cookbookname=${cookbook.cookbookname}">See Recipes</a>`;
+        const recipesLink = `<a href="?cookbookname=${encodeURIComponent(cookbook.cookbookname)}">See Recipes</a>`;
         return [
             cookbook.cookbookname,
             cookbook.author,
@@ -102,7 +103,9 @@ function mapCookbookRecipeRow(cookbookrecipe) {
     return __awaiter(this, void 0, void 0, function* () {
         return [
             cookbookrecipe.recipeName,
-            cookbookrecipe.recipeSequence.toString()
+            cookbookrecipe.recipeSequence !== null && cookbookrecipe.recipeSequence !== undefined
+                ? cookbookrecipe.recipeSequence.toString()
+                : 'N/A'
         ];
     });
 }
@@ -138,7 +141,8 @@ function loadCount() {
 function loadRecipesForCookbook(cookbookname) {
     return __awaiter(this, void 0, void 0, function* () {
         const recipeHeaders = ['Recipe Name', 'Sequence'];
-        yield loadData(`cookbook/getbyName/${cookbookname}`, recipeHeaders, mapCookbookRecipeRow);
+        console.log('API Endpoint:', `cookbook/getbyName/${encodeURIComponent(cookbookname)}`);
+        yield loadData(`cookbook/getbyName/${encodeURIComponent(cookbookname)}`, recipeHeaders, mapCookbookRecipeRow);
     });
 }
 function loadRecipes() {

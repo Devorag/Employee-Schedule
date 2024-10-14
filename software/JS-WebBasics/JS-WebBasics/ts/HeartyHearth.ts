@@ -36,7 +36,7 @@ type Count = {
 type CookbookRecipe = {
     recipeName: string;
     recipeSequence: number | null;
-}
+};
 
 const recipeDomain = window.location.hostname;
 console.log(recipeDomain);
@@ -44,6 +44,7 @@ console.log(window.location);
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const cookbookname = urlParams.get('cookbookname');
+    console.log('Cookbook Name from URL:', cookbookname); 
     if (cookbookname) {
         loadRecipesForCookbook(cookbookname);
     } else {
@@ -51,18 +52,17 @@ window.onload = () => {
     }
 };
 
-let url = "https://localhost:7205";
 
-//let url = "https://dgrecipeapi.azurewebsites.net"; 
-//if (domain.toLowerCase() == "localhost") {
-//    url = "https://localhost:7205";
-//}
+let url = "https://dgrecipeapi.azurewebsites.net"; 
+if (domain.toLowerCase() == "localhost") {
+    url = "https://localhost:7205";
+}
 
 async function loadData<T>(endPoint: string, headers: string[], mapRow: (item: T) => Promise<string[]>): Promise<void> {
     try {
         const response = await fetch(`${url}/api/${endPoint}`);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status} - ${ response.statusText }`);
         }
         const data: T[] = await response.json();
 
@@ -116,7 +116,7 @@ async function mapMealRow(meal: Meal): Promise<string[]> {
     ];
 }
 async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
-    const recipesLink = `<a href="?cookbookname=${cookbook.cookbookname}">See Recipes</a>`;
+    const recipesLink = `<a href="?cookbookname=${encodeURIComponent(cookbook.cookbookname)}">See Recipes</a>`;
     return [
         cookbook.cookbookname,
         cookbook.author,
@@ -130,7 +130,7 @@ async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
 async function mapCookbookRecipeRow(cookbookrecipe: CookbookRecipe): Promise<string[]> {
     return [
         cookbookrecipe.recipeName,
-        cookbookrecipe.recipeSequence.toString()
+        cookbookrecipe.recipeSequence .toString()
     ];
 }
 async function loadCount() {
@@ -163,7 +163,8 @@ async function loadCount() {
 
 async function loadRecipesForCookbook(cookbookname: string) {
     const recipeHeaders = ['Recipe Name', 'Sequence'];
-    await loadData(`cookbook/getbyName/${cookbookname}`, recipeHeaders, mapCookbookRecipeRow)
+    console.log('API Endpoint:', `cookbook/getbyName/${encodeURIComponent(cookbookname)}`);
+    await loadData(`cookbook/getbyName/${encodeURIComponent(cookbookname)}`, recipeHeaders, mapCookbookRecipeRow)
 }
 
 function loadRecipes(): Promise<void> {
