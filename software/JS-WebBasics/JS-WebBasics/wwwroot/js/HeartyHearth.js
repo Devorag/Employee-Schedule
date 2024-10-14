@@ -12,18 +12,19 @@ console.log(recipeDomain);
 console.log(window.location);
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const cookbookName = urlParams.get('cookbookName');
-    if (cookbookName) {
-        loadRecipesForCookbook(cookbookName);
+    const cookbookname = urlParams.get('cookbookname');
+    if (cookbookname) {
+        loadRecipesForCookbook(cookbookname);
     }
     else {
         loadCount();
     }
 };
-let url = "https://dgrecipeapi.azurewebsites.net";
-if (domain.toLowerCase() == "localhost") {
-    url = "https://localhost:7205";
-}
+let url = "https://localhost:7205";
+//let url = "https://dgrecipeapi.azurewebsites.net"; 
+//if (domain.toLowerCase() == "localhost") {
+//    url = "https://localhost:7205";
+//}
 function loadData(endPoint, headers, mapRow) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -86,7 +87,7 @@ function mapMealRow(meal) {
 }
 function mapCookbookRow(cookbook) {
     return __awaiter(this, void 0, void 0, function* () {
-        const recipesLink = `<a href="?cookbookName=${cookbook.cookbookname}">See Recipes</a>`;
+        const recipesLink = `<a href="?cookbookname=${cookbook.cookbookname}">See Recipes</a>`;
         return [
             cookbook.cookbookname,
             cookbook.author,
@@ -134,10 +135,10 @@ function loadCount() {
         }
     });
 }
-function loadRecipesForCookbook(cookbookName) {
+function loadRecipesForCookbook(cookbookname) {
     return __awaiter(this, void 0, void 0, function* () {
         const recipeHeaders = ['Recipe Name', 'Sequence'];
-        yield loadData(`cookbook/${cookbookName}`, recipeHeaders, mapCookbookRecipeRow);
+        yield loadData(`cookbook/getbyName/${cookbookname}`, recipeHeaders, mapCookbookRecipeRow);
     });
 }
 function loadRecipes() {

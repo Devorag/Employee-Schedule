@@ -43,19 +43,20 @@ console.log(recipeDomain);
 console.log(window.location);
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const cookbookName = urlParams.get('cookbookName');
-    if (cookbookName) {
-        loadRecipesForCookbook(cookbookName);
+    const cookbookname = urlParams.get('cookbookname');
+    if (cookbookname) {
+        loadRecipesForCookbook(cookbookname);
     } else {
         loadCount(); 
     }
 };
 
+let url = "https://localhost:7205";
 
-let url = "https://dgrecipeapi.azurewebsites.net"; 
-if (domain.toLowerCase() == "localhost") {
-    url = "https://localhost:7205";
-}
+//let url = "https://dgrecipeapi.azurewebsites.net"; 
+//if (domain.toLowerCase() == "localhost") {
+//    url = "https://localhost:7205";
+//}
 
 async function loadData<T>(endPoint: string, headers: string[], mapRow: (item: T) => Promise<string[]>): Promise<void> {
     try {
@@ -115,7 +116,7 @@ async function mapMealRow(meal: Meal): Promise<string[]> {
     ];
 }
 async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
-    const recipesLink = `<a href="?cookbookName=${cookbook.cookbookname}">See Recipes</a>`;
+    const recipesLink = `<a href="?cookbookname=${cookbook.cookbookname}">See Recipes</a>`;
     return [
         cookbook.cookbookname,
         cookbook.author,
@@ -128,9 +129,9 @@ async function mapCookbookRow(cookbook: Cookbook): Promise<string[]> {
 
 async function mapCookbookRecipeRow(cookbookrecipe: CookbookRecipe): Promise<string[]> {
     return [
-        cookbookrecipe.recipeName, 
+        cookbookrecipe.recipeName,
         cookbookrecipe.recipeSequence.toString()
-    ]
+    ];
 }
 async function loadCount() {
     try {
@@ -160,9 +161,9 @@ async function loadCount() {
     }
 }
 
-async function loadRecipesForCookbook(cookbookName: string) {
+async function loadRecipesForCookbook(cookbookname: string) {
     const recipeHeaders = ['Recipe Name', 'Sequence'];
-    await loadData(`cookbook/${cookbookName}`, recipeHeaders, mapCookbookRecipeRow)
+    await loadData(`cookbook/getbyName/${cookbookname}`, recipeHeaders, mapCookbookRecipeRow)
 }
 
 function loadRecipes(): Promise<void> {
