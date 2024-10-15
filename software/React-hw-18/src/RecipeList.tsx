@@ -1,7 +1,11 @@
 import { IRecipe } from "./RecipeTypes";
-type Props = { recipes: IRecipe[] }
+type Props = {
+    recipes: IRecipe[],
+    isCollection: boolean,
+    onRecipeDelete: (index: number) => void;
+}
 
-function RecipeList({ recipes }: Props) {
+function RecipeList({ recipes, isCollection, onRecipeDelete }: Props) {
     return (
         <table className="table">
             <thead>
@@ -11,9 +15,10 @@ function RecipeList({ recipes }: Props) {
             </thead>
             <tbody>
                 {
-                    recipes.map(r =>
+                    recipes.map((r, index) =>
                         <tr key={r.Name}>
                             <td>{r.Name}</td>
+                            {isCollection && (<td><button onClick={() => onRecipeDelete(index)} className="btn btn-danger">X</button></td>)}
                         </tr>
                     )
                 }
