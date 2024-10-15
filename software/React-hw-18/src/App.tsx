@@ -6,7 +6,6 @@ import initialRecipes from "./RecipeData.json";
 import { useState } from "react";
 
 function App() {
-  const [recipes, setRecipes] = useState(initialRecipes);
   const [addedRecipes, setAddedRecipes] = useState([]);
   const [addedRecipeIndex, setAddedRecipeIndex] = useState(0);
 
