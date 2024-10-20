@@ -4,11 +4,20 @@ import PresidentSummary from "./PresidentSummary"
 import PresidentList from "./PresidentList"
 import PresidentFeature from "./PresidentFeature"
 import initalPresidents from "./PresidentData.json"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function App() {
   const [presidents, setPresidents] = useState(initalPresidents);
   const [featured, setFeatured] = useState(0);
+
+  useEffect(
+    () => {
+
+      
+    }
+    , []
+  );
+
   const getCopyOfPresidents = () => presidents.map(p => ({ ...p }));
 
   const deletePresident = (num: number) => {

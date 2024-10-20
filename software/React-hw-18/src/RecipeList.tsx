@@ -16,8 +16,8 @@ function RecipeList({ recipes, isCollection, onRecipeDelete }: Props) {
             <tbody>
                 {
                     recipes.map((r, index) =>
-                        <tr key={r.Name}>
-                            <td>{r.Name}</td>
+                        <tr key={r.recipeName}>
+                            <td>{r.recipeName}</td>
                             {isCollection && (<td><button onClick={() => onRecipeDelete(index)} className="btn btn-danger">X</button></td>)}
                         </tr>
                     )

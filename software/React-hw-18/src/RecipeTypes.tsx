@@ -1,5 +1,5 @@
 export type IRecipe = {
-    Name: string;
-    Steps: string[],
-    Ingredients: string[]
+    recipeName: string;
+    recipeStepsList: string[],
+    recipeIngredientList: string[]
 }
