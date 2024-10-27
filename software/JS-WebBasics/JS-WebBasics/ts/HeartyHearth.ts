@@ -52,9 +52,9 @@ window.onload = () => {
     }
 };
 
-
+const domains = window.location.hostname;
 let url = "https://dgrecipeapi.azurewebsites.net"; 
-if (domain.toLowerCase() == "localhost") {
+if (domains.toLowerCase() == "localhost") {
     url = "https://localhost:7205";
 }
 

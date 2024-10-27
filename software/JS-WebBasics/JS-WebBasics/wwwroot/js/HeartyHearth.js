@@ -21,11 +21,11 @@ window.onload = () => {
         loadCount();
     }
 };
-let url = "https://localhost:7205";
-//let url = "https://dgrecipeapi.azurewebsites.net"; 
-//if (domain.toLowerCase() == "localhost") {
-//    url = "https://localhost:7205";
-//}
+const domains = window.location.hostname;
+let url = "https://dgrecipeapi.azurewebsites.net";
+if (domains.toLowerCase() == "localhost") {
+    url = "https://localhost:7205";
+}
 function loadData(endPoint, headers, mapRow) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -103,9 +103,7 @@ function mapCookbookRecipeRow(cookbookrecipe) {
     return __awaiter(this, void 0, void 0, function* () {
         return [
             cookbookrecipe.recipeName,
-            cookbookrecipe.recipeSequence !== null && cookbookrecipe.recipeSequence !== undefined
-                ? cookbookrecipe.recipeSequence.toString()
-                : 'N/A'
+            cookbookrecipe.recipeSequence.toString()
         ];
     });
 }
