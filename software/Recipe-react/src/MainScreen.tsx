@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { fetchRecipesbyCuisineName } from "./DataUtil";
 import { IRecipe } from "./DataInterface";
 import RecipeCard from "./RecipeCard";
@@ -10,6 +10,7 @@ interface Props {
 export default function MainScreen({ cuisineName }: Props) {
     const [recipelist, setRecipeList] = useState<IRecipe[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
         setIsLoading(true);
         const fetchdata = async () => {
@@ -25,7 +26,7 @@ export default function MainScreen({ cuisineName }: Props) {
             <div className="row">
                 <div className={isLoading ? "placeholder-glow" : ""}>
                     <h2 className="bg-light">
-                        <span className={isLoading ? "placeholder" : ""}>{recipelist.length}  Recipes</span>
+                        <span className={isLoading ? "placeholder" : ""}>{recipelist.length} Recipes</span>
                     </h2>
                 </div>
             </div>
@@ -34,8 +35,7 @@ export default function MainScreen({ cuisineName }: Props) {
                     <div key={r.recipeId} className="col-md-6 col-lg-3 mb-2">
                         <RecipeCard recipe={r} />
                     </div>
-                )
-                }
+                )}
             </div>
         </>
     );

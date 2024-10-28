@@ -9,6 +9,7 @@ import { ICuisine } from './DataInterface';
 function App() {
   const [cuisines, setCuisines] = useState<ICuisine[]>([]);
   const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");
+  const [selectedPage, setSelectedPage] = useState<string>("");
 
   useEffect(() => {
     const fetchCuisineList = async () => {
@@ -22,21 +23,27 @@ function App() {
     setSelectedCuisineName(cuisineName);
   };
 
+  const handlePageSelect = (page: string) => {
+    setSelectedPage(page);
+  };
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-12 px-0">
-          <Navbar />
+          <Navbar onPageSelect={handlePageSelect} />
         </div>
       </div>
-      <div className="row">
-        <div className="col-3 col-lg-2 border border-light">
-          <Sidebar onCuisineSelected={handleCuisineSelected} />
+      {selectedPage === "Recipes" && (
+        <div className="row">
+          <div className="col-3 col-lg-2 border border-light">
+            <Sidebar onCuisineSelected={handleCuisineSelected} />
+          </div>
+          <div className="col-9 col-lg-10">
+            <MainScreen cuisineName={selectedCuisineName} />
+          </div>
         </div>
-        <div className="col-9 col-lg-10">
-          <MainScreen cuisineName={selectedCuisineName} />
-        </div>
-      </div>
+      )}
     </div>
   );
 }

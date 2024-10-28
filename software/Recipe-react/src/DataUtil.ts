@@ -1,7 +1,7 @@
 //https://dgrecipeapi.azurewebsites.net/api
 
 import { ICuisine, IRecipe } from "./DataInterface";
-
+//const baseurl = "https://localhost:5016/api/"
 const baseurl = "https://dgrecipeapi.azurewebsites.net/api/"
 
 async function fetchData<T>(url: string): Promise<T> {

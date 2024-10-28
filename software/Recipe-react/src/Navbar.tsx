@@ -1,4 +1,4 @@
-export default function Navbar() {
+export default function Navbar({ onPageSelect }) {
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary mb-3">
@@ -13,13 +13,13 @@ export default function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Recipes</a>
+                                <a className="nav-link active" href="#" onClick={() => onPageSelect("Recipes")}>Recipes</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Meals</a>
+                                <a className="nav-link active" href="#" onClick={() => onPageSelect("Meals")}>Meals</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Cookbooks</a>
+                                <a className="nav-link active" href="#" onClick={() => onPageSelect("Cookbooks")}>Cookbooks</a>
                             </li>
                         </ul>
                     </div>
