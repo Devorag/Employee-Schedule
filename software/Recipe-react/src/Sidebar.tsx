@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { ICuisine } from './DataInterface';
+import { ICuisine, IRecipe } from './DataInterface';
 import { fetchCuisines } from './DataUtil';
 import CuisineButton from './CuisineButton';
 
 interface Props {
     onCuisineSelected: (cuisineName: string) => void;
+    onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 }
 
-export default function Sidebar({ onCuisineSelected }: Props) {
+export default function Sidebar({ onCuisineSelected, onRecipeSelectedForEdit }: Props) {
     const [cuisinelist, setCuisineList] = useState<ICuisine[]>([]);
     const [selectedCuisineId, setSelectedCuisineId] = useState(0);
 
@@ -33,18 +34,19 @@ export default function Sidebar({ onCuisineSelected }: Props) {
         }
     };
 
+
     return (
-        <div>
-            <h2>
-                {cuisinelist.map(cuisine => (
+        <>
+            {cuisinelist.map(cuisine =>
+                <div key={cuisine.cuisineId}>
                     <CuisineButton
-                        key={cuisine.cuisineId}
                         cuisine={cuisine}
                         onSelected={() => handleSelectedCuisine(cuisine.cuisineId)}
                         isSelected={cuisine.cuisineId === selectedCuisineId}
                     />
-                ))}
-            </h2>
-        </div>
+                    {/*                     <button onClick={onRecipeSelectedForEdit(recipe)} className="btn btn-outline-primary">Edit</button> */}
+                </div>
+            )}
+        </>
     );
 }

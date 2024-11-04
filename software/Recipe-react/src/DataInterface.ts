@@ -15,5 +15,11 @@ export interface IRecipe {
     recipeStatus: string,
     dateDrafted: Date,
     datePublished: Date | null,
-    dateArchived: Date | null
+    dateArchived: Date | null,
+    errorMessage: string
+}
+
+export interface IUser {
+    usersId: number,
+    usersName: string,
 }
