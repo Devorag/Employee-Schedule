@@ -5,9 +5,10 @@ import RecipeCard from "./RecipeCard";
 
 interface Props {
     cuisineName: string;
+    onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 }
 
-export default function MainScreen({ cuisineName }: Props) {
+export default function MainScreen({ cuisineName, onRecipeSelectedForEdit }: Props) {
     const [recipelist, setRecipeList] = useState<IRecipe[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +34,10 @@ export default function MainScreen({ cuisineName }: Props) {
             <div className="row">
                 {recipelist.map(r =>
                     <div key={r.recipeId} className="col-md-6 col-lg-3 mb-2">
-                        <RecipeCard recipe={r} />
+                        <RecipeCard
+                            recipe={r}
+                            onRecipeSelectedForEdit={onRecipeSelectedForEdit}
+                        />
                     </div>
                 )}
             </div>

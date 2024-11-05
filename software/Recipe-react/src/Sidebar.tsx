@@ -8,7 +8,7 @@ interface Props {
     onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 }
 
-export default function Sidebar({ onCuisineSelected, onRecipeSelectedForEdit }: Props) {
+export default function Sidebar({ onCuisineSelected }: Props) {
     const [cuisinelist, setCuisineList] = useState<ICuisine[]>([]);
     const [selectedCuisineId, setSelectedCuisineId] = useState(0);
 
@@ -44,7 +44,6 @@ export default function Sidebar({ onCuisineSelected, onRecipeSelectedForEdit }: 
                         onSelected={() => handleSelectedCuisine(cuisine.cuisineId)}
                         isSelected={cuisine.cuisineId === selectedCuisineId}
                     />
-                    {/*                     <button onClick={onRecipeSelectedForEdit(recipe)} className="btn btn-outline-primary">Edit</button> */}
                 </div>
             )}
         </>

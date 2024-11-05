@@ -37,22 +37,8 @@ function App() {
     setisRecipeEdit(true);
     console.log(recipe);
   }
-  /* 
-    const recipeforedit: IRecipe = {
-      recipeId: 0,
-      recipeName: "",
-      calories: 0,
-      recipeStatus: "",
-      usersId: 0,
-      usersName: "",
-      isVegan: "No",
-      numIngredients: 0,
-      cuisineId: 0,
-      dateDrafted: new Date(),
-      dateArchived: new Date(),
-      datePublished: new Date(),
-      errorMessage: ""
-    }; */
+
+
   return (
     <div className="container">
       <div className="row">
@@ -67,7 +53,7 @@ function App() {
             <Sidebar onCuisineSelected={handleCuisineSelected} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />
           </div>
           <div className="col-9 col-lg-10">
-            {IsRecipeEdit ? <RecipeEdit recipe={recipeforedit} /> : <MainScreen cuisineName={selectedCuisineName} />}
+            {IsRecipeEdit ? <RecipeEdit recipe={recipeforedit} /> : <MainScreen cuisineName={selectedCuisineName} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />}
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@ import { FieldValues } from "react-hook-form";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
 
 let baseurl = "https://dgrecipeapi.azurewebsites.net/api/"
-//baseurl = "https://localhost:5016/api/"
+//baseurl = import.meta.env.VITE_API_URL;
 
 async function fetchData<T>(url: string): Promise<T> {
     url = baseurl + url;

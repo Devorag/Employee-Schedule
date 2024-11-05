@@ -3,7 +3,7 @@ import { ICuisine } from './DataInterface'
 interface Props {
     cuisine: ICuisine;
     isSelected: boolean;
-    onSelected: () => void; // No change here
+    onSelected: () => void;
 }
 
 export default function CuisineButton({ cuisine, isSelected, onSelected }: Props) {
