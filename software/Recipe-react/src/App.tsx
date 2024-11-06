@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react';
-import { blankRecipe, fetchCuisines } from './DataUtil';
-import './assets/css/bootstrap.min.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Navbar";
+import Recipes from "./Recipes";
+import Cookbooks from "./Cookbooks";
+import Meals from "./Meals";
 import MainScreen from './MainScreen';
-import Navbar from './Navbar';
 import Sidebar from './Sidebar';
+import { blankRecipe, fetchCuisines } from './DataUtil';
+import { useEffect, useState } from 'react';
 import { ICuisine, IRecipe } from './DataInterface';
 import { RecipeEdit } from './RecipeEdit';
+import './assets/css/bootstrap.min.css';
 
 function App() {
   const [cuisines, setCuisines] = useState<ICuisine[]>([]);
   const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");
   const [selectedPage, setSelectedPage] = useState<string>("");
-  const [IsRecipeEdit, setisRecipeEdit] = useState(false);
-
-  const [recipeforedit, setRecipeforedit] = useState(blankRecipe);
+  const [isRecipeEdit, setIsRecipeEdit] = useState(false);
+  const [recipeForEdit, setRecipeForEdit] = useState(blankRecipe);
 
   useEffect(() => {
     const fetchCuisineList = async () => {
@@ -24,7 +27,7 @@ function App() {
   }, []);
 
   const handleCuisineSelected = (cuisineName: string) => {
-    setisRecipeEdit(false);
+    setIsRecipeEdit(false);
     setSelectedCuisineName(cuisineName);
   };
 
@@ -33,31 +36,41 @@ function App() {
   };
 
   const handleRecipeSelectedForEdit = (recipe: IRecipe) => {
-    setRecipeforedit(recipe);
-    setisRecipeEdit(true);
+    setRecipeForEdit(recipe);
+    setIsRecipeEdit(true);
     console.log(recipe);
-  }
-
+  };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12 px-0">
-          <Navbar onPageSelect={handlePageSelect} />
-        </div>
+    <Router>
+      <Navbar onPageSelect={handlePageSelect} />
+      <div className="container">
+        <Routes>
+          <Route path="/" element={
+            <div className="row">
+              <div className="col-3 col-lg-2 border border-light">
+                <button
+                  onClick={() => handleRecipeSelectedForEdit(blankRecipe)}
+                  className="btn btn-outline-primary mb-3">
+                  New Recipe
+                </button>
+                <Sidebar
+                  onCuisineSelected={handleCuisineSelected}
+                  onRecipeSelectedForEdit={handleRecipeSelectedForEdit}
+                />
+              </div>
+              <div className="col-9 col-lg-10">
+                {isRecipeEdit
+                  ? <RecipeEdit recipe={recipeForEdit} />
+                  : <MainScreen cuisineName={selectedCuisineName} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />}
+              </div>
+            </div>
+          } />
+          <Route path="meals" element={<Meals />} />
+          <Route path="cookbooks" element={<Cookbooks />} />
+        </Routes>
       </div>
-      {selectedPage === "Recipes" && (
-        <div className="row">
-          <div className="col-3 col-lg-2 border border-light">
-            <button onClick={() => handleRecipeSelectedForEdit(blankRecipe)} className="btn btn-outline-primary">New Recipe</button>
-            <Sidebar onCuisineSelected={handleCuisineSelected} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />
-          </div>
-          <div className="col-9 col-lg-10">
-            {IsRecipeEdit ? <RecipeEdit recipe={recipeforedit} /> : <MainScreen cuisineName={selectedCuisineName} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />}
-          </div>
-        </div>
-      )}
-    </div>
+    </Router>
   );
 }
 

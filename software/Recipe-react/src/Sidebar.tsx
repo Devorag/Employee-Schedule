@@ -8,7 +8,7 @@ interface Props {
     onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 }
 
-export default function Sidebar({ onCuisineSelected }: Props) {
+export default function Sidebar({ onCuisineSelected, onRecipeSelectedForEdit }: Props) {
     const [cuisinelist, setCuisineList] = useState<ICuisine[]>([]);
     const [selectedCuisineId, setSelectedCuisineId] = useState(0);
 
