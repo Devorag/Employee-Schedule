@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import { ICuisine, IRecipe } from './DataInterface';
+import { ICuisine } from './DataInterface';
 import { fetchCuisines } from './DataUtil';
 import CuisineButton from './CuisineButton';
 
 interface Props {
     onCuisineSelected: (cuisineName: string) => void;
-    onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 }
 
-export default function Sidebar({ onCuisineSelected, onRecipeSelectedForEdit }: Props) {
+export default function Sidebar({ onCuisineSelected }: Props) {
     const [cuisinelist, setCuisineList] = useState<ICuisine[]>([]);
     const [selectedCuisineId, setSelectedCuisineId] = useState(0);
 
