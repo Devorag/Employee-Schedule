@@ -9,14 +9,14 @@
     <div class="row">
         <div class="col-6">
             <form id="frm" action="" method="post" class="needs-validation"
-                style="max-width: 600px; margin: auto; padding: 20px; ">
+                style="max-width: 600px; margin: auto; padding: 20px;">
                 <div class="mb-3">
                     <label for="recipeName" class="form-label">Recipe Name:</label>
                     <input type="text" id="recipeName" name="recipeName" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="recipeId" class="form-label">Recipe ID:</label>
-                    <input type="hidden" id="txtrecipeId" name="recipeId" value="0" class="form-control" required>
+                    <input type="hidden" id="txtrecipeId" name="recipeId" value="0" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="cuisineId" class="form-label">Cuisine ID:</label>
@@ -31,21 +31,19 @@
                     <input type="number" id="calories" name="calories" value="200" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="dateDrafted" class="form-label">Date Drafted:</label>
-                    <input type="date" id="dateDrafted" name="dateDrafted" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="datePublished" class="form-label">Date Published:</label>
-                    <input type="date" id="datePublished" name="datePublished" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="dateArchived" class="form-label">Date Archived:</label>
-                    <input type="date" id="dateArchived" name="dateArchived" class="form-control" required>
-                </div>
-                <div class="mb-3">
                     <label for="recipeStatus" class="form-label">Recipe Status:</label>
-                    <input type="text" id="recipeStatus" name="recipeStatus" class="form-control" required>
+                    <select id="recipeStatus" name="recipeStatus" class="form-select" required>
+                        <option value="">Select Status</option>
+                        <option value="Drafted">Drafted</option>
+                        <option value="Published">Published</option>
+                        <option value="Archived">Archived</option>
+                    </select>
                 </div>
+
+                <input type="hidden" id="dateDrafted" name="dateDrafted">
+                <input type="hidden" id="datePublished" name="datePublished">
+                <input type="hidden" id="dateArchived" name="dateArchived">
+
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button id="btndelete" class="btn btn-danger">Delete</button>
             </form>
@@ -57,7 +55,13 @@
     const frm = document.getElementById("frm");
     const txtrecipeid = document.getElementById("txtrecipeId");
     const hmsg = document.getElementById("hmsg");
+    const statusField = document.getElementById("recipeStatus");
+    const dateDrafted = document.getElementById("dateDrafted");
+    const datePublished = document.getElementById("datePublished");
+    const dateArchived = document.getElementById("dateArchived");
+
     document.addEventListener("DOMContentLoaded", () => {
+
         (async () => {
             const response = await fetch("https://dgrecipeapi.azurewebsites.net/api/cuisine");
             const data = await response.json();
@@ -74,8 +78,7 @@
                 lst.appendChild(option);
             });
         })();
-    });
-    document.addEventListener("DOMContentLoaded", () => {
+
         (async () => {
             const response = await fetch("https://dgrecipeapi.azurewebsites.net/api/User");
             const data = await response.json();
@@ -92,19 +95,48 @@
             });
         })();
     });
+
+
+    statusField.addEventListener("change", () => {
+        const currentDate = new Date().toISOString().split("T")[0];
+        dateDrafted.value = "";
+        datePublished.value = "";
+        dateArchived.value = "";
+
+        if (statusField.value === "Drafted") {
+            dateDrafted.value = currentDate;
+        } else if (statusField.value === "Published") {
+            datePublished.value = currentDate;
+        } else if (statusField.value === "Archived") {
+            dateArchived.value = currentDate;
+        }
+    });
+
     frm.addEventListener("submit", (event) => {
         event.preventDefault();
         hmsg.innerHTML = "";
         const formdata = new FormData(frm);
+
         (async () => {
             const response = await fetch("https://dgrecipeapi.azurewebsites.net/api/Recipe/", {
                 method: "POST",
                 body: formdata
             });
+
+            if (!response.ok) {
+                hmsg.innerHTML = "Failed to save recipe.";
+                return;
+            }
+
             const data = await response.json();
             console.log(data);
-            txtrecipeid.value = data.recipeId;
-            hmsg.innerHTML = data.recipe?.errorMessage || "Recipe saved successfully";
+
+            if (data.recipe?.errorMessage) {
+                hmsg.innerHTML = data.recipe.errorMessage;
+            } else {
+                txtrecipeid.value = data.recipeId;
+                hmsg.innerHTML = "Recipe saved successfully";
+            }
         })();
     });
 
@@ -118,14 +150,17 @@
             return;
         }
         (async () => {
-
             const response = await fetch(`https://dgrecipeapi.azurewebsites.net/api/Recipe?id=${recipeId}`, {
                 method: "DELETE"
             });
             const data = await response.json();
             console.log(data);
-            hmsg.innerHTML = data.recipe?.errorMessage || "Recipe deleted successfully";
-
+            if (data.recipe?.errorMessage) {
+                hmsg.innerHTML = data.recipe.errorMessage;
+            } else {
+                frm.reset();
+                hmsg.innerHTML = "Recipe deleted successfully.";
+            }
         })();
-    })
+    });
 </script>
