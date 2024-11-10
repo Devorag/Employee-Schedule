@@ -8,10 +8,22 @@ interface Props {
 }
 
 export function RecipeEdit({ recipe }: Props) {
-    const { register, handleSubmit, reset } = useForm({ defaultValues: recipe });
+    const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm({
+        defaultValues: {
+            ...recipe,
+            cuisineId: recipe.cuisineId || "",
+            usersId: recipe.usersId || "",
+            dateDrafted: recipe.dateDrafted ? new Date(recipe.dateDrafted).toISOString().split("T")[0] : "",
+            datePublished: recipe.datePublished ? new Date(recipe.datePublished).toISOString().split("T")[0] : "",
+            dateArchived: recipe.dateArchived ? new Date(recipe.dateArchived).toISOString().split("T")[0] : "",
+            recipeStatus: recipe.recipeStatus || "",
+        }
+    });
+
     const [user, setUser] = useState<IUser[]>([]);
     const [cuisine, setCuisine] = useState<ICuisine[]>([]);
     const [msg, setErrorMsg] = useState("");
+    const recipeStatus = watch("recipeStatus");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,15 +31,49 @@ export function RecipeEdit({ recipe }: Props) {
             const cuisineData = await fetchCuisines();
             setUser(userData);
             setCuisine(cuisineData);
-            reset(recipe);
+
+            reset({
+                ...recipe,
+                cuisineId: recipe.cuisineId || "",
+                usersId: recipe.usersId || "",
+                dateDrafted: recipe.dateDrafted ? new Date(recipe.dateDrafted).toISOString().split("T")[0] : "",
+                datePublished: recipe.datePublished ? new Date(recipe.datePublished).toISOString().split("T")[0] : "",
+                dateArchived: recipe.dateArchived ? new Date(recipe.dateArchived).toISOString().split("T")[0] : "",
+                recipeStatus: recipe.recipeStatus || "",
+            });
         };
         fetchData();
     }, [recipe, reset]);
 
+    useEffect(() => {
+        const currentDate = new Date().toISOString().split("T")[0];
+        if (recipeStatus === "Drafted") {
+            setValue("dateDrafted", currentDate);
+            setValue("datePublished", "");
+            setValue("dateArchived", "");
+        } else if (recipeStatus === "Published") {
+            setValue("dateDrafted", currentDate);
+            setValue("datePublished", currentDate);
+            setValue("dateArchived", "");
+        } else if (recipeStatus === "Archived") {
+            setValue("dateDrafted", currentDate);
+            setValue("datePublished", currentDate);
+            setValue("dateArchived", currentDate);
+        }
+    }, [recipeStatus, setValue]);
+
     const submitForm = async (data: FieldValues) => {
+        if (!data.cuisineId) {
+            setErrorMsg("Cuisine selection is required.");
+            return;
+        }
         const r = await postRecipe(data);
-        setErrorMsg(r.errorMessage || "Recipe saved successfully.");
-        if (!r.errorMessage) reset(r);
+        if (r.errorMessage) {
+            setErrorMsg(r.errorMessage);
+        } else {
+            setErrorMsg("Recipe saved successfully.");
+            reset(r);
+        }
     };
 
     const handleDelete = async () => {
@@ -52,26 +98,28 @@ export function RecipeEdit({ recipe }: Props) {
                                 <input type="text" {...register("recipeName")} className="form-control" required />
                             </div>
 
-                            <input type="hidden" {...register("recipeId")} value="0" />
+                            <input type="hidden" {...register("recipeId")} />
 
                             <div className="mb-3">
                                 <label htmlFor="cuisineId" className="form-label">Cuisine:</label>
-                                <select {...register("cuisineId")} className="form-select">
-                                    <option value="0" disabled>Select Cuisine</option>
+                                <select {...register("cuisineId", { required: "Cuisine is required" })} className="form-select">
+                                    <option value="" disabled>Select Cuisine</option>
                                     {cuisine.map(c => (
                                         <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>
                                     ))}
                                 </select>
+                                {errors.cuisineId && <span className="text-danger">{errors.cuisineId.message}</span>}
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">User:</label>
-                                <select {...register("usersId")} className="form-select">
+                                <select {...register("usersId", { required: "User is required" })} className="form-select">
                                     <option value="0" disabled>Select User</option>
                                     {user.map(u => (
                                         <option key={u.usersId} value={u.usersId}>{u.usersName}</option>
                                     ))}
                                 </select>
+                                {errors.usersId && <span className="text-danger">{errors.usersId.message}</span>}
                             </div>
 
                             <div className="mb-3">
@@ -81,22 +129,27 @@ export function RecipeEdit({ recipe }: Props) {
 
                             <div className="mb-3">
                                 <label htmlFor="dateDrafted" className="form-label">Date Drafted:</label>
-                                <input type="date" {...register("dateDrafted")} className="form-control" />
+                                <input type="date" {...register("dateDrafted")} className="form-control" readOnly />
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="datePublished" className="form-label">Date Published:</label>
-                                <input type="date" {...register("datePublished")} className="form-control" />
+                                <input type="date" {...register("datePublished")} className="form-control" readOnly />
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="dateArchived" className="form-label">Date Archived:</label>
-                                <input type="date" {...register("dateArchived")} className="form-control" />
+                                <input type="date" {...register("dateArchived")} className="form-control" readOnly />
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="recipeStatus" className="form-label">Recipe Status:</label>
-                                <input type="text" {...register("recipeStatus")} className="form-control" />
+                                <select {...register("recipeStatus")} className="form-select">
+                                    <option value="">Select Status</option>
+                                    <option value="Drafted">Drafted</option>
+                                    <option value="Published">Published</option>
+                                    <option value="Archived">Archived</option>
+                                </select>
                             </div>
 
                             <button type="submit" className="btn btn-primary">Submit</button>

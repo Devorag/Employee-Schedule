@@ -29,14 +29,13 @@ async function postData<T>(url: string, form: FieldValues): Promise<T> {
         headers: {
             "Content-Type": "application/json"
         }
-
     });
     const data = await r.json();
     return data;
 }
 
 export async function fetchCuisines() {
-    return await fetchData<ICuisine[]>("Cuisine");
+    return await fetchData<ICuisine[]>("cuisine");
 }
 
 export async function fetchUsers() {
