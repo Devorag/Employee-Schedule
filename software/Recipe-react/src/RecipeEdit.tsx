@@ -72,14 +72,33 @@ export function RecipeEdit({ recipe }: Props) {
             setErrorMsg(r.errorMessage);
         } else {
             setErrorMsg("Recipe saved successfully.");
-            reset(r);
+            reset({
+                ...r,
+                cuisineId: r.cuisineId || "",
+                usersId: r.usersId || "",
+                dateDrafted: r.dateDrafted ? new Date(r.dateDrafted).toISOString().split("T")[0] : "",
+                datePublished: r.datePublished ? new Date(r.datePublished).toISOString().split("T")[0] : "",
+                dateArchived: r.dateArchived ? new Date(r.dateArchived).toISOString().split("T")[0] : "",
+                recipeStatus: r.recipeStatus || "",
+            });
         }
     };
 
     const handleDelete = async () => {
         const r = await deleteRecipe(recipe.recipeId);
         setErrorMsg(r.errorMessage || "Recipe deleted successfully.");
-        if (!r.errorMessage) reset(blankRecipe);
+
+        if (!r.errorMessage) {
+            reset({
+                ...blankRecipe,
+                cuisineId: blankRecipe.cuisineId || "",
+                usersId: blankRecipe.usersId || "",
+                dateDrafted: blankRecipe.dateDrafted ? new Date(blankRecipe.dateDrafted).toISOString().split("T")[0] : "",
+                datePublished: blankRecipe.datePublished ? new Date(blankRecipe.datePublished).toISOString().split("T")[0] : "",
+                dateArchived: blankRecipe.dateArchived ? new Date(blankRecipe.dateArchived).toISOString().split("T")[0] : "",
+                recipeStatus: blankRecipe.recipeStatus || "",
+            });
+        }
     };
 
     return (
