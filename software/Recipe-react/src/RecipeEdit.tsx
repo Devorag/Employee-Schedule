@@ -122,7 +122,7 @@ export function RecipeEdit({ recipe }: Props) {
                             <div className="mb-3">
                                 <label htmlFor="cuisineId" className="form-label">Cuisine:</label>
                                 <select {...register("cuisineId", { required: "Cuisine is required" })} className="form-select">
-                                    <option value="" disabled>Select Cuisine</option>
+                                    <option value="0" disabled>Select Cuisine</option>
                                     {cuisine.map(c => (
                                         <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>
                                     ))}

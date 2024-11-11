@@ -2,7 +2,7 @@
 import { FieldValues } from "react-hook-form";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
 
-let baseurl = "https://dgsecipeapi.azurewebsites.net/api/"
+let baseurl = "https://dgsrecipeapi.azurewebsites.net/api/"
 //baseurl = import.meta.env.VITE_API_URL;
 
 async function fetchData<T>(url: string): Promise<T> {
