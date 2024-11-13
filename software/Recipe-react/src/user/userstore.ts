@@ -18,7 +18,7 @@ export const useUserStore = create<User>(
             ...initalvals,
 
             login: async (username: string, password: string) => {
-                const roleval = username.toLowerCase().startsWith("a") ? "admin" : "user";
+                const roleval = username.toLowerCase().startsWith("a") && password != "" ? "admin" : "user";
                 const newState = { username, role: roleval, isLoggedIn: true };
 
                 sessionStorage.setItem(keyname, JSON.stringify(newState));

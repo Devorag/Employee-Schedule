@@ -8,7 +8,7 @@ import { blankRecipe } from './DataUtil';
 import { useState } from 'react';
 import { IRecipe } from './DataInterface';
 import { RecipeEdit } from './RecipeEdit';
-import Login from "./login";
+import Login from "./Login";
 import './assets/css/bootstrap.min.css';
 import { useUserStore } from './user/userstore';
 

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import UserPanel from "./UserPanel";
+import UserPanel from "./userPanel";
 
 export default function Navbar() {
     return (
