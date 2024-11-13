@@ -1,5 +1,5 @@
 --login
-npm login --scope=@username --registry=https://npm.pkg.github.com
+npm login --scope=@devorag --registry=https://npm.pkg.github.com
 
 -.npmrc
 @username:registry=https://npm.pkg.github.com/

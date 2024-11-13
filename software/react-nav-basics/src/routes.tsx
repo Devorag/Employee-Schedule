@@ -10,8 +10,8 @@ const router = createBrowserRouter([
     {
         path: "/", element: <App />, children: [
             { path: "/screen1", element: <Screen1 /> },
-            { path: "/screen2", element: <ProtectedRoute element={<Screen2 />} /> },
-            { path: "/screen3/:val?/num:?", element: <Screen3 /> },
+            { path: "/screen2", element: <ProtectedRoute requiredrole="" element={<Screen2 />} /> },
+            { path: "/screen3/:val?/num:?", element: <ProtectedRoute requiredrole="admin" element={<Screen3 />} /> },
             { path: "/login", element: <Login /> },
         ]
     },

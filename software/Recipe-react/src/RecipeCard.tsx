@@ -1,5 +1,6 @@
 // RecipeCard.tsx
 import { IRecipe } from "./DataInterface";
+import { useUserStore } from "./user/userstore";
 
 interface Props {
     recipe: IRecipe;
@@ -7,6 +8,15 @@ interface Props {
 }
 
 export default function RecipeCard({ recipe, onRecipeSelectedForEdit }: Props) {
+    const isLoggedIn = useUserStore(state => state.isLoggedIn);
+
+    const handleEditClick = () => {
+        if (isLoggedIn) {
+            onRecipeSelectedForEdit(recipe);
+        } else {
+            alert("You need to be logged in to edit a recipe.");
+        }
+    };
     return (
         <div
             className="recipe-card"
@@ -22,7 +32,7 @@ export default function RecipeCard({ recipe, onRecipeSelectedForEdit }: Props) {
                 <h5 className="card-title">{recipe.recipeName}</h5>
                 <p className="card-text">You don't want to miss out on this one!</p>
                 <button
-                    onClick={() => onRecipeSelectedForEdit(recipe)}
+                    onClick={handleEditClick}
                     className="btn btn-primary mt-2"
                     style={{ width: '100%' }}
                 >

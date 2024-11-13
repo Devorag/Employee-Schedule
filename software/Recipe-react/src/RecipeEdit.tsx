@@ -2,7 +2,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtil";
 import { useEffect, useState } from "react";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
-
+import { useUserStore } from "./user/userstore";
 interface Props {
     recipe: IRecipe;
 }
@@ -24,6 +24,7 @@ export function RecipeEdit({ recipe }: Props) {
     const [cuisine, setCuisine] = useState<ICuisine[]>([]);
     const [msg, setErrorMsg] = useState("");
     const recipeStatus = watch("recipeStatus");
+    const userRole = useUserStore((state) => state.role);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -85,6 +86,10 @@ export function RecipeEdit({ recipe }: Props) {
     };
 
     const handleDelete = async () => {
+        if (userRole !== "admin") {
+            setErrorMsg("Only users with a high-level role can delete a recipe.");
+            return;
+        }
         const r = await deleteRecipe(recipe.recipeId);
         setErrorMsg(r.errorMessage || "Recipe deleted successfully.");
 
