@@ -1,6 +1,6 @@
 // RecipeCard.tsx
 import { IRecipe } from "./DataInterface";
-import { useUserStore } from "./user/userstore";
+import { useUserStore } from "@devorag/reactutils";
 
 interface Props {
     recipe: IRecipe;

@@ -10,7 +10,7 @@ import { IRecipe } from './DataInterface';
 import { RecipeEdit } from './RecipeEdit';
 import Login from "./Login";
 import './assets/css/bootstrap.min.css';
-import { useUserStore } from './user/userstore';
+import { useUserStore } from '@devorag/reactutils';
 
 function App() {
   const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");

@@ -1,56 +1,30 @@
 
 import { FieldValues } from "react-hook-form";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
+import { CreateAPI } from "@devorag/reactutils";
 
 let baseurl = "https://dgrecipeapi.azurewebsites.net/api/"
-//baseurl = import.meta.env.VITE_API_URL;
-
-async function fetchData<T>(url: string): Promise<T> {
-    url = baseurl + url;
-    const r = await fetch(url);
-    const data = await r.json();
-    return data;
-};
-
-
-async function deleteData<T>(url: string): Promise<T> {
-    url = baseurl + url;
-    const r = await fetch(url, { method: "DELETE" });
-    const data = await r.json();
-    return data;
-};
-
-async function postData<T>(url: string, form: FieldValues): Promise<T> {
-    url = baseurl + url;
-    const r = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(form),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-    const data = await r.json();
-    return data;
-}
+//let baseurl = import.meta.env.VITE_API_URL;
+const api = CreateAPI(baseurl);
 
 export async function fetchCuisines() {
-    return await fetchData<ICuisine[]>("cuisine");
+    return await api.fetchData<ICuisine[]>("cuisine");
 }
 
 export async function fetchUsers() {
-    return await fetchData<IUser[]>("User");
+    return await api.fetchData<IUser[]>("User");
 }
 
 export async function fetchRecipesbyCuisineName(cuisineName: string) {
-    return await fetchData<IRecipe[]>(`Recipe/getbyCuisineName/${cuisineName}`);
+    return await api.fetchData<IRecipe[]>(`Recipe/getbyCuisineName/${cuisineName}`);
 };
 
 export async function postRecipe(form: FieldValues) {
-    return postData<IRecipe>("recipe", form);
+    return api.postData<IRecipe>("recipe", form);
 }
 
 export async function deleteRecipe(recipeId: number) {
-    return deleteData<IRecipe>(`recipe?id=${recipeId}`);
+    return api.deleteData<IRecipe>(`recipe?id=${recipeId}`);
 }
 
 export const blankRecipe: IRecipe = {

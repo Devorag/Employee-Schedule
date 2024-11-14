@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useUserStore } from "./user/userstore";
+import { useUserStore } from "@devorag/reactutils";
 
 export default function userPanel() {
     const isLoggedIn = useUserStore(state => state.isLoggedIn);

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useUserStore } from "./user/userstore";
+import { useUserStore } from "@devorag/reactutils";
 
 type FormInput = { username: string; password: string };
 
