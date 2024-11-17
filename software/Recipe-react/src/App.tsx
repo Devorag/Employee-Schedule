@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Cookbooks from "./Cookbooks";
 import Meals from "./Meals";
@@ -40,6 +41,8 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <hr />
+      <Outlet />
       <div className="container">
         <Routes>
           <Route
