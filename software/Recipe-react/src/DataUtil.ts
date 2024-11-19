@@ -1,11 +1,12 @@
 
 import { FieldValues } from "react-hook-form";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
-import { CreateAPI } from "@devorag/reactutils";
+import { CreateAPI, getUserStore } from "@devorag/reactutils";
 
 let baseurl = "https://dgrecipeapi.azurewebsites.net/api/"
-//let baseurl = import.meta.env.VITE_API_URL;
-const api = CreateAPI(baseurl);
+baseurl = import.meta.env.VITE_API_URL_DEV;
+const sessionkey = getUserStore(baseurl).getState().sessionKey;
+const api = CreateAPI(baseurl, sessionkey);
 
 export async function fetchCuisines() {
     return await api.fetchData<ICuisine[]>("cuisine");

@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useUserStore } from "@devorag/reactutils";
+import { getUserStore } from "@devorag/reactutils";
 
 type FormInput = { username: string; password: string };
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
+    const apiurl = import.meta.env.VITE_API_URL;
+    const useUserStore = getUserStore(apiurl);
     const login = useUserStore((state) => state.login);
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
-
     const onSubmit = async (data: FormInput) => await login(data.username, data.password);
 
     return (

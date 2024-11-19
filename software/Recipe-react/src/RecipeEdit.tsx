@@ -2,7 +2,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtil";
 import { useEffect, useState } from "react";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
-import { useUserStore } from "@devorag/reactutils";
+import { getUserStore } from "@devorag/reactutils";
 interface Props {
     recipe: IRecipe;
 }
@@ -19,12 +19,13 @@ export function RecipeEdit({ recipe }: Props) {
             recipeStatus: recipe.recipeStatus || "",
         }
     });
-
+    const apiurl = import.meta.env.VITE_API_URL_DEV;
+    const useUserStore = getUserStore(apiurl);
     const [user, setUser] = useState<IUser[]>([]);
     const [cuisine, setCuisine] = useState<ICuisine[]>([]);
     const [msg, setErrorMsg] = useState("");
     const recipeStatus = watch("recipeStatus");
-    const userRole = useUserStore((state) => state.role);
+    const userRole = useUserStore((state) => state.roleName);
 
     useEffect(() => {
         const fetchData = async () => {

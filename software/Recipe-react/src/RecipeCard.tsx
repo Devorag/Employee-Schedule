@@ -1,6 +1,6 @@
 // RecipeCard.tsx
 import { IRecipe } from "./DataInterface";
-import { useUserStore } from "@devorag/reactutils";
+import { getUserStore } from "@devorag/reactutils";
 
 interface Props {
     recipe: IRecipe;
@@ -8,6 +8,8 @@ interface Props {
 }
 
 export default function RecipeCard({ recipe, onRecipeSelectedForEdit }: Props) {
+    const apiurl = import.meta.env.VITE_API_URL_DEV;
+    const useUserStore = getUserStore(apiurl);
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
 
     const handleEditClick = () => {

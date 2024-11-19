@@ -11,12 +11,14 @@ import { IRecipe } from './DataInterface';
 import { RecipeEdit } from './RecipeEdit';
 import Login from "./Login";
 import './assets/css/bootstrap.min.css';
-import { useUserStore } from '@devorag/reactutils';
+import { getUserStore } from '@devorag/reactutils';
 
 function App() {
   const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");
   const [isRecipeEdit, setIsRecipeEdit] = useState(false);
   const [recipeForEdit, setRecipeForEdit] = useState(blankRecipe);
+  const apiurl = import.meta.env.VITE_API_URL_DEV;
+  const useUserStore = getUserStore(apiurl);
 
   const handleCuisineSelected = (cuisineName: string) => {
     setIsRecipeEdit(false);
