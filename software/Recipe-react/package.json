@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@devorag/reactutils": "^1.1.2",
+    "@devorag/reactutils": "^1.1.5",
     "@Devorag/reactutils": "npm:@devorag/reactutils@^1.0.0",
     "@Devorag/reactUtils": "npm:@devorag/reactutils@^1.0.0",
     "@Devorag/ReactUtils": "npm:@devorag/reactutils@^1.0.0",

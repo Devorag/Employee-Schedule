@@ -15,15 +15,16 @@ export default function Sidebar({ onCuisineSelected }: Props) {
         const fetchData = async () => {
             const data = await fetchCuisines();
             setCuisineList(data);
-
             if (data.length > 0 && selectedCuisineId === 0) {
                 const initialCuisine = data[0];
                 setSelectedCuisineId(initialCuisine.cuisineId);
-                onCuisineSelected(initialCuisine.cuisineName);
+                if (initialCuisine.cuisineName) {
+                    onCuisineSelected(initialCuisine.cuisineName);
+                }
             }
         };
         fetchData();
-    }, [onCuisineSelected, selectedCuisineId]);
+    }, []);
 
     const handleSelectedCuisine = (cuisineId: number) => {
         setSelectedCuisineId(cuisineId);

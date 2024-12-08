@@ -14,66 +14,67 @@ import './assets/css/bootstrap.min.css';
 import { getUserStore } from '@devorag/reactutils';
 
 function App() {
-  const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");
-  const [isRecipeEdit, setIsRecipeEdit] = useState(false);
-  const [recipeForEdit, setRecipeForEdit] = useState(blankRecipe);
-  const apiurl = import.meta.env.VITE_API_URL_DEV;
-  const useUserStore = getUserStore(apiurl);
+    const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");
+    const [isRecipeEdit, setIsRecipeEdit] = useState(false);
+    const [recipeForEdit, setRecipeForEdit] = useState(blankRecipe);
+    const apiurl = import.meta.env.VITE_API_URL_DEV;
+    const useUserStore = getUserStore(apiurl);
 
-  const handleCuisineSelected = (cuisineName: string) => {
-    setIsRecipeEdit(false);
-    setSelectedCuisineName(cuisineName);
-  };
+    const handleCuisineSelected = (cuisineName: string) => {
+        setIsRecipeEdit(false);
+        setSelectedCuisineName(cuisineName);
+    };
 
-  const handleRecipeSelectedForEdit = (recipe: IRecipe) => {
-    setRecipeForEdit(recipe);
-    setIsRecipeEdit(true);
-  };
+    const handleRecipeSelectedForEdit = (recipe: IRecipe) => {
 
-  const isLoggedIn = useUserStore(state => state.isLoggedIn);
+        setRecipeForEdit(recipe);
+        setIsRecipeEdit(true);
+    };
 
-  const handleNewRecipeClick = () => {
-    if (isLoggedIn) {
-      handleRecipeSelectedForEdit(blankRecipe);
-    } else {
-      alert("You can't insert a recipe unless you are logged in.");
-    }
-  };
+    const isLoggedIn = useUserStore(state => state.isLoggedIn);
 
-  return (
-    <Router>
-      <Navbar />
-      <hr />
-      <Outlet />
-      <div className="container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="row">
-                <div className="col-3 col-lg-2 border border-light">
-                  <button
-                    onClick={handleNewRecipeClick}
-                    className="btn btn-outline-primary mb-3">
-                    New Recipe
-                  </button>
-                  <Sidebar onCuisineSelected={handleCuisineSelected} />
-                </div>
-                <div className="col-9 col-lg-10">
-                  {isRecipeEdit
-                    ? <RecipeEdit recipe={recipeForEdit} />
-                    : <MainScreen cuisineName={selectedCuisineName} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />}
-                </div>
-              </div>
-            }
-          />
-          <Route path="/meals" element={<Meals />} />
-          <Route path="/cookbooks" element={<Cookbooks />} />
-          <Route path="/Login" element={<Login />} />
-        </Routes>
-      </div>
-    </Router>
-  );
+    const handleNewRecipeClick = () => {
+        if (isLoggedIn) {
+            handleRecipeSelectedForEdit(blankRecipe);
+        } else {
+            alert("You can't insert a recipe unless you are logged in.");
+        }
+    };
+
+    return (
+        <Router>
+            <Navbar />
+            <hr />
+            <Outlet />
+            <div className="container">
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <div className="row">
+                                <div className="col-3 col-lg-2 border border-light">
+                                    <button
+                                        onClick={handleNewRecipeClick}
+                                        className="btn btn-outline-primary mb-3">
+                                        New Recipe
+                                    </button>
+                                    <Sidebar onCuisineSelected={handleCuisineSelected} />
+                                </div>
+                                <div className="col-9 col-lg-10">
+                                    {isRecipeEdit
+                                        ? <RecipeEdit recipe={recipeForEdit} />
+                                        : <MainScreen cuisineName={selectedCuisineName} onRecipeSelectedForEdit={handleRecipeSelectedForEdit} />}
+                                </div>
+                            </div>
+                        }
+                    />
+                    <Route path="/meals" element={<Meals />} />
+                    <Route path="/cookbooks" element={<Cookbooks />} />
+                    <Route path="/Login" element={<Login />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

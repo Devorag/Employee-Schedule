@@ -13,13 +13,16 @@ export default function MainScreen({ cuisineName, onRecipeSelectedForEdit }: Pro
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setIsLoading(true);
-        const fetchdata = async () => {
-            const data = await fetchRecipesbyCuisineName(cuisineName);
-            setRecipeList(data);
-            setIsLoading(false);
-        };
-        fetchdata();
+        if (cuisineName) {
+            setIsLoading(true);
+            const fetchdata = async () => {
+                const data = await fetchRecipesbyCuisineName(cuisineName);
+                console.log('Fetched recipes:', data);
+                setRecipeList(data);
+                setIsLoading(false);
+            };
+            fetchdata();
+        }
     }, [cuisineName]);
 
     return (

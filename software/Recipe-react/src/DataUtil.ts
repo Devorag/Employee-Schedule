@@ -3,8 +3,8 @@ import { FieldValues } from "react-hook-form";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
 import { CreateAPI, getUserStore } from "@devorag/reactutils";
 
-let baseurl = "https://dgrecipeapi.azurewebsites.net/api/"
-baseurl = import.meta.env.VITE_API_URL_DEV;
+
+let baseurl = import.meta.env.VITE_API_URL_DEV;
 const sessionkey = getUserStore(baseurl).getState().sessionKey;
 const api = CreateAPI(baseurl, sessionkey);
 
