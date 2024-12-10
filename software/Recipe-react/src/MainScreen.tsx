@@ -27,22 +27,24 @@ export default function MainScreen({ cuisineName, onRecipeSelectedForEdit }: Pro
 
     return (
         <>
-            <div className="row">
-                <div className={isLoading ? "placeholder-glow" : ""}>
-                    <h2 className="bg-light">
-                        <span className={isLoading ? "placeholder" : ""}>{recipelist.length} Recipes</span>
-                    </h2>
-                </div>
-            </div>
-            <div className="row">
-                {recipelist.map(r =>
-                    <div key={r.recipeId} className="col-md-6 col-lg-3 mb-2">
-                        <RecipeCard
-                            recipe={r}
-                            onRecipeSelectedForEdit={onRecipeSelectedForEdit}
-                        />
+            <div className="container py-4">
+                <div className="row">
+                    <div className={isLoading ? "placeholder-glow" : ""}>
+                        <h2 className="text-dark">
+                            <span className={isLoading ? "placeholder" : ""}>{recipelist.length} Recipes</span>
+                        </h2>
                     </div>
-                )}
+                </div>
+                <div className="row">
+                    {recipelist.map(r =>
+                        <div key={r.recipeId} className="col-md-6 col-lg-3 mb-2">
+                            <RecipeCard
+                                recipe={r}
+                                onRecipeSelectedForEdit={onRecipeSelectedForEdit}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );

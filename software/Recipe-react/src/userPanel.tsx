@@ -17,7 +17,7 @@ export default function userPanel() {
                     <button onClick={() => logout(username)}>Logout</button>
                 </>
             ) : (
-                <NavLink to="/Login">Login</NavLink>
+                <NavLink className="nav-link" to="/Login">Login</NavLink>
             )}
         </>
     );

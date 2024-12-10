@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Cookbooks from "./Cookbooks";
@@ -11,12 +11,14 @@ import { IRecipe } from './DataInterface';
 import { RecipeEdit } from './RecipeEdit';
 import Login from "./Login";
 import './assets/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { getUserStore } from '@devorag/reactutils';
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
     const [selectedCuisineName, setSelectedCuisineName] = useState<string>("");
     const [isRecipeEdit, setIsRecipeEdit] = useState(false);
-    const [recipeForEdit, setRecipeForEdit] = useState(blankRecipe);
+    const [recipeForEdit, setRecipeForEdit] = useState<IRecipe>(blankRecipe);
     const apiurl = import.meta.env.VITE_API_URL_DEV;
     const useUserStore = getUserStore(apiurl);
 
@@ -26,7 +28,6 @@ function App() {
     };
 
     const handleRecipeSelectedForEdit = (recipe: IRecipe) => {
-
         setRecipeForEdit(recipe);
         setIsRecipeEdit(true);
     };
@@ -35,7 +36,7 @@ function App() {
 
     const handleNewRecipeClick = () => {
         if (isLoggedIn) {
-            handleRecipeSelectedForEdit(blankRecipe);
+            handleRecipeSelectedForEdit(blankRecipe); // Load a new recipe
         } else {
             alert("You can't insert a recipe unless you are logged in.");
         }
@@ -68,9 +69,9 @@ function App() {
                             </div>
                         }
                     />
-                    <Route path="/meals" element={<Meals />} />
-                    <Route path="/cookbooks" element={<Cookbooks />} />
-                    <Route path="/Login" element={<Login />} />
+                    <Route path="/meals" element={<ProtectedRoute element={<Meals />} requiredrole={0} />} />
+                    <Route path="/cookbooks" element={<ProtectedRoute element={<Cookbooks />} requiredrole={0} />} />
+                    <Route path="/Login" element={<Login fromPath={location.pathname} />} />
                 </Routes>
             </div>
         </Router>

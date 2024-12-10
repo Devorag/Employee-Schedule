@@ -1,111 +1,105 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtil";
 import { useEffect, useState } from "react";
+import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtil";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
 import { getUserStore } from "@devorag/reactutils";
+
 interface Props {
     recipe: IRecipe;
 }
 
+
+const formatDate = (date: Date | string | null) =>
+    date ? new Date(date).toISOString().split("T")[0] : "";
+
+const getDefaultValues = (recipe: IRecipe) => ({
+    ...recipe,
+    cuisineId: recipe.cuisineId || "",
+    usersId: recipe.usersId || "",
+    dateDrafted: formatDate(recipe.dateDrafted),
+    datePublished: formatDate(recipe.datePublished),
+    dateArchived: formatDate(recipe.dateArchived),
+    recipeStatus: recipe.recipeStatus || "",
+});
+
 export function RecipeEdit({ recipe }: Props) {
     const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm({
-        defaultValues: {
-            ...recipe,
-            cuisineId: recipe.cuisineId || "",
-            usersId: recipe.usersId || "",
-            dateDrafted: recipe.dateDrafted ? new Date(recipe.dateDrafted).toISOString().split("T")[0] : "",
-            datePublished: recipe.datePublished ? new Date(recipe.datePublished).toISOString().split("T")[0] : "",
-            dateArchived: recipe.dateArchived ? new Date(recipe.dateArchived).toISOString().split("T")[0] : "",
-            recipeStatus: recipe.recipeStatus || "",
-        }
+        defaultValues: getDefaultValues(recipe),
     });
+
     const apiurl = import.meta.env.VITE_API_URL_DEV;
     const useUserStore = getUserStore(apiurl);
     const [user, setUser] = useState<IUser[]>([]);
     const [cuisine, setCuisine] = useState<ICuisine[]>([]);
     const [msg, setErrorMsg] = useState("");
     const recipeStatus = watch("recipeStatus");
-    const userRole = useUserStore((state) => state.roleName);
+    const roleRank = useUserStore(state => state.roleRank);
 
     useEffect(() => {
         const fetchData = async () => {
-            const userData = await fetchUsers();
-            const cuisineData = await fetchCuisines();
-            setUser(userData);
-            setCuisine(cuisineData);
-
-            reset({
-                ...recipe,
-                cuisineId: recipe.cuisineId || "",
-                usersId: recipe.usersId || "",
-                dateDrafted: recipe.dateDrafted ? new Date(recipe.dateDrafted).toISOString().split("T")[0] : "",
-                datePublished: recipe.datePublished ? new Date(recipe.datePublished).toISOString().split("T")[0] : "",
-                dateArchived: recipe.dateArchived ? new Date(recipe.dateArchived).toISOString().split("T")[0] : "",
-                recipeStatus: recipe.recipeStatus || "",
-            });
+            try {
+                const [userData, cuisineData] = await Promise.all([fetchUsers(), fetchCuisines()]);
+                setUser(userData);
+                setCuisine(cuisineData);
+                reset(getDefaultValues(recipe));
+            } catch (error) {
+                setErrorMsg("Error fetching data.");
+            }
         };
         fetchData();
     }, [recipe, reset]);
 
     useEffect(() => {
-        const currentDate = new Date().toISOString().split("T")[0];
-        if (recipeStatus === "Drafted") {
-            setValue("dateDrafted", currentDate);
-            setValue("datePublished", "");
-            setValue("dateArchived", "");
-        } else if (recipeStatus === "Published") {
-            setValue("dateDrafted", currentDate);
-            setValue("datePublished", currentDate);
-            setValue("dateArchived", "");
-        } else if (recipeStatus === "Archived") {
-            setValue("dateDrafted", currentDate);
-            setValue("datePublished", currentDate);
-            setValue("dateArchived", currentDate);
+        const currentDate = formatDate(new Date());
+        switch (recipeStatus) {
+            case "Drafted":
+                setValue("dateDrafted", currentDate);
+                setValue("datePublished", "");
+                setValue("dateArchived", "");
+                break;
+            case "Published":
+                setValue("datePublished", currentDate);
+                setValue("dateArchived", "");
+                break;
+            case "Archived":
+                setValue("dateArchived", currentDate);
+                break;
+            default:
+                break;
         }
     }, [recipeStatus, setValue]);
 
     const submitForm = async (data: FieldValues) => {
-        if (!data.cuisineId) {
-            setErrorMsg("Cuisine selection is required.");
-            return;
-        }
-        const r = await postRecipe(data);
-        if (r.errorMessage) {
-            setErrorMsg(r.errorMessage);
-        } else {
-            setErrorMsg("Recipe saved successfully.");
-            reset({
-                ...r,
-                cuisineId: r.cuisineId || "",
-                usersId: r.usersId || "",
-                dateDrafted: r.dateDrafted ? new Date(r.dateDrafted).toISOString().split("T")[0] : "",
-                datePublished: r.datePublished ? new Date(r.datePublished).toISOString().split("T")[0] : "",
-                dateArchived: r.dateArchived ? new Date(r.dateArchived).toISOString().split("T")[0] : "",
-                recipeStatus: r.recipeStatus || "",
-            });
+        try {
+            if (!data.cuisineId) {
+                setErrorMsg("Cuisine selection is required.");
+                return;
+            }
+            const result = await postRecipe(data);
+            if (result.errorMessage) {
+                setErrorMsg(result.errorMessage);
+            } else {
+                setErrorMsg("Recipe saved successfully.");
+                reset(getDefaultValues(result));
+            }
+        } catch (error) {
+            setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
     };
 
     const handleDelete = async () => {
-        if (userRole !== "admin") {
-            setErrorMsg("Only users with a high-level role can delete a recipe.");
-            return;
-        }
-        const r = await deleteRecipe(recipe.recipeId);
-        setErrorMsg(r.errorMessage || "Recipe deleted successfully.");
-
-        if (!r.errorMessage) {
-            reset({
-                ...blankRecipe,
-                cuisineId: blankRecipe.cuisineId || "",
-                usersId: blankRecipe.usersId || "",
-                dateDrafted: blankRecipe.dateDrafted ? new Date(blankRecipe.dateDrafted).toISOString().split("T")[0] : "",
-                datePublished: blankRecipe.datePublished ? new Date(blankRecipe.datePublished).toISOString().split("T")[0] : "",
-                dateArchived: blankRecipe.dateArchived ? new Date(blankRecipe.dateArchived).toISOString().split("T")[0] : "",
-                recipeStatus: blankRecipe.recipeStatus || "",
-            });
+        try {
+            const result = await deleteRecipe(recipe.recipeId);
+            console.log(result);
+            setErrorMsg(result.errorMessage || "Recipe deleted successfully.");
+            if (!result.errorMessage) {
+                reset(getDefaultValues(blankRecipe));
+            }
+        } catch (error) {
+            setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
     };
+
 
     return (
         <div className="bg-light mt-4 p-4">
@@ -128,7 +122,7 @@ export function RecipeEdit({ recipe }: Props) {
                             <div className="mb-3">
                                 <label htmlFor="cuisineId" className="form-label">Cuisine:</label>
                                 <select {...register("cuisineId", { required: "Cuisine is required" })} className="form-select">
-                                    <option value="0" disabled>Select Cuisine</option>
+                                    <option value="" disabled>Select Cuisine</option>
                                     {cuisine.map(c => (
                                         <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>
                                     ))}
@@ -139,7 +133,7 @@ export function RecipeEdit({ recipe }: Props) {
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">User:</label>
                                 <select {...register("usersId", { required: "User is required" })} className="form-select">
-                                    <option value="0" disabled>Select User</option>
+                                    <option value="" disabled>Select User</option>
                                     {user.map(u => (
                                         <option key={u.usersId} value={u.usersId}>{u.usersName}</option>
                                     ))}
@@ -149,7 +143,7 @@ export function RecipeEdit({ recipe }: Props) {
 
                             <div className="mb-3">
                                 <label htmlFor="calories" className="form-label">Calories:</label>
-                                <input type="number" {...register("calories")} defaultValue={200} className="form-control" required />
+                                <input type="number" {...register("calories")} className="form-control" required />
                             </div>
 
                             <div className="mb-3">
@@ -178,7 +172,11 @@ export function RecipeEdit({ recipe }: Props) {
                             </div>
 
                             <button type="submit" className="btn btn-primary">Submit</button>
-                            <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">Delete</button>
+                            {roleRank >= 3 && (
+                                <button onClick={handleDelete} type="button" id="btndelete" className="btn btn-danger">
+                                    Delete
+                                </button>
+                            )}
                         </form>
                     </div>
                 </div>

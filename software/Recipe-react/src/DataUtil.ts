@@ -5,27 +5,30 @@ import { CreateAPI, getUserStore } from "@devorag/reactutils";
 
 
 let baseurl = import.meta.env.VITE_API_URL_DEV;
-const sessionkey = getUserStore(baseurl).getState().sessionKey;
-const api = CreateAPI(baseurl, sessionkey);
+
+function api() {
+    const sessionkey = getUserStore(baseurl).getState().sessionKey;
+    return CreateAPI(baseurl, sessionkey);
+}
 
 export async function fetchCuisines() {
-    return await api.fetchData<ICuisine[]>("cuisine");
+    return await api().fetchData<ICuisine[]>("cuisine");
 }
 
 export async function fetchUsers() {
-    return await api.fetchData<IUser[]>("User");
+    return await api().fetchData<IUser[]>("User");
 }
 
 export async function fetchRecipesbyCuisineName(cuisineName: string) {
-    return await api.fetchData<IRecipe[]>(`Recipe/getbyCuisineName/${cuisineName}`);
+    return await api().fetchData<IRecipe[]>(`Recipe/getbyCuisineName/${cuisineName}`);
 };
 
 export async function postRecipe(form: FieldValues) {
-    return api.postData<IRecipe>("recipe", form);
+    return api().postData<IRecipe>("recipe", form);
 }
 
 export async function deleteRecipe(recipeId: number) {
-    return api.deleteData<IRecipe>(`recipe?id=${recipeId}`);
+    return api().deleteData<IRecipe>(`recipe?id=${recipeId}`);
 }
 
 export const blankRecipe: IRecipe = {
