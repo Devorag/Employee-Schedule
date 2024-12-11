@@ -34,6 +34,8 @@ export function RecipeEdit({ recipe }: Props) {
     const [msg, setErrorMsg] = useState("");
     const recipeStatus = watch("recipeStatus");
     const roleRank = useUserStore(state => state.roleRank);
+    console.log("Role Rank:", roleRank);
+    console.log("Role Rank type:", typeof roleRank);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -87,18 +89,30 @@ export function RecipeEdit({ recipe }: Props) {
         }
     };
 
+
     const handleDelete = async () => {
+        console.log("Current roleRank:", roleRank);
         try {
+            if (roleRank < 3) {
+                setErrorMsg("Unauthorized user: Only high-level users can delete a recipe.");
+                return;
+            }
+
             const result = await deleteRecipe(recipe.recipeId);
-            console.log(result);
+
+            console.log("Delete result:", result);
+
             setErrorMsg(result.errorMessage || "Recipe deleted successfully.");
             if (!result.errorMessage) {
                 reset(getDefaultValues(blankRecipe));
             }
         } catch (error) {
+            console.error("Error during delete:", error);
             setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
     };
+
+
 
 
     return (
@@ -106,7 +120,8 @@ export function RecipeEdit({ recipe }: Props) {
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h2 id="hmsg">{msg}</h2>
+                        {msg && <h2 id="hmsg" className={msg.includes("Unauthorized") ? "text-danger" : "text-success"}>{msg}</h2>}
+
                     </div>
                 </div>
                 <div className="row">
