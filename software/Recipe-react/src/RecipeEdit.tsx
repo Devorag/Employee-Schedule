@@ -34,7 +34,6 @@ export function RecipeEdit({ recipe: propRecipe }: Props) {
     const [msg, setErrorMsg] = useState("");
     const recipeStatus = watch("recipeStatus");
     const roleRank = useUserStore(state => state.roleRank);
-    const navigate = useNavigate();
 
     useEffect(() => {
         reset(getDefaultValues(recipe));
@@ -104,7 +103,6 @@ export function RecipeEdit({ recipe: propRecipe }: Props) {
         } catch (error) {
             setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
-        navigate("/");
     };
 
 
@@ -123,7 +121,6 @@ export function RecipeEdit({ recipe: propRecipe }: Props) {
         } catch (error) {
             setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
-        navigate("/");
     };
 
     return (
