@@ -151,7 +151,7 @@ export function RecipeEdit({ recipe: propRecipe }: Props) {
                             <div className="mb-3">
                                 <label htmlFor="cuisineId" className="form-label">Cuisine:</label>
                                 <select {...register("cuisineId", { required: "Cuisine is required" })} className="form-select">
-                                    <option value="" disabled>Select Cuisine</option>
+                                    <option value="" disabled></option>
                                     {cuisine.map(c => (
                                         <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>
                                     ))}
@@ -161,7 +161,7 @@ export function RecipeEdit({ recipe: propRecipe }: Props) {
                             <div className="mb-3">
                                 <label htmlFor="usersId" className="form-label">User:</label>
                                 <select {...register("usersId", { required: "User is required" })} className="form-select">
-                                    <option value="" disabled>Select User</option>
+                                    <option value="" disabled></option>
                                     {user.map(u => (
                                         <option key={u.usersId} value={u.usersId}>{u.usersName}</option>
                                     ))}
@@ -190,8 +190,8 @@ export function RecipeEdit({ recipe: propRecipe }: Props) {
 
                             <div className="mb-3">
                                 <label htmlFor="recipeStatus" className="form-label">Recipe Status:</label>
-                                <select {...register("recipeStatus")} className="form-select">
-                                    <option value="">Select Status</option>
+                                <select {...register("recipeStatus", { required: "Recipe status is required" })} className="form-select">
+                                    <option value=""></option>
                                     <option value="Drafted">Drafted</option>
                                     <option value="Published">Published</option>
                                     <option value="Archived">Archived</option>
