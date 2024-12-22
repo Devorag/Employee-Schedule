@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtil";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
 import { getUserStore } from "@devorag/reactutils";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 interface Props {
     recipe?: IRecipe;
