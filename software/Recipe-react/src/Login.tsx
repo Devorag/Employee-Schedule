@@ -33,7 +33,7 @@ export default function Login({ fromPath }: Props) {
                 setCrashmsg(error.message);
             }
             else {
-                setCrashmsg("error");
+                setCrashmsg("Invalid Username or Password");
             }
         }
     };
@@ -77,4 +77,4 @@ export default function Login({ fromPath }: Props) {
             </div>
         </div>
     );
-}
+}     

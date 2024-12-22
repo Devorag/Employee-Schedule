@@ -1,11 +1,12 @@
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { blankRecipe, deleteRecipe, fetchCuisines, fetchUsers, postRecipe } from "./DataUtil";
 import { ICuisine, IRecipe, IUser } from "./DataInterface";
 import { getUserStore } from "@devorag/reactutils";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface Props {
-    recipe: IRecipe;
+    recipe?: IRecipe;
 }
 
 
@@ -22,11 +23,10 @@ const getDefaultValues = (recipe: IRecipe) => ({
     recipeStatus: recipe.recipeStatus || "",
 });
 
-export function RecipeEdit({ recipe }: Props) {
-    const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm({
-        defaultValues: getDefaultValues(recipe),
-    });
-
+export function RecipeEdit({ recipe: propRecipe }: Props) {
+    const { register, handleSubmit, reset, watch, setValue } = useForm();
+    const location = useLocation();
+    const recipe = propRecipe || location.state?.recipe || blankRecipe;
     const apiurl = import.meta.env.VITE_API_URL_DEV;
     const useUserStore = getUserStore(apiurl);
     const [user, setUser] = useState<IUser[]>([]);
@@ -34,8 +34,12 @@ export function RecipeEdit({ recipe }: Props) {
     const [msg, setErrorMsg] = useState("");
     const recipeStatus = watch("recipeStatus");
     const roleRank = useUserStore(state => state.roleRank);
-    console.log("Role Rank:", roleRank);
-    console.log("Role Rank type:", typeof roleRank);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        reset(getDefaultValues(recipe));
+    }, [recipe, reset]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,29 +59,42 @@ export function RecipeEdit({ recipe }: Props) {
         const currentDate = formatDate(new Date());
         switch (recipeStatus) {
             case "Drafted":
-                setValue("dateDrafted", currentDate);
-                setValue("datePublished", "");
-                setValue("dateArchived", "");
+                if (!watch("dateDrafted")) setValue("dateDrafted", currentDate);
+                setValue("datePublished", undefined);
+                setValue("dateArchived", undefined);
                 break;
             case "Published":
-                setValue("datePublished", currentDate);
-                setValue("dateArchived", "");
+                if (!watch("datePublished")) setValue("datePublished", currentDate);
+                setValue("dateArchived", undefined);
                 break;
             case "Archived":
-                setValue("dateArchived", currentDate);
+                if (!watch("dateArchived")) setValue("dateArchived", currentDate);
                 break;
             default:
                 break;
         }
-    }, [recipeStatus, setValue]);
+    }, [recipeStatus, setValue, watch]);
 
-    const submitForm = async (data: FieldValues) => {
+
+    const submitForm = async (data: {
+        dateDrafted?: string;
+        datePublished?: string;
+        dateArchived?: string;
+        cuisineId?: string;
+        [key: string]: any;
+    }) => {
+        const cleanData = {
+            ...data,
+            dateDrafted: data.dateDrafted || null,
+            datePublished: data.datePublished || null,
+            dateArchived: data.dateArchived || null,
+        };
         try {
-            if (!data.cuisineId) {
+            if (!cleanData.cuisineId) {
                 setErrorMsg("Cuisine selection is required.");
                 return;
             }
-            const result = await postRecipe(data);
+            const result = await postRecipe(cleanData);
             if (result.errorMessage) {
                 setErrorMsg(result.errorMessage);
             } else {
@@ -87,11 +104,11 @@ export function RecipeEdit({ recipe }: Props) {
         } catch (error) {
             setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
+        navigate("/");
     };
 
 
     const handleDelete = async () => {
-        console.log("Current roleRank:", roleRank);
         try {
             if (roleRank < 3) {
                 setErrorMsg("Unauthorized user: Only high-level users can delete a recipe.");
@@ -99,29 +116,26 @@ export function RecipeEdit({ recipe }: Props) {
             }
 
             const result = await deleteRecipe(recipe.recipeId);
-
-            console.log("Delete result:", result);
-
             setErrorMsg(result.errorMessage || "Recipe deleted successfully.");
             if (!result.errorMessage) {
                 reset(getDefaultValues(blankRecipe));
             }
         } catch (error) {
-            console.error("Error during delete:", error);
             setErrorMsg(error instanceof Error ? error.message : "An unexpected error occurred.");
         }
+        navigate("/");
     };
-
-
-
 
     return (
         <div className="bg-light mt-4 p-4">
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        {msg && <h2 id="hmsg" className={msg.includes("Unauthorized") ? "text-danger" : "text-success"}>{msg}</h2>}
-
+                        {msg && (
+                            <h2 id="hmsg" className={msg.includes("Unauthorized") || msg.includes("error") ? "text-danger" : "text-success"}>
+                                {msg}
+                            </h2>
+                        )}
                     </div>
                 </div>
                 <div className="row">
@@ -142,7 +156,6 @@ export function RecipeEdit({ recipe }: Props) {
                                         <option key={c.cuisineId} value={c.cuisineId}>{c.cuisineName}</option>
                                     ))}
                                 </select>
-                                {errors.cuisineId && <span className="text-danger">{errors.cuisineId.message}</span>}
                             </div>
 
                             <div className="mb-3">
@@ -153,7 +166,6 @@ export function RecipeEdit({ recipe }: Props) {
                                         <option key={u.usersId} value={u.usersId}>{u.usersName}</option>
                                     ))}
                                 </select>
-                                {errors.usersId && <span className="text-danger">{errors.usersId.message}</span>}
                             </div>
 
                             <div className="mb-3">

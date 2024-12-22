@@ -1,19 +1,23 @@
 import { IRecipe } from "./DataInterface";
 import { getUserStore } from "@devorag/reactutils";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     recipe: IRecipe;
     onRecipeSelectedForEdit: (recipe: IRecipe) => void;
 }
 
+
 export default function RecipeCard({ recipe, onRecipeSelectedForEdit }: Props) {
     const apiurl = import.meta.env.VITE_API_URL_DEV;
     const useUserStore = getUserStore(apiurl);
     const isLoggedIn = useUserStore(state => state.isLoggedIn);
+    const nav = useNavigate();
 
     const handleEditClick = () => {
         if (isLoggedIn) {
             onRecipeSelectedForEdit(recipe);
+            nav('/edit', { state: { recipe } });
         } else {
             alert("You need to be logged in to edit a recipe.");
         }

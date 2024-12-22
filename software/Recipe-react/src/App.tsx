@@ -36,7 +36,7 @@ function App() {
 
     const handleNewRecipeClick = () => {
         if (isLoggedIn) {
-            handleRecipeSelectedForEdit(blankRecipe); // Load a new recipe
+            handleRecipeSelectedForEdit(blankRecipe);
         } else {
             alert("You can't insert a recipe unless you are logged in.");
         }
@@ -69,6 +69,7 @@ function App() {
                             </div>
                         }
                     />
+                    <Route path="/edit" element={<RecipeEdit recipe={recipeForEdit} />} />
                     <Route path="/meals" element={<ProtectedRoute element={<Meals />} requiredrole={0} />} />
                     <Route path="/cookbooks" element={<ProtectedRoute element={<Cookbooks />} requiredrole={0} />} />
                     <Route path="/Login" element={<Login fromPath={location.pathname} />} />
