@@ -9,7 +9,8 @@ import EmployeeData from './EmployeeData';
 import Swal from 'sweetalert2';
 
 export default function EmployeeSchedule() {
-    const employees = EmployeeData();
+    const initialEmployees = EmployeeData();
+    const [employees, setEmployees] = useState(initialEmployees);
     const [selectedDays, setSelectedDays] = useState([]);
     const [sortOrder, setSortOrder] = useState("asc");
     const [newEmployee, setNewEmployee] = useState({ name: "", phone: "", workdays: [] });
@@ -46,17 +47,15 @@ export default function EmployeeSchedule() {
             setEmployees([...employees, { id: newId, ...newEmployee }]);
             setNewEmployee({ name: "", phone: "", workdays: [] });
         } else {
+            setNewEmployee({ name: "", phone: "", workdays: [] });
             Swal.fire({
                 title: 'Missing Information!',
                 text: 'Please fill out all fields before adding an employee.',
                 icon: 'error',
                 confirmButtonText: 'OK'
-            }).then(() => {
-                setNewEmployee({ name: "", phone: "", workdays: [] });
-            });
+            })
         }
     };
-
     return (
         <div className="container-fluid bg-gradient">
             <Header />
