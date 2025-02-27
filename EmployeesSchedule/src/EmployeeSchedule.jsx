@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import EmployeeData from './EmployeeData.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './Header.jsx';
 import EmployeeList from './EmployeeList.jsx';
 import DaySelection from './DaySelection';
 import EmployeeForm from './EmployeeForm';
-import EmployeeData from './EmployeeData';
 import Swal from 'sweetalert2';
 
 export default function EmployeeSchedule() {
