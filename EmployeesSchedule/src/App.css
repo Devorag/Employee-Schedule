@@ -1,0 +1,146 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(to right, #5fe7ff, #7bfedd);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  transition: filter 300ms ease, transform 0.3s ease;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+  transform: scale(1.1);
+}
+
+.card {
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.85);
+  border-color: #12121e;
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.header,
+.subheader {
+  background-color: #00b8e6;
+  color: #fff;
+  padding: 15px 0;
+  border-radius: 8px;
+}
+
+.header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.subheader {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.bg-gradient {
+  background: linear-gradient(to bottom, #1e1e2f, #12121e);
+  color: rgb(119, 87, 87);
+  padding: 2rem 0;
+}
+
+.modal-dialog {
+  max-width: 500px;
+  border-radius: 10px;
+}
+
+.form-check,
+.checkbox-container {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkbox-label {
+  font-size: 1rem;
+}
+
+.btn {
+  background-color: #00b8e6;
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #007b8a;
+  transform: translateY(-3px);
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    padding: 1.5rem;
+  }
+
+  .header {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .subheader {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    font-size: 1rem;
+  }
+
+  .card {
+    padding: 1.2rem;
+  }
+
+  .logo {
+    height: 5em;
+  }
+}
