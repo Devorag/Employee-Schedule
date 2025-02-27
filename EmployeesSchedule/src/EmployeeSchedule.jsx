@@ -5,25 +5,14 @@ import Header from './Header.jsx';
 import EmployeeList from './EmployeeList.jsx';
 import DaySelection from './DaySelection';
 import EmployeeForm from './EmployeeForm';
+import EmployeeData from './EmployeeData';
 import Swal from 'sweetalert2';
 
 export default function EmployeeSchedule() {
-    const [employees, setEmployees] = useState([]);
+    const employees = EmployeeData();
     const [selectedDays, setSelectedDays] = useState([]);
     const [sortOrder, setSortOrder] = useState("asc");
     const [newEmployee, setNewEmployee] = useState({ name: "", phone: "", workdays: [] });
-
-    useEffect(() => {
-        fetch('public/EmployeeInfo.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => setEmployees(data.employees))
-            .catch(error => console.error("Error loading employee data:", error));
-    }, []);
 
     const filteredEmployees = selectedDays.length > 0
         ? employees.filter(employee =>

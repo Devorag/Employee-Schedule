@@ -1,5 +1,7 @@
-{
-    "employees": [
+import React from 'react';
+
+const EmployeeData = () => {
+    return [
         {
             "id": 1,
             "name": "Michael Johnson",
@@ -7,12 +9,7 @@
             "email": "michaeljohnson@gmail.com",
             "position": "Software Engineer",
             "department": "IT",
-            "workdays": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday"
-            ]
+            "workdays": ["Monday", "Tuesday", "Wednesday", "Thursday"]
         },
         {
             "id": 2,
@@ -21,12 +18,7 @@
             "email": "peterbrown@gmail.com",
             "position": "Project Manager",
             "department": "Operations",
-            "workdays": [
-                "Monday",
-                "Tuesday",
-                "Thursday",
-                "Friday"
-            ]
+            "workdays": ["Monday", "Tuesday", "Thursday", "Friday"]
         },
         {
             "id": 3,
@@ -35,12 +27,7 @@
             "email": "bob.smith@gmail.com",
             "position": "HR Manager",
             "department": "Human Resources",
-            "workdays": [
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday"
-            ]
+            "workdays": ["Tuesday", "Wednesday", "Thursday", "Friday"]
         },
         {
             "id": 4,
@@ -49,12 +36,7 @@
             "email": "charlotte.davis@gmail.com",
             "position": "Marketing Specialist",
             "department": "Marketing",
-            "workdays": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday"
-            ]
+            "workdays": ["Monday", "Tuesday", "Wednesday", "Thursday"]
         },
         {
             "id": 5,
@@ -63,12 +45,7 @@
             "email": "ethanmiller@gmail.com",
             "position": "Accountant",
             "department": "Finance",
-            "workdays": [
-                "Monday",
-                "Wednesday",
-                "Thursday",
-                "Friday"
-            ]
+            "workdays": ["Monday", "Wednesday", "Thursday", "Friday"]
         },
         {
             "id": 6,
@@ -77,12 +54,7 @@
             "email": "sophiajones@gmail.com",
             "position": "Graphic Designer",
             "department": "Design",
-            "workdays": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday"
-            ]
+            "workdays": ["Monday", "Tuesday", "Wednesday", "Thursday"]
         },
         {
             "id": 7,
@@ -91,11 +63,7 @@
             "email": "oliviamartinez@gmail.com",
             "position": "Customer Support",
             "department": "Customer Service",
-            "workdays": [
-                "Monday",
-                "Tuesday",
-                "Friday"
-            ]
+            "workdays": ["Monday", "Tuesday", "Friday"]
         },
         {
             "id": 8,
@@ -104,11 +72,9 @@
             "email": "jamesanderson@gmail.com",
             "position": "Data Analyst",
             "department": "Analytics",
-            "workdays": [
-                "Wednesday",
-                "Thursday",
-                "Friday"
-            ]
+            "workdays": ["Wednesday", "Thursday", "Friday"]
         }
-    ]
-}
+    ];
+};
+
+export default EmployeeData;
