@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Welcome to CPU Code School Solo Course!
 #### Following are some instructions:
 -  This is a GitHub Repository which contains all the information you'll need for the course. 
@@ -8,3 +9,6 @@
 -  Remember to always follow along during the Video and keep up with typing the code, so you'll be able to do the HW smoothly. 
 -  Always complete all session work and HW before  proceeding to the next session, as all the work is cumulative and requires understanding concepts taught in earlier sessions.
 #### Good Luck!!!
+=======
+# Employee-Schedule
+>>>>>>> 5cc57b239369b2190ce5faf97e7f292dbd648a9d
